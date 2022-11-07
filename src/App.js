@@ -12,7 +12,7 @@ import ProtectedRoutes from './ProtectedRoutes';
 
 
 function App() {
-  const [isAuth, setIsAuth]= useState(false);
+  const [isAuth, setIsAuth]= useState(localStorage.getItem('isAuth'));
 
   
 
@@ -24,8 +24,8 @@ function App() {
     
 
       <Routes>
-      <Route path='/Login' element={<Login/>}/>
-        <Route path='/' element={<StartPage isAuth={isAuth}/>}/>
+      <Route path='/Login' element={<Login setIsAuth={setIsAuth}/>}/>
+        <Route path='/' element={<StartPage />}/>
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path='/Dashboard' element={<Dashboard/>}/>
         
