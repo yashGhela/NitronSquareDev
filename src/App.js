@@ -14,6 +14,8 @@ import ProtectedRoutes from './ProtectedRoutes';
 function App() {
   const [isAuth, setIsAuth]= useState(localStorage.getItem('isAuth'));
 
+
+
   
 
   return (

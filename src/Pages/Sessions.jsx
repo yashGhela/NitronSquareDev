@@ -1,8 +1,9 @@
 import React from 'react'
+import Sidebar from '../Components/Sidebar'
 
 function Sessions() {
   return (
-    <div>Sessions</div>
+    <div><Sidebar/></div>
   )
 }
 
