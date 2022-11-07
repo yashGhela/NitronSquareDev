@@ -1,24 +1,40 @@
-import logo from './logo.svg';
+import {Link, Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import './App.css';
+import Dashboard from './Pages/Dashboard';
+import Login from './Pages/Login';
+import Sessions from './Pages/Sessions';
+import InProg from './Pages/InProg';
+import { useEffect, useState } from 'react';
+import Sidebar from './Components/Sidebar';
+import StartPage from './Pages/StartPage';
+import ProtectedRoutes from './ProtectedRoutes';
+
+
 
 function App() {
+  const [isAuth, setIsAuth]= useState(false);
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className='App'>
+     <Router >
+     
+     
+    
+
+      <Routes>
+      <Route path='/Login' element={<Login/>}/>
+        <Route path='/' element={<StartPage isAuth={isAuth}/>}/>
+        <Route path='/' element={<ProtectedRoutes/>}>
+        <Route path='/Dashboard' element={<Dashboard/>}/>
+        
+        <Route path='/Sessions' element={<Sessions/>}/>
+        <Route path='/InProg' element={<InProg/>}/>
+        </Route>
+      </Routes>
+    </Router>
+   </div>
   );
 }
 
