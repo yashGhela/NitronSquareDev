@@ -8,7 +8,8 @@ import { useEffect, useState } from 'react';
 import Sidebar from './Components/Sidebar';
 import StartPage from './Pages/StartPage';
 import ProtectedRoutes from './ProtectedRoutes';
-import SesSettings from './Pages/SesSettings';
+import SesSettings from './Util/SesSettings';
+import Timer from './Util/Timer';
 
 
 
@@ -32,7 +33,7 @@ function App() {
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path='/Dashboard' element={<Dashboard/>}/>
         <Route path='/SesSettings' element={<SesSettings/>}/>
-        
+        <Route path='/Timer' element={<Timer/>}/>
         <Route path='/Sessions' element={<Sessions/>}/>
         <Route path='/InProg' element={<InProg/>}/>
         </Route>

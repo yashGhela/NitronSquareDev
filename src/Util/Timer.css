@@ -1,0 +1,17 @@
+.TimerCont{
+    align-items: center;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+    margin: 40px;
+}
+
+.TimerCount>h1{
+    font-size: 120px;
+    text-align: center;
+    align-self: center;
+    align-content: center;
+
+
+}
+
