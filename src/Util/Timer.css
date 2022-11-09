@@ -1,17 +1,20 @@
-.TimerCont{
+.actnBtn{
     align-items: center;
-    text-align: center;
     align-self: center;
-    align-content: center;
-    margin: 40px;
+    
+    border: none;
+    background-color: gray;
+    color: black;
+    border-radius: 20px;
+    cursor: pointer;
+    margin: 20px;
+    height: 100px;
+    width: 150px;
 }
 
-.TimerCount>h1{
-    font-size: 120px;
-    text-align: center;
-    align-self: center;
-    align-content: center;
-
-
+.Timer{
+    align-items: center;
+    justify-content: center;
 }
+
 

@@ -1,11 +1,11 @@
-import {Link, Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
 import './App.css';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Sessions from './Pages/Sessions';
 import InProg from './Pages/InProg';
-import { useEffect, useState } from 'react';
-import Sidebar from './Components/Sidebar';
+
+
 import StartPage from './Pages/StartPage';
 import ProtectedRoutes from './ProtectedRoutes';
 import SesSettings from './Util/SesSettings';
@@ -14,7 +14,7 @@ import Timer from './Util/Timer';
 
 
 function App() {
-  const [isAuth, setIsAuth]= useState(localStorage.getItem('isAuth'));
+  
 
 
 
@@ -28,7 +28,7 @@ function App() {
     
 
       <Routes>
-      <Route path='/Login' element={<Login setIsAuth={setIsAuth}/>}/>
+      <Route path='/Login' element={<Login/>}/>
         <Route path='/' element={<StartPage />}/>
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path='/Dashboard' element={<Dashboard/>}/>

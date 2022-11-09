@@ -3,9 +3,9 @@ import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
 import {signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import {doc, setDoc, collection} from 'firebase/firestore';
+import {doc, setDoc} from 'firebase/firestore';
 
-function Login({setIsAuth}) {
+function Login() {
   let nav= useNavigate();
 
   const signIn=()=>{

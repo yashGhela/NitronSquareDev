@@ -1,6 +1,6 @@
 import React from 'react'
-import { useEffect } from 'react';
-import { useNavigate, redirect } from 'react-router-dom';
+
+import { useNavigate } from 'react-router-dom';
 import './Startpage.css';
 function StartPage() {
     let nav = useNavigate();
