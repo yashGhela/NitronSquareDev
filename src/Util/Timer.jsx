@@ -9,7 +9,7 @@ function Timer() {
   
     const purple= '#8155BA';
     const green = '#70FFB2';
-    const white ='#fff'
+   
 
 
   return (
