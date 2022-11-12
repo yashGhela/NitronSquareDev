@@ -69,7 +69,7 @@ function Timer() {
    },  [settingsInfo]);
 
    const percentage = Math.round(secondsLeft/totalSeconds *100);
- const minutes = secondsLeft/60;
+ const minutes = Math.floor(secondsLeft/60);
  let seconds = secondsLeft%60;
 
  if (seconds<10) seconds='0'+seconds
