@@ -41,3 +41,15 @@
     background-color: var(--green);
 }
 
+.Gobtn1{
+    background-color: rgb(39, 39, 39);
+    color: white;
+    border-radius: 5px;
+    height: 100px;
+    width: 200px;
+    border: none;
+    margin: 10px;
+    font-size: 20px;
+    cursor: pointer;
+
+}
