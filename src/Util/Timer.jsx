@@ -21,7 +21,7 @@ function Timer() {
    
    const settingsInfo = location.state;
 
-   const [isPaused, setIsPaused]= useState(true);
+   const [isPaused, setIsPaused]= useState(false);
    const [mode, setMode] = useState('work')//work,break, pause
    const [secondsLeft, setSecondsLeft] = useState(0);
 
@@ -30,20 +30,21 @@ function Timer() {
    const modeRef = useRef(mode);
    
    const totalSeconds = mode==='work'?
-   settingsInfo.WorkMinutes*60
-   : settingsInfo.BreakMinutes*60
+   settingsInfo.workMinutes*60
+   : settingsInfo.breakMinutes*60
    
 
    function initTimer(){
-    setSecondsLeft(settingsInfo.WorkMinutes*60);
+    secondsLeftRef.current= settingsInfo.workMinutes*60;
+    setSecondsLeft(secondsLeftRef.current);
 
    }
 
    function switchMode(){
     const nextMode = modeRef.current ==='work'?'break':'work';
     const nextSeconds = (nextMode==='work'? 
-    settingsInfo.WorkMinutes:
-    settingsInfo.BreakMinutes)*60
+    settingsInfo.workMinutes:
+    settingsInfo.breakMinutes)*60
     setMode(nextMode);
     modeRef.current= nextMode;
     setSecondsLeft(nextSeconds);
@@ -60,7 +61,7 @@ function Timer() {
     const interval =setInterval(()=>{
       if (isPausedRef.current){
         return;
-      }if(secondsLeftRef.current){
+      }if(secondsLeftRef.current===0){
         return switchMode();
       }
       tick();
@@ -80,10 +81,10 @@ function Timer() {
   <div className='Timer'>
     <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
-    pathColor:purple
+    pathColor:mode === 'work' ? purple : green,
     })}/>
-    <button className='actnBtn'>Play</button>
-    <button className='actnBtn'> Pause</button>
+    <button className='actnBtn' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>
+    <button className='actnBtn'  onClick={() => { setIsPaused(true); isPausedRef.current = true; }} > Pause</button>
     <button className='actnBtn' onClick={goSet}>Settings</button>
   </div>
   )
