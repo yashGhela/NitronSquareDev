@@ -11,9 +11,11 @@ function Login() {
   const signIn=()=>{
     signInWithPopup(auth, provider).then(async(result)=>{
       const ref = doc(db, 'Users', result.user.uid)
-      const docRef = setDoc(ref, {username: result.user.displayName});
-      nav('/Dashboard');
+      const docRef = setDoc(ref, {username: result.user.displayName,tier: 'free'});
+      nav('/Dashboard', {state: {user: result.user.uid}});
       localStorage.setItem('isAuth', true);
+      
+      
     })
   }
  

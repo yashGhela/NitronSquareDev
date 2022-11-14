@@ -13,8 +13,10 @@ function Timer() {
     const location = useLocation();
     const nav=useNavigate();
     const goSet=()=>{
-      nav('/SesSettings');
+      nav('/SesSettings', {state: {user:user}});
     }
+    const user = location.state.user;
+    
    //This code is for location and navigation, no timer logic
 
    //Timer code

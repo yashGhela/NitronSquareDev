@@ -24,7 +24,7 @@ function Sidebar() {
     <h3>by Nitron Digital</h3>
 
     <div className="SidebarList">
-        <h2>{<Link to='/Dashboard'>Dashboard</Link>}</h2>
+        <h2>{<Link to={'/Dashboard'}>Dashboard</Link>}</h2>
         <h2>{<Link to='/Sessions'>Sessions</Link>}</h2>
         <button className='LogOut' onClick={LogOut}>Log Out</button>
         

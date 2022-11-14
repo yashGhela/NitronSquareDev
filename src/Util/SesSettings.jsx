@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css'
 
@@ -11,15 +11,16 @@ function SesSettings() {
 
   const [workMinutes, setWorkMinutes] = useState(45);
   const [breakMinutes, setBreakMinutes] = useState(15);
-  
+  let location = useLocation();
+  const user= location.state.user
 
   let nav = useNavigate();
 
   const GoCont =()=>{
-    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes}})
+    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user}})
   }
   const goHom=()=>{
-    nav('/Dashboard');
+    nav('/Dashboard', {state:{user:user}});
   }
   
   return (
