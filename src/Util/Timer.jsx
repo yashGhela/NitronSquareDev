@@ -23,56 +23,56 @@ function Timer() {
    
    const settingsInfo = location.state;
 
-   const [isPaused, setIsPaused]= useState(false);
+   const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
-   const [secondsLeft, setSecondsLeft] = useState(0);
+   const [secondsLeft, setSecondsLeft] = useState(0);//decides the seconds left
 
-   const secondsLeftRef = useRef(secondsLeft);
+   const secondsLeftRef = useRef(secondsLeft);//references the main objects in order to keep things consistent
    const isPausedRef = useRef(isPaused);
    const modeRef = useRef(mode);
    
-   const totalSeconds = mode==='work'?
-   settingsInfo.workMinutes*60
-   : settingsInfo.breakMinutes*60
+   const totalSeconds = mode==='work'? //total seconds is = to which ever mode chosen
+   settingsInfo.workMinutes*60 //multiplies the workminutes by 60 to become actual minutes
+   : settingsInfo.breakMinutes*60 //multiplies the breakminutes by 60 to become actual minutes
    
 
-   function initTimer(){
-    secondsLeftRef.current= settingsInfo.workMinutes*60;
-    setSecondsLeft(secondsLeftRef.current);
+   function initTimer(){ //initializes the timer
+    secondsLeftRef.current= settingsInfo.workMinutes*60; //current seconds left is = to work minutes
+    setSecondsLeft(secondsLeftRef.current); //sets the seconds left to the the current ref
 
    }
 
    function switchMode(){
-    const nextMode = modeRef.current ==='work'?'break':'work';
-    const nextSeconds = (nextMode==='work'? 
+    const nextMode = modeRef.current ==='work'?'break':'work'; //first mode is work then break then back to work
+    const nextSeconds = (nextMode==='work'?  //decides how to determine multiplaction of mode minutes
     settingsInfo.workMinutes:
     settingsInfo.breakMinutes)*60
-    setMode(nextMode);
+    setMode(nextMode);//sets mode to the next mode 
     modeRef.current= nextMode;
-    setSecondsLeft(nextSeconds);
+    setSecondsLeft(nextSeconds);//sets seconds to next seconds
     secondsLeftRef.current = nextSeconds;
    }
 
-   function tick(){
-    secondsLeftRef.current--;
+   function tick(){ 
+    secondsLeftRef.current--;//minuses by 1 each time
     setSecondsLeft(secondsLeftRef.current);
    }
 
    useEffect(()=>{
     initTimer();
     const interval =setInterval(()=>{
-      if (isPausedRef.current){
+      if (isPausedRef.current){  //if paused nothing happens
         return;
-      }if(secondsLeftRef.current===0){
+      }if(secondsLeftRef.current===0){ //if its at 0 switch the mode
         return switchMode();
       }
-      tick();
-    }, 1000);
-    return ()=>clearInterval(interval);
+      tick(); //ticks
+    }, 1000);//timeout is 1000 go, activates how much should be minused by
+    return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
-   const percentage = Math.round(secondsLeft/totalSeconds *100);
- const minutes = Math.floor(secondsLeft/60);
+   const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
+ const minutes = Math.floor(secondsLeft/60); 
  let seconds = secondsLeft%60;
 
  if (seconds<10) seconds='0'+seconds

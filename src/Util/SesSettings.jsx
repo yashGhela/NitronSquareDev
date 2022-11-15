@@ -9,15 +9,15 @@ import './SesSettings.css'
 
 function SesSettings() {
 
-  const [workMinutes, setWorkMinutes] = useState(45);
-  const [breakMinutes, setBreakMinutes] = useState(15);
+  const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
+  const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   let location = useLocation();
   const user= location.state.user
 
   let nav = useNavigate();
 
   const GoCont =()=>{
-    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user}})
+    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user}})//passes workminutes,breakminutes and user thru to next page
   }
   const goHom=()=>{
     nav('/Dashboard', {state:{user:user}});

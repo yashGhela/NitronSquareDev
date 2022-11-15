@@ -6,15 +6,15 @@ import { db } from '../firebaseConfig';
 
 function FirstTimeSrt() {
     let location = useLocation();
-    const user= location.state.user;
+    const user= location.state.user;//loads user
     
     
 
-    const [newSubject, setNewSubject] = useState();
+    const [newSubject, setNewSubject] = useState();//new subject
     const[subjectError, setSubjectError] = useState(null);
 
     const addSubject=async()=>{
-      await addDoc(collection(db, 'Users', user, 'Sessions', newSubject),{place:'first doc'});
+      await addDoc(collection(db, 'Users', user, 'Sessions', 'Subjects', newSubject),{place:'first doc'});//Adds a collection to the subjects document and makes it a new subject
     }
   return (
     <div className='Cont'>
