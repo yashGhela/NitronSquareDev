@@ -11,16 +11,20 @@ function FirstTimeSrt() {
     
 
     const [newSubject, setNewSubject] = useState();//new subject
+    const [sent, setSent]= useState(false);
     const[subjectError, setSubjectError] = useState(null);
 
     const addSubject=async()=>{
       await addDoc(collection(db, 'Users', user, 'Sessions', 'Subjects', newSubject),{place:'first doc'});//Adds a collection to the subjects document and makes it a new subject
+      setSent(true);
     }
   return (
     <div className='Cont'>
         <h1>Lets Add Some Subjects!</h1>
         <input type="text" placeholder='Accounting'  onChange={(e)=>{setNewSubject(e.target.value)}}/>
         <button className='Gobtn1' onClick={addSubject}>Add!</button>
+       {sent&&(<h2>{newSubject} added!</h2>)}
+        
     </div>
   )
 }
