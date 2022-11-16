@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css'
+
 
 
 
@@ -50,6 +52,9 @@ function SesSettings() {
       
       
       />
+
+      
+  
 
       <button className='Gobtn1' onClick={GoCont}> Start Your Session!</button>
       <button className='Gobtn1' onClick={goHom}> Back</button>
