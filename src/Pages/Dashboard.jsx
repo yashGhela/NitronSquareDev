@@ -1,5 +1,5 @@
-import { collection, orderBy, query, limit } from 'firebase/firestore';
-import React from 'react'
+import { collection, orderBy, query, limit, onSnapshot } from 'firebase/firestore';
+import React, { useEffect, useState } from 'react'
 import { Router, useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
@@ -9,11 +9,22 @@ import { db } from '../firebaseConfig';
 function Dashboard() {
   let location = useLocation();
   const user = location.state.user
-  const subRef=collection(db, 'Users',user,'Sessions','Subjects','SubjectList');
+  const subRef=collection(db, 'Users',user,'Sessions');
+  const [recsesList, setRecsesList]=useState([]);
 
  const q = query(subRef,orderBy('time', 'desc'),limit(10));
 
 
+ useEffect(() => {  //loads all the tenants
+    
+  onSnapshot(q, (snapshot) => {
+   setRecsesList(
+      snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+    
+    
+  });
+}, []);
  
 
   let nav = useNavigate();
@@ -24,7 +35,10 @@ function Dashboard() {
   return (
     <div className='Dashboard'>
       
+        <div className="nav">
         <Sidebar/>
+        </div>
+        
      
        
         <div className="bod">
@@ -34,6 +48,28 @@ function Dashboard() {
         </div>
         <div className="Recent">
           <h1>Recent Sessions:</h1>
+          <div className="recSes">
+            {recsesList.map((rec)=>{
+              return(
+                <div className="rowCard">
+                  <div className="rowCardTitle">
+                   <h3> Subject: {rec.subject}</h3>
+
+                  </div>
+                  <div className="WTime">
+                    <h3>Work Minutes: {rec.WorkTime}</h3>
+                  </div>
+                  <div className="BTime">
+                   <h3> Break Minutes: {rec.BreakTime}</h3>
+                  </div>
+                  <div className="Atime">
+                    <h3>Date: {rec.time}</h3>
+                  </div>
+                  
+                </div>
+              )
+            })}
+          </div>
         </div>
         </div>
       

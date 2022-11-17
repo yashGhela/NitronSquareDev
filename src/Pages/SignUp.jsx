@@ -11,7 +11,7 @@ function SignUp() {
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
     
-     await setDoc(doc(ref,'Subjects'), {desc: 'Subjects'}); // Sets a doc to the collection of Sessions and names it subjects with the description subjects
+     await addDoc(ref, {desc: 'Subjects'}); // Adds a doc to the collection of Sessions and names it subjects with the description subjects
      
       
       

@@ -85,11 +85,12 @@ function Timer() {
  //AddDoc function
 
  const doneHand=async()=>{
-  await addDoc(collection(db, 'Users',user,'Sessions','Subjects','SubjectList'),{
+  const current= new Date();
+  await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
-    time: new Date()
+    time: current.getDate()+'/'+current.getMonth()+'/'+current.getFullYear()
 
   });
   nav('/Dashboard', {state:{user:user}})

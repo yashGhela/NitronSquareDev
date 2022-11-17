@@ -7,6 +7,10 @@
     display: flex;
     flex-direction: column;
 }
+.nav{
+    position: sticky;
+    
+}
 
 .Recent{
     float: left;
@@ -50,3 +54,36 @@
 		background-position: 0% 50%;
 	}
 }
+
+
+.rowCard{
+   display: flex;
+   flex-direction: row;
+    background-color: rgb(44, 44, 44);
+    margin: 20px;
+    height: 50px;
+    padding: 10px;
+    place-items: center;
+    border-radius: 20px;
+    font-weight: lighter;
+    font-size: 20px;
+    width: 97%;
+}
+
+.rowCardTitle{
+    margin-right: 50%;
+    margin-left: 10px;
+}
+
+.WTime{
+   margin-right: 50px;
+}
+
+.BTime{
+    margin-right: 50px;
+}
+
+nav{
+    position: sticky;
+}
+
