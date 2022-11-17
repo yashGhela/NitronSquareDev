@@ -35,9 +35,9 @@ function Dashboard() {
   return (
     <div className='Dashboard'>
       
-        <div className="nav">
-        <Sidebar/>
-        </div>
+       
+        <Sidebar className='nav'/>
+       
         
      
        

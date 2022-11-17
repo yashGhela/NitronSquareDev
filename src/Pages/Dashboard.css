@@ -9,7 +9,7 @@
 }
 .nav{
     position: sticky;
-    
+
 }
 
 .Recent{
@@ -61,7 +61,7 @@
    flex-direction: row;
     background-color: rgb(44, 44, 44);
     margin: 20px;
-    height: 50px;
+    height: 60px;
     padding: 10px;
     place-items: center;
     border-radius: 20px;
