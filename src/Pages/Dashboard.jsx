@@ -7,7 +7,7 @@ import './Dashboard.css';
 function Dashboard() {
   let location = useLocation();
   const user = location.state.user
-  console.log(user)
+  
 
 
  

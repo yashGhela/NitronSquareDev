@@ -1,7 +1,9 @@
+import { addDoc, collection } from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { db } from '../firebaseConfig';
 
 import './Timer.css';
 
@@ -16,7 +18,9 @@ function Timer() {
       nav('/SesSettings', {state: {user:user}});
     }
     const user = location.state.user;
-    
+    const subject= location.state.subject;
+
+   
    //This code is for location and navigation, no timer logic
 
    //Timer code
@@ -75,8 +79,20 @@ function Timer() {
  const minutes = Math.floor(secondsLeft/60); 
  let seconds = secondsLeft%60;
 
- if (seconds<10) seconds='0'+seconds
+ if (seconds<10) seconds='0'+seconds;
    
+
+ //AddDoc function
+
+ const doneHand=async()=>{
+  await addDoc(collection(db, 'Users',user,'Sessions','Subjects','SubjectList'),{
+    WorkTime: settingsInfo.workMinutes,
+    BreakTime: settingsInfo.breakMinutes,
+    subject: subject
+
+  });
+  nav('/Dashboard', {state:{user:user}})
+}
 
   return (
    
@@ -85,9 +101,10 @@ function Timer() {
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     })}/>
-    <button className='actnBtn' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>
-    <button className='actnBtn'  onClick={() => { setIsPaused(true); isPausedRef.current = true; }} > Pause</button>
-    <button className='actnBtn' onClick={goSet}>Settings</button>
+    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>:
+    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true; }} > Pause</button>}
+    <button className='Gobtn1' onClick={goSet}>Settings</button>
+    <button className='Gobtn1' onClick={doneHand}>Done!</button>
   </div>
   )
 }
