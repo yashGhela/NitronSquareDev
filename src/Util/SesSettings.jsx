@@ -13,14 +13,14 @@ function SesSettings() {
 
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
-  const [subject, setSubject] = useState('');
+  const [subject, setSubject] = useState(''); //sets the subject for the user
   let location = useLocation();
   const user= location.state.user
 
   let nav = useNavigate();
 
   const GoCont =()=>{
-    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user, subject: subject}})//passes workminutes,breakminutes and user thru to next page
+    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user, subject: subject}})//passes workminutes,breakminutes and user and subject thru to next page
   }
   const goHom=()=>{
     nav('/Dashboard', {state:{user:user}});

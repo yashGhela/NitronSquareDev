@@ -88,7 +88,8 @@ function Timer() {
   await addDoc(collection(db, 'Users',user,'Sessions','Subjects','SubjectList'),{
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
-    subject: subject
+    subject: subject,
+    time: new Date()
 
   });
   nav('/Dashboard', {state:{user:user}})
