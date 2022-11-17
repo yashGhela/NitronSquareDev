@@ -3,14 +3,18 @@ import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
 import {signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { collection, doc, setDoc} from 'firebase/firestore';
+import { addDoc, collection, doc, setDoc} from 'firebase/firestore';
 
 function SignUp() {
 
   let nav= useNavigate();
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
+    
      await setDoc(doc(ref,'Subjects'), {desc: 'Subjects'}); // Sets a doc to the collection of Sessions and names it subjects with the description subjects
+     
+      
+      
      
       
   }
