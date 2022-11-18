@@ -82,7 +82,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 10);//timeout is 1000 go, activates how much should be minused by
+    }, 1000);//timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
@@ -114,8 +114,8 @@ function Timer() {
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     })}/>
-    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;stop() }}>Play</button>:
-    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true; stop() }} > Pause</button>}
+    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>:
+    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;  }} > Pause</button>}
     <button className='Gobtn1' onClick={goSet}>Settings</button>
     <button className='Gobtn1' onClick={doneHand}>Done!</button>
     
