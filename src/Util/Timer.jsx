@@ -4,11 +4,13 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig';
-
+import useSound from 'use-sound';
+import alarm from '../Components/Alarm.mp3';
 import './Timer.css';
 
 
 function Timer() {
+  
   
     const purple= '#8155BA';
     const green = '#70FFB2';
@@ -19,6 +21,10 @@ function Timer() {
     }
     const user = location.state.user;
     const subject= location.state.subject;
+    const [play, {stop}]=useSound(
+      alarm,
+      {volume: 0.5}
+    )
 
    
    //This code is for location and navigation, no timer logic
@@ -55,6 +61,7 @@ function Timer() {
     modeRef.current= nextMode;
     setSecondsLeft(nextSeconds);//sets seconds to next seconds
     secondsLeftRef.current = nextSeconds;
+    
    }
 
    function tick(){ 
@@ -68,10 +75,14 @@ function Timer() {
       if (isPausedRef.current){  //if paused nothing happens
         return;
       }if(secondsLeftRef.current===0){ //if its at 0 switch the mode
-        return switchMode();
+        switchMode();
+        play();
+        setIsPaused(true);
+        isPausedRef.current=true
+        
       }
       tick(); //ticks
-    }, 1000);//timeout is 1000 go, activates how much should be minused by
+    }, 10);//timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
@@ -103,10 +114,12 @@ function Timer() {
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     })}/>
-    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>:
-    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true; }} > Pause</button>}
+    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;stop() }}>Play</button>:
+    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true; stop() }} > Pause</button>}
     <button className='Gobtn1' onClick={goSet}>Settings</button>
     <button className='Gobtn1' onClick={doneHand}>Done!</button>
+    
+   
   </div>
   )
 }
