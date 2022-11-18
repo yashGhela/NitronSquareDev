@@ -1,6 +1,6 @@
 import { collection, orderBy, query, limit, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { Router, useLocation, useNavigate } from 'react-router-dom';
+import { Link, Router, useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 import './Dashboard.css';
@@ -36,7 +36,9 @@ function Dashboard() {
     <div className='Dashboard'>
       
        
-        <Sidebar className='nav'/>
+        <Sidebar className='nav'
+        L1={<Link to='/Dashboard' state={{user:user}}>Dashboard</Link>}
+        L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}/>
        
         
      

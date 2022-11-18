@@ -5,7 +5,7 @@ import {signOut} from 'firebase/auth';
 import {auth} from '../firebaseConfig';
 
 
-function Sidebar() {
+function Sidebar({L1,L2,L3}) {
 
   let nav = useNavigate();
 
@@ -24,8 +24,9 @@ function Sidebar() {
     <h3>by Nitron Digital</h3>
 
     <div className="SidebarList">
-        <h2>{<Link to={'/Dashboard'}>Dashboard</Link>}</h2>
-        <h2>{<Link to='/Sessions'>Sessions</Link>}</h2>
+        <h2>{L1}</h2>
+        <h2>{L2}</h2>
+        <h2>{L3}</h2>
         <button className='LogOut' onClick={LogOut}>Log Out</button>
         
 
