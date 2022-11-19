@@ -11,7 +11,7 @@ function Login() {
   const signIn=()=>{
     signInWithPopup(auth, provider).then(async(result)=>{
       const ref = doc(db, 'Users', result.user.uid) 
-      const docRef = getDoc(ref); //gets the document of the user in the Users Collection
+      
       nav('/Dashboard', {state: {user: result.user.uid}});
       localStorage.setItem('isAuth', true);//sets isAuth to true allowing access to protected routes
       
