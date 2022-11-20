@@ -10,7 +10,7 @@ function Dashboard() {
   let location = useLocation();
   const user = location.state.user
   const subRef=collection(db, 'Users',user,'Sessions');
-  const [recsesList, setRecsesList]=useState([]);
+  const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
 
  const q = query(subRef,orderBy('time', 'desc'),limit(10));
 
