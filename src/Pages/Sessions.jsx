@@ -15,15 +15,15 @@ function Sessions() {
   const [sesList, setSesList] = useState([]);
   const subRef=collection(db, 'Users',user,'Sessions');
 
-  const first = query(subRef,orderBy('time', 'desc'),limit(5));
+  let q = query(subRef,orderBy('time', 'desc'),limit(5));
   
 
   const next=(last)=>{
-    return query(subRef,orderBy('time','desc'), startAfter(last['time','desc']), limit(5))
+    return q=query(subRef,orderBy('time','desc'), startAfter(last['time','desc']), limit(5))
   }
 
   const prev=(first)=>{
-    return query(subRef, orderBy('time','desc'), endBefore(first['time','desc']), limitToLast(5))
+    return q=query(subRef, orderBy('time','desc'), endBefore(first['time','desc']), limitToLast(5))
   }
   
 
@@ -35,7 +35,7 @@ function Sessions() {
 
   useEffect(() => {  //loads all the tenants
     
-    onSnapshot(first, (snapshot) => {
+    onSnapshot(q, (snapshot) => {
      setSesList(
         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
       );

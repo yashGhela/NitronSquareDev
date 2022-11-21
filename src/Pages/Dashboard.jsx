@@ -36,9 +36,11 @@ function Dashboard() {
     <div className='Dashboard'>
       
        
-        <Sidebar className='nav'
+        <div className="navB">
+        <Sidebar
         L1={<Link to='/Dashboard' state={{user:user}}>Dashboard</Link>}
         L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}/>
+        </div>
        
         
      
