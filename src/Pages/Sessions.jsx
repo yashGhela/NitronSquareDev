@@ -15,21 +15,19 @@ function Sessions() {
   const [sesList, setSesList] = useState([]);
   const subRef=collection(db, 'Users',user,'Sessions');
 
-  let q = query(subRef,orderBy('time', 'desc'),limit(5));
-  
+  let q = query(subRef,orderBy('time','desc'),limit(5));
 
-  const next=(last)=>{
-    return q=query(subRef,orderBy('time','desc'), startAfter(last['time','desc']), limit(5))
+  const DocumentSnapshot=getDocs(q);
+  const last= DocumentSnapshot[DocumentSnapshot.length-1]
+
+  const next=()=>{
+    return q=query(subRef,orderBy('time','desc'), startAfter(last), limit(5))
   }
 
   const prev=(first)=>{
     return q=query(subRef, orderBy('time','desc'), endBefore(first['time','desc']), limitToLast(5))
   }
   
-
-  
-
-
   
 
 
@@ -83,8 +81,8 @@ function Sessions() {
           </div>
           </div>
           <div className="buttoninlin">
-          <button onClick={prev()} className='Gobtn1'>Previous </button>
-          <button onClick={next} className='Gobtn1'>Next</button>
+          <button  className='Gobtn1'>Previous </button>
+          <button className='Gobtn1' onClick={next}>Next</button>
           </div>
         </div>
     </div>
