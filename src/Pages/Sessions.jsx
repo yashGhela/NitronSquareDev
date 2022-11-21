@@ -83,7 +83,7 @@ function Sessions() {
           </div>
           </div>
           <div className="buttoninlin">
-          <button onClick={prev} className='Gobtn1'>Previous </button>
+          <button onClick={prev()} className='Gobtn1'>Previous </button>
           <button onClick={next} className='Gobtn1'>Next</button>
           </div>
         </div>
