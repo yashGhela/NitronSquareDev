@@ -12,7 +12,7 @@ function Dashboard() {
   const subRef=collection(db, 'Users',user,'Sessions');
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
 
- const q = query(subRef,orderBy('time', 'desc'),limit(10));
+ const q = query(subRef,orderBy('time', 'desc'),limit(5));
 
 
  useEffect(() => {  //loads all the tenants
