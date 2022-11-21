@@ -24,3 +24,7 @@
     padding: 10px;
 
 }
+
+.buttoninlin{
+    display: flex;
+}

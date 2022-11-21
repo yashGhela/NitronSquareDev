@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import ReactSlider from 'react-slider';
@@ -13,7 +13,11 @@ function SesSettings() {
 
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
-  const [subject, setSubject] = useState(''); //sets the subject for the user
+  const [subject, setSubject] = useState('');//sets the subject for the user
+  const [isChecked, setIsChecked]=useState(false); 
+  const [isCheckederr, setIsCheckederr]=useState('');
+  const [disabled, setDisabled]=useState(true);
+  const SubjectsList=['Algebra','Geometry','History','Physics','Chemistry','First Language', 'Second Language','Third Language', 'Economics', 'Coding','Computers','Biology','History','Business','EGD','Geography','Accounting']
   let location = useLocation();
   const user= location.state.user
 
@@ -25,7 +29,28 @@ function SesSettings() {
   const goHom=()=>{
     nav('/Dashboard', {state:{user:user}});
   }
+
   
+  
+  useEffect(()=>{
+    
+     setDisabled(formValidation());
+    
+  })
+
+  const formValidation = () =>{  //checks for errors
+    if (isChecked ===false){
+      setIsCheckederr('Name cannot be blank');
+      return true
+
+    }else{
+      setIsCheckederr(null);
+      return false
+    }}
+  
+
+
+ 
   return (
     <div className='SesSettings'>
       <h1>Pick a Time:</h1>
@@ -57,39 +82,20 @@ function SesSettings() {
 
       <div className="SubjectChoices">
         <h1>Pick A Subject:</h1>
-        <input type='checkbox'  value={'Math'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label for='math' >Math</label><br/>
-        <input type='checkbox' value={'English'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >English</label><br/>
-        <input type='checkbox' value={'Second Language'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Second Language</label><br/>
-        <input type='checkbox' value={'Third Language'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Third Language</label><br/>
-        <input type='checkbox' value={'Accounting'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Accounting</label><br/>
-        <input type='checkbox'value={'Physics'} onClick={(e)=>{setSubject(e.target.value)}} />
-        <label >Physics</label><br/>
-        <input type='checkbox'value={'Business'} onClick={(e)=>{setSubject(e.target.value)}} />
-        <label >Business</label><br/>
-        <input type='checkbox'value={'Economics'} onClick={(e)=>{setSubject(e.target.value)}} />
-        <label >Economics</label><br/>
-        <input type='checkbox' value={'Coding'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Coding</label><br/>
-        <input type='checkbox' value={'Computers'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Computers</label><br/>
-        <input type='checkbox' value={'Biology'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Biology</label><br/>
-        <input type='checkbox' value={'History'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >History</label><br/>
-        <input type='checkbox' value={'EGD'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >EGD</label><br/>
-        <input type='checkbox' value={'Geography'} onClick={(e)=>{setSubject(e.target.value)}}/>
-        <label >Geography</label><br/>
-        
+        {SubjectsList.map((sub)=>{
+          return(
+            <div className="list">
+             
+            <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setIsChecked(true)} else{setIsChecked(false)}}} />
+            <label>{sub}</label><br/>
+          
+            </div>
+        )})}
       </div>
+
   
 
-      <button className='Gobtn1' onClick={GoCont}> Start Your Session!</button>
+      <button className='Gobtn1' onClick={GoCont} disabled={disabled}> Start Your Session!</button>
       <button className='Gobtn1' onClick={goHom}> Back</button>
     </div>
   )
