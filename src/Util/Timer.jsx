@@ -21,7 +21,7 @@ function Timer() {
     }
     const user = location.state.user;
     const subject= location.state.subject;
-    const [play, {stop}]=useSound(
+    const [play]=useSound(
       alarm,
       {volume: 0.5}
     )
@@ -61,7 +61,7 @@ function Timer() {
     modeRef.current= nextMode;
     setSecondsLeft(nextSeconds);//sets seconds to next seconds
     secondsLeftRef.current = nextSeconds;
-    
+    play();
    }
 
    function tick(){ 
@@ -82,7 +82,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 1000);//timeout is 1000 go, activates how much should be minused by
+    }, 10);//timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
