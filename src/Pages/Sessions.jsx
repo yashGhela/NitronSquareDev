@@ -6,6 +6,7 @@ import './Sessions.css'
 import './Dashboard.css';
 
 import { db } from '../firebaseConfig';
+import { usePagination } from 'use-pagination-firestore';
 
 function Sessions() {
   const location= useLocation();
@@ -15,32 +16,30 @@ function Sessions() {
   const [sesList, setSesList] = useState([]);
   const subRef=collection(db, 'Users',user,'Sessions');
 
-  let q = query(subRef,orderBy('time','desc'),limit(5));
+  
+ 
 
-  const DocumentSnapshot=getDocs(q);
-  const last= DocumentSnapshot[DocumentSnapshot.length-1]
+    const{
+        items,
+        isLoading,
+        isStart,
+        isEnd,
+        getPrev,
+        getNext,
+}=usePagination(
+      query(subRef,orderBy('time','desc')),{
+        limit: 5
+      }
+    );
+  
 
-  const next=()=>{
-    return q=query(subRef,orderBy('time','desc'), startAfter(last), limit(5))
-  }
+  
 
-  const prev=(first)=>{
-    return q=query(subRef, orderBy('time','desc'), endBefore(first['time','desc']), limitToLast(5))
-  }
   
   
 
 
-  useEffect(() => {  //loads all the tenants
-    
-    onSnapshot(q, (snapshot) => {
-     setSesList(
-        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-      );
-      
-      
-    });
-  }, []);
+
   return (
     
 
@@ -58,7 +57,7 @@ function Sessions() {
           <div className="Recent">
           <h1>Your Sessions:</h1>
           <div className="recSes">
-          {sesList.map((REC)=>{
+          {items.map((REC)=>{
               return(
                 <div className="rowCard">
                   <div className="rowCardTitle">
@@ -81,8 +80,8 @@ function Sessions() {
           </div>
           </div>
           <div className="buttoninlin">
-          <button  className='Gobtn1'>Previous </button>
-          <button className='Gobtn1' onClick={next}>Next</button>
+          <button  className='Gobtn1' onClick={getPrev} disabled={isStart} >Previous </button>
+          <button className='Gobtn1' onClick={getNext} disabled={isEnd}>Next</button>
           </div>
         </div>
     </div>
