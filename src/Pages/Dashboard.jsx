@@ -1,6 +1,6 @@
 import { collection, orderBy, query, limit, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { Link, Router, useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 import './Dashboard.css';

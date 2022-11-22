@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
 import { useLocation, Link } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
-import { collection, orderBy, query, limit, onSnapshot,getDocs, startAfter, DocumentSnapshot, endBefore, limitToLast } from 'firebase/firestore';
+import { collection, orderBy, query} from 'firebase/firestore';
 import './Sessions.css'
 import './Dashboard.css';
 
