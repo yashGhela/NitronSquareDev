@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './FirstTimeSrt.css';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { addDoc, collection } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+
 
 function FirstTimeSrt() {
     let location = useLocation();
