@@ -46,7 +46,8 @@ function Sessions() {
     <div className='Sessions'>
       <Sidebar className='nav'
         L1={<Link to='/Dashboard' state={{user:user}}>Dashboard</Link>}
-        L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}/>
+        L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}
+        L3={<Link to='/Trends' state={{user:user}}>Trends</Link>}/>
 
         <div className="bod">
           <div className="startCard1">

@@ -91,6 +91,7 @@ function SesSettings() {
           
             </div>
         )})}
+        {isCheckederr&&<h3 style={{color:'red'}}>Please choose a subject</h3>}
       </div>
 
   

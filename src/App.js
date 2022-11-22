@@ -12,6 +12,7 @@ import SesSettings from './Util/SesSettings';
 import Timer from './Util/Timer';
 import SignUp from './Pages/SignUp';
 import FirstTimeSrt from './Pages/FirstTimeSrt';
+import Trends from './Pages/Trends';
 
 
 
@@ -36,6 +37,7 @@ function App() {
         <Route path='/' element={<StartPage />}/>
         <Route path='/FirstTimeSrt' element={<FirstTimeSrt/>}/>
         <Route path='/' element={<ProtectedRoutes/>}>
+        <Route path='/Trends' element={<Trends/>}/>
         <Route path='/Dashboard' element={<Dashboard/>}/>
         <Route path='/SesSettings' element={<SesSettings/>}/>
         <Route path='/Timer' element={<Timer/>}/>
