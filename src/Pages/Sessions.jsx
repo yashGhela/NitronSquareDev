@@ -13,7 +13,7 @@ function Sessions() {
 
   const user= location.state.user;
 
-  const [sesList, setSesList] = useState([]);
+  
   const subRef=collection(db, 'Users',user,'Sessions');
 
   
@@ -21,7 +21,7 @@ function Sessions() {
 
     const{
         items,
-        isLoading,
+       
         isStart,
         isEnd,
         getPrev,
