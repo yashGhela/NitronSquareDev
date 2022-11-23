@@ -1,10 +1,12 @@
 import React, { useState } from 'react'
-import { Line } from 'react-chartjs-2';
+import { Bar, Line } from 'react-chartjs-2';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserData } from '../Util/Data';
 import Sidebar from '../Components/Sidebar'
 import BarChart from '../Components/BarChart';
 
+import Chart from 'chart.js/auto';
+window.Chart = Chart
 
 
 function Trends() {
@@ -33,7 +35,9 @@ function Trends() {
         </div>
 
         <div className="bod">
+           <div className="startCard">
             <h1>Trends</h1>
+           </div>
            <BarChart chartData={userData}/>
       
         </div>

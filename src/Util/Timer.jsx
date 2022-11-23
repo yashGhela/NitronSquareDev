@@ -101,7 +101,7 @@ function Timer() {
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
-    time: current.getUTCDay()+'/'+current.getUTCMonth()+'/'+current.getUTCFullYear()+'at '+current.getHours()+':'+current.getMinutes()
+    time: current.getUTCDay()+'/'+current.getUTCMonth()+'/'+current.getUTCFullYear()
 
   });
   nav('/Dashboard', {state:{user:user}})
