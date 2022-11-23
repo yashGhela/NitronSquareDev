@@ -1,10 +1,21 @@
 import React, { useState } from 'react'
+import { Line } from 'react-chartjs-2';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { UserData } from '../Util/Data';
 import Sidebar from '../Components/Sidebar'
+import BarChart from '../Components/BarChart';
 
 
 
 function Trends() {
+  const [userData, setUserData] =useState({
+    labels: UserData.map((data)=> data.year) ,
+    datasets:[{
+      label: 'Users Gained',
+      data: UserData.map((data)=> data.userGain),
+
+    }]
+  })
     let location = useLocation();
   const user = location.state.user
 
@@ -23,8 +34,10 @@ function Trends() {
 
         <div className="bod">
             <h1>Trends</h1>
-            
+           <BarChart chartData={userData}/>
+      
         </div>
+      
         
     </div>
   )
