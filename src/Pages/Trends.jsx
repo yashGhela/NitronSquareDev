@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
+
+
 
 function Trends() {
     let location = useLocation();
   const user = location.state.user
+
+  
   return (
 
     
@@ -19,6 +23,7 @@ function Trends() {
 
         <div className="bod">
             <h1>Trends</h1>
+            
         </div>
         
     </div>
