@@ -6,6 +6,8 @@ import Sidebar from '../Components/Sidebar'
 import BarChart from '../Components/BarChart';
 
 import Chart from 'chart.js/auto';
+import LineChart from '../Components/LineChart';
+import PieChart from '../Components/PieChart';
 window.Chart = Chart
 
 
@@ -15,6 +17,15 @@ function Trends() {
     datasets:[{
       label: 'Users Gained',
       data: UserData.map((data)=> data.userGain),
+      backgroundColor: [
+        'red',
+        'blue',
+        'green',
+        'yellow',
+        'orange'
+      ],
+     
+      
 
     }]
   })
@@ -38,7 +49,11 @@ function Trends() {
            <div className="startCard">
             <h1>Trends</h1>
            </div>
+           <div style={{width:700, margin: '20px', display: 'flex'}}>
            <BarChart chartData={userData}/>
+           <LineChart chartData={userData}/>
+           
+           </div>
       
         </div>
       
