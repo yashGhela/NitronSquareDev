@@ -22,7 +22,10 @@ import Trends from './Pages/Trends';
 function App() {
   
 
-
+  window.onunload = () => {
+    // Clear the local storage
+    window.localStorage.clear()
+ }
 
   
 
