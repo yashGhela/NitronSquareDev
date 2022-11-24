@@ -11,9 +11,11 @@ function Login() {
   const signIn=()=>{
     signInWithPopup(auth, provider).then(async(result)=>{
       const ref = doc(db, 'Users', result.user.uid) 
-      
+      const user= result.user.uid;
+      const state= true;
       nav('/Dashboard', {state: {user: result.user.uid}});
-      localStorage.setItem('isAuth', true);//sets isAuth to true allowing access to protected routes
+      const resp={user,state};
+      localStorage.setItem('isAuth', resp);;//sets isAuth to true allowing access to protected routes
       
       
     })

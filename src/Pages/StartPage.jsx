@@ -2,6 +2,7 @@ import React from 'react'
 
 import { useNavigate } from 'react-router-dom';
 import './Startpage.css';
+import { useEffect } from 'react';
 function StartPage() {
     let nav = useNavigate();
     
@@ -14,6 +15,13 @@ function StartPage() {
     const SignNav=()=>{
       nav('/SignUp')
     }
+
+    useEffect(()=>{
+      const loggedInUser=localStorage.getItem('isAuth');
+      if(loggedInUser){
+        nav('/Dashboard')
+      }
+     })
 
  
 

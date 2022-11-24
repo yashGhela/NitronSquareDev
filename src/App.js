@@ -1,4 +1,4 @@
-import { Route, BrowserRouter as Router, Routes} from 'react-router-dom';
+import { Route, BrowserRouter as Router, Routes, useNavigate} from 'react-router-dom';
 import './App.css';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
@@ -13,6 +13,7 @@ import Timer from './Util/Timer';
 import SignUp from './Pages/SignUp';
 import FirstTimeSrt from './Pages/FirstTimeSrt';
 import Trends from './Pages/Trends';
+import { useEffect } from 'react';
 
 
 
@@ -25,7 +26,10 @@ function App() {
   window.onunload = () => {
     // Clear the local storage
     window.localStorage.clear()
+    window.location.pathname='/Login';
  }
+
+ 
 
   
 
