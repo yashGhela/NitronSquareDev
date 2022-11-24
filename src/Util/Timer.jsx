@@ -12,7 +12,7 @@ import './Timer.css';
 function Timer() {
   
   
-    const purple= '#8155BA';
+    const purple= '#8165BA';
     const green = '#70FFB2';
     const location = useLocation();
     const nav=useNavigate();
@@ -97,11 +97,14 @@ function Timer() {
 
  const doneHand=async()=>{
   const current= new Date();
+  const day = current.getDate();
+  const month = current.getMonth()+1;
+  const year=current.getFullYear();
   await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
-    time: current.getDay()+'/'+current.getMonth()+1+'/'+current.getFullYear()
+    time: `${day}/${month}/${year}`
 
   });
   nav('/Dashboard', {state:{user:user}})
@@ -109,10 +112,11 @@ function Timer() {
 
   return (
    
-  <div className='Timer'>
+  <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
     <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
+    
     })}/>
     {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>:
     <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;  }} > Pause</button>}
