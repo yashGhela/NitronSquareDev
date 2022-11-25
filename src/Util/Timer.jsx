@@ -38,6 +38,7 @@ function Timer() {
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
    const [secondsLeft, setSecondsLeft] = useState(0);//decides the seconds left
+   const [message, setMessage]= useState('');
 
    const secondsLeftRef = useRef(secondsLeft);//references the main objects in order to keep things consistent
    const isPausedRef = useRef(isPaused);
@@ -49,11 +50,15 @@ function Timer() {
    }if(mode==='break'){
      totalSeconds=breakSeconds
    }
+
    
+
+
 
    function initTimer(){ //initializes the timer
     secondsLeftRef.current= workSeconds; //current seconds left is = to work minutes
     setSecondsLeft(secondsLeftRef.current); //sets the seconds left to the the current ref
+    
 
    }
 
@@ -69,37 +74,43 @@ function Timer() {
 //sets mode to the next mode 
     
    
-    play();
+    
    }
 
    function tick(){ 
    
       secondsLeftRef.current--;//minuses by 1 each time
       setSecondsLeft(secondsLeftRef.current);
-    
+      
    }
 
    useEffect(()=>{
     initTimer();
+    
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
         return;
       }if(modeRef.current==='work' && secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode()
+        play();
         
       }if(modeRef.current==='break'&&secondsLeftRef.current===0){
-        
+        setIsPaused(true);
+        play();
+        isPausedRef.current= true;
+        <h1>Done!</h1>
       }
       tick(); //ticks
     }, 10);//timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
- const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
- const minutes = Math.floor(secondsLeft/60); 
- let seconds = secondsLeft%60;
-
- if (seconds<10) seconds='0'+seconds;
+   const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
+   const minutes = Math.floor(secondsLeft/60); 
+   let seconds = secondsLeft%60;
+   if (seconds<10) seconds='0'+seconds;
+   
+  
    
 
  //AddDoc function
