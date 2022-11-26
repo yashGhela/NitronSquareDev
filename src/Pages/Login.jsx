@@ -13,7 +13,7 @@ function Login() {
       const ref = doc(db, 'Users', result.user.uid) 
       
       nav('/Dashboard', {state: {user: result.user.uid}});
-      localStorage.setItem('isAuth', true);//sets isAuth to true allowing access to protected routes
+      sessionStorage.setItem('isAuth', true);//sets isAuth to true allowing access to protected routes
       
       
     })

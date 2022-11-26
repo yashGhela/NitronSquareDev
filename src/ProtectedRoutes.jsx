@@ -3,7 +3,7 @@ import React from 'react';
 import {Navigate, Outlet} from 'react-router-dom'
 
 const useAuth=()=>{
-  const user=localStorage.getItem('isAuth')
+  const user=sessionStorage.getItem('isAuth')
   if(user){
     return true
   } else {

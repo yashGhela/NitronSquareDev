@@ -21,10 +21,7 @@ function Timer() {
     }
     const user = location.state.user;
     const subject= location.state.subject;
-    const [play]=useSound(
-      alarm,
-      {volume: 0.5}
-    )
+    const [play]=useSound(alarm, {volume:0.5})
 
    
    //This code is for location and navigation, no timer logic
@@ -38,7 +35,7 @@ function Timer() {
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
    const [secondsLeft, setSecondsLeft] = useState(0);//decides the seconds left
-   const [message, setMessage]= useState('');
+   
    const [disabled, setDisabled]=useState(false);
 
    const secondsLeftRef = useRef(secondsLeft);//references the main objects in order to keep things consistent
@@ -66,7 +63,7 @@ function Timer() {
        modeRef.current='break';
       setSecondsLeft(breakSeconds);
       secondsLeftRef.current= breakSeconds;
-    
+      
 
     
 //sets mode to the next mode 
@@ -90,18 +87,19 @@ function Timer() {
       if (isPausedRef.current){  //if paused nothing happens
         return;
       }if(modeRef.current==='work' && secondsLeftRef.current===0){ //if its at 0 switch the mode
-        switchMode()
-        play();
+        switchMode();
+        play(); 
         
       }if(modeRef.current==='break'&&secondsLeftRef.current===0){
         setIsPaused(true);
         play();
         isPausedRef.current= true;
         setDisabled(true);
-        <h1>Done!</h1>
+        
       }
       tick(); //ticks
-    }, 10);//timeout is 1000 go, activates how much should be minused by
+    }, 10);
+    //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
 
@@ -133,7 +131,7 @@ function Timer() {
   return (
    
   <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
-    <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
+    <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     

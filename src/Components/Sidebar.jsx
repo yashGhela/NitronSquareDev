@@ -11,7 +11,7 @@ function Sidebar({L1,L2,L3}) {
 
   const LogOut=()=>{
     signOut(auth).then(()=>{
-      localStorage.clear();
+      sessionStorage.clear();
       nav('/');
       
     })

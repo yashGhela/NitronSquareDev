@@ -24,7 +24,7 @@ function SignUp() {
       const ref = doc(db, 'Users', result.user.uid)
       const docRef = setDoc(ref, {username: result.user.displayName,tier: 'free'});
       nav('/FirstTimeSrt', {state: {user: result.user.uid}});//Sends to first time setup with user passed thru
-      localStorage.setItem('isAuth', true);
+      sessionStorage.setItem('isAuth', true);
       createSes({user: result.user.uid})
       
       

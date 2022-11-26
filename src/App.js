@@ -23,11 +23,6 @@ import { useEffect } from 'react';
 function App() {
   
 
-  window.onunload = () => {
-    // Clear the local storage
-    window.localStorage.clear()
-    window.location.pathname='/Login';
- }
 
  
 

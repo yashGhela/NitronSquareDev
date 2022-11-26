@@ -17,7 +17,7 @@ function StartPage() {
     }
 
     useEffect(()=>{
-      const loggedInUser=localStorage.getItem('isAuth');
+      const loggedInUser=sessionStorage.getItem('isAuth');
       if(loggedInUser){
         nav('/Dashboard')
       }
