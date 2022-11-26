@@ -39,17 +39,15 @@ function Timer() {
    const [mode, setMode] = useState('work')//work,break, pause
    const [secondsLeft, setSecondsLeft] = useState(0);//decides the seconds left
    const [message, setMessage]= useState('');
+   const [disabled, setDisabled]=useState(false);
 
    const secondsLeftRef = useRef(secondsLeft);//references the main objects in order to keep things consistent
    const isPausedRef = useRef(isPaused);
    const modeRef = useRef(mode);
    
-   let totalSeconds;
-   if (mode==='work'){
-     totalSeconds=workSeconds
-   }if(mode==='break'){
-     totalSeconds=breakSeconds
-   }
+   const totalSeconds = mode==='work'? //total seconds is = to which ever mode chosen
+   workSeconds//multiplies the workminutes by 60 to become actual minutes
+   : breakSeconds //multiplies the breakminutes by 60 to become actual minutes
 
    
 
@@ -83,6 +81,7 @@ function Timer() {
       setSecondsLeft(secondsLeftRef.current);
       
    }
+  
 
    useEffect(()=>{
     initTimer();
@@ -98,6 +97,7 @@ function Timer() {
         setIsPaused(true);
         play();
         isPausedRef.current= true;
+        setDisabled(true);
         <h1>Done!</h1>
       }
       tick(); //ticks
@@ -124,7 +124,7 @@ function Timer() {
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
-    time: `${day}/${month}/${year}`
+    time: `${year}/${month}/${day}`
 
   });
   nav('/Dashboard', {state:{user:user}})
@@ -138,8 +138,8 @@ function Timer() {
     pathColor:mode === 'work' ? purple : green,
     
     })}/>
-    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false; }}>Play</button>:
-    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;  }} > Pause</button>}
+    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled}>Play</button>:
+    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} > Pause</button>}
     <button className='Gobtn1' onClick={goSet}>Settings</button>
     <button className='Gobtn1' onClick={doneHand}>Done!</button>
     
