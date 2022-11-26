@@ -8,6 +8,8 @@ import BarChart from '../Components/BarChart';
 import Chart from 'chart.js/auto';
 import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
+import { Button } from 'bootstrap';
+
 window.Chart = Chart
 
 
@@ -54,6 +56,7 @@ function Trends() {
            <LineChart chartData={userData}/>
            
            </div>
+         
       
         </div>
       

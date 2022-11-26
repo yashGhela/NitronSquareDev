@@ -13,7 +13,7 @@ import Timer from './Util/Timer';
 import SignUp from './Pages/SignUp';
 import FirstTimeSrt from './Pages/FirstTimeSrt';
 import Trends from './Pages/Trends';
-import { useEffect } from 'react';
+
 
 
 
