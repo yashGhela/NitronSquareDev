@@ -98,7 +98,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 10);
+    }, 1000);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
