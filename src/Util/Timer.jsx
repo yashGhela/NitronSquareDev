@@ -2,7 +2,7 @@ import { addDoc, collection } from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
 
@@ -11,15 +11,15 @@ import './Timer.css';
 
 function Timer() {
   
-  
+   const location = useLocation();
     const purple= '#8165BA';
     const green = '#70FFB2';
-    const location = useLocation();
+    
     const nav=useNavigate();
     const goSet=()=>{
-      nav('/SesSettings', {state: {user:user}});
+      nav(`/SesSettings/${user}`);
     }
-    const user = location.state.user;
+    const user = sessionStorage.getItem('useraidt');
     const subject= location.state.subject;
     
 
@@ -125,7 +125,7 @@ function Timer() {
     time: `${year}/${month}/${day}`
 
   });
-  nav('/Dashboard', {state:{user:user}})
+  nav(`/Dashboard/${user}`)
 }
 
   return (

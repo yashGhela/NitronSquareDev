@@ -25,8 +25,8 @@ function SignUp() {
     signInWithPopup(auth, provider).then(async(result)=>{
       const ref = doc(db, 'Users', result.user.uid)
       const docRef = setDoc(ref, {username: result.user.displayName,tier: 'free'});
-      nav('/Dashboard', {state: {user: result.user.uid}});//Sends to first time setup with user passed thru
-      sessionStorage.setItem('isAuth', true);
+      nav('/Dashboard')
+      sessionStorage.setItem('useraidt', result.user.uid);
       createSes({user: result.user.uid})
       
       

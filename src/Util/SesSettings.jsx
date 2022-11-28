@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css'
 
@@ -18,16 +18,16 @@ function SesSettings() {
   const [isCheckederr, setIsCheckederr]=useState('');
   const [disabled, setDisabled]=useState(true);
   const SubjectsList=['Algebra','Geometry','History','Physics','Chemistry','First Language', 'Second Language','Third Language', 'Economics', 'Coding','Computers','Biology','History','Business','EGD','Geography','Accounting']
-  let location = useLocation();
-  const user= location.state.user
+  
+  const user= sessionStorage.getItem('useraidt');
 
   let nav = useNavigate();
 
   const GoCont =()=>{
-    nav('/Timer', {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, user:user, subject: subject}})//passes workminutes,breakminutes and user and subject thru to next page
+    nav(`/Timer/${user}`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: subject}})//passes workminutes,breakminutes and user and subject thru to next page
   }
   const goHom=()=>{
-    nav('/Dashboard', {state:{user:user}});
+    nav(`/Dashboard/${user}`);
   }
 
   

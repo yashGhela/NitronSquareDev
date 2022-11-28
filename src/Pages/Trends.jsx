@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import './Dashboard.css';
+import './Page.css';
 
-import { Link, useLocation,useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import { UserData } from '../Util/Data';
 import Sidebar from '../Components/Sidebar'
 import BarChartT from '../Components/BarChart';
@@ -33,8 +33,8 @@ function Trends() {
 
     }]
   })
-    let location = useLocation();
-  const user = location.state.user
+   
+  const user = sessionStorage.getItem('useraidt');
   let nav = useNavigate();
 
   
@@ -45,9 +45,9 @@ function Trends() {
 
       <div className="navB">
       <Sidebar
-        L1={<Button variant='dark' onClick={()=>nav('/Dashboard', {state: {user: user}})}><Speedometer/></Button>}
-        L2={<Button variant='dark' onClick={()=>nav('/Sessions', {state: {user: user}})}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav('/Trends', {state: {user: user}})}><BarChart/></Button>}/>
+        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/${user}`, {state: {user: user}})}><Speedometer/></Button>}
+        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/${user}`, {state: {user: user}})}><CardText/></Button>}
+        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`, {state: {user: user}})}><BarChart/></Button>}/>
         </div>
 
         <div className="bod">

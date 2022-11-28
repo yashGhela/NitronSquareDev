@@ -22,7 +22,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   
-
+const user =sessionStorage.getItem('useraidt');
 
  
 
@@ -41,12 +41,12 @@ function App() {
         <Route path='/' element={<StartPage />}/>
      
         <Route path='/' element={<ProtectedRoutes/>}>
-        <Route path='/Trends' element={<Trends/>}/>
-        <Route path='/Dashboard' element={<Dashboard/>}/>
-        <Route path='/SesSettings' element={<SesSettings/>}/>
-        <Route path='/Timer' element={<Timer/>}/>
-        <Route path='/Sessions' element={<Sessions/>}/>
-        <Route path='/InProg' element={<InProg/>}/>
+        <Route path={`/Trends/${user}`} element={<Trends/>}/>
+        <Route path={`/Dashboard/${user}`} element={<Dashboard/>}/>
+        <Route path={`/SesSettings/${user}`} element={<SesSettings/>}/>
+        <Route path={`/Timer/${user}`} element={<Timer/>}/>
+        <Route path={`/Sessions/${user}`} element={<Sessions/>}/>
+        <Route path={`/InProg/${user}`} element={<InProg/>}/>
         </Route>
       </Routes>
     </Router>
