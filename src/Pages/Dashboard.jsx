@@ -1,11 +1,12 @@
 import { collection, orderBy, query, limit, onSnapshot } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import {  useLocation, useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 import './Dashboard.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
+import {Button} from 'react-bootstrap';
 
 function Dashboard() {
   let location = useLocation();
@@ -34,14 +35,14 @@ function Dashboard() {
     nav('/SesSettings', {state: {user: user}});
   }
   return (
-    <div className='Dashboard'>
+    <div className='Page'>
       
        
         <div className="navB">
         <Sidebar
-        L1={<Link to='/Dashboard' state={{user:user}} style={{textDecoration:'none', color:'white'}}><Speedometer/></Link>}
-        L2={<Link to='/Sessions' state={{user:user}} style={{textDecoration:'none', color:'white'}}><CardText/></Link>}
-        L3={<Link to='/Trends' state={{user:user}} style={{textDecoration:'none', color:'white'}}><BarChart/></Link>}/>
+        L1={<Button variant='dark' onClick={()=>nav('/Dashboard', {state: {user: user}})}><Speedometer/></Button>}
+        L2={<Button variant='dark' onClick={()=>nav('/Sessions', {state: {user: user}})}><CardText/></Button>}
+        L3={<Button variant='dark' onClick={()=>nav('/Trends', {state: {user: user}})}><BarChart/></Button>}/>
         </div>
        
         
@@ -75,6 +76,7 @@ function Dashboard() {
                 </div>
               )
             })}
+             </div>
           </div>
         </div>
         </div>
@@ -82,7 +84,7 @@ function Dashboard() {
       
       
       
-    </div>
+    
   )
 }
 

@@ -1,10 +1,10 @@
 import React, { useState} from 'react'
-import { useLocation, Link } from 'react-router-dom'
+import { useLocation,useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import { collection, orderBy, query} from 'firebase/firestore';
-import './Sessions.css'
-import './Dashboard.css';
 
+import './Dashboard.css';
+import {Button} from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
@@ -16,40 +16,32 @@ function Sessions() {
 
   
   const subRef=collection(db, 'Users',user,'Sessions');
-
-  
- 
+  let nav = useNavigate();
 
     const{
         items,
-       
         isStart,
         isEnd,
         getPrev,
         getNext,
-}=usePagination(
+               }=usePagination(
       query(subRef,orderBy('time','desc')),{
         limit: 5
       }
     );
-  
-
-  
-
-  
-  
-
 
 
   return (
     
 
-    <div className='Sessions'>
-      <Sidebar className='nav'
-         L1={<Link to='/Dashboard' state={{user:user}} style={{textDecoration:'none', color:'white'}}><Speedometer/></Link>}
-         L2={<Link to='/Sessions' state={{user:user}} style={{textDecoration:'none', color:'white'}}><CardText/></Link>}
-         L3={<Link to='/Trends' state={{user:user}} style={{textDecoration:'none', color:'white'}}><BarChart/></Link>}/>
+    <div className='Page'>
+      <Sidebar
+        L1={<Button variant='dark' onClick={()=>nav('/Dashboard', {state: {user: user}})}><Speedometer/></Button>}
+        L2={<Button variant='dark' onClick={()=>nav('/Sessions', {state: {user: user}})}><CardText/></Button>}
+        L3={<Button variant='dark' onClick={()=>nav('/Trends', {state: {user: user}})}><BarChart/></Button>}/>
 
+
+        
         <div className="bod">
           <div className="startCard1">
             <h1>Sessions</h1>
@@ -59,21 +51,21 @@ function Sessions() {
           <div className="Recent">
           <h1>Your Sessions:</h1>
           <div className="recSes">
-          {items.map((REC)=>{
+          {items.map((rec)=>{
               return(
                 <div className="rowCard">
                   <div className="rowCardTitle">
-                   <h3> Subject: {REC.subject}</h3>
+                   <h3> Subject: {rec.subject}</h3>
 
                   </div>
                   <div className="WTime">
-                    <h3>Work Minutes: {REC.WorkTime}</h3>
+                    <h3>Work Minutes: {rec.WorkTime}</h3>
                   </div>
                   <div className="BTime">
-                   <h3> Break Minutes: {REC.BreakTime}</h3>
+                   <h3> Break Minutes: {rec.BreakTime}</h3>
                   </div>
                   <div className="Atime">
-                    <h3>Date: {REC.time}</h3>
+                    <h3>Date: {rec.time}</h3>
                   </div>
                   
                 </div>
@@ -82,8 +74,8 @@ function Sessions() {
           </div>
           </div>
           <div className="buttoninlin">
-          <button  className='Gobtn1' onClick={getPrev} disabled={isStart} >Previous </button>
-          <button className='Gobtn1' onClick={getNext} disabled={isEnd}>Next</button>
+          <Button  variant='dark'  onClick={getPrev} disabled={isStart} >Previous </Button>
+          <Button variant='dark' onClick={getNext} disabled={isEnd}>Next</Button>
           </div>
         </div>
     </div>

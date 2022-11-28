@@ -26,13 +26,13 @@ function Sidebar({L1,L2,L3}) {
    <div style={{marginTop: '150px',}}>
    <Nav >
       <Nav.Item style={{marginBottom:'20px'}}>
-       <Button variant='dark'>{L1}</Button>
+       {L1}
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
-      <Button variant='dark'>{L2}</Button>
+      {L2}
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
-      <Button variant='dark'>{L3}</Button>
+      {L3}
       </Nav.Item>
       <Nav.Item style={{marginTop:'520px'}} >
        <Button onClick={LogOut}><BoxArrowLeft/></Button>
