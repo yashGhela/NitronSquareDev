@@ -48,7 +48,8 @@ function Dashboard() {
         <div className="bod">
         <div className="startCard">
           <h1>Start a Study Session ➡️</h1>
-          <button className='Gobtn1' onClick={()=>{nav('/SesSettings',{state:{user:user}})}}>Let's Go!</button>
+          <Button onClick={()=>{nav(`/SesSettings/${user}`)}} variant='dark' style={{height:'60px', width:'100px'}}>Lets Go!</Button>
+         
         </div>
         <div className="Recent">
           <h1>Recent Sessions:</h1>
@@ -57,23 +58,25 @@ function Dashboard() {
               return(
                 <div className="rowCard">
                   <div className="rowCardTitle">
-                   <h3> Subject: {rec.subject}</h3>
+                   <h3>  {rec.subject}</h3>
 
                   </div>
                   <div className="WTime">
-                    <h3>Work Minutes: {rec.WorkTime}</h3>
+                    <h3> {rec.WorkTime} Minutes </h3>
                   </div>
                   <div className="BTime">
-                   <h3> Break Minutes: {rec.BreakTime}</h3>
+                   <h3>  {rec.BreakTime} Minutes</h3>
                   </div>
                   <div className="Atime">
-                    <h3>Date: {rec.time}</h3>
+                    <h3> {rec.time}</h3>
                   </div>
                   
                 </div>
               )
             })}
+
              </div>
+             
           </div>
         </div>
         </div>

@@ -40,17 +40,7 @@
 
 }
 
-.Gobtn{
-    background-color: rgb(75, 75, 75);
-    color: white;
-    border-radius: 5px;
-    height: 100px;
-    width: 200px;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
 
-}
 
 
 @keyframes gradient {
@@ -86,11 +76,11 @@
 }
 
 .WTime{
-   margin-right: 50px;
+   margin-right: 120px;
 }
 
 .BTime{
-    margin-right: 50px;
+    margin-right: 120px;
 }
 
 
