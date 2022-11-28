@@ -6,6 +6,7 @@ import './Sessions.css'
 import './Dashboard.css';
 
 import { db } from '../firebaseConfig';
+import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
 
 function Sessions() {
@@ -45,9 +46,9 @@ function Sessions() {
 
     <div className='Sessions'>
       <Sidebar className='nav'
-        L1={<Link to='/Dashboard' state={{user:user}}>Dashboard</Link>}
-        L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}
-        L3={<Link to='/Trends' state={{user:user}}>Trends</Link>}/>
+         L1={<Link to='/Dashboard' state={{user:user}} style={{textDecoration:'none', color:'white'}}><Speedometer/></Link>}
+         L2={<Link to='/Sessions' state={{user:user}} style={{textDecoration:'none', color:'white'}}><CardText/></Link>}
+         L3={<Link to='/Trends' state={{user:user}} style={{textDecoration:'none', color:'white'}}><BarChart/></Link>}/>
 
         <div className="bod">
           <div className="startCard1">

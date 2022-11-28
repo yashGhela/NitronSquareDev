@@ -5,7 +5,7 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
-import alarm from '../Components/Alarm.mp3';
+
 import './Timer.css';
 
 
@@ -21,7 +21,7 @@ function Timer() {
     }
     const user = location.state.user;
     const subject= location.state.subject;
-    const [play]=useSound(alarm, {volume:0.5})
+    
 
    
    //This code is for location and navigation, no timer logic

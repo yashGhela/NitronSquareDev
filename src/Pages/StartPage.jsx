@@ -33,7 +33,8 @@ function StartPage() {
   return (
     <div className='StartPageCont '>
         <div className="startcont">
-        <h1  style={{padding: '120px'}}>Welcome to Nitron Square Please Log In or Sign Up</h1>
+        <h1  style={{padding: '120px'}}>Welcome to Nitron Square Please Log In or Sign Up🆙</h1>
+        
         <Button onClick={LoginNav} variant='secondary' style={{margin:'20px'}}>Login</Button>
         <Button onClick={SignNav} variant='secondary'>Sign Up</Button>
         </div>

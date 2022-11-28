@@ -1,9 +1,14 @@
 .Sidebar{
-    float: left;
+  
     height:100vh;
-    border-right: 0.1px solid rgb(85, 85, 85);
-    display: flex;
-    width: 200px;
+    align-items: center;
+    justify-content: center;
+   
+   
+    vertical-align: middle;
+    
+    
+    width: 80px;
     text-align: center;
     padding: 20px;
     background-color: rgb(12, 12, 12);
@@ -12,30 +17,3 @@
     
 }
 
-.SidebarTop >h1{
-    font-size: 30px;
-}
-.SidebarTop>h3{
-    margin-top: 10px;
-    color: gray;
-    font-size: 15px;
-    float: left;
-}
-
-.SidebarList{
-    padding-top: 60px ;
-}
-
-a{
-    text-decoration: none;
-    color: white;
-}
-
-.LogOut{
-    background-color: black;
-    color: white;
-    border-radius: 20px;
-    cursor: pointer;
-    height: 40px;
-    width: 200px;
-}

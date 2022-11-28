@@ -3,8 +3,8 @@ import { Bar, Line } from 'react-chartjs-2';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UserData } from '../Util/Data';
 import Sidebar from '../Components/Sidebar'
-import BarChart from '../Components/BarChart';
-
+import BarChartT from '../Components/BarChart';
+import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import Chart from 'chart.js/auto';
 import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
@@ -42,9 +42,9 @@ function Trends() {
 
       <div className="navB">
         <Sidebar
-        L1={<Link to='/Dashboard' state={{user:user}}>Dashboard</Link>}
-        L2={<Link to='/Sessions' state={{user:user}}>Sessions</Link>}
-        L3={<Link to='/Trends' state={{user:user}}>Trends</Link>}/>
+          L1={<Link to='/Dashboard' state={{user:user}} style={{textDecoration:'none', color:'white'}}><Speedometer/></Link>}
+          L2={<Link to='/Sessions' state={{user:user}} style={{textDecoration:'none', color:'white'}}><CardText/></Link>}
+          L3={<Link to='/Trends' state={{user:user}} style={{textDecoration:'none', color:'white'}}><BarChart/></Link>}/>
         </div>
 
         <div className="bod">

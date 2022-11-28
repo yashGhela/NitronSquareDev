@@ -4,8 +4,8 @@ import { Chart as ChartJS } from "chart.js/auto";
 
 
 
-function BarChart({ chartData }) {
+function BarChartT({ chartData }) {
   return <Bar data={chartData} />;
 }
 
-export default BarChart;
+export default BarChartT;
