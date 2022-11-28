@@ -4,6 +4,8 @@ import {auth, db, provider} from '../firebaseConfig';
 import {signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, setDoc} from 'firebase/firestore';
+import { Button } from 'react-bootstrap';
+import {Google} from 'react-bootstrap-icons';
 
 function SignUp() {
 
@@ -34,7 +36,7 @@ function SignUp() {
     <div className="logBox">
       <div className='LoginCont'>
       <h1>Sign Up:</h1>
-      <button className='GoogleButton' onClick={signUp} >Sign Up with Google</button>
+      <Button  variant='dark' onClick={signUp} >Sign Up with Google <Google/></Button>
       
     </div>
     </div>

@@ -14,7 +14,7 @@ import SignUp from './Pages/SignUp';
 import FirstTimeSrt from './Pages/FirstTimeSrt';
 import Trends from './Pages/Trends';
 
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 
