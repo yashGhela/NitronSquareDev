@@ -14,7 +14,8 @@ function Login() {
     signInWithPopup(auth, provider).then(async(result)=>{
       const ref = doc(db, 'Users', result.user.uid) 
       sessionStorage.setItem('useraidt', result.user.uid);
-      nav('/Dashboard')
+      const user = sessionStorage.getItem('useraidt');
+      nav(`/Dashboard/${user}`)
       
       
     })
