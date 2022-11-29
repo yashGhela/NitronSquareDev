@@ -5,14 +5,24 @@
 
 
 
-.SesSettings{
+.SesPage{
     color: white;
-    margin: 40px;
+    margin: 0%;
+    padding: 0%;
+    width: 100%;
+    height: 100vh;
+    background-color: rgb(41, 44, 51);
     font-weight: lighter;
     display: flex;
     text-align: left;
     flex-direction: column;
     float: left;
+}
+
+.SeSSettings{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
 }
 
 .slider{
@@ -41,18 +51,7 @@
     background-color: var(--green);
 }
 
-.Gobtn1{
-    background-color: rgb(39, 39, 39);
-    color: white;
-    border-radius: 5px;
-    height: 100px;
-    width: 200px;
-    border: none;
-    margin: 10px;
-    font-size: 20px;
-    cursor: pointer;
 
-}
 
 .SubjectChoices{
     margin: 15px;

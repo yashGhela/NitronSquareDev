@@ -5,8 +5,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
+import { Button } from 'react-bootstrap';
 
-import './Timer.css';
 
 
 function Timer() {
@@ -130,19 +130,23 @@ function Timer() {
 
   return (
    
-  <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
+    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh'}}>
+      <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
     <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     
     })}/>
-    {isPaused? <button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled}>Play</button>:
-    <button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} > Pause</button>}
-    <button className='Gobtn1' onClick={goSet}>Settings</button>
-    <button className='Gobtn1' onClick={doneHand}>Done!</button>
+    <div style={{display:'flex', alignItems:'center', margin:'10px'}}>
+    {isPaused? <Button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
+    <Button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
+    <Button className='Gobtn1' onClick={goSet} style={{margin:'10px'}} variant='dark'>Settings</Button>
+    <Button className='Gobtn1' onClick={doneHand} style={{margin:'10px'}} variant='dark'> Done!</Button>
+    </div>
     
    
   </div>
+    </div>
   )
 }
 

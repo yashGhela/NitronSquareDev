@@ -13,12 +13,8 @@ function SignUp() {
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
     
-     await addDoc(ref, {desc: 'Subjects'}); // Adds a doc to the collection of Sessions and names it subjects with the description subjects
-     
-      
-      
-     
-      
+     // Adds a doc to the collection of Sessions and names it subjects with the description subjects
+    await setDoc(doc(ref,'SubjectsList'),{subjects:['']})
   }
 
   const signUp=()=>{  //to put it simpy once a user signs up they'll be added to the database and then sent to add more subjects to sessions
@@ -28,9 +24,9 @@ function SignUp() {
       
 
       sessionStorage.setItem('useraidt', result.user.uid);
-     
+      const user= sessionStorage.getItem('useraidt')
       createSes({user: result.user.uid})
-      nav(`/Dashboard/${result.user.uid}`)
+      nav(`/Dashboard/${user}`)
       
       
     })

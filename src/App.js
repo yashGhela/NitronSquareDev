@@ -3,7 +3,7 @@ import './App.css';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Sessions from './Pages/Sessions';
-import InProg from './Pages/InProg';
+
 
 
 import StartPage from './Pages/StartPage';
@@ -46,7 +46,7 @@ const user =sessionStorage.getItem('useraidt');
         <Route path={`/SesSettings/${user}`} element={<SesSettings/>}/>
         <Route path={`/Timer/${user}`} element={<Timer/>}/>
         <Route path={`/Sessions/${user}`} element={<Sessions/>}/>
-        <Route path={`/InProg/${user}`} element={<InProg/>}/>
+        
         </Route>
       </Routes>
     </Router>
