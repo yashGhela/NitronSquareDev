@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css';
 import { Button } from 'react-bootstrap';
-import {doc, getDoc, getDocs, onSnapshot} from 'firebase/firestore'
+import {doc,  getDoc} from 'firebase/firestore'
 import {db} from '../firebaseConfig';
 
 
@@ -20,33 +20,44 @@ function SesSettings() {
   const [isCheckederr, setIsCheckederr]=useState('');
   const [disabled, setDisabled]=useState(true);
   const [subjectList, setSubjectList] =useState([]);
-  const SubjectsList=['Algebra','Geometry','History','Physics','Chemistry','First Language', 'Second Language','Third Language', 'Economics', 'Coding','Computers','Biology','History','Business','EGD','Geography','Accounting']
+  
   
   const user= sessionStorage.getItem('useraidt');
-  const sublist=doc(db,'Users',user,'Sessions','SubjectsList')
+  const subref=doc(db,'Users',user,'Sessions','SubjectsList')
   
-
-
+ 
+  const docSnap = async()=>
   
+  await getDoc(subref).then(docSnap=>{
+    let subData=[];
+    if(docSnap.exists()){
+      console.log(docSnap.data())
+      subData= docSnap.data().subjects
+      
+    }else{
+      console.log('null');
+    }
+    setSubjectList([subData])
 
+    
+  })
+ 
   
 
   let nav = useNavigate();
 
- 
- 
-
-  
   
   useEffect(()=>{
-    
+   
+     
+     docSnap();
      setDisabled(formValidation());
     
-  })
+  },[])
 
   const formValidation = () =>{  //checks for errors
     if (isChecked ===false){
-      setIsCheckederr('Name cannot be blank');
+      setIsCheckederr('Subject cannot be blank');
       return true
 
     }else{
@@ -89,16 +100,22 @@ function SesSettings() {
 
       <div className="SubjectChoices">
         <h1>Pick A Subject:</h1>
-        {SubjectsList.map((sub)=>{
-          return(
-            <div className="list">
-             
-            <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setIsChecked(true)} else{setIsChecked(false)}}} style={{marginRight:'5px'}}/>
-            <label>{sub}</label><br/>
+        {subjectList.map((sub)=>{
+           if (sub===""){ 
+            <h3>No subjects</h3>}
+
+            return(
+              <div className="list">
+               
+              <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setIsChecked(true)} else{setIsChecked(false)}}} style={{marginRight:'5px'}}/>
+              <label>{sub}</label><br/>
+            
+              </div>
+          )
           
-            </div>
-        )})}
+          })}
         {isCheckederr&&<h3 style={{color:'red'}}>Please choose a subject</h3>}
+        <Button>Add a Subject</Button>
       </div>
 
   
