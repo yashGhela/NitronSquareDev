@@ -16,7 +16,7 @@ function SesSettings() {
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   const [subject, setSubject] = useState('');//sets the subject for the user
-  const [isChecked, setIsChecked]=useState(false); 
+
   const [modalShow, setModalShow]= useState(false);
   const [isCheckederr, setIsCheckederr]=useState('');
   const [disabled, setDisabled]=useState(true);
@@ -34,12 +34,13 @@ function SesSettings() {
     let subData=[];
     if(docSnap.exists()){
       console.log(docSnap.data())
-      subData= docSnap.data().subjects
+      subData= docSnap.data().subjects 
+      console.log(subData);
       
     }else{
       console.log('null');
     }
-    setSubjectList([subData])
+    setSubjectList(subData)
 
     
   })
@@ -115,8 +116,8 @@ function SesSettings() {
             return(
               <div className="list">
                
-              <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setDisabled(false)} else{setDisabled(true)}}} style={{marginRight:'5px'}}/>
-              <label>{sub}</label><br/>
+              <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setDisabled(false)} else{setDisabled(true)}}} style={{marginRight:'5px', marginBottom:'5px'}}/>
+              <label style={{marginBottom: '5px'}}>{sub}</label><br/>
             
               </div>
           )
@@ -146,7 +147,7 @@ function SesSettings() {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-       <h4>Don't worry, you can add more subjects later 🙂</h4>
+       <h4 style={{fontSize:'15px', fontWeight:'400'}}>Don't worry, you can add more subjects later 🙂</h4>
       </Modal.Footer>
     </Modal>
 

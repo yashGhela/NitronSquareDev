@@ -20,6 +20,7 @@ function Dashboard() {
 
  useEffect(() => {  //loads all the tenants
     
+ 
   onSnapshot(q, (snapshot) => {
    setRecsesList(
       snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
