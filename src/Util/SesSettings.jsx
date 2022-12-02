@@ -35,9 +35,9 @@ function SesSettings() {
   await getDoc(subref).then(docSnap=>{
     let subData=[];
     if(docSnap.exists()){
-      console.log(docSnap.data())
+      
       subData= docSnap.data().subjects 
-      console.log(subData);
+      
       
     }else{
       console.log('null');
@@ -121,12 +121,12 @@ function SesSettings() {
               <input type="checkbox" value={sub} onClick={(e)=>{setSubject(e.target.value); if(e.target.checked){setDisabled(false)} else{setDisabled(true)}}} style={{marginRight:'5px', marginBottom:'5px'}}/>
               <label style={{marginBottom: '5px'}}>{sub}</label><br/>
             
-              </div>
+              </div >
           )
           
           })}
         {isCheckederr&&<h3 style={{color:'red'}}>Please choose a subject</h3>}
-        <Button onClick={()=>{setModalShow(true)}}>Add a Subject</Button>
+        <Button variant='secondary' onClick={()=>{setModalShow(true)}}>Add a Subject</Button>
       </div>
 
       <Modal
