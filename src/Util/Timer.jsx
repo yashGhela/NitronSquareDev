@@ -5,7 +5,8 @@ import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
-import { Button } from 'react-bootstrap';
+import { Button, Form, Modal } from 'react-bootstrap';
+import ReactSlider from 'react-slider';
 
 
 
@@ -21,6 +22,10 @@ function Timer() {
     }
     const user = sessionStorage.getItem('useraidt');
     const subject= location.state.subject;
+    const [modalShow, setModalShow]= useState(false);
+    const [rating, setRating]=useState(0)
+    const [disabledM, setDisabledM]= useState(true);
+    const [description, setDescription]=useState('');
     
 
    
@@ -122,7 +127,10 @@ function Timer() {
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
+    description: description,
+    rating: rating,
     time: `${year}/${month}/${day}`
+
 
   });
   nav(`/Dashboard/${user}`)
@@ -138,12 +146,48 @@ function Timer() {
     
     })}/>
     <div style={{display:'flex', alignItems:'center', margin:'10px'}}>
-    {isPaused? <Button className='Gobtn1' onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
-    <Button className='Gobtn1'  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
-    <Button className='Gobtn1' onClick={goSet} style={{margin:'10px'}} variant='dark'>Settings</Button>
-    <Button className='Gobtn1' onClick={doneHand} style={{margin:'10px'}} variant='dark'> Done!</Button>
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
+    <Button  onClick={goSet} style={{margin:'10px'}} variant='dark'>Settings</Button>
+    <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
     </div>
-    
+    <Modal
+       show={modalShow}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      onHide={()=>setModalShow(false)}
+      
+      centered>
+      <Modal.Header closeButton>
+        <Modal.Title  id="contained-modal-title-vcenter">
+         Time to Add Your Session!
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h3  style={{fontSize:'20px', fontWeight:'400'}}>Add a rating to your session:</h3>
+        <h4 style={{fontSize:'16px', fontWeight:'400', marginTop:'15px'}}>rating⭐: {rating}</h4>
+        <ReactSlider
+        className='slider purple'
+        thumbClassName='thumb'
+        trackClassName='track'
+        value={rating}
+        onChange={newValue => setRating(newValue)}
+        min={0}
+        max={5}
+        
+        />
+       <Form style={{marginTop:'20px'}}>
+        <Form.Group>
+          
+          <Form.Control as='textarea' rows={3} placeholder='Enter a description' style={{resize:'none'}} onChange={(e)=>{setDescription(e.target.value)}}/>
+        </Form.Group>
+       </Form>
+      </Modal.Body>
+      <Modal.Footer>
+       <Button onClick={doneHand} >Done</Button>
+      </Modal.Footer>
+    </Modal>
+
    
   </div>
     </div>

@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-
+import { onSnapshot } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css';
@@ -25,7 +25,9 @@ function SesSettings() {
   const [disabledM, setDisabledM]= useState(true)
   const [suberr, setSuberr]=useState(null);
   const user= sessionStorage.getItem('useraidt');
-  const subref=doc(db,'Users',user,'Sessions','SubjectsList')
+  
+  
+  let subref=  doc(db,'Users',user,'Sessions','SubjectsList')
   
  
   const docSnap = async()=>
@@ -41,7 +43,7 @@ function SesSettings() {
       console.log('null');
     }
     setSubjectList(subData)
-
+   
     
   })
 

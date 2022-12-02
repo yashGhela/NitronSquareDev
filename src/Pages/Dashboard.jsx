@@ -6,13 +6,14 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
-import {Button, Container, Card, Row, Col} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col} from 'react-bootstrap';
 
 function Dashboard() {
   
   const user = sessionStorage.getItem('useraidt');
   const subRef=collection(db, 'Users',user,'Sessions');
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
+  const [modalShow,setModalShow]=useState(false);
 
 
  const q = query(subRef,orderBy('time', 'desc'),limit(5));
@@ -70,6 +71,8 @@ function Dashboard() {
           
           </Card>
          
+
+         
         
         <div className="Recent">
           <h1 >Recent Sessions:</h1>
@@ -77,19 +80,44 @@ function Dashboard() {
             {recsesList.map((rec)=>{
               return(
                 
-                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px'}}>
+                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}}  onClick={()=>{setModalShow(true)}}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime} Minutes</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.time}</h3></Col>
-
-                  
-                  
-
+                      <Modal
+                      
+                        show={modalShow}
+                         size="lg"
+                         aria-labelledby="contained-modal-title-vcenter"
+                         onHide={()=>setModalShow(false)}
+                         centered>
+                      <Modal.Header closeButton>
+                      <Modal.Title  id="contained-modal-title-vcenter">
+                       Session
+                      </Modal.Title>
+                      </Modal.Header>
+                       <Modal.Body>
+                         <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>
+                         <h4  style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h4>
+                         <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Work Time: </h4>
+                         <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} minutes</h4>
+                         <h4 style={{fontWeight:'bold', fontSize:'20px'}}> Break Time: </h4>
+                         <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime} minutes</h4>
+                         <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Date: </h4>
+                          <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.time}</h4>
+                         <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Rating: </h4>
+                          <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.rating}⭐</h4>
+                         <h5 style={{fontWeight:'bold', fontSize:'20px'}}>Description:</h5>
+                         <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{rec.description}</p>
+                       </Modal.Body>
+    
+    </Modal>
                     </Row>
-         
                   </Card>
+
+                  
          
                   
                   
