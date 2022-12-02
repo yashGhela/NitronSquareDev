@@ -6,7 +6,7 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col,  Accordion, AccordionButton} from 'react-bootstrap';
 
 
 
@@ -83,18 +83,22 @@ function Dashboard() {
               return(
                 
                 <div>
-                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true)}} >
+                  
+                 
+                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true)}}  >
                     <Row>
-                      <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
-                      <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>
-                      <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime} Minutes</h3></Col>
+                      <Col xs={6} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
+                      <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime}</h3></Col>
+                      <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.time}</h3></Col>
                       
-                     
-                    </Row>
+      
+                   
+                      </Row>
+                  
+                    </Card>
 
-                  </Card>
-                  <Modal
+                    <Modal
                       
                       show={modalShow}
                        size="lg"
@@ -121,14 +125,8 @@ function Dashboard() {
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{rec.description}</p>
                      </Modal.Body>
                      </Modal>
-
-                  </div>
-
-                  
-         
-                  
-                  
-               
+              
+                  </div>                      
               )
             })}
 
