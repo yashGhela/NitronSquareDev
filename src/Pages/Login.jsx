@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
@@ -10,6 +10,16 @@ import Cookies from 'universal-cookie';
 
 function Login() {
   let nav= useNavigate();
+
+  useEffect(()=>{
+    const cookie= new Cookies()
+    const user= cookie.get('useraidt')
+    if(user){
+      nav(`/Dashboard/${user}`)
+    }else{
+      console.log('not logged in');
+    }
+  })
 
   const signIn=()=>{
     setPersistence(auth,browserLocalPersistence).then(()=>{

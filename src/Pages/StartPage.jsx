@@ -4,13 +4,22 @@ import { useNavigate } from 'react-router-dom';
 import './Startpage.css';
 import { useEffect } from 'react';
 import {Button} from 'react-bootstrap'
+import Cookies from 'universal-cookie';
 
 
 
 function StartPage() {
     let nav = useNavigate();
     
-  
+  useEffect(()=>{
+    const cookie= new Cookies()
+    const user= cookie.get('useraidt')
+    if(user){
+      nav(`/Dashboard/${user}`)
+    }else{
+      console.log('not logged in');
+    }
+  })
 
    
 

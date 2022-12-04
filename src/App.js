@@ -3,7 +3,7 @@ import './App.css';
 import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Sessions from './Pages/Sessions';
-
+import NotFound from './Pages/notFound';
 
 
 import StartPage from './Pages/StartPage';
@@ -39,6 +39,7 @@ const user =cookies.get('useraidt');
       <Routes>
       <Route path='/Login' element={<Login/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
+      <Route path='*' element={<NotFound/>}/>
         <Route path='/' element={<StartPage />}/>
      
         <Route path='/' element={<ProtectedRoutes/>}>
