@@ -13,7 +13,7 @@ function Login() {
 
   const signIn=()=>{
     setPersistence(auth,browserLocalPersistence).then(()=>{
-      signInWithPopup(auth, provider).then(async(result)=>{
+      return signInWithPopup(auth, provider).then(async(result)=>{
         const ref = doc(db, 'Users', result.user.uid) 
         
         const cookie= new Cookies();

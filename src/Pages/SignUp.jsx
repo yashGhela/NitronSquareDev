@@ -35,7 +35,7 @@ function SignUp() {
 
   const signUp=async ()=>{  //to put it simpy once a user signs up they'll be added to the database and then sent to add more subjects to sessions
     setPersistence(auth, browserLocalPersistence).then(()=>{
-      signInWithPopup(auth, provider).then(async(result)=>{
+      return signInWithPopup(auth, provider).then(async(result)=>{
         const ref = doc(db, 'Users', result.user.uid)
         const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
        

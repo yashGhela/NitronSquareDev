@@ -4,7 +4,7 @@ import Sidebar from '../Components/Sidebar'
 import { collection, orderBy, query} from 'firebase/firestore';
 
 import './Page.css';
-import {Button, Card, Row, Col} from 'react-bootstrap';
+import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
@@ -17,7 +17,8 @@ function Sessions() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
 
-  
+  const [modalShow, setModalShow]=useState(false);
+  const [modalData, setModalData]= useState([]);
   const subRef=collection(db, 'Users',user,'Sessions');
   let nav = useNavigate();
 
@@ -69,7 +70,8 @@ function Sessions() {
          
           {items.map((rec)=>{
               return(
-                <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px'}}>
+                <div>
+                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>
@@ -82,6 +84,37 @@ function Sessions() {
                     </Row>
          
                   </Card>
+
+                  <Modal
+                      
+                      show={modalShow}
+                       size="lg"
+                       aria-labelledby="contained-modal-title-vcenter"
+                       onHide={()=>{setModalShow(false)}}
+                       centered>
+                    <Modal.Header closeButton>
+                    <Modal.Title  id="contained-modal-title-vcenter">
+                     Session
+                    </Modal.Title>
+                    </Modal.Header>
+                     <Modal.Body>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px'}}>{modalData.subject}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Work Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.WorkTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}> Break Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.BreakTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Date: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.time}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Rating: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.rating}⭐</h4>
+                       <h5 style={{fontWeight:'bold', fontSize:'20px'}}>Description:</h5>
+                       <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
+                     </Modal.Body>
+                     </Modal>
+
+              
+                </div>
               )
             })}
          
