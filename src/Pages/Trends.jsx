@@ -10,7 +10,7 @@ import Chart from 'chart.js/auto';
 import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
 import {Button, Card} from 'react-bootstrap';
-
+import Cookies from 'universal-cookie';
 
 window.Chart = Chart
 
@@ -34,7 +34,8 @@ function Trends() {
     }]
   })
    
-  const user = sessionStorage.getItem('useraidt');
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
   let nav = useNavigate();
 
   

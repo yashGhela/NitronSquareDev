@@ -8,11 +8,14 @@ import {Button, Card, Row, Col} from 'react-bootstrap';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
+import Cookies from 'universal-cookie';
 
 function Sessions() {
  
 
-  const user= sessionStorage.getItem('useraidt');
+
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
 
   
   const subRef=collection(db, 'Users',user,'Sessions');

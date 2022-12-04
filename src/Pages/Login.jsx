@@ -1,25 +1,31 @@
 import React from 'react'
 import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
-import {signInWithPopup} from 'firebase/auth';
+import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import {doc} from 'firebase/firestore';
 import {Button, Form} from 'react-bootstrap'
 import {Google} from 'react-bootstrap-icons';
+import Cookies from 'universal-cookie';
 
 function Login() {
   let nav= useNavigate();
 
   const signIn=()=>{
-    signInWithPopup(auth, provider).then(async(result)=>{
-      const ref = doc(db, 'Users', result.user.uid) 
-      sessionStorage.setItem('useraidt', result.user.uid);
-      const user = sessionStorage.getItem('useraidt');
-      nav(`/Dashboard/${user}`)
-      
-      
-    })
-  }
+    setPersistence(auth,browserLocalPersistence).then(()=>{
+      signInWithPopup(auth, provider).then(async(result)=>{
+        const ref = doc(db, 'Users', result.user.uid) 
+        
+        const cookie= new Cookies();
+        cookie.set('useraidt', result.user.uid);
+        const user=cookie.get('useraidt')
+        nav(`/Dashboard/${user}`)
+        
+        
+      })})
+    }
+   
+  
  
   return (
     <div className="logBox">
@@ -41,6 +47,6 @@ function Login() {
     </div>
     </div>
   )
-}
+  }
 
 export default Login

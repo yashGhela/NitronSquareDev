@@ -1,13 +1,13 @@
 import React, { useState, useEffect} from 'react';
 import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
-import {signInWithPopup} from 'firebase/auth';
+import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, setDoc} from 'firebase/firestore';
 import { Button, Form, Modal } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
 
-
+import Cookies from 'universal-cookie';
 
 
 
@@ -19,6 +19,7 @@ function SignUp() {
   const [firstSubErr, setFirstSubErr]=useState(null);
   const [disabled, setDisabled]=useState(true);
 
+  const cookie= new Cookies();
 
   let nav= useNavigate();
 
@@ -28,15 +29,21 @@ function SignUp() {
     
      // Adds a doc to the collection of Sessions and names it subjects with the description subjects
     await setDoc(doc(ref,'SubjectsList'),{subjects:[firstSub]});
-    
+    const cuser=cookie.get('useraidt');
+    nav(`/Dashboard/${cuser}`)
   }
 
   const signUp=async ()=>{  //to put it simpy once a user signs up they'll be added to the database and then sent to add more subjects to sessions
-    signInWithPopup(auth, provider).then(async(result)=>{
-      const ref = doc(db, 'Users', result.user.uid)
-      const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
-      sessionStorage.setItem('useraidt', result.user.uid);
-      setModalShow(true);
+    setPersistence(auth, browserLocalPersistence).then(()=>{
+      signInWithPopup(auth, provider).then(async(result)=>{
+        const ref = doc(db, 'Users', result.user.uid)
+        const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
+       
+        cookie.set('useraidt', result.user.uid);
+        
+        
+        setModalShow(true);
+      })
     })
   }
 
@@ -56,7 +63,7 @@ function SignUp() {
       return false
     }}
 
-  const user= sessionStorage.getItem('useraidt');
+    const user=cookie.get('useraidt')
   return (
     <div className="logBox">
       <div className='LoginCont'>
@@ -79,7 +86,7 @@ function SignUp() {
         <Form>
           <Form.Label>Subject Name:</Form.Label>
           <Form.Control placeholder='Algebra' onChange={(e)=>{setFirstSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}} style={{marginBottom:'20px'}}/>
-          <Button onClick={()=>{createSes({user:user}); nav(`/Dashboard/${user}`)}} disabled={disabled} style={{marginBottom:'20px'}}>Let's Go!</Button>
+          <Button onClick={()=>{createSes({user:user})}} disabled={disabled} style={{marginBottom:'20px'}}>Let's Go!</Button>
         {firstSubErr&&<h3 style={{color:'red', fontSize:'14px'}}>Please input a subject name</h3>}
         </Form>
       </Modal.Body>

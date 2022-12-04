@@ -7,7 +7,7 @@ import './SesSettings.css';
 import { Button, Form, Modal } from 'react-bootstrap';
 import {arrayUnion, doc,  getDoc, updateDoc} from 'firebase/firestore'
 import {db} from '../firebaseConfig';
-
+import Cookies from 'universal-cookie';
 
 
 
@@ -24,7 +24,8 @@ function SesSettings() {
   const [subj, setSub]=useState('');
   const [disabledM, setDisabledM]= useState(true)
   const [suberr, setSuberr]=useState(null);
-  const user= sessionStorage.getItem('useraidt');
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
   
   
   let subref=  doc(db,'Users',user,'Sessions','SubjectsList')

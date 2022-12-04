@@ -7,17 +7,20 @@ import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import {Button, Modal, Card, Row, Col,  Accordion, AccordionButton} from 'react-bootstrap';
-
+import Cookies from 'universal-cookie';
 
 
 
 function Dashboard() {
   
+
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
   
-  const user = sessionStorage.getItem('useraidt');
   const subRef=collection(db, 'Users',user,'Sessions');
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
   const [modalShow, setModalShow]=useState(false);
+  const [modalData, setModalData]= useState([]);
 
 
  const q = query(subRef,orderBy('time', 'desc'),limit(5));
@@ -87,7 +90,7 @@ function Dashboard() {
                 <div>
                   
                  
-                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true) }}  >
+                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}  >
                     <Row>
                       <Col xs={6} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime}</h3></Col>
@@ -114,17 +117,17 @@ function Dashboard() {
                     </Modal.Header>
                      <Modal.Body>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>
-                       <h4  style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px'}}>{modalData.subject}</h4>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Work Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} minutes</h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.WorkTime} minutes</h4>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}> Break Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime} minutes</h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.BreakTime} minutes</h4>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Date: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.time}</h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.time}</h4>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Rating: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{rec.rating}⭐</h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.rating}⭐</h4>
                        <h5 style={{fontWeight:'bold', fontSize:'20px'}}>Description:</h5>
-                       <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{rec.description}</p>
+                       <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                      </Modal.Body>
                      </Modal>
 

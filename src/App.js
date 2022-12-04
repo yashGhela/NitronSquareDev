@@ -15,14 +15,15 @@ import SignUp from './Pages/SignUp';
 import Trends from './Pages/Trends';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import Cookies from 'universal-cookie';
 
 
 
 
 function App() {
   
-const user =sessionStorage.getItem('useraidt');
+const cookies = new Cookies();
+const user =cookies.get('useraidt');
 
  
 

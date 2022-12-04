@@ -7,7 +7,7 @@ import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
 import { Button, Form, Modal } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
-
+import Cookies from 'universal-cookie';
 
 
 function Timer() {
@@ -20,7 +20,8 @@ function Timer() {
     const goSet=()=>{
       nav(`/SesSettings/${user}`);
     }
-    const user = sessionStorage.getItem('useraidt');
+    const cookie = new Cookies()
+    const user=cookie.get('useraidt')
     const subject= location.state.subject;
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
