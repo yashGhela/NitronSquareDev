@@ -23,12 +23,17 @@ function Login() {
 
   const signIn=()=>{
     setPersistence(auth,browserLocalPersistence).then(async ()=>{
-      const result = await signInWithPopup(auth, provider);
+      const result = await signInWithPopup(auth, provider)
       const ref = doc(db, 'Users', result.user.uid);
+ 
       const cookie = new Cookies();
-      cookie.set('useraidt', result.user.uid);
-      const user = cookie.get('useraidt');
-      nav(`/Dashboard/${user}`);})
+      cookie.set('useraidt', result.user.uid, {expires:  new Date(Date.now()+2592000)},);
+      
+      }).then(()=>{
+        const cookie = new Cookies();
+        const user = cookie.get('useraidt');
+      nav(`/Dashboard/${user}`);
+      })
     }
    
   
