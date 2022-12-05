@@ -7,6 +7,8 @@ import {auth} from '../firebaseConfig';
 import logo from '../Assets/LOGO clean.png'
 import {BoxArrowLeft} from 'react-bootstrap-icons'
 import { Button, Nav } from 'react-bootstrap';
+import Cookies from 'universal-cookie';
+
 
 function Sidebar({L1,L2,L3}) {
 
@@ -14,7 +16,8 @@ function Sidebar({L1,L2,L3}) {
 
   const LogOut=()=>{
     signOut(auth).then(()=>{
-      sessionStorage.clear();
+      const cookies = new Cookies();
+      const destroy = cookies.remove('useraidt')
       nav('/');
       
     })

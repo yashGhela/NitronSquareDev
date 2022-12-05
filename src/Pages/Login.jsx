@@ -22,17 +22,13 @@ function Login() {
   })
 
   const signIn=()=>{
-    setPersistence(auth,browserLocalPersistence).then(()=>{
-      return signInWithPopup(auth, provider).then(async(result)=>{
-        const ref = doc(db, 'Users', result.user.uid) 
-        
-        const cookie= new Cookies();
-        cookie.set('useraidt', result.user.uid);
-        const user=cookie.get('useraidt')
-        nav(`/Dashboard/${user}`)
-        
-        
-      })})
+    setPersistence(auth,browserLocalPersistence).then(async ()=>{
+      const result = await signInWithPopup(auth, provider);
+      const ref = doc(db, 'Users', result.user.uid);
+      const cookie = new Cookies();
+      cookie.set('useraidt', result.user.uid);
+      const user = cookie.get('useraidt');
+      nav(`/Dashboard/${user}`);})
     }
    
   
