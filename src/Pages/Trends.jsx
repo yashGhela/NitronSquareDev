@@ -11,7 +11,7 @@ import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-import { collection, getCountFromServer, query, QuerySnapshot, where } from 'firebase/firestore';
+import { collection, getCountFromServer, query, getDoc,doc, where, getDocs, QuerySnapshot } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useEffect } from 'react';
 
@@ -21,32 +21,65 @@ window.Chart = Chart
 function Trends() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
+ 
 
+ 
   const col = collection(db,'Users',user,'Sessions');
-  const q = query(col, where('subject', '==', 'Algebra'))
+
+
+  var labelsArray=[];
+  var dataArray=[];
+ 
+     getDocs(col).then((snapshot)=>{
+      snapshot.docs.forEach(doc=>{
+        var sub = doc.data();
+
+        var subject = sub.subject;
+        labelsArray.push(subject);
+
+        /*var count=async ()=>{getCountFromServer(col).then((QuerySnapshot)=>{
+          dataArray.push(count)
+
+        })}*/
+
+        var count= sub.WorkTime;
+        dataArray.push(count);
+      })
+    })
+
+ 
+  
+  /*const q = query(col, where('subject', '==', 'Algebra'))
   const snapshot=async()=>{ await getCountFromServer(q).then((QuerySnapshot)=>{
     console.log(QuerySnapshot.data().count)
   })} ;
 
-  useEffect(()=>{
-    snapshot();
+  
+  /*const docSnap = async()=>
+  
+  await getDoc(subref).then(docSnap=>{
+    let subData=[];
+    if(docSnap.exists()){
+      console.log(docSnap.data());
+      subData= docSnap.data().subjects 
+      
+      
+    }else{
+      console.log('null');
+    }
+    setSubjectList(subData)
+   
+    
   })
+*/
+  
+
 
   const [userData, setUserData] =useState({
-    labels: UserData.map((data)=> data.year) ,
+    labels: labelsArray ,
     datasets:[{
-      label: 'Users Gained',
-      data: UserData.map((data)=> data.userGain),
-      backgroundColor: [
-        'red',
-        'blue',
-        'green',
-        'yellow',
-        'orange'
-      ],
-     
-      
-
+      label: 'WorkTime',
+      data: dataArray,
     }]
   })
    
