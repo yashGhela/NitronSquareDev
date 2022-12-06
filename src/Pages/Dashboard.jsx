@@ -5,7 +5,7 @@ import {   useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
 import {Button, Modal, Card, Row, Col,  Accordion, AccordionButton} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
@@ -53,7 +53,8 @@ function Dashboard() {
         <Sidebar
         L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/${user}`)}><Speedometer/></Button>}
         L2={<Button variant='dark' onClick={()=>nav(`/Sessions/${user}`)}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}/>
+        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}
+        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/${user}`)}><Hr/></Button>}/>
         </div>
        
         

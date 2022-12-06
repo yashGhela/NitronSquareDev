@@ -10,7 +10,7 @@ import { Button, Nav } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Sidebar({L1,L2,L3}) {
+function Sidebar({L1,L2,L3,L4}) {
 
   let nav = useNavigate();
 
@@ -37,7 +37,10 @@ function Sidebar({L1,L2,L3}) {
       <Nav.Item style={{marginBottom:'20px'}}>
       {L3}
       </Nav.Item>
-      <Nav.Item style={{marginTop:'520px'}} >
+      <Nav.Item style={{marginBottom:'20px'}}>
+      {L4}
+      </Nav.Item>
+      <Nav.Item style={{marginTop:'420px'}} >
        <Button onClick={LogOut}><BoxArrowLeft/></Button>
       </Nav.Item>
     </Nav>

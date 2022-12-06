@@ -5,17 +5,33 @@ import {  useNavigate } from 'react-router-dom';
 import { UserData } from '../Util/Data';
 import Sidebar from '../Components/Sidebar'
 import BarChartT from '../Components/BarChart';
-import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart,Hr } from 'react-bootstrap-icons'
 import Chart from 'chart.js/auto';
 import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
+import { collection, getCountFromServer, query, QuerySnapshot, where } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+import { useEffect } from 'react';
 
 window.Chart = Chart
 
 
 function Trends() {
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
+
+  const col = collection(db,'Users',user,'Sessions');
+  const q = query(col, where('subject', '==', 'Algebra'))
+  const snapshot=async()=>{ await getCountFromServer(q).then((QuerySnapshot)=>{
+    console.log(QuerySnapshot.data().count)
+  })} ;
+
+  useEffect(()=>{
+    snapshot();
+  })
+
   const [userData, setUserData] =useState({
     labels: UserData.map((data)=> data.year) ,
     datasets:[{
@@ -34,8 +50,7 @@ function Trends() {
     }]
   })
    
-  const cookie = new Cookies()
-  const user=cookie.get('useraidt')
+
   let nav = useNavigate();
 
   
@@ -48,7 +63,8 @@ function Trends() {
       <Sidebar
         L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/${user}`)}><Speedometer/></Button>}
         L2={<Button variant='dark' onClick={()=>nav(`/Sessions/${user}`)}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}/>
+        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}
+        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/${user}`)}><Hr/></Button>}/>
         </div>
 
         <div className="bod">

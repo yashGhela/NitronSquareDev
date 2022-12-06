@@ -6,7 +6,7 @@ import { collection, orderBy, query} from 'firebase/firestore';
 import './Page.css';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
 import Cookies from 'universal-cookie';
 
@@ -42,7 +42,8 @@ function Sessions() {
       <Sidebar
        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/${user}`)}><Speedometer/></Button>}
        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/${user}`)}><CardText/></Button>}
-       L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}/>
+       L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}
+       L4={<Button variant='dark' onClick={()=>nav(`/Scopes/${user}`)}><Hr/></Button>}/>
 
 
 
