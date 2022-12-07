@@ -6,7 +6,7 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col,  Accordion, AccordionButton} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 

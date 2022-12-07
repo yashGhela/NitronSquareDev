@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Page.css';
 
 import {  useNavigate } from 'react-router-dom';
-import { UserData } from '../Util/Data';
+
 import Sidebar from '../Components/Sidebar'
 import BarChartT from '../Components/BarChart';
 import {Speedometer,CardText,BarChart,Hr } from 'react-bootstrap-icons'
@@ -11,9 +11,9 @@ import LineChart from '../Components/LineChart';
 import PieChart from '../Components/PieChart';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-import { collection, getCountFromServer, query, getDoc,doc, where, getDocs, QuerySnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import { useEffect } from 'react';
+
 
 window.Chart = Chart
 
@@ -37,41 +37,13 @@ function Trends() {
         var subject = sub.subject;
         labelsArray.push(subject);
 
-        /*var count=async ()=>{getCountFromServer(col).then((QuerySnapshot)=>{
-          dataArray.push(count)
-
-        })}*/
+       
 
         var count= sub.WorkTime;
         dataArray.push(count);
       })
     })
 
- 
-  
-  /*const q = query(col, where('subject', '==', 'Algebra'))
-  const snapshot=async()=>{ await getCountFromServer(q).then((QuerySnapshot)=>{
-    console.log(QuerySnapshot.data().count)
-  })} ;
-
-  
-  /*const docSnap = async()=>
-  
-  await getDoc(subref).then(docSnap=>{
-    let subData=[];
-    if(docSnap.exists()){
-      console.log(docSnap.data());
-      subData= docSnap.data().subjects 
-      
-      
-    }else{
-      console.log('null');
-    }
-    setSubjectList(subData)
-   
-    
-  })
-*/
   
 
 
@@ -119,7 +91,7 @@ function Trends() {
           
           </Card>
            <div style={{width:700, margin: '20px', display: 'flex'}}>
-           <BarChartT chartData={userData}/>
+           <BarChartT chartData={userData}/><br/>
            <LineChart chartData={userData}/>
            
            </div>

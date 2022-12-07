@@ -11,6 +11,10 @@ import Cookies from 'universal-cookie';
 function Login() {
   let nav= useNavigate();
 
+  const nextYear = new Date();
+
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+
   useEffect(()=>{
     const cookie= new Cookies()
     const user= cookie.get('useraidt')
@@ -27,7 +31,7 @@ function Login() {
       const ref = doc(db, 'Users', result.user.uid);
  
       const cookie = new Cookies();
-      cookie.set('useraidt', result.user.uid, {expires:  new Date(Date.now()+2592000)},);
+      cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
       
       }).then(()=>{
         const cookie = new Cookies();
