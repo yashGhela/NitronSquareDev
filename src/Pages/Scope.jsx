@@ -37,7 +37,7 @@ function Scope() {
            animation:'gradient 15s ease infinite'
             }}>
           <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Scopes</h1></Card.Title>
-          <Button onClick={()=>{nav(`/CreateScope/${user}`)}} variant='dark'>Create a New Scope</Button>
+          <Button onClick={()=>{nav(`/CreateScope/${user}`)}} variant='outline-light' style={{height:'60px', width:'120px' }}>Create a New Scope</Button>
           
         
         

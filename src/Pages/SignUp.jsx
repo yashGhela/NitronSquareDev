@@ -23,6 +23,11 @@ function SignUp() {
 
   let nav= useNavigate();
 
+  const nextYear = new Date();
+
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+
 
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
@@ -42,7 +47,7 @@ function SignUp() {
         
         const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
         
-        cookie.set('useraidt', result.user.uid);
+        cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'});
         
         
         setModalShow(true);
