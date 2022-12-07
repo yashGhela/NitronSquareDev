@@ -17,6 +17,7 @@ import Trends from './Pages/Trends';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookies from 'universal-cookie';
 import Scope from './Pages/Scope';
+import CreateScope from './Util/CreateScope';
 
 
 
@@ -50,6 +51,7 @@ const user =cookies.get('useraidt');
         <Route path={`/Timer/${user}`} element={<Timer/>}/>
         <Route path={`/Sessions/${user}`} element={<Sessions/>}/>
         <Route path={`/Scopes/${user}`} element={<Scope/>}/>
+        <Route path={`/CreateScope/${user}`} element={<CreateScope/>}/>
         
         </Route>
       </Routes>

@@ -26,9 +26,11 @@ function SignUp() {
 
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
+    const Scoperef= collection(db,'Users',user,'Scopes')
     
      // Adds a doc to the collection of Sessions and names it subjects with the description subjects
     await setDoc(doc(ref,'SubjectsList'),{subjects:[firstSub]});
+    await addDoc(Scoperef,{place:'placeholder'})
     const cuser=cookie.get('useraidt');
     nav(`/Dashboard/${cuser}`)
   }
@@ -37,8 +39,9 @@ function SignUp() {
     setPersistence(auth, browserLocalPersistence).then(()=>{
       return signInWithPopup(auth, provider).then(async(result)=>{
         const ref = doc(db, 'Users', result.user.uid)
+        
         const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
-       
+        
         cookie.set('useraidt', result.user.uid);
         
         

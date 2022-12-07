@@ -5,6 +5,14 @@
     background-color: rgb(41, 44, 51);
     height: 100vh;
 }
+.Page2{
+    padding: 0%;
+    margin: 0%;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(41, 44, 51);
+    height: 100vh;
+}
 
 .bod{
     margin-left: 80px;
