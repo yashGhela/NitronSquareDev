@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, getDoc } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore'
 import { useState } from 'react'
 
 
@@ -15,7 +15,7 @@ import { useState } from 'react'
 function Scope() {
 
   const [scopeList, setScopeList]= useState([]);
-  const [inctaskList, setIncTaskList]=useState([])
+  
   const[modalData, setModalData]=useState([]);
   const [modalShow, setModalShow] = useState(false);
     const nav=useNavigate();
@@ -39,6 +39,15 @@ function Scope() {
       });
     }, []);
 
+   const movetask=async({doc, task})=>{
+    await updateDoc(doc,{
+      incomplete: arrayRemove(task),
+      complete: arrayUnion(task)
+
+
+    });
+    
+   }
     
 
   return (
@@ -116,7 +125,7 @@ function Scope() {
                           return(
                             <div className="list">
                
-                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}}/>
+                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({doc:scop, task:inc})}}/>
                              <label style={{marginBottom: '5px'}}>{inc}</label><br/>
             
                             </div >
