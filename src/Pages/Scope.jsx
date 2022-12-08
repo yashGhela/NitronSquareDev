@@ -23,22 +23,7 @@ function Scope() {
     const user=cookie.get('useraidt')
     const subref= collection(db,'Users',user,'Scopes');
 
-    const docSnap = async({doc})=>
   
-    await getDoc(doc).then(docSnap=>{
-      let subData=[];
-      if(docSnap.exists()){
-        
-        subData= docSnap.data().incomplete 
-        
-        
-      }else{
-        console.log('null');
-      }
-      setIncTaskList(subData)
-     
-      
-    })
 
     useEffect(() => {  //loads all the tenants
     
@@ -53,6 +38,8 @@ function Scope() {
         
       });
     }, []);
+
+    
 
   return (
     <div className='Page'>
@@ -93,7 +80,7 @@ function Scope() {
             return(
               <div>
 
-                 <Card style={{width:'18rem', background:'black', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop); docSnap({doc: scop})}}>
+                 <Card style={{width:'18rem', background:'black', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>
                       <Card.Body>
                       <Card.Title>{scop.title}</Card.Title>
                        <Card.Text>
@@ -124,7 +111,8 @@ function Scope() {
                        <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
                        
                        <div className="mbod">
-                        {inctaskList.map((inc)=>{
+                       <h4 style={{fontWeight:'bold',}}>Incomplete tasks: </h4>
+                        {scop.incomplete.map((inc)=>{
                           return(
                             <div className="list">
                
