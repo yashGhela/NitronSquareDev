@@ -35,7 +35,7 @@ function SignUp() {
     
      // Adds a doc to the collection of Sessions and names it subjects with the description subjects
     await setDoc(doc(ref,'SubjectsList'),{subjects:[firstSub]});
-    await addDoc(Scoperef,{place:'placeholder'})
+    await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
     const cuser=cookie.get('useraidt');
     nav(`/Dashboard/${cuser}`)
   }

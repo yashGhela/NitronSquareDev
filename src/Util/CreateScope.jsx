@@ -25,7 +25,8 @@ function CreateScope() {
     await addDoc(subref, {
       title: title,
       description: description,
-      tasks: [taskList]
+      incomplete: taskList,
+      complete: []
     })
     nav(`/Dashboard/${user}`)
   }
@@ -46,17 +47,17 @@ function CreateScope() {
           <Form style={{width:'500px'}}> 
             <Form.Group>
               <Form.Label >Title:</Form.Label>
-              <Form.Control onChange={(e)=>{setTitle(e.target.value)}}/>
+              <Form.Control onChange={(e)=>{setTitle(e.target.value); if(e.target.value===''){setDisabled(true)}else{setDisabled(false)}}}/>
               <Form.Label>Description:</Form.Label>
               <Form.Control as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setDescritption(e.target.value)}} />
               <Form.Label>Add a Task</Form.Label>
-              <Form.Control onChange={(e)=>{setTask(e.target.value)}} style={{marginTop:'5px'}} value={task}/>
-              <Button onClick={()=>{setTaskList([...taskList,task]);console.log(taskList);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
+              <Form.Control onChange={(e)=>{setTask(e.target.value);if(taskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
+              <Button onClick={()=>{setTaskList([...taskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
               
             </Form.Group>
           </Form>
 
-          <Button onClick={()=>{setTaskList([...taskList,task]); addScope()}}>Finish</Button>
+          <Button onClick={()=>{setTaskList([...taskList,task]); addScope()}} disabled={disabled}>Finish</Button>
           </div>
 
         

@@ -1,14 +1,58 @@
 import React from 'react'
-import { Button , Card} from 'react-bootstrap'
+import { Button , Card, Modal} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
+import { db } from '../firebaseConfig'
+import { useEffect } from 'react'
+import { onSnapshot, collection, getDoc } from 'firebase/firestore'
+import { useState } from 'react'
+
+
+
 function Scope() {
+
+  const [scopeList, setScopeList]= useState([]);
+  const [inctaskList, setIncTaskList]=useState([])
+  const[modalData, setModalData]=useState([]);
+  const [modalShow, setModalShow] = useState(false);
     const nav=useNavigate();
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
+    const subref= collection(db,'Users',user,'Scopes');
+
+    const docSnap = async({doc})=>
+  
+    await getDoc(doc).then(docSnap=>{
+      let subData=[];
+      if(docSnap.exists()){
+        
+        subData= docSnap.data().incomplete 
+        
+        
+      }else{
+        console.log('null');
+      }
+      setIncTaskList(subData)
+     
+      
+    })
+
+    useEffect(() => {  //loads all the tenants
+    
+ 
+    
+ 
+      onSnapshot(subref, (snapshot) => {
+       setScopeList(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+        
+        
+      });
+    }, []);
 
   return (
     <div className='Page'>
@@ -42,6 +86,64 @@ function Scope() {
         
         
         </Card>
+
+        <div className="Scopes" style={{display:'flex', marginLeft:'20px'}}>
+
+          {scopeList.map((scop)=>{
+            return(
+              <div>
+
+                 <Card style={{width:'18rem', background:'black', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop); docSnap({doc: scop})}}>
+                      <Card.Body>
+                      <Card.Title>{scop.title}</Card.Title>
+                       <Card.Text>
+                            {scop.description}
+                       </Card.Text>
+                     </Card.Body>
+
+                   </Card>
+
+                   <Modal
+                      
+                      show={modalShow}
+                       size="lg"
+                       aria-labelledby="contained-modal-title-vcenter"
+                       onHide={()=>{setModalShow(false)}}
+                      
+                       
+                       centered>
+                    <Modal.Header closeButton>
+                    <Modal.Title  id="contained-modal-title-vcenter">
+                     Scope
+                    </Modal.Title>
+                    </Modal.Header>
+                     <Modal.Body>
+                       
+                       <h1  style={{fontWeight:'bold', }}>{modalData.title}</h1>
+                       <h4 style={{fontWeight:'bold',}}>Description: </h4>
+                       <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
+                       
+                       <div className="mbod">
+                        {inctaskList.map((inc)=>{
+                          return(
+                            <div className="list">
+               
+                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}}/>
+                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
+            
+                            </div >
+                          )
+                        })}
+                       </div>
+                     </Modal.Body>
+                     </Modal>
+
+                </div>
+
+
+            )
+          })}
+        </div>
 
 
         </div>
