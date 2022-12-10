@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Card, Modal} from 'react-bootstrap'
+import { Button , Card, Modal, Accordion} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -122,8 +122,13 @@ function Scope() {
                        <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
                        
                        <div className="mbod">
-                       <h4 style={{fontWeight:'bold',}}>Incomplete tasks: </h4>
-                        {modalData.incomplete?.map((inc)=>{
+                    
+                        <Accordion defaultActiveKey='0'>
+                          <Accordion.Item eventkey='0'>
+                            <Accordion.Header>Incomplete</Accordion.Header>
+                            <Accordion.Body>
+
+                               {modalData.incomplete?.map((inc)=>{
                           return(
                             <div className="list">
                
@@ -133,6 +138,37 @@ function Scope() {
                             </div >
                           )
                         })}
+                            </Accordion.Body>
+
+                          </Accordion.Item>
+
+
+                        </Accordion>
+
+                        <Accordion defaultActiveKey='0'>
+                          <Accordion.Item eventkey='0'>
+                            <Accordion.Header>Complete</Accordion.Header>
+                            <Accordion.Body>
+
+                               {modalData.complete?.map((inc)=>{
+                          return(
+                            <div className="list">
+               
+                            
+                             <li>
+                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
+                            
+                             </li>
+            
+                            </div >
+                          )
+                        })}
+                            </Accordion.Body>
+
+                          </Accordion.Item>
+
+                          </Accordion>
+
                        </div>
                      </Modal.Body>
                      </Modal>
