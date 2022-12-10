@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc } from 'firebase/firestore'
 import { useState } from 'react'
 
 
@@ -39,13 +39,15 @@ function Scope() {
       });
     }, []);
 
-   const movetask=async({doc, task})=>{
-    await updateDoc(doc,{
+   const movetask=async({id, task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
       incomplete: arrayRemove(task),
       complete: arrayUnion(task)
 
 
     });
+    console.log('moved!')
     
    }
     
@@ -89,7 +91,7 @@ function Scope() {
             return(
               <div>
 
-                 <Card style={{width:'18rem', background:'black', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>
+                 <Card style={{width:'18rem', background:'RGB(12, 12, 12)', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
                       <Card.Body>
                       <Card.Title>{scop.title}</Card.Title>
                        <Card.Text>
@@ -121,11 +123,11 @@ function Scope() {
                        
                        <div className="mbod">
                        <h4 style={{fontWeight:'bold',}}>Incomplete tasks: </h4>
-                        {scop.incomplete.map((inc)=>{
+                        {modalData.incomplete?.map((inc)=>{
                           return(
                             <div className="list">
                
-                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({doc:scop, task:inc})}}/>
+                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc})}}/>
                              <label style={{marginBottom: '5px'}}>{inc}</label><br/>
             
                             </div >
