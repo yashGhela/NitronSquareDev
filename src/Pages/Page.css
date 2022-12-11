@@ -60,3 +60,8 @@
     display: flex;
     flex-direction: column;
 }
+
+.special_modal .modal-content{
+    background-color: rgb(41, 44, 51);;
+    color: #fff;
+ }

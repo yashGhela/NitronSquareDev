@@ -21,14 +21,19 @@ function CreateScope() {
   const [taskList, setTaskList]= useState([]);
 
   const addScope=async()=>{
+    const current= new Date();
+    const day = current.getDate();
+    const month = current.getMonth()+1;
+    const year=current.getFullYear();
     const subref= collection(db,'Users',user,'Scopes');
     await addDoc(subref, {
       title: title,
       description: description,
       incomplete: taskList,
-      complete: []
+      complete: [],
+      date: `${year}/${month}/${day}`
     })
-    nav(`/Dashboard/${user}`)
+    nav(`/Scopes/${user}`)
   }
 
   return (

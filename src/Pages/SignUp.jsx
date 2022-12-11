@@ -83,6 +83,7 @@ function SignUp() {
        show={modalShow}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
+      className="special_modal"
       
       centered>
       <Modal.Header>

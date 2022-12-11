@@ -47,8 +47,16 @@ function Scope() {
 
 
     });
-    console.log('moved!')
     
+    
+   }
+
+   const movetaskBack=async({id,task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      incomplete: arrayUnion(task),
+      complete: arrayRemove(task)
+    })
    }
     
 
@@ -107,7 +115,7 @@ function Scope() {
                        size="lg"
                        aria-labelledby="contained-modal-title-vcenter"
                        onHide={()=>{setModalShow(false)}}
-                      
+                       className="special_modal"
                        
                        centered>
                     <Modal.Header closeButton>
@@ -123,7 +131,7 @@ function Scope() {
                        
                        <div className="mbod">
                     
-                        <Accordion defaultActiveKey='0'>
+                        <Accordion defaultActiveKey='0'  style={{backgroundColor: 'rgb(41, 44, 51)', marginBottom:'10px'}}>
                           <Accordion.Item eventkey='0'>
                             <Accordion.Header>Incomplete</Accordion.Header>
                             <Accordion.Body>
@@ -150,15 +158,15 @@ function Scope() {
                             <Accordion.Header>Complete</Accordion.Header>
                             <Accordion.Body>
 
-                               {modalData.complete?.map((inc)=>{
+                               {modalData.complete?.map((comp)=>{
                           return(
                             <div className="list">
                
                             
-                             <li>
-                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
+                             <input type="checkbox" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp})}}/>
+                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                             
-                             </li>
+                             
             
                             </div >
                           )

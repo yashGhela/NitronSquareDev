@@ -131,6 +131,7 @@ function SesSettings() {
       </div>
 
       <Modal
+      className="special_modal"
        show={modalShow}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"

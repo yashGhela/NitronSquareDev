@@ -87,6 +87,7 @@ function Sessions() {
                   </Card>
 
                   <Modal
+                  className="special_modal"
                       
                       show={modalShow}
                        size="lg"
