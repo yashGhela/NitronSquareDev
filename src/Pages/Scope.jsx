@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Card, Modal, Accordion} from 'react-bootstrap'
+import { Button , Card, Modal, Accordion, Col, Row, Container} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -33,7 +33,7 @@ function Scope() {
 
     }=usePagination(
       query(subref, orderBy('time,desc')),{
-        limit:20
+        limit:1
       }
     )
 
@@ -108,104 +108,107 @@ function Scope() {
         
         </Card>
 
-        <div className="Scopes" style={{display:'flex', marginLeft:'20px'}}>
+        <div className="Scopes" style={{display:'flex', marginLeft:'7px'}}>
 
+         <Container fluid={true}>
+          <Row >
           {scopeList.map((scop)=>{
             return(
-              <div>
+              <Col xs='2'  >
+                <div>
 
-                 <Card style={{width:'18rem', background:'RGB(12, 12, 12)', color:'white', marginRight:'20px', cursor:'pointer', height:'180px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
-                      <Card.Body>
-                      <Card.Title>{scop.title}</Card.Title>
-                       <Card.Text>
-                            {scop.description}
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'white',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
+                    <Card.Body>
+                     <Card.Title>{scop.title}</Card.Title>
+                      <Card.Text>
+                       {scop.description}
                        </Card.Text>
                      </Card.Body>
 
-                   </Card>
+                    </Card>
 
-                   <Modal
-                      
-                      show={modalShow}
-                       size="lg"
-                       aria-labelledby="contained-modal-title-vcenter"
-                       onHide={()=>{setModalShow(false)}}
-                       className="special_modal"
-                       
-                       centered>
-                    <Modal.Header closeButton>
-                    <Modal.Title  id="contained-modal-title-vcenter">
-                     Scope
-                    </Modal.Title>
-                    </Modal.Header>
-                     <Modal.Body>
-                       
-                       <h1  style={{fontWeight:'bold', }}>{modalData.title}</h1>
-                       <h4 style={{fontWeight:'bold',}}>Description: </h4>
-                       <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
-                       
-                       <div className="mbod">
+                  <Modal
                     
-                        <Accordion defaultActiveKey='0'  style={{backgroundColor: 'rgb(41, 44, 51)', marginBottom:'10px'}}>
-                          <Accordion.Item eventkey='0'>
-                            <Accordion.Header>Incomplete</Accordion.Header>
-                            <Accordion.Body>
+                    show={modalShow}
+                      size="lg"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      onHide={()=>{setModalShow(false)}}
+                      className="special_modal"
+                      
+                      centered>
+                  <Modal.Header closeButton>
+                  <Modal.Title  id="contained-modal-title-vcenter">
+                    Scope
+                  </Modal.Title>
+                  </Modal.Header>
+                    <Modal.Body>
+                      
+                      <h1  style={{fontWeight:'bold', }}>{modalData.title}</h1>
+                      <h4 style={{fontWeight:'bold',}}>Description: </h4>
+                      <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
+                      
+                      <div className="mbod">
+                  
+                      <Accordion defaultActiveKey='0'  style={{backgroundColor: 'rgb(41, 44, 51)', marginBottom:'10px'}}>
+                        <Accordion.Item eventkey='0'>
+                          <Accordion.Header>Incomplete</Accordion.Header>
+                          <Accordion.Body>
 
-                               {modalData.incomplete?.map((inc)=>{
-                          return(
-                            <div className="list">
-               
-                             <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc})}}/>
-                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
-            
-                            </div >
-                          )
-                        })}
-                            </Accordion.Body>
+                              {modalData.incomplete?.map((inc)=>{
+                        return(
+                          <div className="list">
 
-                          </Accordion.Item>
+                            <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc})}}/>
+                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
+                          </div >
+                        )
+                      })}
+                          </Accordion.Body>
+
+                        </Accordion.Item>
+
+
+                      </Accordion>
+
+                      <Accordion defaultActiveKey='0'>
+                        <Accordion.Item eventkey='0'>
+                          <Accordion.Header>Complete</Accordion.Header>
+                          <Accordion.Body>
+
+                              {modalData.complete?.map((comp)=>{
+                        return(
+                          <div className="list">
+
+                          
+                            <input type="checkbox" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp})}}/>
+                            <label style={{marginBottom: '5px'}}>{comp}</label><br/>
+                          
+                            
+
+                          </div >
+                        )
+                      })}
+                          </Accordion.Body>
+
+                        </Accordion.Item>
 
                         </Accordion>
 
-                        <Accordion defaultActiveKey='0'>
-                          <Accordion.Item eventkey='0'>
-                            <Accordion.Header>Complete</Accordion.Header>
-                            <Accordion.Body>
-
-                               {modalData.complete?.map((comp)=>{
-                          return(
-                            <div className="list">
-               
-                            
-                             <input type="checkbox" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp})}}/>
-                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
-                            
-                             
-            
-                            </div >
-                          )
-                        })}
-                            </Accordion.Body>
-
-                          </Accordion.Item>
-
-                          </Accordion>
-
-                       </div>
-                     </Modal.Body>
-                     </Modal>
+                      </div>
+                    </Modal.Body>
+                    </Modal>
 
                 </div>
+              </Col>
 
 
             )
           })}
+          </Row>
+         </Container>
         </div>
-        <div style={{marginLeft:'50%'}}>
-          <Button  variant='dark'  onClick={getPrev} disabled={isStart} style={{margin:'10px'}} >Previous </Button>
-          <Button variant='dark' onClick={getNext} disabled={isEnd}  style={{margin:'10px'}}>Next</Button>
-          </div>
+       
 
         </div>
     </div>
