@@ -7,8 +7,9 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy } from 'firebase/firestore'
 import { useState } from 'react'
+import { usePagination } from 'use-pagination-firestore';
 
 
 
@@ -22,6 +23,19 @@ function Scope() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     const subref= collection(db,'Users',user,'Scopes');
+
+    const {
+      items,
+      isStart,
+      isEnd,
+      getPrev,
+      getNext,
+
+    }=usePagination(
+      query(subref, orderBy('time,desc')),{
+        limit:20
+      }
+    )
 
   
 
@@ -188,7 +202,10 @@ function Scope() {
             )
           })}
         </div>
-
+        <div style={{marginLeft:'50%'}}>
+          <Button  variant='dark'  onClick={getPrev} disabled={isStart} style={{margin:'10px'}} >Previous </Button>
+          <Button variant='dark' onClick={getNext} disabled={isEnd}  style={{margin:'10px'}}>Next</Button>
+          </div>
 
         </div>
     </div>
