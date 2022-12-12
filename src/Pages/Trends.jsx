@@ -1,21 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './Page.css';
 
 import {  useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
-import BarChartT from '../Components/BarChart';
+
 import {Speedometer,CardText,BarChart,Hr } from 'react-bootstrap-icons'
-import Chart from 'chart.js/auto';
-import LineChart from '../Components/LineChart';
-import PieChart from '../Components/PieChart';
+
+
+import {
+  Chart as ChartJS,
+} from 'chart.js';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import { useEffect } from 'react';
+import { Bar, Chart, Line } from 'react-chartjs-2';
+import 'chart.js/auto'
 
 
-window.Chart = Chart
+
+window.Chart = ChartJS
 
 
 function Trends() {
@@ -24,39 +30,52 @@ function Trends() {
  
 
  
-  const col = collection(db,'Users',user,'Sessions');
+  const col = collection(db,'Users',user,'Scopes');
 
 
   var labelsArray=[];
   var dataArray=[];
  
-     getDocs(col).then((snapshot)=>{
+  const snap=async()=>{
+    await    getDocs(col).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
         var sub = doc.data();
 
-        var subject = sub.subject;
-        labelsArray.push(subject);
+        var title = sub.title;
+        labelsArray.push(title);
+        console.log(labelsArray)
+        
 
        
 
-        var count= sub.WorkTime;
+        var count= sub.incomplete;
         dataArray.push(count);
+        console.log(dataArray)
+    
       })
     })
+  }
 
   
 
 
-  const [userData, setUserData] =useState({
+  const userData ={
     labels: labelsArray ,
     datasets:[{
-      label: 'WorkTime',
-      data: dataArray,
-    }]
-  })
+      label: 'Incomplete',
+      data: dataArray
+    }]}
+
+
    
 
   let nav = useNavigate();
+
+  useEffect(()=>{
+    snap()
+  },[])
+  
+
 
   
   return (
@@ -91,8 +110,8 @@ function Trends() {
           
           </Card>
            <div style={{width:700, margin: '20px', display: 'flex'}}>
-           <BarChartT chartData={userData}/><br/>
-           <LineChart chartData={userData}/>
+           <Line data={userData}/>
+           <Bar data={userData}/>
            
            </div>
          
