@@ -18,6 +18,7 @@ import { db } from '../firebaseConfig';
 import { useEffect } from 'react';
 import { Bar, Chart, Line } from 'react-chartjs-2';
 import 'chart.js/auto'
+import { useState } from 'react';
 
 
 
@@ -27,44 +28,54 @@ window.Chart = ChartJS
 function Trends() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
- 
-
- 
-  const col = collection(db,'Users',user,'Scopes');
 
 
-  var labelsArray=[];
-  var dataArray=[];
  
-  const snap=async()=>{
-    await    getDocs(col).then((snapshot)=>{
+  const col = collection(db,'Users',user,'Sessions');
+
+
+  var labelsArrayC1=[];
+  var dataArrayC1=[];
+ 
+  const loadDataChart1=async()=>{
+    await getDocs(col).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
         var sub = doc.data();
 
-        var title = sub.title;
-        labelsArray.push(title);
-        console.log(labelsArray)
+        var title = sub.subject;
+        if(labelsArrayC1.includes(title)){
+          console.log('already added')
+        }else{
+          labelsArrayC1.push(title);
+        }
+        
+      
         
 
        
 
-        var count= sub.incomplete;
-        dataArray.push(count);
-        console.log(dataArray)
+        var count= sub.WorkTime;
+        dataArrayC1.push(count);
+        
+        
     
       })
+    
     })
+    setChartData({
+      labels: labelsArrayC1,
+      datasets:[{
+        label: 'WorkTime',
+        data: dataArrayC1
+      }]
+      
+    })
+  
   }
 
   
 
 
-  const userData ={
-    labels: labelsArray ,
-    datasets:[{
-      label: 'Incomplete',
-      data: dataArray
-    }]}
 
 
    
@@ -72,9 +83,19 @@ function Trends() {
   let nav = useNavigate();
 
   useEffect(()=>{
-    snap()
+    loadDataChart1()
   },[])
   
+   
+  const [userData,setChartData] = useState(
+    {
+      labels: labelsArrayC1,
+      datasets:[{
+        label: 'Incomplete',
+        data: dataArrayC1
+      }]
+    }
+  )
 
 
   
@@ -110,7 +131,7 @@ function Trends() {
           
           </Card>
            <div style={{width:700, margin: '20px', display: 'flex'}}>
-           <Line data={userData}/>
+           <Line data={userData} />
            <Bar data={userData}/>
            
            </div>

@@ -28,7 +28,7 @@ function SesSettings() {
   const user=cookie.get('useraidt')
   
   
-  let subref=  doc(db,'Users',user,'Sessions','SubjectsList')
+  let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
   
  
   const docSnap = async()=>

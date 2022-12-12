@@ -31,10 +31,12 @@ function SignUp() {
 
   const createSes=async({user})=>{
     const ref= collection(db,'Users',user,'Sessions');
+    const subref= collection(db, 'Users',user,'Subjects');
     const Scoperef= collection(db,'Users',user,'Scopes')
     
      // Adds a doc to the collection of Sessions and names it subjects with the description subjects
-    await setDoc(doc(ref,'SubjectsList'),{subjects:[firstSub]});
+    await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
+    await addDoc(ref,{subject: 'example', WorkTime: 45, BreakTime: 15, description:'this is an example session', rating:4, time:'example date'})
     await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
     const cuser=cookie.get('useraidt');
     nav(`/Dashboard/${cuser}`)
