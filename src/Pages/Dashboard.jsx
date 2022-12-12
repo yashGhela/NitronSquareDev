@@ -1,4 +1,4 @@
-import { collection, orderBy, query, limit, onSnapshot } from 'firebase/firestore';
+import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import {   useNavigate } from 'react-router-dom';
 
@@ -41,6 +41,13 @@ function Dashboard() {
  
 
   let nav = useNavigate();
+
+  const DeleteSes=async({id})=>{
+    const delref=doc(db, 'Users',user,'Sessions',id)
+    await deleteDoc(delref)
+    console.log('deleted');
+    setModalShow(false)
+  }
 
   
 
@@ -114,9 +121,10 @@ function Dashboard() {
                        onHide={()=>{setModalShow(false)}}
                        centered>
                     <Modal.Header closeButton>
-                    <Modal.Title  id="contained-modal-title-vcenter">
+                    <Modal.Title  id="contained-modal-title-vcenter" style={{marginRight:'70%'}}>
                      Session
                     </Modal.Title>
+                    <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                     </Modal.Header>
                      <Modal.Body>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>

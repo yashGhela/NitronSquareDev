@@ -1,7 +1,7 @@
 import React, { useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
-import { collection, orderBy, query} from 'firebase/firestore';
+import { collection, orderBy, query, doc, deleteDoc} from 'firebase/firestore';
 
 import './Page.css';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
@@ -33,6 +33,13 @@ function Sessions() {
         limit: 5
       }
     );
+
+    const DeleteSes=async({id})=>{
+      const delref=doc(db, 'Users',user,'Sessions',id)
+      await deleteDoc(delref)
+      console.log('deleted');
+      setModalShow(false)
+    }
 
 
   return (
@@ -95,9 +102,10 @@ function Sessions() {
                        onHide={()=>{setModalShow(false)}}
                        centered>
                     <Modal.Header closeButton>
-                    <Modal.Title  id="contained-modal-title-vcenter">
+                    <Modal.Title  id="contained-modal-title-vcenter" style={{marginRight:'70%'}}>
                      Session
                     </Modal.Title>
+                    <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                     </Modal.Header>
                      <Modal.Body>
                        <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>

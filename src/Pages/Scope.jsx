@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy, deleteDoc } from 'firebase/firestore'
 import { useState } from 'react'
 import { usePagination } from 'use-pagination-firestore';
 
@@ -73,6 +73,13 @@ function Scope() {
       complete: arrayRemove(task)
     })
    }
+
+   const DeleteSes=async({id})=>{
+    const delref=doc(db, 'Users',user,'Scopes',id)
+    await deleteDoc(delref)
+    console.log('deleted');
+    setModalShow(false)
+  }
     
 
   return (
@@ -136,10 +143,11 @@ function Scope() {
                       className="special_modal"
                       
                       centered>
-                  <Modal.Header closeButton>
-                  <Modal.Title  id="contained-modal-title-vcenter">
+                  <Modal.Header closeButton> 
+                  <Modal.Title  id="contained-modal-title-vcenter"  style={{marginRight:'70%'}}>
                     Scope
                   </Modal.Title>
+                  <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                   </Modal.Header>
                     <Modal.Body>
                       

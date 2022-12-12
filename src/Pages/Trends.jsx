@@ -45,8 +45,10 @@ function Trends() {
         var title = sub.subject;
         if(labelsArrayC1.includes(title)){
           console.log('already added')
+          dataArrayC1.push(sub.WorkTime)
         }else{
           labelsArrayC1.push(title);
+          
         }
         
       
@@ -70,6 +72,7 @@ function Trends() {
       }]
       
     })
+    
   
   }
 
@@ -89,10 +92,10 @@ function Trends() {
    
   const [userData,setChartData] = useState(
     {
-      labels: labelsArrayC1,
+      labels: ['loading'],
       datasets:[{
-        label: 'Incomplete',
-        data: dataArrayC1
+        label: 'loading',
+        data: null
       }]
     }
   )
