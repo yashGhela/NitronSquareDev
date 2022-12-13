@@ -17,7 +17,8 @@ function Sidebar({L1,L2,L3,L4}) {
   const LogOut=()=>{
     signOut(auth).then(()=>{
       const cookies = new Cookies();
-      const destroy = cookies.remove('useraidt')
+      cookies.remove('useraidt');
+      
       nav('/');
       
     })

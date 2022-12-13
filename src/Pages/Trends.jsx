@@ -43,11 +43,19 @@ function Trends() {
         var sub = doc.data();
 
         var title = sub.subject;
+        
         if(labelsArrayC1.includes(title)){
-          console.log('already added')
-          dataArrayC1.push(sub.WorkTime)
+          console.log(title)
+          const point=labelsArrayC1.findIndex(element=>element=title)
+          console.log(point)
+          
+          var wt=sub.WorkTime;
+          dataArrayC1[point]=dataArrayC1[point]+wt
+          //dataArrayC1.push(wt)
         }else{
           labelsArrayC1.push(title);
+          var count= sub.WorkTime;
+          dataArrayC1.push(count);
           
         }
         
@@ -56,8 +64,7 @@ function Trends() {
 
        
 
-        var count= sub.WorkTime;
-        dataArrayC1.push(count);
+        
         
         
     

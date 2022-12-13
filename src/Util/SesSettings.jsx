@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState } from 'react';
-import { onSnapshot } from 'firebase/firestore';
+
 import { useNavigate } from 'react-router-dom';
 import ReactSlider from 'react-slider';
 import './SesSettings.css';
@@ -8,6 +8,7 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import {arrayUnion, doc,  getDoc, updateDoc} from 'firebase/firestore'
 import {db} from '../firebaseConfig';
 import Cookies from 'universal-cookie';
+import { Arrow90degLeft } from 'react-bootstrap-icons';
 
 
 
@@ -160,7 +161,7 @@ function SesSettings() {
       </div>
       
       <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px', marginBottom:'10px' }} onClick={()=>{nav(`/Timer/${user}`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: subject}})}} disabled={disabled}> Start Your Session!</Button>
-      <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px'}}  onClick={()=>{nav(`/Dashboard/${user}`)}}> Back</Button>
+      <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px', marginTop:'18%'}}  onClick={()=>{nav(`/Dashboard/${user}`)}}> <Arrow90degLeft/></Button>
     </div>
   )
 }
