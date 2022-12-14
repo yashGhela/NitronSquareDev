@@ -54,6 +54,7 @@ function SesSettings() {
       subjects: arrayUnion(subj)
     });
     setModalShow(false);
+    window.location.reload();
   }
  
   
@@ -161,7 +162,7 @@ function SesSettings() {
       </div>
       
       <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px', marginBottom:'10px' }} onClick={()=>{nav(`/Timer/${user}`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: subject}})}} disabled={disabled}> Start Your Session!</Button>
-      <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px', marginTop:'18%'}}  onClick={()=>{nav(`/Dashboard/${user}`)}}> <Arrow90degLeft/></Button>
+      <Button variant='primary' style={{width:'100px', color:'white',marginLeft:'20px'}}  onClick={()=>{nav(`/Dashboard/${user}`)}}> <Arrow90degLeft/></Button>
     </div>
   )
 }

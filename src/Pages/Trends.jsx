@@ -50,8 +50,8 @@ function Trends() {
           console.log(point)
           
           var wt=sub.WorkTime;
-          dataArrayC1[point]=dataArrayC1[point]+wt
-          //dataArrayC1.push(wt)
+         
+          dataArrayC1.push(wt)
         }else{
           labelsArrayC1.push(title);
           var count= sub.WorkTime;
