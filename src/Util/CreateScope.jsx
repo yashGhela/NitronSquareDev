@@ -33,7 +33,7 @@ function CreateScope() {
       complete: [],
       date: `${year}/${month}/${day}`
     })
-    nav(`/Scopes/${user}`)
+    nav(`/Scopes/`)
   }
 
   return (

@@ -18,7 +18,7 @@ function Timer() {
     
     const nav=useNavigate();
     const goSet=()=>{
-      nav(`/SesSettings/${user}`);
+      nav(`/SesSettings/`);
     }
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
@@ -134,7 +134,7 @@ function Timer() {
 
 
   });
-  nav(`/Dashboard/${user}`)
+  nav(`/Dashboard/`)
 }
 
   return (

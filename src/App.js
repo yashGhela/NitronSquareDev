@@ -45,13 +45,13 @@ const user =cookies.get('useraidt');
         <Route path='/' element={<StartPage />}/>
      
         <Route path='/' element={<ProtectedRoutes/>}>
-        <Route path={`/Trends/${user}`} element={<Trends/>}/>
-        <Route path={`/Dashboard/${user}`} element={<Dashboard/>}/>
-        <Route path={`/SesSettings/${user}`} element={<SesSettings/>}/>
-        <Route path={`/Timer/${user}`} element={<Timer/>}/>
-        <Route path={`/Sessions/${user}`} element={<Sessions/>}/>
-        <Route path={`/Scopes/${user}`} element={<Scope/>}/>
-        <Route path={`/CreateScope/${user}`} element={<CreateScope/>}/>
+        <Route path={`/Trends/`} element={<Trends/>}/>
+        <Route path={`/Dashboard/`} element={<Dashboard/>}/>
+        <Route path={`/SesSettings/`} element={<SesSettings/>}/>
+        <Route path={`/Timer/`} element={<Timer/>}/>
+        <Route path={`/Sessions/`} element={<Sessions/>}/>
+        <Route path={`/Scopes/`} element={<Scope/>}/>
+        <Route path={`/CreateScope/`} element={<CreateScope/>}/>
         
         </Route>
       </Routes>

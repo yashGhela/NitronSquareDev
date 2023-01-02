@@ -58,10 +58,10 @@ function Dashboard() {
        
         <div className="navB">
         <Sidebar
-        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/${user}`)}><Speedometer/></Button>}
-        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/${user}`)}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav(`/Trends/${user}`)}><BarChart/></Button>}
-        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/${user}`)}><Hr/></Button>}/>
+        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/`)}><Speedometer/></Button>}
+        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/`)}><CardText/></Button>}
+        L3={<Button variant='dark' onClick={()=>nav(`/Trends/`)}><BarChart/></Button>}
+        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/`)}><Hr/></Button>}/>
         </div>
        
         
@@ -83,7 +83,7 @@ function Dashboard() {
               }}>
             <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Start A New Sessions</h1></Card.Title>
             
-          <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{nav(`/SesSettings/${user}`)}}>Lets Go!</Button>
+          <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{nav(`/SesSettings/`)}}>Lets Go!</Button>
           
           </Card>
          

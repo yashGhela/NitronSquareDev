@@ -39,7 +39,8 @@ function SignUp() {
     await addDoc(ref,{subject: 'example', WorkTime: 45, BreakTime: 15, description:'this is an example session', rating:4, time:'example date'})
     await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
     const cuser=cookie.get('useraidt');
-    nav(`/Dashboard/${cuser}`)
+    localStorage.setItem('isAuth', true)
+    nav(`/Dashboard/`)
   }
 
   const signUp=async ()=>{  //to put it simpy once a user signs up they'll be added to the database and then sent to add more subjects to sessions
@@ -53,6 +54,7 @@ function SignUp() {
         
         
         setModalShow(true);
+        
       })
     })
   }

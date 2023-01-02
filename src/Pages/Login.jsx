@@ -19,7 +19,7 @@ function Login() {
     const cookie= new Cookies()
     const user= cookie.get('useraidt')
     if(user){
-      nav(`/Dashboard/${user}`)
+      nav(`/Dashboard/`)
     }else{
       console.log('not logged in');
     }
@@ -32,12 +32,12 @@ function Login() {
  
       const cookie = new Cookies();
       cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+      localStorage.setItem('isAuth', true)
+      nav(`/Dashboard/`);
       
-      }).then(()=>{
-        const cookie = new Cookies();
-        const user = cookie.get('useraidt');
-      nav(`/Dashboard/${user}`);
       })
+      
+      
     }
    
   

@@ -15,7 +15,7 @@ function StartPage() {
     const cookie= new Cookies()
     const user= cookie.get('useraidt')
     if(user){
-      nav(`/Dashboard/${user}`)
+      nav(`/Dashboard/`)
     }else{
       console.log('not logged in');
     }
