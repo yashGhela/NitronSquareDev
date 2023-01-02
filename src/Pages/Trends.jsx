@@ -45,9 +45,9 @@ function Trends() {
         var title = sub.subject;
         
         if(labelsArrayC1.includes(title)){
-          console.log(title)
+          
           const point=labelsArrayC1.findIndex(element=>element=title)
-          console.log(point)
+      
           
           var wt=sub.WorkTime;
          
