@@ -1,4 +1,4 @@
-import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc } from 'firebase/firestore';
+import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import {   useNavigate } from 'react-router-dom';
 
@@ -6,9 +6,9 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col,  ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-
+import ReactSlider from 'react-slider';
 
 
 function Dashboard() {
@@ -21,12 +21,51 @@ function Dashboard() {
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
   const [modalShow, setModalShow]=useState(false);
   const [modalData, setModalData]= useState([]);
+  
+  
+  
+  const [gomodalShow, setGoModalShow] = useState(false)
+  const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
+  const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
+  const [subject, setSubject] = useState('');//sets the subject for the user
+  const [subjectList, setSubjectList] =useState([]);
+  const [subj, setSub]=useState('');
+  const [suberr, setSuberr]=useState(null);
+  const [disabled, setDisabled]=useState(true);
+  const [checked, setChecked]=useState('false');
+ 
+  let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
+  
+ 
+  const docSnap = async()=>
+  
+  await getDoc(subref).then(docSnap=>{
+    let subData=[];
+    if(docSnap.exists()){
+      
+      subData= docSnap.data().subjects 
+      
+      
+    }else{
+      console.log('null');
+    }
+    setSubjectList(subData)
+    console.log(subjectList)
+    
+  })
 
+  const newSub=async()=>{
+    await updateDoc(subref, {
+      subjects: arrayUnion(subj)
+    });
+    setModalShow(false);
+    window.location.reload();
+  }
  
  const q = query(subRef,orderBy('time', 'desc'),limit(5));
 
 
- useEffect(() => {  //loads all the tenants
+ useEffect(() => {  //loads all the 
     
  
  
@@ -37,6 +76,7 @@ function Dashboard() {
     
     
   });
+  docSnap();
 }, []);
  
 
@@ -69,11 +109,12 @@ function Dashboard() {
        
         <div className="bod">
         
-          <Card style={{
+         <div className="top">
+         <Card style={{
             width:'93vw',
              margin:'20px',
-             height:'250px',
-             backgroundImage:'linear-gradient(-45deg ,rgb(163, 207, 137) ,rgb(182, 95, 177), rgb(238, 168, 103))',
+             height:'150px',
+             backgroundColor:'rgb(97, 149, 232)',
              backgroundSize:'400% 400%',
              textAlign:'center',
              alignItems:'center',
@@ -81,17 +122,91 @@ function Dashboard() {
              padding:' 10px',
              animation:'gradient 15s ease infinite'
               }}>
-            <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Start A New Sessions</h1></Card.Title>
+            <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Start A New Session</h1></Card.Title>
             
-          <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{nav(`/SesSettings/`)}}>Lets Go!</Button>
+          <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{setGoModalShow(true)}}>Lets Go!</Button>
           
           </Card>
+
+          <Modal
+            className="special_modal"
+            breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+            minBreakpoint="xxs"
+              show={gomodalShow}
+               size="lg"
+               aria-labelledby="contained-modal-title-vcenter"
+               onHide={()=>{setGoModalShow(false)}}
+               centered>
+                <Modal.Header closeButton>
+           <Modal.Title>
+            Test
+           </Modal.Title>
+          </Modal.Header>
+        
+                  
+                  <label style={{marginLeft:'10px'}}>Work Minutes: {workMinutes}:00</label>
+              <ReactSlider 
+              className='slider'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={workMinutes}
+              onChange={newValue => setWorkMinutes(newValue)}
+              min={1}
+              max={120}
+              
+              
+              />
+            
+
+            <label style={{marginLeft:'10px'}}>Break Minutes: {breakMinutes}:00</label>
+              
+              <ReactSlider 
+              className='slider green'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={breakMinutes}
+              onChange={newValue => setBreakMinutes(newValue)}
+              min={1}
+              max={120}
+              
+              
+              />
+
+             
+             <div className="list" style={{display:'inline', marginLeft:'10px'}}>
+             {subjectList.map((sub)=>{
+              
+              return(
+                <ToggleButton 
+                type="checkbox"
+                 value={sub} 
+                 variant="secondary"
+                 checked={checked}
+                 onChange={(e)=>{setSubject(e.target.value); setChecked(true); if(e.target.checked){setDisabled(false)} else{setDisabled(true)};}} style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                  {sub}
+                </ToggleButton>
+              )
+            
+            })}
+             </div>
+
+              <Modal.Footer>
+                <Button disabled={disabled}>GO!</Button>
+              </Modal.Footer>
+     
+
          
+          
+
+          </Modal>
+          
+         
+         </div>
 
          
         
-        <div className="Recent">
-          <h1 >Recent Sessions:</h1>
+        <div className="Recent" >
+          <h3 style={{marginBottom:'10px'}}>Recent Sessions:</h3>
          
             {recsesList.map((rec)=>{
               return(
