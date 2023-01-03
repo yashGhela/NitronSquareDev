@@ -116,10 +116,10 @@ function Trends() {
 
       <div className="navB">
       <Sidebar
-        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/`)}><Speedometer/></Button>}
-        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/`)}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav(`/Trends/`)}><BarChart/></Button>}
-        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/`)}><Hr/></Button>}/>
+        L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><CardText style={{color:'white'}}/></Button>}
+        L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Hr style={{color:'white'}}/></Button>}/>
         </div>
 
         <div className="bod">

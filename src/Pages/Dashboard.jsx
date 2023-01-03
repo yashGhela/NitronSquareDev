@@ -58,10 +58,10 @@ function Dashboard() {
        
         <div className="navB">
         <Sidebar
-        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/`)}><Speedometer/></Button>}
-        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/`)}><CardText/></Button>}
-        L3={<Button variant='dark' onClick={()=>nav(`/Trends/`)}><BarChart/></Button>}
-        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/`)}><Hr/></Button>}/>
+        L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><CardText style={{color:'white'}}/></Button>}
+        L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Hr style={{color:'white'}}/></Button>}/>
         </div>
        
         
@@ -99,7 +99,11 @@ function Dashboard() {
                 <div>
                   
                  
-                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}  >
+                  <Card 
+                  style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} 
+                  onClick={()=>{setModalShow(true); setModalData(rec) }}  
+                  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+                  minBreakpoint="xxs">
                     <Row>
                       <Col xs={6} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime}</h3></Col>
@@ -114,7 +118,8 @@ function Dashboard() {
 
                     <Modal
                     className="special_modal"
-                      
+                    breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+                    minBreakpoint="xxs"
                       show={modalShow}
                        size="lg"
                        aria-labelledby="contained-modal-title-vcenter"

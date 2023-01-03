@@ -25,11 +25,11 @@ function Sidebar({L1,L2,L3,L4}) {
     
   }
   return (
- <div className='Sidebar'>
+ <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px'}}>
   <img src={logo} alt="" style={{height:'40px', width:'40px'}}/>
    <div style={{marginTop: '150px',}}>
    <Nav >
-      <Nav.Item style={{marginBottom:'20px'}}>
+      <Nav.Item style={{marginBottom:'20px'}} >
        {L1}
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
@@ -41,8 +41,8 @@ function Sidebar({L1,L2,L3,L4}) {
       <Nav.Item style={{marginBottom:'20px'}}>
       {L4}
       </Nav.Item>
-      <Nav.Item style={{marginTop:'47vh', marginBottom:'5vh'}} >
-       <Button onClick={LogOut}><BoxArrowLeft/></Button>
+      <Nav.Item style={{marginTop:'47vh'}} >
+       <Button onClick={LogOut}  variant='light-outline'><BoxArrowLeft style={{color:'white'}}/></Button>
       </Nav.Item>
     </Nav>
    </div>
