@@ -99,7 +99,7 @@ function Dashboard() {
                 <div>
                   
                  
-                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}  >
+                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}  >
                     <Row>
                       <Col xs={6} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime}</h3></Col>

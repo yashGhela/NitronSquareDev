@@ -46,12 +46,15 @@ function Sessions() {
     
 
     <div className='Page'>
-      <Sidebar
+   
+     <Sidebar
        L1={<Button variant='dark' onClick={()=>nav(`/Dashboard/`)}><Speedometer/></Button>}
        L2={<Button variant='dark' onClick={()=>nav(`/Sessions/`)}><CardText/></Button>}
        L3={<Button variant='dark' onClick={()=>nav(`/Trends/`)}><BarChart/></Button>}
        L4={<Button variant='dark' onClick={()=>nav(`/Scopes/`)}><Hr/></Button>}/>
+       
 
+   
 
 
         <div className="bod1">
@@ -79,7 +82,7 @@ function Sessions() {
           {items.map((rec)=>{
               return(
                 <div>
-                  <Card style={{background:'black' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
+                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>

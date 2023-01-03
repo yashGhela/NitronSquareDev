@@ -41,7 +41,7 @@ function Sidebar({L1,L2,L3,L4}) {
       <Nav.Item style={{marginBottom:'20px'}}>
       {L4}
       </Nav.Item>
-      <Nav.Item style={{marginTop:'420px'}} >
+      <Nav.Item style={{marginTop:'47vh', marginBottom:'5vh'}} >
        <Button onClick={LogOut}><BoxArrowLeft/></Button>
       </Nav.Item>
     </Nav>
