@@ -8,7 +8,7 @@ import NotFound from './Pages/notFound';
 
 import StartPage from './Pages/StartPage';
 import ProtectedRoutes from './ProtectedRoutes';
-import SesSettings from './Util/SesSettings';
+
 import Timer from './Util/Timer';
 import SignUp from './Pages/SignUp';
 
@@ -47,7 +47,7 @@ const user =cookies.get('useraidt');
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path={`/Trends/`} element={<Trends/>}/>
         <Route path={`/Dashboard/`} element={<Dashboard/>}/>
-        <Route path={`/SesSettings/`} element={<SesSettings/>}/>
+        
         <Route path={`/Timer/`} element={<Timer/>}/>
         <Route path={`/Sessions/`} element={<Sessions/>}/>
         <Route path={`/Scopes/`} element={<Scope/>}/>

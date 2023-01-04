@@ -1,14 +1,15 @@
 import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
-import {   useNavigate } from 'react-router-dom';
+import {    useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col,  ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col,  Form} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
+import '../Util/SesSettings.css'
 
 
 function Dashboard() {
@@ -24,7 +25,8 @@ function Dashboard() {
   
   
   
-  const [gomodalShow, setGoModalShow] = useState(false)
+  const [gomodalShow, setGoModalShow] = useState(false);
+  const [modalAdd, setModalAdd]= useState(false);
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   const [subject, setSubject] = useState('');//sets the subject for the user
@@ -139,12 +141,14 @@ function Dashboard() {
                centered>
                 <Modal.Header closeButton>
            <Modal.Title>
-            Test
+            Configure your Session
            </Modal.Title>
           </Modal.Header>
         
                   
-                  <label style={{marginLeft:'10px'}}>Work Minutes: {workMinutes}:00</label>
+              <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
+                <h4>Select Your Times:</h4>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
@@ -158,7 +162,7 @@ function Dashboard() {
               />
             
 
-            <label style={{marginLeft:'10px'}}>Break Minutes: {breakMinutes}:00</label>
+            <label style={{marginLeft:'20px'}}>Break Minutes: {breakMinutes}:00</label>
               
               <ReactSlider 
               className='slider green'
@@ -167,32 +171,38 @@ function Dashboard() {
               value={breakMinutes}
               onChange={newValue => setBreakMinutes(newValue)}
               min={1}
+              
               max={120}
               
               
               />
+              </div>
 
              
-             <div className="list" style={{display:'inline', marginLeft:'10px'}}>
+             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center'}}>
+              <h4 style={{placeItems:'center', fontSize:'20px'}}>Choose or add a subject</h4>
+              <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
+                <Form.Control placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
+                <Button disabled={disabled} onClick={newSub}>Add</Button>
+              </Form>
+             
              {subjectList.map((sub)=>{
               
               return(
-                <ToggleButton 
+                <Button 
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                 checked={checked}
-                 onChange={(e)=>{setSubject(e.target.value); setChecked(true); if(e.target.checked){setDisabled(false)} else{setDisabled(true)};}} style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                
+                 onClick={(e)=>{setSubject(e.target.value); nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
-                </ToggleButton>
+                </Button>
               )
             
             })}
              </div>
 
-              <Modal.Footer>
-                <Button disabled={disabled}>GO!</Button>
-              </Modal.Footer>
+              
      
 
          

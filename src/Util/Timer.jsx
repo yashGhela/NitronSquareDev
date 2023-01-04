@@ -13,13 +13,11 @@ import Cookies from 'universal-cookie';
 function Timer() {
   
    const location = useLocation();
-    const purple= '#8165BA';
+    const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
     
     const nav=useNavigate();
-    const goSet=()=>{
-      nav(`/SesSettings/`);
-    }
+    
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     const subject= location.state.subject;
@@ -149,7 +147,7 @@ function Timer() {
     <div style={{display:'flex', alignItems:'center', margin:'10px'}}>
     {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
-    <Button  onClick={goSet} style={{margin:'10px'}} variant='dark'>Settings</Button>
+    <Button  style={{margin:'10px'}} variant='dark'>Settings</Button>
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
     </div>
     <Modal
