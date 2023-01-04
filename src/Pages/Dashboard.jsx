@@ -26,15 +26,15 @@ function Dashboard() {
   
   
   const [gomodalShow, setGoModalShow] = useState(false);
-  const [modalAdd, setModalAdd]= useState(false);
+ 
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
-  const [subject, setSubject] = useState('');//sets the subject for the user
+  
   const [subjectList, setSubjectList] =useState([]);
   const [subj, setSub]=useState('');
-  const [suberr, setSuberr]=useState(null);
+
   const [disabled, setDisabled]=useState(true);
-  const [checked, setChecked]=useState('false');
+ 
  
   let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
   
@@ -147,7 +147,7 @@ function Dashboard() {
         
                   
               <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
-                <h4>Select Your Times:</h4>
+                <h4 >Select Your Times:</h4>
               <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
               className='slider'
@@ -194,7 +194,7 @@ function Dashboard() {
                  value={sub} 
                  variant="secondary"
                 
-                 onClick={(e)=>{setSubject(e.target.value); nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
               )
@@ -216,7 +216,7 @@ function Dashboard() {
          
         
         <div className="Recent" >
-          <h3 style={{marginBottom:'10px'}}>Recent Sessions:</h3>
+          <h3 style={{marginBottom:'10px', fontSize:'23px'}}>Recent Sessions:</h3>
          
             {recsesList.map((rec)=>{
               return(
