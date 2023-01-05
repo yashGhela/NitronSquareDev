@@ -52,7 +52,7 @@ function Dashboard() {
       console.log('null');
     }
     setSubjectList(subData)
-    console.log(subjectList)
+   
     
   })
 
