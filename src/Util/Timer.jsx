@@ -8,6 +8,7 @@ import useSound from 'use-sound';
 import { Button, Form, Modal } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
+import Quickbar from '../Components/Quickbar';
 
 
 function Timer() {
@@ -137,19 +138,24 @@ function Timer() {
 
   return (
    
-    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh'}}>
+    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh', display:'flex', paddingTop:'20px'}}>
+      <div className="quickBar">
+    <Quickbar/>
+  </div>
+      
       <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
     <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     
     })}/>
-    <div style={{display:'flex', alignItems:'center', margin:'10px'}}>
+    <div style={{display:'flex', placeItems:'center', margin:'10px'}}>
     {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
     
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
     </div>
+    
     <Modal
        show={modalShow}
       size="lg"
@@ -189,7 +195,8 @@ function Timer() {
 
    
   </div>
-    </div>
+  
+  </div>
   )
 }
 
