@@ -9,10 +9,13 @@ import { Button, Form, Modal } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
+import { BarChart, Bullseye, MusicNoteBeamed, Stopwatch } from 'react-bootstrap-icons';
 
 
 function Timer() {
   
+
+  //basic use 
    const location = useLocation();
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
@@ -27,9 +30,19 @@ function Timer() {
     
     const [description, setDescription]=useState('');
     
+ 
+    //This code is for location and navigation, no timer logic
+
+
+    //Quickbar code
+    const [mediaShow, setMediaShow]= useState(false);
+    const [trendShow, setTrendShow] = useState(false);
+    const [scopeShow, setScopeShow] = useState(false);
+    const [timerShow, setTimerShow] = useState(false);
+
 
    
-   //This code is for location and navigation, no timer logic
+   
 
    //Timer code
    
@@ -140,16 +153,21 @@ function Timer() {
    
     <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh', display:'flex', paddingTop:'20px'}}>
       <div className="quickBar">
-    <Quickbar/>
+    <Quickbar
+      L1={<Button  variant='light-outline'><MusicNoteBeamed style={{color:'white', }}/></Button>}
+      L2={<Button  variant='light-outline'><Stopwatch style={{color:'white', }}/></Button>}
+      L3={<Button  variant='light-outline'><BarChart style={{color:'white', }}/></Button>}
+      L4={<Button  variant='light-outline'><Bullseye style={{color:'white', }}/></Button>}
+    />
   </div>
       
-      <div className='Timer' style={{width:'800px', marginLeft:'550px',alignItems:'center'}}>
+      <div className='Timer' style={{width:'700px', marginLeft:'550px',alignItems:'center', marginTop:'75px', placeItems: 'center'}}>
     <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     
     })}/>
-    <div style={{display:'flex', placeItems:'center', margin:'10px'}}>
+    <div style={{display:'flex', placeItems:'center', margin:'10px', marginLeft:'250px', marginTop:'50px'}}>
     {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
     

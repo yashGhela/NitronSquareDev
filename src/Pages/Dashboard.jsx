@@ -5,7 +5,7 @@ import {    useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye } from 'react-bootstrap-icons'
 import {Button, Modal, Card, Row, Col,  Form} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
@@ -101,9 +101,9 @@ function Dashboard() {
         <div className="navB">
         <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><CardText style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Hr style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
         </div>
        
         

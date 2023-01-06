@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 
-import {Speedometer,CardText,BarChart,Hr } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye } from 'react-bootstrap-icons'
 
 
 import {
@@ -117,9 +117,9 @@ function Trends() {
       <div className="navB">
       <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><CardText style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Hr style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
         </div>
 
         <div className="bod">

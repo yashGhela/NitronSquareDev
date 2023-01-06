@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button , Card, Modal, Accordion, Col, Row, Container} from 'react-bootstrap'
-import {Speedometer,CardText,BarChart } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Journals, Bullseye } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import Cookies from 'universal-cookie'
@@ -88,9 +88,9 @@ function Scope() {
          <div className="navB">
          <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><CardText style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Hr style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
         
          </div>
 
