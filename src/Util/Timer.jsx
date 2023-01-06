@@ -5,11 +5,11 @@ import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
 import useSound from 'use-sound';
-import { Button, Form, Modal } from 'react-bootstrap';
+import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, Bullseye, MusicNoteBeamed, Stopwatch } from 'react-bootstrap-icons';
+import { BarChart, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 
 
 function Timer() {
@@ -226,6 +226,16 @@ function Timer() {
         Media
       </Modal.Header>
       <Modal.Body>
+        <Row style={{marginBottom:'20px'}}>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Water style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><CloudDrizzle style={{height:'50px', width:'50px'}}/></Button></Col>
+        </Row>
+        <Row>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Moon style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Wind style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Fire style={{height:'50px', width:'50px'}}/></Button></Col>
+        </Row>
 
       </Modal.Body>
 
