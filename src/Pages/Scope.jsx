@@ -143,7 +143,7 @@ function Scope() {
                       className="special_modal"
                       
                       centered>
-                  <Modal.Header closeButton> 
+                  <Modal.Header closeButton closeVariant='white'> 
                   <Modal.Title  id="contained-modal-title-vcenter"  style={{marginRight:'70%'}}>
                     Scope
                   </Modal.Title>

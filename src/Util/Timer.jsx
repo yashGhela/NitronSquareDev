@@ -154,10 +154,10 @@ function Timer() {
     <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh', display:'flex', paddingTop:'20px'}}>
       <div className="quickBar">
     <Quickbar
-      L1={<Button  variant='light-outline'><MusicNoteBeamed style={{color:'white', }}/></Button>}
-      L2={<Button  variant='light-outline'><Stopwatch style={{color:'white', }}/></Button>}
-      L3={<Button  variant='light-outline'><BarChart style={{color:'white', }}/></Button>}
-      L4={<Button  variant='light-outline'><Bullseye style={{color:'white', }}/></Button>}
+      L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
+      L2={<Button  variant='light-outline'  onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
+      L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true)}}><BarChart style={{color:'white', }}/></Button>}
+      L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
     />
   </div>
       
@@ -181,7 +181,7 @@ function Timer() {
       onHide={()=>setModalShow(false)}
       
       centered>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton closeVariant='white'>
         <Modal.Title  id="contained-modal-title-vcenter">
          Time to Add Your Session!
         </Modal.Title>
@@ -212,6 +212,73 @@ function Timer() {
     </Modal>
 
    
+  </div>
+
+  <div className="QuickBarModals" style={{float:'left'}}>
+   <div className="media">
+   <Modal className='special_modal'
+     show={mediaShow}
+     onHide={()=>{setMediaShow(false)}}
+     centered
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Media
+      </Modal.Header>
+      <Modal.Body>
+
+      </Modal.Body>
+
+    </Modal>
+   </div>
+   <div className="time">
+   <Modal className='special_modal'
+     show={timerShow}
+     onHide={()=>{setTimerShow(false)}}
+     
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Timer
+      </Modal.Header>
+      <Modal.Body>
+
+      </Modal.Body>
+
+    </Modal>
+   </div>
+   <div className="chart">
+   <Modal className='special_modal'
+     show={trendShow}
+     onHide={()=>{setTrendShow(false)}}
+     
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Quick Trends
+      </Modal.Header>
+      <Modal.Body>
+
+      </Modal.Body>
+
+    </Modal>
+   </div>
+   <div className="scopes">
+   <Modal className='special_modal'
+     show={scopeShow}
+     onHide={()=>{setScopeShow(false)}}
+     
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Quick Scopes
+      </Modal.Header>
+      <Modal.Body>
+
+      </Modal.Body>
+
+    </Modal>
+   </div>
   </div>
   
   </div>

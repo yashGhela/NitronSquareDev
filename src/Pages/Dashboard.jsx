@@ -139,7 +139,7 @@ function Dashboard() {
                aria-labelledby="contained-modal-title-vcenter"
                onHide={()=>{setGoModalShow(false)}}
                centered>
-                <Modal.Header closeButton>
+                <Modal.Header closeButton closeVariant='white'>
            <Modal.Title>
             Configure your Session
            </Modal.Title>
@@ -250,7 +250,7 @@ function Dashboard() {
                        aria-labelledby="contained-modal-title-vcenter"
                        onHide={()=>{setModalShow(false)}}
                        centered>
-                    <Modal.Header closeButton>
+                    <Modal.Header closeButton closeVariant='white'>
                     <Modal.Title  id="contained-modal-title-vcenter" style={{marginRight:'70%'}}>
                      Session
                     </Modal.Title>
