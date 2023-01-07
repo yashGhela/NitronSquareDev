@@ -159,7 +159,8 @@ function Timer() {
         return;
       }if(modeRef.current==='work' && secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode();
-       
+        let alarm= new Audio(AlarmS);
+        alarm.play()
         
       }if(modeRef.current==='break'&&secondsLeftRef.current===0){
         setIsPaused(true);
