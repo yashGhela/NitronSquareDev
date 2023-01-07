@@ -163,7 +163,8 @@ function Timer() {
         
       }if(modeRef.current==='break'&&secondsLeftRef.current===0){
         setIsPaused(true);
-        AlarmSound()
+        let alarm= new Audio(AlarmS);
+        alarm.play()
         
         isPausedRef.current= true;
         setDisabled(true);
