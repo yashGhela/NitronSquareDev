@@ -10,6 +10,13 @@ import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
 import { BarChart, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
+import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
+import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
+import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
+import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
+import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
+import AlarmS from '../Assets/Alarm.mp3'
 
 
 function Timer() {
@@ -39,6 +46,52 @@ function Timer() {
     const [trendShow, setTrendShow] = useState(false);
     const [scopeShow, setScopeShow] = useState(false);
     const [timerShow, setTimerShow] = useState(false);
+
+    
+    
+
+    const treeSound=()=>{
+      let tree= new Audio(treeS);
+      tree.play()
+      tree.loop=true;
+    }
+
+    const OceanSound=()=>{
+      let ocean= new Audio(seaS)
+      ocean.play();
+      ocean.loop=true;
+    }
+    
+    const RainSound=()=>{
+      let rain= new Audio(RainS)
+      rain.play();
+      rain.loop=true;
+    }
+    
+    const NightSound=()=>{
+      let night= new Audio(NightS);
+      night.play();
+      night.loop=true
+    }
+    
+    const WindSound=()=>{
+      let wind= new Audio(WindS);
+      wind.play();
+      wind.loop=true
+    }
+    
+    const FireSound=()=>{
+      let fire=new Audio(FireS);
+      fire.play();
+      fire.loop=true
+      
+    }
+
+    const AlarmSound=()=>{
+      let alarm= new Audio(AlarmS);
+      alarm.play()
+
+    }
 
 
    
@@ -110,6 +163,7 @@ function Timer() {
         
       }if(modeRef.current==='break'&&secondsLeftRef.current===0){
         setIsPaused(true);
+        AlarmSound()
         
         isPausedRef.current= true;
         setDisabled(true);
@@ -179,9 +233,9 @@ function Timer() {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       onHide={()=>setModalShow(false)}
-      
+      className='special_modal'
       centered>
-      <Modal.Header closeButton closeVariant='white'>
+      <Modal.Header closeButton closeVariant='white' >
         <Modal.Title  id="contained-modal-title-vcenter">
          Time to Add Your Session!
         </Modal.Title>
@@ -227,14 +281,14 @@ function Timer() {
       </Modal.Header>
       <Modal.Body>
         <Row style={{marginBottom:'20px'}}>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Water style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><CloudDrizzle style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={treeSound}><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={OceanSound}><Water style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={RainSound}><CloudDrizzle style={{height:'50px', width:'50px'}}/></Button></Col>
         </Row>
         <Row>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Moon style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Wind style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}}><Fire style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={NightSound}><Moon style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={WindSound}><Wind style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={FireSound}><Fire style={{height:'50px', width:'50px'}}/></Button></Col>
         </Row>
 
       </Modal.Body>
