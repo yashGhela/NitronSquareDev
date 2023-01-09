@@ -380,7 +380,7 @@ function Timer() {
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes, subject: (e.target.value)}}); setTimerShow(false)}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
