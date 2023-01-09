@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection,doc,getDoc } from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
@@ -9,7 +9,7 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -31,7 +31,7 @@ function Timer() {
     
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
-    const subject= location.state.subject;
+    let subject= location.state.subject;
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
     
@@ -48,50 +48,81 @@ function Timer() {
     const [timerShow, setTimerShow] = useState(false);
 
     
-    
+    let tree= new Audio(treeS);
+    let ocean= new Audio(seaS)
+    let rain= new Audio(RainS)
+    let night= new Audio(NightS);
+    let wind= new Audio(WindS);
+    let fire=new Audio(FireS);
 
     const treeSound=()=>{
-      let tree= new Audio(treeS);
+    
       tree.play()
       tree.loop=true;
     }
 
     const OceanSound=()=>{
-      let ocean= new Audio(seaS)
+    
       ocean.play();
       ocean.loop=true;
     }
     
     const RainSound=()=>{
-      let rain= new Audio(RainS)
+     
       rain.play();
       rain.loop=true;
     }
     
     const NightSound=()=>{
-      let night= new Audio(NightS);
+      
       night.play();
       night.loop=true
     }
     
     const WindSound=()=>{
-      let wind= new Audio(WindS);
+      
       wind.play();
       wind.loop=true
     }
     
     const FireSound=()=>{
-      let fire=new Audio(FireS);
+      
       fire.play();
       fire.loop=true
       
     }
 
-    const AlarmSound=()=>{
-      let alarm= new Audio(AlarmS);
-      alarm.play()
+    //New Times Modal 
 
+    const [newWorkMinutes, setNewWorkMinutes]= useState(45);
+    const [newBreakMinutes,setNewBreakMinutes]=useState(15);
+
+    const [subjectList, setSubjectList] =useState([]);
+  
+
+ 
+ 
+ 
+  let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
+  
+ 
+  const docSnap = async()=>
+  
+  await getDoc(subref).then(docSnap=>{
+    let subData=[];
+    if(docSnap.exists()){
+      
+      subData= docSnap.data().subjects 
+      
+      
+    }else{
+      console.log('null');
     }
+    setSubjectList(subData)
+   
+    
+  })
+
 
 
    
@@ -100,8 +131,8 @@ function Timer() {
    //Timer code
    
    const settingsInfo = location.state;
-   const workSeconds = settingsInfo.workMinutes*60;
-   const breakSeconds= settingsInfo.breakMinutes*60;
+   let workSeconds = settingsInfo.workMinutes*60;
+   let breakSeconds= settingsInfo.breakMinutes*60;
 
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
@@ -152,6 +183,7 @@ function Timer() {
   
 
    useEffect(()=>{
+    docSnap()
     initTimer();
     
     const interval =setInterval(()=>{
@@ -214,6 +246,7 @@ function Timer() {
       L2={<Button  variant='light-outline'  onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
       L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true)}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
+      L5={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
     />
   </div>
       
@@ -308,6 +341,52 @@ function Timer() {
         Timer
       </Modal.Header>
       <Modal.Body>
+      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
+                <h4 >Select Your Times:</h4>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
+              <ReactSlider 
+              className='slider'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newWorkMinutes}
+              onChange={newValue => setNewWorkMinutes(newValue)}
+              min={1}
+              max={120}
+              
+              
+              />
+            
+
+            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
+              
+              <ReactSlider 
+              className='slider green'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newBreakMinutes}
+              onChange={newValue => setNewBreakMinutes(newValue)}
+              min={1}
+              
+              max={120}
+              
+              
+              />
+              </div>
+
+                {subjectList.map((sub)=>{
+              
+              return(
+                <Button 
+                type="checkbox"
+                 value={sub} 
+                 variant="secondary"
+                
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                  {sub}
+                </Button>
+              )
+            
+            })}
 
       </Modal.Body>
 
