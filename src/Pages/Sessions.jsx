@@ -60,7 +60,7 @@ function Sessions() {
         <Card style={{
             width:'93vw',
              margin:'20px',
-             height:'250px',
+             height:'150px',
              backgroundImage:'linear-gradient(-45deg ,rgb(109, 106, 247) ,rgb(73, 44, 191), rgb(63, 209, 87))',
              backgroundSize:'400% 400%',
              textAlign:'center',
