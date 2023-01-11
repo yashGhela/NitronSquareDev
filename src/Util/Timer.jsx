@@ -316,7 +316,7 @@ function Timer() {
       </Modal.Header>
       <Modal.Body>
         <Row style={{marginBottom:'20px'}}>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={treeSound}><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
+          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={treeSound} ><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
           <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={OceanSound}><Water style={{height:'50px', width:'50px'}}/></Button></Col>
           <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={RainSound}><CloudDrizzle style={{height:'50px', width:'50px'}}/></Button></Col>
         </Row>

@@ -153,18 +153,18 @@ await getDoc(subref).then(docSnap=>{
           
           </Card>
 
-          <div style={{display: 'inline', margin:'20px'}}>
+          <div style={{display: 'flex', margin:'20px'}}>
           {subjectList.map((sub)=>{
               
               return(
-                <Button 
-                
+                <Card 
+                type="checkbox"
                  value={sub} 
                  variant="secondary"
                  onClick={()=>{getData({sub:sub})}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)', color:'white'}}>
                   {sub}
-                </Button>
+                </Card>
                 
               )
 
@@ -177,9 +177,10 @@ await getDoc(subref).then(docSnap=>{
 
         
 
-          <div style={{width:700, margin: '20px', display: 'flex'}}>
+          <div style={{width:800, margin: '20px', display: 'flex'}}>
            <Line data={userData} />
            <Bar data={userData}/><br/>
+           
        
            
            </div>

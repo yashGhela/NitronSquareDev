@@ -194,7 +194,8 @@ function Dashboard() {
                  value={sub} 
                  variant="secondary"
                 
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
               )
