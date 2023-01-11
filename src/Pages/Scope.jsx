@@ -151,9 +151,9 @@ function Scope() {
                   </Modal.Header>
                     <Modal.Body>
                       
-                      <h1  style={{fontWeight:'bold', }}>{modalData.title}</h1>
-                      <h4 style={{fontWeight:'bold',}}>Description: </h4>
-                      <p style={{fontWeight:'400', fontSize:'20px'}}>{modalData.description} minutes</p>
+                      <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' }}>{modalData.title}</h1>
+                     
+                      <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px'}}>Description:<br/>{modalData.description} minutes</p>
                       
                       <div className="mbod">
                   
