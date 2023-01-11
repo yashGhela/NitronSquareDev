@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-import { collection, getDocs,doc, getDoc, query, where } from 'firebase/firestore';
+import { collection, getDocs,doc, getDoc, query, where, limit, getCountFromServer } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useEffect } from 'react';
 import { Bar, Chart, Line, Pie } from 'react-chartjs-2';
@@ -29,6 +29,7 @@ function Trends() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
   const [subjectList, setSubjectList] =useState([]);
+  const [sesDone, setSesDone]=useState(0);
 
 
  
@@ -43,7 +44,7 @@ function Trends() {
   var BTArray=[];
 
   const getData=async({sub})=>{
-    const q = query(col,where('subject','==',sub));
+    const q = query(col,where('subject','==',sub), limit(30));
     await getDocs(q).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
         var dc= doc.data();
@@ -73,6 +74,17 @@ function Trends() {
     })
     
 
+  }
+
+  const docCount=async({sub})=>{
+    const q = query(col,where('subject','==',sub));
+     await getCountFromServer(q).then(
+      (snapshot)=>{
+        setSesDone(snapshot.data().count)
+      }
+      
+    )
+    
   }
 
 
@@ -161,7 +173,7 @@ await getDoc(subref).then(docSnap=>{
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                 onClick={()=>{getData({sub:sub})}}
+                 onClick={()=>{getData({sub:sub}); docCount({sub:sub})}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)', color:'white'}}>
                   {sub}
                 </Card>
@@ -184,6 +196,12 @@ await getDoc(subref).then(docSnap=>{
        
            
            </div>
+
+
+           <Card style={{marginLeft:'20px', height:'200px', width:'150px',padding:'20px', backgroundColor:'rgb(12,12,12)', color:'white'}}>
+            <h3>Sessions Done:</h3>
+            <h1>{sesDone}</h1>
+           </Card>
 
 
 
