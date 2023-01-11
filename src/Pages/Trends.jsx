@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-import { collection, getDocs } from 'firebase/firestore';
+import { collection, getDocs,doc, getDoc, query, where } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useEffect } from 'react';
 import { Bar, Chart, Line, Pie } from 'react-chartjs-2';
@@ -28,63 +28,75 @@ window.Chart = ChartJS
 function Trends() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
+  const [subjectList, setSubjectList] =useState([]);
 
 
  
   const col = collection(db,'Users',user,'Sessions');
 
-
-  var labelsArrayC1=[];
-  var dataArrayC1=[];
- 
-  const loadDataChart1=async()=>{
-    await getDocs(col).then((snapshot)=>{
-      snapshot.docs.forEach(doc=>{
-        var sub = doc.data();
-
-        var title = sub.subject;
-        
-        if(labelsArrayC1.includes(title)){
-          
-          const point=labelsArrayC1.findIndex(element=>element=title)
-      
-          
-          var wt=sub.WorkTime;
-         
-          dataArrayC1.push(wt)
-        }else{
-          labelsArrayC1.push(title);
-          var count= sub.WorkTime;
-          dataArrayC1.push(count);
-          
-        }
-        
-      
-        
-
-       
-
-        
-        
-        
-    
-      })
-    
-    })
-    setChartData({
-      labels: labelsArrayC1,
-      datasets:[{
-        label: 'WorkTime',
-        data: dataArrayC1
-      }]
-      
-    })
-    
   
+
+
+ 
+  var datesArray=[];
+  var WTArray=[];
+  var BTArray=[];
+
+  const getData=async({sub})=>{
+    const q = query(col,where('subject','==',sub));
+    await getDocs(q).then((snapshot)=>{
+      snapshot.docs.forEach(doc=>{
+        var dc= doc.data();
+        var date = dc.time;
+        var WT = dc.WorkTime;
+        var BT = dc.BreakTime;
+
+        datesArray.push(date);
+        WTArray.push(WT);
+        BTArray.push(BT);
+      })
+
+    });setChartData({
+      labels: datesArray,
+      datasets:
+      [
+        {
+        label:'WorkTime',
+        data: WTArray
+      },
+      {
+        label:'BreakTime',
+        data: BTArray
+      }
+    ]
+      
+    })
+    
+
   }
 
-  
 
+
+
+let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
+  
+ 
+const docSnap = async()=>
+
+await getDoc(subref).then(docSnap=>{
+  let subData=[];
+  if(docSnap.exists()){
+    
+    subData= docSnap.data().subjects 
+    
+    
+  }else{
+    console.log('null');
+  }
+  setSubjectList(subData)
+ 
+  
+})
 
 
 
@@ -93,10 +105,10 @@ function Trends() {
   let nav = useNavigate();
 
   useEffect(()=>{
-    loadDataChart1()
+    docSnap()
   },[])
   
-   
+  
   const [userData,setChartData] = useState(
     {
       labels: ['loading'],
@@ -140,13 +152,43 @@ function Trends() {
          
           
           </Card>
-           <div style={{width:700, margin: '20px', display: 'flex'}}>
+
+          <div style={{display: 'inline', margin:'20px'}}>
+          {subjectList.map((sub)=>{
+              
+              return(
+                <Button 
+                
+                 value={sub} 
+                 variant="secondary"
+                 onClick={()=>{getData({sub:sub})}}
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                  {sub}
+                </Button>
+                
+              )
+
+              
+            
+            })}
+
+
+          </div>
+
+        
+
+          <div style={{width:700, margin: '20px', display: 'flex'}}>
            <Line data={userData} />
            <Bar data={userData}/><br/>
        
            
            </div>
+
+
+
           
+           
+       
          
       
         </div>
