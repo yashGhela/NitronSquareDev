@@ -1,4 +1,4 @@
-import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc, getDoc, updateDoc, arrayUnion } from 'firebase/firestore';
+import { collection, orderBy, query, limit, onSnapshot, deleteDoc,doc, getDoc, updateDoc, arrayUnion,arrayRemove } from 'firebase/firestore';
 import React, { useEffect, useState } from 'react'
 import {    useNavigate } from 'react-router-dom';
 
@@ -6,7 +6,7 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col,  Form} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col,  Form, Accordion,Container} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
 import '../Util/SesSettings.css'
@@ -41,7 +41,7 @@ function Dashboard() {
   let subref=  doc(db,'Users',user,'Subjects','SubjectsList');
   const scoperef= collection(db,'Users',user,'Scopes');
 
-  const scopeQ= query(scoperef,limit(4));
+  const scopeQ= query(scoperef,limit(5));
   
  
   const docSnap = async()=>
@@ -73,7 +73,14 @@ function Dashboard() {
 
 
  useEffect(() => {  //loads all the 
-    
+ 
+  onSnapshot(scopeQ, (snapshot) => {
+    setScopeList(
+       snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+     );
+     
+     
+   });
  
  
   onSnapshot(q, (snapshot) => {
@@ -95,6 +102,35 @@ function Dashboard() {
     console.log('deleted');
     setModalShow(false)
   }
+
+  const movetask=async({id, task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      incomplete: arrayRemove(task),
+      complete: arrayUnion(task)
+
+
+    });
+   
+    
+    
+   }
+
+   const movetaskBack=async({id,task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      incomplete: arrayUnion(task),
+      complete: arrayRemove(task)
+    })
+   }
+
+   const DeleteSco=async({id})=>{
+    const delref=doc(db, 'Users',user,'Scopes',id)
+    await deleteDoc(delref)
+    console.log('deleted');
+    setModalShow(false)
+  }
+
 
   
 
@@ -286,6 +322,108 @@ function Dashboard() {
 
              
              
+          </div>
+          <div className="RecentScopes">
+          <h3 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'white'}}>Recent Scopes:</h3>
+           
+         <Container fluid={true}>
+          <Row >
+          {scopeList.map((scop)=>{
+            return(
+              <Col xs='2'  >
+                <div>
+
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'white',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
+                    <Card.Body>
+                     <Card.Title>{scop.title}</Card.Title>
+                      <Card.Text>
+                       {scop.description}
+                       </Card.Text>
+                     </Card.Body>
+
+                    </Card>
+
+                  <Modal
+                    
+                    show={modalShow}
+                      size="lg"
+                      aria-labelledby="contained-modal-title-vcenter"
+                      onHide={()=>{setModalShow(false)}}
+                      className="special_modal"
+                      
+                      centered>
+                  <Modal.Header closeButton closeVariant='white'> 
+                  <Modal.Title  id="contained-modal-title-vcenter"  style={{marginRight:'70%'}}>
+                    Scope
+                  </Modal.Title>
+                  <Button variant='danger' onClick={()=>{DeleteSco({id: modalData.id})}}>Delete</Button>
+                  </Modal.Header>
+                    <Modal.Body>
+                      
+                      <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' }}>{modalData.title}</h1>
+                     
+                      <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px'}}>Description:<br/>{modalData.description} minutes</p>
+                      
+                      <div className="mbod">
+                  
+                      <Accordion defaultActiveKey='0'  style={{backgroundColor: 'rgb(41, 44, 51)', marginBottom:'10px'}}>
+                        <Accordion.Item eventkey='0'>
+                          <Accordion.Header>Incomplete</Accordion.Header>
+                          <Accordion.Body>
+
+                              {modalData.incomplete?.map((inc)=>{
+                        return(
+                          <div className="list">
+
+                            <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc})}}/>
+                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
+
+                          </div >
+                        )
+                      })}
+                          </Accordion.Body>
+
+                        </Accordion.Item>
+
+
+                      </Accordion>
+
+                      <Accordion defaultActiveKey='0'>
+                        <Accordion.Item eventkey='0'>
+                          <Accordion.Header>Complete</Accordion.Header>
+                          <Accordion.Body>
+
+                              {modalData.complete?.map((comp)=>{
+                        return(
+                          <div className="list">
+
+                          
+                            <input type="checkbox" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp})}}/>
+                            <label style={{marginBottom: '5px'}}>{comp}</label><br/>
+                          
+                            
+
+                          </div >
+                        )
+                      })}
+                          </Accordion.Body>
+
+                        </Accordion.Item>
+
+                        </Accordion>
+
+                      </div>
+                    </Modal.Body>
+                    </Modal>
+
+                </div>
+              </Col>
+
+
+            )
+          })}
+          </Row>
+         </Container>
           </div>
         </div>
         </div>
