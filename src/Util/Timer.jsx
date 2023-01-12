@@ -1,10 +1,9 @@
-import { addDoc, collection,doc,getDoc } from 'firebase/firestore';
+import { addDoc, collection,doc,getDoc, getDocs, query, limit, where, orderBy } from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
-import useSound from 'use-sound';
 import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
@@ -18,13 +17,22 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import { format } from 'date-fns';
+import {
+  Chart as ChartJS,
+  Tooltip,
+  LinearScale,
+} from 'chart.js';
+import { Bar, Line } from 'react-chartjs-2';
 
+
+window.Chart = ChartJS
 
 function Timer() {
   
 
   //basic use 
    const location = useLocation();
+
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
     
@@ -123,6 +131,61 @@ function Timer() {
    
     
   })
+
+
+  //Quick Scopes Stuff 
+
+  const sesRef = collection(db,'Users',user,'Sessions');
+
+  var datesArray=[];
+  var WTArray=[];
+  var BTArray=[];
+
+  const getData=async({sub})=>{
+    const q = query(sesRef,where('subject','==',sub), limit(5));
+    await getDocs(q).then((snapshot)=>{
+      snapshot.docs.forEach(doc=>{
+        var dc= doc.data();
+        var date = dc.time;
+        var WT = dc.WorkTime;
+        var BT = dc.BreakTime;
+
+        datesArray.push(date);
+        WTArray.push(WT);
+        BTArray.push(BT);
+        console.log(datesArray)
+      })
+
+    });setChartData({
+      labels: datesArray,
+      datasets:
+      [
+        {
+        label:'WorkTime',
+        data: WTArray
+      },
+      {
+        label:'BreakTime',
+        data: BTArray
+      }
+    ]
+      
+    })
+    
+
+  }
+
+  const [userData,setChartData] = useState(
+    {
+      labels: ['Loading'],
+      datasets:[{
+        label: 'Loading',
+        data: null
+      }]
+      
+    }
+  )
+ 
 
 
 
@@ -245,7 +308,7 @@ function Timer() {
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
       L2={<Button  variant='light-outline'  onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
-      L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true)}}><BarChart style={{color:'white', }}/></Button>}
+      L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true);getData({sub:subject})}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
       L5={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
     />
@@ -420,6 +483,10 @@ function Timer() {
         Quick Trends
       </Modal.Header>
       <Modal.Body>
+        <div style={{width:400, margin: '20px', display: 'flex'}}> 
+        <Line data={userData} />
+
+        </div>
 
       </Modal.Body>
 
