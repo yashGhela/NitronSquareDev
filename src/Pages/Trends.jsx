@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
-import { collection, getDocs,doc, getDoc, query, where, limit, getCountFromServer } from 'firebase/firestore';
+import { collection, getDocs,doc, getDoc, query, where, limit, getCountFromServer ,orderBy} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import { useEffect } from 'react';
 import { Bar, Chart, Line, Pie } from 'react-chartjs-2';
@@ -55,6 +55,7 @@ function Trends() {
         datesArray.push(date);
         WTArray.push(WT);
         BTArray.push(BT);
+        console.log(datesArray)
       })
 
     });setChartData({

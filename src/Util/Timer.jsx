@@ -9,7 +9,7 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stop, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -17,6 +17,7 @@ import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
 import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
+import { format } from 'date-fns';
 
 
 function Timer() {
@@ -220,17 +221,17 @@ function Timer() {
  //AddDoc function
 
  const doneHand=async()=>{
-  const current= new Date();
-  const day = current.getDate();
-  const month = current.getMonth()+1;
-  const year=current.getFullYear();
+ 
+
+
+  
   await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: settingsInfo.workMinutes,
     BreakTime: settingsInfo.breakMinutes,
     subject: subject,
     description: description,
     rating: rating,
-    time: `${year}/${month}/${day}`
+    time: format(new Date(), 'yyyy/MM/dd')
 
 
   });
@@ -325,6 +326,22 @@ function Timer() {
           <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={WindSound}><Wind style={{height:'50px', width:'50px'}}/></Button></Col>
           <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={FireSound}><Fire style={{height:'50px', width:'50px'}}/></Button></Col>
         </Row>
+
+       <div style={{placeItems:'center'}}>
+       <Button
+        style={{marginTop:'20px', placeItems:'center'}}
+        variant='outline-light'
+        onClick={()=>{
+          tree.pause();
+          ocean.pause();
+          rain.pause();
+          night.pause();
+          wind.pause();
+          fire.pause()
+        }}
+        
+        ><StopFill style={{height:'50px', width:'50px'}}/></Button>
+       </div>
 
       </Modal.Body>
 
