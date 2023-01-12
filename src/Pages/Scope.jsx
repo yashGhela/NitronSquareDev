@@ -24,18 +24,7 @@ function Scope() {
     const user=cookie.get('useraidt')
     const subref= collection(db,'Users',user,'Scopes');
 
-    const {
-      items,
-      isStart,
-      isEnd,
-      getPrev,
-      getNext,
-
-    }=usePagination(
-      query(subref, orderBy('time,desc')),{
-        limit:1
-      }
-    )
+  
 
   
 

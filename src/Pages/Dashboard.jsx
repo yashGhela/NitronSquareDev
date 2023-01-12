@@ -34,9 +34,14 @@ function Dashboard() {
   const [subj, setSub]=useState('');
 
   const [disabled, setDisabled]=useState(true);
+
+  const [scopeList, setScopeList]= useState([]);
  
  
-  let subref=  doc(db,'Users',user,'Subjects','SubjectsList')
+  let subref=  doc(db,'Users',user,'Subjects','SubjectsList');
+  const scoperef= collection(db,'Users',user,'Scopes');
+
+  const scopeQ= query(scoperef,limit(4));
   
  
   const docSnap = async()=>
