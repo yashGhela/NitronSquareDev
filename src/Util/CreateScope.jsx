@@ -4,6 +4,7 @@ import { Container, Form, Navbar, Button } from 'react-bootstrap'
 import {db} from '../firebaseConfig';
 import Cookies from 'universal-cookie';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns/esm';
 
 
 function CreateScope() {
@@ -21,17 +22,14 @@ function CreateScope() {
   const [taskList, setTaskList]= useState([]);
 
   const addScope=async()=>{
-    const current= new Date();
-    const day = current.getDate();
-    const month = current.getMonth()+1;
-    const year=current.getFullYear();
+    
     const subref= collection(db,'Users',user,'Scopes');
     await addDoc(subref, {
       title: title,
       description: description,
       incomplete: taskList,
       complete: [],
-      date: `${year}/${month}/${day}`
+      date: format(new Date(), 'yyyy/MM/dd')
     })
     nav(`/Scopes/`)
   }
@@ -61,6 +59,16 @@ function CreateScope() {
               
             </Form.Group>
           </Form>
+
+
+          <h3>Your Tasks </h3>
+          {taskList.map((i)=>{
+            return(
+              <ul style={{float:'right'}}>
+                <li>{i}</li>
+              </ul>
+            )
+          })}
 
           <Button onClick={()=>{setTaskList([...taskList,task]); addScope()}} disabled={disabled}>Finish</Button>
           </div>

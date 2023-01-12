@@ -26,6 +26,7 @@ function Dashboard() {
   
   
   const [gomodalShow, setGoModalShow] = useState(false);
+
  
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
@@ -36,6 +37,7 @@ function Dashboard() {
   const [disabled, setDisabled]=useState(true);
 
   const [scopeList, setScopeList]= useState([]);
+  const [scopeModal, setScopeModalShow]= useState(false)
  
  
   let subref=  doc(db,'Users',user,'Subjects','SubjectsList');
@@ -333,7 +335,7 @@ function Dashboard() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'white',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'white',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>
@@ -345,10 +347,10 @@ function Dashboard() {
 
                   <Modal
                     
-                    show={modalShow}
+                    show={scopeModal}
                       size="lg"
                       aria-labelledby="contained-modal-title-vcenter"
-                      onHide={()=>{setModalShow(false)}}
+                      onHide={()=>{setScopeModalShow(false)}}
                       className="special_modal"
                       
                       centered>

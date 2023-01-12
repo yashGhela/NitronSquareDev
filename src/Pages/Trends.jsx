@@ -10,6 +10,8 @@ import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye } from 'react-boots
 
 import {
   Chart as ChartJS,
+  Tooltip,
+  LinearScale,
 } from 'chart.js';
 import {Button, Card} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
@@ -22,7 +24,13 @@ import { useState } from 'react';
 
 
 
+
 window.Chart = ChartJS
+ChartJS.register(
+  [Tooltip],
+  LinearScale
+)
+
 
 
 function Trends() {
@@ -36,6 +44,8 @@ function Trends() {
   const col = collection(db,'Users',user,'Sessions');
 
   
+
+
 
 
  
@@ -88,6 +98,10 @@ function Trends() {
     
   }
 
+  
+
+  
+
 
 
 
@@ -124,11 +138,12 @@ await getDoc(subref).then(docSnap=>{
   
   const [userData,setChartData] = useState(
     {
-      labels: ['loading'],
+      labels: ['Select an Option'],
       datasets:[{
-        label: 'loading',
+        label: 'Select an Option',
         data: null
       }]
+      
     }
   )
 
@@ -192,7 +207,7 @@ await getDoc(subref).then(docSnap=>{
 
           <div style={{width:800, margin: '20px', display: 'flex'}}>
            <Line data={userData} />
-           <Bar data={userData}/><br/>
+           <Bar data={userData}   /><br/>
            
        
            
