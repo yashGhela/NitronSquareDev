@@ -8,7 +8,7 @@ import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Stop, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, PauseBtnFill, Play, PlayBtn, PlayBtnFill, Stop, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -321,8 +321,8 @@ function Timer() {
     
     })}/>
     <div style={{display:'flex', placeItems:'center', margin:'10px', marginLeft:'250px', marginTop:'50px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'>Play</Button>:
-    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> Pause</Button>}
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'><Play style={{height:'25px', width:'25px'}}/></Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
     </div>
@@ -483,6 +483,7 @@ function Timer() {
         Quick Trends
       </Modal.Header>
       <Modal.Body>
+        <h4>Trends for {subject}</h4>
         <div style={{width:400, margin: '20px', display: 'flex'}}> 
         <Line data={userData} />
 

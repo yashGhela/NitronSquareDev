@@ -38,6 +38,7 @@ function Trends() {
   const user=cookie.get('useraidt')
   const [subjectList, setSubjectList] =useState([]);
   const [sesDone, setSesDone]=useState(0);
+  const [sub,setSub]=useState('none chosen');
 
 
  
@@ -189,7 +190,7 @@ await getDoc(subref).then(docSnap=>{
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                 onClick={()=>{getData({sub:sub}); docCount({sub:sub})}}
+                 onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)', color:'white'}}>
                   {sub}
                 </Card>
@@ -202,6 +203,7 @@ await getDoc(subref).then(docSnap=>{
 
 
           </div>
+          <h4 style={{marginLeft:'20px', color:'white'}}>Trends for {sub}</h4>
 
         
 
