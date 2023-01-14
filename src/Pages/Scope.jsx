@@ -1,7 +1,7 @@
 import React from 'react'
-import { Button , Card, Modal, Accordion, Col, Row, Container} from 'react-bootstrap'
+import { Button , Card, Modal, Accordion, Col, Row, Container,Form} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart, Journals, Bullseye } from 'react-bootstrap-icons'
-import { useNavigate } from 'react-router-dom'
+import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
@@ -16,9 +16,11 @@ import { usePagination } from 'use-pagination-firestore';
 function Scope() {
 
   const [scopeList, setScopeList]= useState([]);
+  const [newTask, setNewTask]=useState('');
   
   const[modalData, setModalData]=useState([]);
   const [modalShow, setModalShow] = useState(false);
+  
     const nav=useNavigate();
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
@@ -68,6 +70,14 @@ function Scope() {
     await deleteDoc(delref)
     console.log('deleted');
     setModalShow(false)
+  }
+
+  const newTassk=async({id})=>{
+    const newRef=doc(db,'Users', user, 'Scopes', id)
+    await updateDoc(newRef,{
+      incomplete: arrayUnion(newTask)
+    })
+    console.log('added!')
   }
     
 
@@ -150,6 +160,13 @@ function Scope() {
                         <Accordion.Item eventkey='0'>
                           <Accordion.Header>Incomplete</Accordion.Header>
                           <Accordion.Body>
+
+                           <div style={{display:'inline'}}>
+                           <Form style={{display:'flex', marginBottom:'10px'}}>
+                              <Form.Control placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
+                              <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:modalData.id})}}>Add</Button>
+                            </Form>
+                           </div>
 
                               {modalData.incomplete?.map((inc)=>{
                         return(

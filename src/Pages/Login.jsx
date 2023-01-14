@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import {doc} from 'firebase/firestore';
+import {doc, getDoc} from 'firebase/firestore';
 import {Button, Form} from 'react-bootstrap'
 import {Google} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
 
+
 function Login() {
   let nav= useNavigate();
+  const [errShow, setErrShow ]=useState(false);
 
   const nextYear = new Date();
 
@@ -20,20 +22,27 @@ function Login() {
     const user= cookie.get('useraidt')
     if(user){
       nav(`/Dashboard/`)
-    }else{
-      console.log('not logged in');
     }
   })
 
-  const signIn=()=>{
+  const signIn=async()=>{
     setPersistence(auth,browserLocalPersistence).then(async ()=>{
       const result = await signInWithPopup(auth, provider)
       const ref = doc(db, 'Users', result.user.uid);
+      await getDoc(ref).then((snapshot)=>{
+        if(snapshot.exists()){
+          const cookie = new Cookies();
+          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+          localStorage.setItem('isAuth', true)
+          nav(`/Dashboard/`);
+        }else{
+          setErrShow('account does not exist')
+        }
+      })
+
+      
  
-      const cookie = new Cookies();
-      cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
-      localStorage.setItem('isAuth', true)
-      nav(`/Dashboard/`);
+    
       
       })
       
@@ -52,6 +61,8 @@ function Login() {
         </Form.Label><br/>
        
         <Button variant='dark'  onClick={signIn}>Sign In with Google <Google/></Button>
+
+        {errShow && <p style={{color:'red'}}>This Account does not exist</p>}
      
         
       </Form.Group>

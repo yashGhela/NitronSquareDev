@@ -229,9 +229,12 @@ function Dashboard() {
                 <Button disabled={disabled} onClick={newSub}>Add</Button>
               </Form>
              
-             {subjectList.map((sub)=>{
+            <Container fluid={true}>
+              <Row>
+              {subjectList.map((sub)=>{
               
               return(
+               <Col xs='2'>
                 <Button 
                 type="checkbox"
                  value={sub} 
@@ -241,9 +244,12 @@ function Dashboard() {
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
+                </Col>
               )
             
             })}
+              </Row>
+            </Container>
              </div>
 
               
