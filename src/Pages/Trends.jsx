@@ -182,7 +182,7 @@ await getDoc(subref).then(docSnap=>{
           
           </Card>
 
-          <div style={{display: 'flex', margin:'20px'}}>
+          <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
           {subjectList.map((sub)=>{
               
               return(
@@ -191,7 +191,7 @@ await getDoc(subref).then(docSnap=>{
                  value={sub} 
                  variant="secondary"
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)', color:'white'}}>
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)',color:'lightgray'}}>
                   {sub}
                 </Card>
                 
@@ -203,7 +203,7 @@ await getDoc(subref).then(docSnap=>{
 
 
           </div>
-          <h4 style={{marginLeft:'20px', color:'white'}}>Trends for {sub}</h4>
+          <h4 style={{marginLeft:'20px', color:'lightgray'}}>Trends for {sub}</h4>
 
         
 
@@ -216,7 +216,7 @@ await getDoc(subref).then(docSnap=>{
            </div>
 
 
-           <Card style={{marginLeft:'20px', height:'200px', width:'150px',padding:'20px', backgroundColor:'rgb(12,12,12)', color:'white'}}>
+           <Card style={{marginLeft:'20px', height:'200px', width:'150px',padding:'20px', backgroundColor:'rgb(12,12,12)',color:'lightgray'}}>
             <h3>Sessions Done:</h3>
             <h1>{sesDone}</h1>
            </Card>

@@ -181,17 +181,18 @@ function Dashboard() {
                size="lg"
                aria-labelledby="contained-modal-title-vcenter"
                onHide={()=>{setGoModalShow(false)}}
+               style={{color:'lightgray'}}
                centered>
                 <Modal.Header closeButton closeVariant='white'>
-           <Modal.Title>
+           <Modal.Title style={{color:'lightgray'}}>
             Configure your Session
            </Modal.Title>
           </Modal.Header>
         
                   
-              <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
+              <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
                 <h4 >Select Your Times:</h4>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {workMinutes}:00</label>
+              <label style={{marginLeft:'20px', marginTop:'10px',color:'lightgray'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
@@ -205,7 +206,7 @@ function Dashboard() {
               />
             
 
-            <label style={{marginLeft:'20px'}}>Break Minutes: {breakMinutes}:00</label>
+            <label style={{marginLeft:'20px',color:'lightgray'}}>Break Minutes: {breakMinutes}:00</label>
               
               <ReactSlider 
               className='slider green'
@@ -222,10 +223,10 @@ function Dashboard() {
               </div>
 
              
-             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center'}}>
-              <h4 style={{placeItems:'center', fontSize:'20px'}}>Choose or add a subject</h4>
+             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
+              <h4 style={{placeItems:'center', fontSize:'20px',color:'lightgray'}}>Choose or add a subject</h4>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
-                <Form.Control placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
+                <Form.Control  placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
                 <Button disabled={disabled} onClick={newSub}>Add</Button>
               </Form>
              
@@ -234,7 +235,7 @@ function Dashboard() {
               {subjectList.map((sub)=>{
               
               return(
-               <Col xs='2'>
+               <Col xs='1' style={{marginRight:'45px', marginLeft:'0'}}>
                 <Button 
                 type="checkbox"
                  value={sub} 
@@ -266,7 +267,7 @@ function Dashboard() {
          
         
         <div className="Recent" >
-          <h3 style={{marginBottom:'10px', fontSize:'23px'}}>Recent Sessions:</h3>
+          <h3 style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</h3>
          
             {recsesList.map((rec)=>{
               return(
@@ -275,7 +276,7 @@ function Dashboard() {
                   
                  
                   <Card 
-                  style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} 
+                  style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
                   onClick={()=>{setModalShow(true); setModalData(rec) }}  
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
@@ -297,27 +298,28 @@ function Dashboard() {
                     minBreakpoint="xxs"
                       show={modalShow}
                        size="lg"
+                       style={{color:'gray'}}
                        aria-labelledby="contained-modal-title-vcenter"
                        onHide={()=>{setModalShow(false)}}
                        centered>
                     <Modal.Header closeButton closeVariant='white'>
-                    <Modal.Title  id="contained-modal-title-vcenter" style={{marginRight:'70%'}}>
+                    <Modal.Title  id="contained-modal-title-vcenter" style={{marginRight:'70%',color:'lightgray'}}>
                      Session
                     </Modal.Title>
                     <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                     </Modal.Header>
                      <Modal.Body>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>
-                       <h4  style={{fontWeight:'400', fontSize:'20px'}}>{modalData.subject}</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Work Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.WorkTime} minutes</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}> Break Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.BreakTime} minutes</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Date: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.time}</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Rating: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.rating}⭐</h4>
-                       <h5 style={{fontWeight:'bold', fontSize:'20px'}}>Description:</h5>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Subject: </h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.subject}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Work Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.WorkTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}> Break Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.BreakTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Date: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.time}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Rating: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.rating}⭐</h4>
+                       <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                      </Modal.Body>
                      </Modal>
@@ -332,7 +334,7 @@ function Dashboard() {
              
           </div>
           <div className="RecentScopes">
-          <h3 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'white'}}>Recent Scopes:</h3>
+          <h3 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Recent Scopes:</h3>
            
          <Container fluid={true}>
           <Row >
@@ -341,7 +343,7 @@ function Dashboard() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'white',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>

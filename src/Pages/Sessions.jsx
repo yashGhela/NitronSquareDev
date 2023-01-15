@@ -76,12 +76,12 @@ function Sessions() {
           </Card>
 
           <div className="Recent">
-          <h1>Your Sessions:</h1>
+          <h1 style={{color:'lightgray'}}>Your Sessions:</h1>
          
           {items.map((rec)=>{
               return(
                 <div>
-                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
+                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>
@@ -110,17 +110,17 @@ function Sessions() {
                     <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                     </Modal.Header>
                      <Modal.Body>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Subject: </h4>
-                       <h4  style={{fontWeight:'400', fontSize:'20px'}}>{modalData.subject}</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Work Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.WorkTime} minutes</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}> Break Time: </h4>
-                       <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.BreakTime} minutes</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Date: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.time}</h4>
-                       <h4 style={{fontWeight:'bold', fontSize:'20px'}}>Rating: </h4>
-                        <h4 style={{fontWeight:'400', fontSize:'20px'}}>{modalData.rating}⭐</h4>
-                       <h5 style={{fontWeight:'bold', fontSize:'20px'}}>Description:</h5>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Subject: </h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.subject}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Work Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.WorkTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}> Break Time: </h4>
+                       <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.BreakTime} minutes</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Date: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.time}</h4>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Rating: </h4>
+                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.rating}⭐</h4>
+                       <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                      </Modal.Body>
                      </Modal>
@@ -132,8 +132,8 @@ function Sessions() {
          
           </div>
           <div style={{marginLeft:'50%'}}>
-          <Button  variant='dark'  onClick={getPrev} disabled={isStart} style={{margin:'10px'}} >Previous </Button>
-          <Button variant='dark' onClick={getNext} disabled={isEnd}  style={{margin:'10px'}}>Next</Button>
+          <Button  variant='dark'  onClick={getPrev} disabled={isStart} style={{margin:'10px',color:'lightgray'}} >Previous </Button>
+          <Button variant='dark' onClick={getNext} disabled={isEnd}  style={{margin:'10px',color:'lightgray'}}>Next</Button>
           </div>
         </div>
     </div>
