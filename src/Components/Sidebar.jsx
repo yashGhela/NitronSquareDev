@@ -5,7 +5,7 @@ import {signOut} from 'firebase/auth';
 import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/LOGO clean.png'
-import {BoxArrowLeft} from 'react-bootstrap-icons'
+import {BoxArrowLeft, Gear} from 'react-bootstrap-icons'
 import { Button, Nav } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
@@ -26,7 +26,7 @@ function Sidebar({L1,L2,L3,L4}) {
   }
   return (
  <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px'}}>
-  <img src={logo} alt="" style={{height:'40px', width:'40px'}}/>
+  <img src={logo} alt="" style={{height:'40px', width:'40px', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}/>
    <div style={{marginTop: '150px',}}>
    <Nav >
       <Nav.Item style={{marginBottom:'20px'}} >
@@ -44,6 +44,7 @@ function Sidebar({L1,L2,L3,L4}) {
       <Nav.Item style={{marginTop:'47vh'}} >
        <Button onClick={LogOut}  variant='light-outline'><BoxArrowLeft style={{color:'white'}}/></Button>
       </Nav.Item>
+     
     </Nav>
    </div>
  </div>

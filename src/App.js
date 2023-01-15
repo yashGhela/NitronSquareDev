@@ -18,6 +18,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookies from 'universal-cookie';
 import Scope from './Pages/Scope';
 import CreateScope from './Util/CreateScope';
+import Settings from './Pages/Settings';
 
 
 
@@ -52,6 +53,7 @@ const user =cookies.get('useraidt');
         <Route path={`/Sessions/`} element={<Sessions/>}/>
         <Route path={`/Scopes/`} element={<Scope/>}/>
         <Route path={`/CreateScope/`} element={<CreateScope/>}/>
+        <Route path={`/Settings`} element={<Settings/>}/>
         
         </Route>
       </Routes>
