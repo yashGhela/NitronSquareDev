@@ -1,6 +1,7 @@
 import React from 'react'
 import { Button, Card, Container } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
+import GooglePayButton from '@google-pay/button-react'
 
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram } from 'react-bootstrap-icons'
 import { useNavigate } from 'react-router-dom'
@@ -32,7 +33,46 @@ function Settings() {
                     <Card.Text>
                         Join the Improvr family now and gain unlimited access to all features.
                     </Card.Text>
-                    <Button style={{width:'100%'}} variant='light'>Pay</Button>
+                    <GooglePayButton
+                    environment='TEST'
+                    buttonSizeMode='fill'
+                    paymentRequest={{
+                        apiVersion:2,
+                        apiVersionMinor: 0,
+                        allowedPaymentMethods:[
+                            {
+                                type:'CARD',
+                                parameters:{
+                                    allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                                    allowedCardNetworks: ['MASTERCARD', 'VISA']
+                                },
+                                tokenizationSpecification:{
+                                    type:'PAYMENT_GATEWAY',
+                                    parameters:{
+                                        gateway:'example',
+                                        gatewayMerchantId: 'exampleGatewayMerchantId'
+                                    }
+                                }
+                            }
+                        ],
+                        merchantInfo:{
+                            merchantId: 'BCR2DN4TYSUMTD3M',
+                            merchantName: 'Demo Only'
+
+                        },
+                        transactionInfo:{
+                            totalPriceStatus:'FINAL',
+                            totalPriceLabel: 'Total',
+                            totalPrice:'5',
+                            currencyCode:'USD',
+                            countryCode:'US'
+                        }
+                    }}
+                    onLoadPaymentData={paymentData=>{
+                        console.log('SUCCESS!', paymentData.paymentMethodData)
+                    }}
+                    />
+                  
                 </Card.Body>
 
             </Card>

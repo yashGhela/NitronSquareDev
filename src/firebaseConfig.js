@@ -5,6 +5,7 @@ import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import 'firebase/functions';
 
 
+
 const firebaseConfig = {
     apiKey: "AIzaSyBY9ZR5MAfMNsYXc9bCKAOn6YhDfz1KCXU",
     authDomain: "nstudy-dev.firebaseapp.com",
