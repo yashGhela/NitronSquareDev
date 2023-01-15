@@ -36,6 +36,7 @@ function Settings() {
                     <GooglePayButton
                     environment='TEST'
                     buttonSizeMode='fill'
+                    style={{width: '200px'}}
                     paymentRequest={{
                         apiVersion:2,
                         apiVersionMinor: 0,

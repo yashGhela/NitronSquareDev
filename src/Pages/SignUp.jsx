@@ -48,7 +48,7 @@ function SignUp() {
       return signInWithPopup(auth, provider).then(async(result)=>{
         const ref = doc(db, 'Users', result.user.uid)
         
-        const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'free'});
+        const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'Pro'});
         
         cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'});
         
