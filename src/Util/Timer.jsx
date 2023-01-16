@@ -1,14 +1,14 @@
-import { addDoc, collection,doc,getDoc, getDocs, query, limit, where, orderBy } from 'firebase/firestore';
+import { addDoc, collection,doc,getDoc, getDocs, query, limit, where, onSnapshot,updateDoc,arrayUnion, arrayRemove} from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db } from '../firebaseConfig';
-import { Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { Accordion, Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, PauseBtnFill, Play, PlayBtn, PlayBtnFill, Stop, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -17,12 +17,11 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import { format } from 'date-fns';
+
 import {
   Chart as ChartJS,
-  Tooltip,
-  LinearScale,
 } from 'chart.js';
-import { Bar, Line } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 
 window.Chart = ChartJS
@@ -190,6 +189,41 @@ function Timer() {
   //Quick scopes section
 
   const scoperef= collection(db,'Users',user,'Scopes');
+  const [scopeList, setScopeList]=useState([]);
+  const [newTask, setNewTask]=useState('')
+
+  const movetask=async({id, task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      incomplete: arrayRemove(task),
+      complete: arrayUnion(task)
+
+
+    });
+   
+    
+    
+   }
+
+   const movetaskBack=async({id,task})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      incomplete: arrayUnion(task),
+      complete: arrayRemove(task)
+    })
+   }
+
+   
+
+  const newTassk=async({id})=>{
+    const newRef=doc(db,'Users', user, 'Scopes', id)
+    await updateDoc(newRef,{
+      incomplete: arrayUnion(newTask)
+    })
+    
+  }
+
+
  
 
 
@@ -254,6 +288,13 @@ function Timer() {
    useEffect(()=>{
     docSnap()
     initTimer();
+    onSnapshot(scoperef, (snapshot) => {
+      setScopeList(
+         snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+       );
+       
+       
+     });
     
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
@@ -509,6 +550,72 @@ function Timer() {
         Quick Scopes
       </Modal.Header>
       <Modal.Body>
+        {scopeList.map((scop)=>{
+          return(
+            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px' }} >
+              <Accordion.Header>
+                {scop.title}
+              </Accordion.Header>
+              <Accordion.Body>
+              <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{scop.title}</h1>
+                     
+                     <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{scop.description} minutes</p>
+                     
+                     <div className="mbod">
+                      
+
+                       <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <h3>Incomplete:</h3>
+                       <div style={{display:'inline'}}>
+                          <Form style={{display:'flex', marginBottom:'10px'}}>
+                             <Form.Control placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
+                             <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:scop.id});scop.incomplete.push(newTask)}}>Add</Button>
+                           </Form>
+                          </div>
+
+                             {scop.incomplete?.map((inc)=>{
+                       return(
+                         <div className="list">
+
+                           <Button  variant="outline-secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:scop.id, task:inc}); scop.incomplete.splice(inc,1); scop.complete.push(inc)}}/>
+                           <label style={{marginBottom: '5px'}}>{inc}</label><br/>
+
+                         </div >
+                       )
+                     })}
+                       </div>
+
+                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <h3>Complete:</h3>
+                       {scop.complete?.map((comp)=>{
+                       return(
+                         <div className="list">
+
+                         
+                           <Button  variant="outline-secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:scop.id, task:comp}); scop.complete.splice(comp,1); scop.incomplete.push(comp)}}/>
+                           <label style={{marginBottom: '5px'}}>{comp}</label><br/>
+                         
+                           
+
+                         </div >
+                       )
+                     })}
+                       </div>
+                 
+                    
+
+                   
+                        
+
+
+                            
+                       
+                     </div>
+              </Accordion.Body>
+
+            </Accordion>
+          )
+        })}
 
       </Modal.Body>
 

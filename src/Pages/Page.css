@@ -68,7 +68,19 @@
     color: #fff;
  }
 
- .special_accordian .accordian-content{
-    background-color: rgb(41, 44, 51);
-    color:#fff
- }
+ .accordion-button {
+    background-color: rgb(12, 12, 12) !important;
+    color: white!important;
+  }
+  
+  .accordion-button:focus {
+    box-shadow: none;
+    color: white;
+  }
+  
+  .accordion-button:not(.collapsed) {
+    color: #e5e8eb!important;
+    
+  }
+
+ 
