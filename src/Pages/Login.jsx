@@ -36,7 +36,7 @@ function Login() {
           localStorage.setItem('isAuth', true)
           nav(`/Dashboard/`);
         }else{
-          setErrShow('account does not exist')
+          setErrShow(true)
         }
       })
 
