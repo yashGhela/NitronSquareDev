@@ -175,7 +175,7 @@ function Scope() {
                         return(
                           <div className="list">
 
-                            <input type="radio" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}/>
+                            <Button  variant="outline-secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}/>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
@@ -190,7 +190,7 @@ function Scope() {
                           <div className="list">
 
                           
-                            <input type="radio" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}/>
+                            <Button  variant="outline-secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}/>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             
