@@ -77,8 +77,13 @@ function Scope() {
     await updateDoc(newRef,{
       incomplete: arrayUnion(newTask)
     })
-    console.log('added!')
+    
   }
+
+
+
+
+  
     
 
   return (
@@ -155,16 +160,14 @@ function Scope() {
                       <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} minutes</p>
                       
                       <div className="mbod">
-                  
-                      <Accordion defaultActiveKey='0'  style={{backgroundColor: 'rgb(41, 44, 51)', marginBottom:'10px'}}>
-                        <Accordion.Item eventkey='0'>
-                          <Accordion.Header>Incomplete</Accordion.Header>
-                          <Accordion.Body>
+                       
 
-                           <div style={{display:'inline'}}>
+                        <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                        <h3>Incomplete:</h3>
+                        <div style={{display:'inline'}}>
                            <Form style={{display:'flex', marginBottom:'10px'}}>
                               <Form.Control placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
-                              <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:modalData.id})}}>Add</Button>
+                              <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:modalData.id});modalData.incomplete.push(newTask)}}>Add</Button>
                             </Form>
                            </div>
 
@@ -172,30 +175,22 @@ function Scope() {
                         return(
                           <div className="list">
 
-                            <input type="checkbox" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc})}}/>
+                            <input type="radio" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}/>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
                         )
                       })}
-                          </Accordion.Body>
+                        </div>
 
-                        </Accordion.Item>
-
-
-                      </Accordion>
-
-                      <Accordion defaultActiveKey='0'>
-                        <Accordion.Item eventkey='0'>
-                          <Accordion.Header>Complete</Accordion.Header>
-                          <Accordion.Body>
-
-                              {modalData.complete?.map((comp)=>{
+                        <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                        <h3>Complete:</h3>
+                        {modalData.complete?.map((comp)=>{
                         return(
                           <div className="list">
 
                           
-                            <input type="checkbox" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp})}}/>
+                            <input type="radio" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}/>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             
@@ -203,12 +198,16 @@ function Scope() {
                           </div >
                         )
                       })}
-                          </Accordion.Body>
+                        </div>
+                  
+                     
 
-                        </Accordion.Item>
+                    
+                         
 
-                        </Accordion>
 
+                             
+                        
                       </div>
                     </Modal.Body>
                     </Modal>

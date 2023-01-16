@@ -133,7 +133,7 @@ function Timer() {
   })
 
 
-  //Quick Scopes Stuff 
+  //Quick Trends Stuff 
 
   const sesRef = collection(db,'Users',user,'Sessions');
 
@@ -185,6 +185,11 @@ function Timer() {
       
     }
   )
+
+
+  //Quick scopes section
+
+  const scoperef= collection(db,'Users',user,'Scopes');
  
 
 

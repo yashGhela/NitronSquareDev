@@ -64,6 +64,11 @@
 }
 
 .special_modal .modal-content{
-    background-color: rgb(41, 44, 51);;
+    background-color: rgb(41, 44, 51);
     color: #fff;
+ }
+
+ .special_accordian .accordian-content{
+    background-color: rgb(41, 44, 51);
+    color:#fff
  }
