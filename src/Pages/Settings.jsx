@@ -114,7 +114,7 @@ function Settings() {
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                 onClick={()=>{DeleteSub({sub})}}
+                 onClick={()=>{DeleteSub(sub)}}
                
                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(97,149,232)',color:'white'}}>
                   {sub}
