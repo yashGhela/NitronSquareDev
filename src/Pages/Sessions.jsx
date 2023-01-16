@@ -45,7 +45,10 @@ function Sessions() {
   return (
     
 
+    
+
     <div className='Page'>
+
    
    <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}

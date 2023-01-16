@@ -87,7 +87,9 @@ function Scope() {
     
 
   return (
+    
     <div className='Page'>
+
 
          <div className="navB">
          <Sidebar
