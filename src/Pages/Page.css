@@ -66,11 +66,13 @@
 .special_modal .modal-content{
     background-color: rgb(41, 44, 51);
     color: #fff;
+
  }
 
  .accordion-button {
     background-color: rgb(12, 12, 12) !important;
     color: white!important;
+    margin-bottom: 5px !important;
   }
   
   .accordion-button:focus {

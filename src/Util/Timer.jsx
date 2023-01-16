@@ -552,8 +552,8 @@ function Timer() {
       <Modal.Body>
         {scopeList.map((scop)=>{
           return(
-            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px' }} >
-              <Accordion.Header>
+            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px', marginBottom:'10px' }} >
+              <Accordion.Header >
                 {scop.title}
               </Accordion.Header>
               <Accordion.Body>
