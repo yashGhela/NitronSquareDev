@@ -79,7 +79,7 @@ function Settings() {
           
           <h1 style={{color:'white',marginTop:'20px', marginLeft:'10vw'}}>Settings </h1>
 
-          <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'70px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
+          <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
            <div className="Account" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px' , marginBottom:'10px'}}>
            <h2 style={{color:'gray', fontSize:'22px'}}>Your Account</h2>
             <Card style={{height:'270px', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white'}}>
@@ -137,15 +137,20 @@ function Settings() {
            <Instagram style={{color:'gray', height:'50px', width:'50px',cursor:'pointer'}}/>
            </Card>
 
-           <Card 
+         
+
+       
+
+           </div>
+
+           <div className="LogOut" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
+              <Card 
            disabled={false}
            onClick={LogOut}
            
            style={{marginRight:'5px', marginBottom:'5px', marginTop: '10px',width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(97,149,232)',color:'white'}}>
             Log Out
            </Card>
-
-       
 
            </div>
 

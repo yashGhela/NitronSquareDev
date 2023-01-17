@@ -100,6 +100,16 @@ function Timer() {
       
     }
 
+    const Stop=()=>{
+      tree.pause();
+      ocean.pause();
+      rain.pause();
+      night.pause();
+      wind.pause();
+      fire.pause()
+
+    }
+
     //New Times Modal 
 
     const [newWorkMinutes, setNewWorkMinutes]= useState(45);
@@ -406,7 +416,7 @@ function Timer() {
        </Form>
       </Modal.Body>
       <Modal.Footer>
-       <Button onClick={doneHand} >Done</Button>
+       <Button onClick={()=>{doneHand();Stop()}} >Done</Button>
       </Modal.Footer>
     </Modal>
 
@@ -440,14 +450,7 @@ function Timer() {
        <Button
         style={{marginTop:'20px', placeItems:'center'}}
         variant='outline-light'
-        onClick={()=>{
-          tree.pause();
-          ocean.pause();
-          rain.pause();
-          night.pause();
-          wind.pause();
-          fire.pause()
-        }}
+        onClick={Stop}
         
         ><StopFill style={{height:'50px', width:'50px'}}/></Button>
        </div>
