@@ -3,7 +3,7 @@ import './Login.css';
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { addDoc, collection, doc, setDoc} from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
 import { Button, Form, Modal } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
 
@@ -18,10 +18,13 @@ function SignUp() {
   const [firstSub, setFirstSub] = useState('');
   const [firstSubErr, setFirstSubErr]=useState(null);
   const [disabled, setDisabled]=useState(true);
+  const [errShow, setErrShow]= useState(false);
+  const [userData, setUserData]= useState([])
 
   const cookie= new Cookies();
 
   let nav= useNavigate();
+ 
 
   const nextYear = new Date();
 
@@ -29,31 +32,50 @@ function SignUp() {
 
 
 
-  const createSes=async({user})=>{
-    const ref= collection(db,'Users',user,'Sessions');
-    const subref= collection(db, 'Users',user,'Subjects');
-    const Scoperef= collection(db,'Users',user,'Scopes')
+  const createSes=async()=>{
+
+     const docref = doc(db, 'Users',userData.uid)
+        
+   
+     
+        await setDoc(docref, {username: userData.displayName,tier: 'Pro'}).then(async ()=>{
+          const ref= collection(db,'Users',userData.uid,'Sessions');
+          const subref= collection(db, 'Users',userData.uid,'Subjects');
+          const Scoperef= collection(db,'Users',userData.uid,'Scopes')
+          
+           // Adds a doc to the collection of Sessions and names it subjects with the description subjects
+          await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
+          await addDoc(ref,{subject: 'example', WorkTime: 45, BreakTime: 15, description:'this is an example session', rating:4, time:'example date'})
+          await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
+          cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
+          localStorage.setItem('isAuth', true)
+          console.log('added!')
+         
+          nav(`/Dashboard/`)
+
+        });
+       
+     
     
-     // Adds a doc to the collection of Sessions and names it subjects with the description subjects
-    await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
-    await addDoc(ref,{subject: 'example', WorkTime: 45, BreakTime: 15, description:'this is an example session', rating:4, time:'example date'})
-    await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
-    const cuser=cookie.get('useraidt');
-    localStorage.setItem('isAuth', true)
-    nav(`/Dashboard/`)
   }
 
   const signUp=async ()=>{  //to put it simpy once a user signs up they'll be added to the database and then sent to add more subjects to sessions
     setPersistence(auth, browserLocalPersistence).then(()=>{
       return signInWithPopup(auth, provider).then(async(result)=>{
-        const ref = doc(db, 'Users', result.user.uid)
-        
-        const docRef = await setDoc(ref, {username: result.user.displayName,tier: 'Pro'});
-        
-        cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'});
         
         
-        setModalShow(true);
+        setUserData(result.user)
+        
+        
+        const setDoc = doc(db, 'Users',result.user.uid)
+        
+        await getDoc(setDoc).then((snapshot)=>{
+          if(snapshot.exists()){
+            setErrShow(true);
+          }else{
+            setModalShow(true)
+          }
+        })
         
       })
     })
@@ -75,13 +97,13 @@ function SignUp() {
       return false
     }}
 
-    const user=cookie.get('useraidt')
+    
   return (
     <div className="logBox">
       <div className='LoginCont'>
       <h1>Sign Up:</h1>
       <Button  variant='dark' onClick={signUp} >Sign Up with Google <Google/></Button>
-      
+      {errShow&&<p style={{color:'red'}}>This Account already exists</p>}
 
       <Modal
        show={modalShow}
@@ -99,12 +121,12 @@ function SignUp() {
         <Form>
           <Form.Label>Subject Name:</Form.Label>
           <Form.Control placeholder='Algebra' onChange={(e)=>{setFirstSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}} style={{marginBottom:'20px'}}/>
-          <Button onClick={()=>{createSes({user:user})}} disabled={disabled} style={{marginBottom:'20px'}}>Let's Go!</Button>
+          <Button onClick={()=>{createSes()}} disabled={disabled} style={{marginBottom:'20px'}}>Let's Go!</Button>
         {firstSubErr&&<h3 style={{color:'red', fontSize:'14px'}}>Please input a subject name</h3>}
         </Form>
       </Modal.Body>
       <Modal.Footer>
-       <h4>Don't worry, you can add more subjects later 🙂</h4>
+       <p>Don't worry, you can add more subjects later 🙂</p>
       </Modal.Footer>
     </Modal>
     </div>
