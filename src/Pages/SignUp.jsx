@@ -38,7 +38,7 @@ function SignUp() {
         
    
      
-        await setDoc(docref, {username: userData.displayName,tier: 'Pro'}).then(async ()=>{
+        await setDoc(docref, {username: userData.displayName, tier: 'Pro', email: userData.email}).then(async ()=>{
           const ref= collection(db,'Users',userData.uid,'Sessions');
           const subref= collection(db, 'Users',userData.uid,'Subjects');
           const Scoperef= collection(db,'Users',userData.uid,'Scopes')
