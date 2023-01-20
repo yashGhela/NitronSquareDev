@@ -147,6 +147,7 @@ function Dashboard() {
   
 
   return (
+    
     <div className='Page'>
       
      
@@ -363,7 +364,7 @@ function Dashboard() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px', marginRight:'15px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>

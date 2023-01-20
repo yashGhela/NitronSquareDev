@@ -8,7 +8,7 @@ import { Accordion, Button, Col, Form, Modal, Row } from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -580,7 +580,7 @@ function Timer() {
                        return(
                          <div className="list">
 
-                           <Button  variant="outline-secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:scop.id, task:inc}); scop.incomplete.splice(inc,1); scop.complete.push(inc)}}/>
+                           <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:scop.id, task:inc}); scop.incomplete.splice(inc,1); scop.complete.push(inc)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                          </div >
@@ -595,7 +595,7 @@ function Timer() {
                          <div className="list">
 
                          
-                           <Button  variant="outline-secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:scop.id, task:comp}); scop.complete.splice(comp,1); scop.incomplete.push(comp)}}/>
+                           <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:scop.id, task:comp}); scop.complete.splice(comp,1); scop.incomplete.push(comp)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                          
                            

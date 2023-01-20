@@ -58,7 +58,8 @@ function Settings() {
         let subref=  doc(db,'Users',user,'Subjects','SubjectsList');
         await updateDoc(subref,{
             subjects: arrayRemove(sub)
-        })
+        });
+        
         
         console.log('removed')
     }

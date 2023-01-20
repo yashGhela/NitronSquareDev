@@ -62,8 +62,8 @@ function Sessions() {
         <div className="bod1">
        
 
-          <div className="Recent" style={{backgroundColor:'RGB(97, 149, 232)', padding:'20px', borderRadius:'10px'}}>
-          <h1 style={{color:'lightgray'}}>Your Sessions:</h1>
+          <div className="Recent" >
+          <h1 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Your Sessions:</h1>
          
           {items.map((rec)=>{
               return(
