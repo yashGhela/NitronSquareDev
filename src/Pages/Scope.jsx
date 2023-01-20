@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button , Card, Modal, Accordion, Col, Row, Container,Form} from 'react-bootstrap'
-import {Speedometer,CardText,BarChart, Journals, Bullseye } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Journals, Bullseye, Check } from 'react-bootstrap-icons'
 import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import Cookies from 'universal-cookie'
@@ -103,7 +103,7 @@ function Scope() {
          <div className="bod">
         
         <Card style={{
-          width:'93vw',
+         
            margin:'20px',
            height:'150px',
            backgroundImage:'linear-gradient(-45deg ,rgb(163, 207, 137) ,rgb(182, 95, 177), rgb(52, 110, 235))',
@@ -177,7 +177,7 @@ function Scope() {
                         return(
                           <div className="list">
 
-                            <Button  variant="outline-secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}/>
+                            <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
@@ -192,7 +192,7 @@ function Scope() {
                           <div className="list">
 
                           
-                            <Button  variant="outline-secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}/>
+                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             

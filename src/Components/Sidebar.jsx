@@ -6,7 +6,7 @@ import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/LOGO clean.png'
 import {BoxArrowLeft, Gear} from 'react-bootstrap-icons'
-import { Button, Nav } from 'react-bootstrap';
+import { Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
@@ -15,27 +15,49 @@ function Sidebar({L1,L2,L3,L4}) {
   let nav = useNavigate();
 
   
+    const renderTooltip = (label) => (
+      <Tooltip id="button-tooltip" >
+       {label}
+      </Tooltip>
+    );
+
+  
     
   
   return (
- <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px'}}>
-  <img src={logo} alt="" style={{height:'40px', width:'40px', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}/>
+ <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column'}}>
+  <img src={logo} alt="" style={{height:'40px', width:'40px'}} />
    <div style={{marginTop: '150px',}}>
    <Nav >
       <Nav.Item style={{marginBottom:'20px'}} >
+       <OverlayTrigger
+       overlay={renderTooltip('Dashboard')}>
        {L1}
+       </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
-      {L2}
+      <OverlayTrigger
+       overlay={renderTooltip('Sessions')}>
+       {L2}
+       </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
-      {L3}
+      <OverlayTrigger
+       overlay={renderTooltip('Trends')}>
+       {L3}
+       </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
-      {L4}
+      <OverlayTrigger
+       overlay={renderTooltip('Scopes')}>
+       {L4}
+       </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginTop:'47vh'}} >
+       <OverlayTrigger
+        overlay={renderTooltip('Settings')}>
        <Button onClick={()=>{nav('/Settings')}}  variant='light-outline'><Gear style={{color:'white'}}/></Button>
+       </OverlayTrigger>
       </Nav.Item>
      
     </Nav>

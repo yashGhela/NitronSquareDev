@@ -16,14 +16,15 @@
 }
 
 .bod{
-    margin-left: 90px;
+    margin-left: 120px;
     display: flex;
     flex-direction: column;
+    width: 90vw;
     
    
 }
 .navB{
-    position: fixed;
+    position: absolute;
     right: 0;
     left: 0;
 }
@@ -59,7 +60,9 @@
 
 .bod1{
     
+    margin-left: 38px;
     display: flex;
+    width: 90vw;
     flex-direction: column;
 }
 

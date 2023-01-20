@@ -165,7 +165,7 @@ await getDoc(subref).then(docSnap=>{
 
         <div className="bod">
         <Card style={{
-            width:'93vw',
+            
              margin:'20px',
              height:'150px',
              backgroundImage:'linear-gradient(-45deg ,rgb(78, 193, 199) ,rgb(209, 194, 63), rgb(199, 78, 120))',

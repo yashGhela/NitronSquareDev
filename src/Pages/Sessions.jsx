@@ -30,7 +30,7 @@ function Sessions() {
         getNext,
                }=usePagination(
       query(subRef,orderBy('time','desc')),{
-        limit: 5
+        limit: 9
       }
     );
 
@@ -60,25 +60,9 @@ function Sessions() {
 
 
         <div className="bod1">
-        <Card style={{
-            width:'93vw',
-             margin:'20px',
-             height:'150px',
-             backgroundImage:'linear-gradient(-45deg ,rgb(109, 106, 247) ,rgb(73, 44, 191), rgb(63, 209, 87))',
-             backgroundSize:'400% 400%',
-             textAlign:'center',
-             alignItems:'center',
-             color:'white',
-             padding:' 10px',
-             animation:'gradient 15s ease infinite'
-              }}>
-            <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Sessions</h1></Card.Title>
-            
-         
-          
-          </Card>
+       
 
-          <div className="Recent">
+          <div className="Recent" style={{backgroundColor:'RGB(97, 149, 232)', padding:'20px', borderRadius:'10px'}}>
           <h1 style={{color:'lightgray'}}>Your Sessions:</h1>
          
           {items.map((rec)=>{

@@ -5,7 +5,7 @@ import {    useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check } from 'react-bootstrap-icons'
 import {Button, Modal, Card, Row, Col,  Form, Accordion,Container} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
@@ -166,7 +166,7 @@ function Dashboard() {
         
          <div className="top">
          <Card style={{
-            width:'93vw',
+            
              margin:'20px',
              height:'150px',
              backgroundColor:'rgb(97, 149, 232)',
@@ -286,7 +286,7 @@ function Dashboard() {
                   
                  
                   <Card 
-                  style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+                  style={{background:'RGB(12,12,12)' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
                   onClick={()=>{setModalShow(true); setModalData(rec) }}  
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
@@ -410,7 +410,7 @@ function Dashboard() {
                         return(
                           <div className="list">
 
-                            <Button  variant="outline-secondary" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}/>
+                            <Button  variant="secondary" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
@@ -427,7 +427,7 @@ function Dashboard() {
                           <div className="list">
 
                           
-                            <Button  variant="outline-secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}/>
+                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             
