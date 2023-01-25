@@ -1,9 +1,11 @@
 .Page{
     padding: 0%;
     margin: 0%;
+    width: 100%;
     display: flex;
     background-color: rgb(41, 44, 51);
-    height: 100vh;
+    height: 100%;
+    padding-bottom: 3%;
     
 }
 .Page2{

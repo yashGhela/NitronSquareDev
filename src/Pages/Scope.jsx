@@ -89,7 +89,7 @@ function Scope() {
 
   return (
     
-    <div className='Page'>
+    <div className='Page' style={{paddingBottom:'31%'}}>
 
 
          <div className="navB">

@@ -353,14 +353,14 @@ function Timer() {
     time: format(new Date(), 'yyyy/MM/dd')
 
 
-  });
+  })
   Stop()
   nav(`/Dashboard/`)
 }
 
   return (
    
-    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100vh', display:'flex', paddingTop:'20px'}}>
+    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100%', height:'100%', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -371,7 +371,7 @@ function Timer() {
     />
   </div>
       
-      <div className='Timer' style={{width:'700px', marginLeft:'550px',alignItems:'center', marginTop:'75px', placeItems: 'center', marginRight:'10px'}}>
+      <div className='Timer' style={{width:'700px', marginLeft:'30%',alignItems:'center', marginTop:'75px', placeItems: 'center', marginRight:'10px'}}>
     <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
@@ -379,7 +379,7 @@ function Timer() {
     
     })}
     />
-    <div style={{display:'flex', placeItems:'center', margin:'10px', marginLeft:'250px', marginTop:'50px'}}>
+    <div style={{display:'flex', placeItems:'center', margin:'10px', marginLeft:'250px', marginTop:'50px', marginBottom:'10px'}}>
     {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'><Play style={{height:'25px', width:'25px'}}/></Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
