@@ -83,6 +83,7 @@ function Scope() {
 
 
 
+
   
     
 
@@ -159,7 +160,7 @@ function Scope() {
                       
                       <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{modalData.title}</h1>
                      
-                      <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} minutes</p>
+                      <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} </p>
                       
                       <div className="mbod">
                        
@@ -177,7 +178,12 @@ function Scope() {
                         return(
                           <div className="list">
 
-                            <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}><Check/></Button>
+                            <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
+                              movetask({id:modalData.id, task:inc}); 
+                              var del= modalData.incomplete.indexOf(inc); 
+                              console.log(del);
+                              modalData.incomplete.splice(del,1);
+                               modalData.complete.push(inc)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
@@ -192,7 +198,11 @@ function Scope() {
                           <div className="list">
 
                           
-                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}><Check/></Button>
+                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
+                              movetaskBack({id:modalData.id, task:comp}); 
+                              var del = modalData.complete.indexOf(comp);
+                              modalData.complete.splice(del,1)
+                               modalData.incomplete.push(comp)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             

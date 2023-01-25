@@ -411,7 +411,11 @@ function Dashboard() {
                         return(
                           <div className="list">
 
-                            <Button  variant="secondary" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); modalData.incomplete.splice(inc,1); modalData.complete.push(inc)}}><Check/></Button>
+                            <Button  variant="secondary" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); 
+                              var del= modalData.incomplete.indexOf(inc); 
+                              console.log(del);
+                              modalData.incomplete.splice(del,1);
+                               modalData.complete.push(inc)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                           </div >
@@ -428,7 +432,11 @@ function Dashboard() {
                           <div className="list">
 
                           
-                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:modalData.id, task:comp}); modalData.complete.splice(comp,1); modalData.incomplete.push(comp)}}><Check/></Button>
+                            <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
+                              movetaskBack({id:modalData.id, task:comp}); 
+                              var del = modalData.complete.indexOf(comp);
+                              modalData.complete.splice(del,1)
+                               modalData.incomplete.push(comp)}}><Check/></Button>
                             <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                           
                             

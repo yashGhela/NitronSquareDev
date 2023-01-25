@@ -583,7 +583,12 @@ function Timer() {
                        return(
                          <div className="list">
 
-                           <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:scop.id, task:inc}); scop.incomplete.splice(inc,1); scop.complete.push(inc)}}><Check/></Button>
+                           <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
+                           movetask({id:scop.id, task:inc}); 
+                           var del= scop.incomplete.indexOf(inc); 
+                           console.log(del);
+                           scop.incomplete.splice(del,1);
+                            scop.complete.push(inc)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
 
                          </div >
@@ -598,7 +603,11 @@ function Timer() {
                          <div className="list">
 
                          
-                           <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetaskBack({id:scop.id, task:comp}); scop.complete.splice(comp,1); scop.incomplete.push(comp)}}><Check/></Button>
+                           <Button  variant="secondary" value={comp}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
+                            movetaskBack({id:scop.id, task:comp}); 
+                              var del = scop.complete.indexOf(comp);
+                              scop.complete.splice(del,1)
+                               scop.incomplete.push(comp)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{comp}</label><br/>
                          
                            
