@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Container,Row,Col } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
 import GooglePayButton from '@google-pay/button-react'
-import {arrayRemove, doc,getDoc, updateDoc} from 'firebase/firestore'
+import {arrayRemove, deleteDoc, doc,getDoc, updateDoc} from 'firebase/firestore'
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
 import { db,auth } from '../firebaseConfig'
@@ -14,9 +14,17 @@ import { async } from '@firebase/util'
 function Settings() {
 
 
+
+  
+ 
+
+
+
     let nav=useNavigate()
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
+
+
     
     const LogOut=()=>{
         signOut(auth).then(()=>{
@@ -65,8 +73,38 @@ function Settings() {
     }
 
 
+    const Paddle = window.Paddle;
+  const openCheckout  = () => { 
+      Paddle.Checkout.open({
+         product: 43741 ,
+         successCallback:(data,err)=>{
+          console.log(data);
+          UpdateUser()
+          nav('/Dashboard')
+          
+         }
+        });
+  }
+
+
+  const UpdateUser=async()=>{
+    const docRef= (db, 'Users', user);
+    await updateDoc(docRef,{
+      tier:'paid'
+    })
+  }
+
+  const closeAccount=async()=>{
+    const docRef= (db, 'Users', user);
+
+    await deleteDoc(docRef).then(
+      LogOut()
+     )
+  }
+
+
   return (
-    <div className="Page">
+    <div className="Page" style={{height:'100vh'}}>
 
        <div className="navB">
         <Sidebar
@@ -92,7 +130,7 @@ function Settings() {
                     <Card.Text>
                         Join the Improvr family now and gain unlimited access to all features.
                     </Card.Text>
-                 <Button variant='light' style={{width:'180px'}}>Pay</Button>
+                 <Button variant='light' style={{width:'180px'}} onClick={openCheckout}>Pay</Button>{''}
                   
                 </Card.Body>
 
