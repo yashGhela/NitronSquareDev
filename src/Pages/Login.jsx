@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import './Login.css';
+
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import {doc, getDoc} from 'firebase/firestore';
-import {Button, Form} from 'react-bootstrap'
+import {Alert, Button, Card, Form} from 'react-bootstrap'
 import {Google} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
 
@@ -52,25 +52,27 @@ function Login() {
   
  
   return (
-    <div className="logBox">
-      <div className='LoginCont'>
+    <div style={{display:'flex', placeItems:'center', backgroundColor:'rgb(41,44,51)', padding:'0%', margin:'0%', height:'100vh'}}>
+     
+      <Card  style={{height:'250px', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)'}}>
+        <Card.Title>Welcome back! Please Log In</Card.Title>
+      <Card.Body>
       <Form>
       <Form.Group>
-        <Form.Label style={{fontSize:'35px', fontWeight:'bold', marginBottom:'20px'}}>
-          Log in
-        </Form.Label><br/>
+        
        
         <Button variant='dark'  onClick={signIn}>Sign In with Google <Google/></Button>
 
-        {errShow && <p style={{color:'red'}}>This Account does not exist</p>}
+        {errShow && <Alert style={{marginTop:'5px',}} variant='danger'>This Account does not exist</Alert>}
      
         
       </Form.Group>
       </Form>
+      </Card.Body>
   
      
       
-    </div>
+    </Card>
     </div>
   )
   }
