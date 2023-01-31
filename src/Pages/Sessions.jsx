@@ -47,7 +47,7 @@ function Sessions() {
 
     
 
-    <div className='Page'>
+    <div className='Page' style={{height:'100vh'}}>
 
    
    <Sidebar
@@ -59,7 +59,7 @@ function Sessions() {
    
 
 
-        <div className="bod1">
+        <div className="bod1" style={{width:'90%', marginLeft:'120px'}}>
        
 
           <div className="Recent" >

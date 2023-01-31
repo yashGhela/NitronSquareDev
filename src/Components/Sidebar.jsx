@@ -25,7 +25,7 @@ function Sidebar({L1,L2,L3,L4}) {
     
   
   return (
- <div className='Sidebar' style={{ display:'flex', flexDirection:'column'}}>
+ <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column', height:'98%'}}>
   <img src={logo} alt="" style={{height:'40px', width:'40px',marginTop:'10%'}} />
    <div style={{marginTop: '150px',}}>
    <Nav >
