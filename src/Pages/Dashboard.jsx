@@ -148,7 +148,7 @@ function Dashboard() {
 
   return (
     
-    <div className='Page' style={{height:'100%'}}>
+    <div className='Page' style={{height:'100vh'}}>
       
      
        
@@ -292,7 +292,7 @@ function Dashboard() {
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
                     <Row>
-                      <Col xs={6} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
+                      <Col xs={4} > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.BreakTime}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.time}</h3></Col>
@@ -364,7 +364,7 @@ function Dashboard() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px', marginRight:'15px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px',}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>
