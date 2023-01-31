@@ -86,6 +86,18 @@ function Settings() {
         });
   }
 
+  const openCheckoutAnn  = () => { 
+    Paddle.Checkout.open({
+       product: 	44012 ,
+       successCallback:(data,err)=>{
+        console.log(data);
+        UpdateUser()
+        nav('/Dashboard')
+        
+       }
+      });
+}
+
 
   const UpdateUser=async()=>{
     const docRef= (db, 'Users', user);
@@ -104,7 +116,7 @@ function Settings() {
 
 
   return (
-    <div className="Page" style={{height:'100vh'}}>
+    <div className="Page" style={{height:'100%', paddingBottom:'20%'}}>
 
        <div className="navB">
         <Sidebar
@@ -121,20 +133,42 @@ function Settings() {
           <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
            <div className="Account" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px' , marginBottom:'10px'}}>
            <h2 style={{color:'gray', fontSize:'22px'}}>Your Account</h2>
-            <Card style={{height:'270px', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white'}}>
+           <Row>
+            <Col xs='2' style={{marginRight:'40px'}}>
+             <Card style={{height:'90%', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px'}}>
                 <Card.Body>
                     <Card.Title>
-                        Join Now
+                        Monthly
                     </Card.Title>
                     <h1 style={{textAlign:'center', fontSize:'60px', fontWeight:'bold'}}>$5/m</h1>
                     <Card.Text>
-                        Join the Improvr family now and gain unlimited access to all features.
+                        Join the Improvr family now and gain unlimited access to all features.<br/>
+                        Start with 14 days free
                     </Card.Text>
-                 <Button variant='light' style={{width:'180px'}} onClick={openCheckout}>Pay</Button>{''}
+                 <Button variant='light' style={{width:'180px'}} onClick={openCheckout}>Start for Free </Button>{''}
+                  
+                </Card.Body>
+
+            </Card></Col>
+            <Col>
+            <Card style={{height:'90%', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px'}}>
+                <Card.Body>
+                    <Card.Title>
+                        Yearly
+                    </Card.Title>
+                    <h1 style={{textAlign:'center', fontSize:'60px', fontWeight:'bold'}}>$50</h1>
+                    <Card.Text>
+                        Join the Improvr family now and gain unlimited access to all features.<br/>
+                        Start with 14 days free
+                    </Card.Text>
+                 <Button variant='light' style={{width:'180px'}} onClick={openCheckoutAnn}>Pay </Button>{''}
                   
                 </Card.Body>
 
             </Card>
+            </Col>
+           </Row>
+            
            </div>
 
 

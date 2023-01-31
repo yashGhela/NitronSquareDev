@@ -148,7 +148,7 @@ function Dashboard() {
 
   return (
     
-    <div className='Page' style={{height:'100vh'}}>
+    <div className='Page' style={{height:'100%'}}>
       
      
        
@@ -178,7 +178,7 @@ function Dashboard() {
              padding:' 10px',
              animation:'gradient 15s ease infinite'
               }}>
-            <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Start A New Session</h1></Card.Title>
+            <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Start A New Session</h1></Card.Title>
             
           <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{setGoModalShow(true)}}>Lets Go!</Button>
           

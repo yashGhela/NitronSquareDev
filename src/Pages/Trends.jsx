@@ -13,7 +13,7 @@ import {
   Tooltip,
   LinearScale,
 } from 'chart.js';
-import {Button, Card} from 'react-bootstrap';
+import {Button, Card, Container,Row,Col} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import { collection, getDocs,doc, getDoc, query, where, limit, getCountFromServer ,orderBy} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -182,10 +182,13 @@ await getDoc(subref).then(docSnap=>{
           
           </Card>
 
+         <Container fluid>
+          <Row>
           <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
           {subjectList.map((sub)=>{
               
               return(
+                <Col xs='1' style={{marginRight:'10px', marginLeft:'0'}}>
                 <Card 
                 type="checkbox"
                  value={sub} 
@@ -193,7 +196,7 @@ await getDoc(subref).then(docSnap=>{
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)',color:'lightgray'}}>
                   {sub}
-                </Card>
+                </Card></Col>
                 
               )
 
@@ -203,21 +206,29 @@ await getDoc(subref).then(docSnap=>{
 
 
           </div>
+          </Row>
+         </Container>
           <h4 style={{marginLeft:'20px', color:'lightgray'}}>Trends for {sub}</h4>
 
         
 
-          <div style={{width:800, margin: '20px', display: 'flex'}}>
-           <Line data={userData} />
-           <Bar data={userData}   /><br/>
-           
-       
+          <div style={{margin: '20px', display: 'flex', width:'100%'}}>
+           <Container fluid>
+            <Row>
+              <Col >
+              <Line data={userData}   />
+ 
+              </Col>
+              <Col>
+              <Bar data={userData}   /></Col>
+            </Row>
+           </Container>
            
            </div>
 
 
            <Card style={{marginLeft:'20px', height:'200px', width:'150px',padding:'20px', backgroundColor:'rgb(12,12,12)',color:'lightgray'}}>
-            <h3>Sessions Done:</h3>
+            <Card.Text style={{fontSize:'25px'}}>Sessions Done:</Card.Text>
             <h1>{sesDone}</h1>
            </Card>
 
