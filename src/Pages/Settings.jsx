@@ -177,26 +177,26 @@ function Settings() {
            <div className="Subjects" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
            <h2 style={{color:'gray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Delete Subjects:</h2>
            <p style={{color:'gray'}}>Note: Once clicked, your subject will be deleted.</p>
-           <Container fluid={true}>
-              <Row>
+           <Container fluid={true} style={{display:'flex'}}>
+            
               {subjectList.map((sub)=>{
               
               return(
-               <Col xs='1' style={{marginRight:'5px', marginLeft:'0'}}>
-                <Card 
+               
+                <Button 
                 type="checkbox"
                  value={sub} 
-                 variant="secondary"
+                 variant="outline-light"
                  onClick={()=>{DeleteSub(sub)}}
                
-                style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(97,149,232)',color:'white'}}>
+                style={{marginRight:'10px'}}>
                   {sub}
-                </Card>
-                </Col>
+                </Button>
+                
               )
             
             })}
-              </Row>
+             
             </Container>
            </div>
 
@@ -217,13 +217,13 @@ function Settings() {
            </div>
 
            <div className="LogOut" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
-              <Card 
+              <Button 
            disabled={false}
            onClick={()=>{LogOut()}}
            
-           style={{marginRight:'5px', marginBottom:'5px', marginTop: '10px',width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(97,149,232)',color:'white'}}>
+          >
             Log Out
-           </Card>
+           </Button>
 
            </div>
 

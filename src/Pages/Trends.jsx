@@ -13,7 +13,7 @@ import {
   Tooltip,
   LinearScale,
 } from 'chart.js';
-import {Button, Card, Container,Row,Col} from 'react-bootstrap';
+import {Button, Card, Container,Row,Col, ButtonGroup} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import { collection, getDocs,doc, getDoc, query, where, limit, getCountFromServer ,orderBy} from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -184,19 +184,21 @@ await getDoc(subref).then(docSnap=>{
 
          <Container fluid>
           
-          <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
+         <ButtonGroup>
+         <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
           {subjectList.map((sub)=>{
               
               return(
                
-                <Card 
+                <Button 
                 type="checkbox"
                  value={sub} 
-                 variant="secondary"
+                 variant="outline-light"
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', background:'RGB(12,12,12)',color:'lightgray'}}>
+                 style={{marginRight:'10px'}}
+                 >
                   {sub}
-                </Card>
+                </Button>
                 
               )
 
@@ -206,6 +208,7 @@ await getDoc(subref).then(docSnap=>{
 
 
           </div>
+         </ButtonGroup>
          
          </Container>
           <h4 style={{marginLeft:'20px', color:'lightgray'}}>Trends for {sub}</h4>

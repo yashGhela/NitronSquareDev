@@ -52,7 +52,7 @@ function Login() {
   
  
   return (
-    <div style={{display:'grid', placeItems:'center', backgroundColor:'rgb(41,44,51)', padding:'0%', margin:'0%', height:'100vh'}}>
+    <div style={{display:'grid', placeItems:'center', backgroundColor:'#17181a', padding:'0%', margin:'0%', height:'100vh'}}>
      
       <Card  style={{height:'250px', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)'}}>
         <Card.Title>Welcome back! Please Log In</Card.Title>
