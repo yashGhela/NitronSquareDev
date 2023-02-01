@@ -68,7 +68,7 @@ function Sessions() {
           {items.map((rec)=>{
               return(
                 <div>
-                  <Card style={{background:'RGB(12,12,12)' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
+                  <Card style={{background:'#282b2e' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>

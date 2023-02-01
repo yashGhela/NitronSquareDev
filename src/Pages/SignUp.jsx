@@ -4,7 +4,7 @@ import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
-import { Alert, Button, Card, Form, Modal } from 'react-bootstrap';
+import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
 
 import Cookies from 'universal-cookie';
@@ -15,6 +15,7 @@ function SignUp() {
 
  
   const [modalShow, setModalShow]= useState(false);
+  const [payShow, setPayShow]=useState(false);
   const [firstSub, setFirstSub] = useState('');
   const [firstSubErr, setFirstSubErr]=useState(null);
   const [disabled, setDisabled]=useState(true);
@@ -73,7 +74,7 @@ function SignUp() {
           if(snapshot.exists()){
             setErrShow(true);
           }else{
-            setModalShow(true)
+            setPayShow(true)
           }
         })
         
@@ -99,22 +100,25 @@ function SignUp() {
 
     
   return (
-    <div style={{display:'grid', placeItems:'center', backgroundColor:'rgb(41,44,51)', padding:'0%', margin:'0%', height:'100vh'}} >
+    <div style={{display:'grid', placeItems:'center', background:'rgb(41,44,51)', padding:'0%', margin:'0%', height:'100vh'}} >
       <Card   style={{height:'250px', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)'}}>
-      <h1>Sign Up:</h1>
+      <Card.Title>Sign Up</Card.Title>
+      <Card.Body>
       <Button  variant='dark' onClick={signUp} >Sign Up with Google <Google/></Button>
       {errShow&&<Alert style={{marginTop:'5px'}} variant='danger'>This Account already exists</Alert>}
+      </Card.Body>
 
       <Modal
        show={modalShow}
+       onHide={()=>{setModalShow(false)}}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       className="special_modal"
       
       centered>
-      <Modal.Header>
+      <Modal.Header closeButton closeVariant='white'>
         <Modal.Title  id="contained-modal-title-vcenter">
-          Please Add Your First Subject
+          Welcome to Improvr! Let's add your first subject!
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -127,6 +131,49 @@ function SignUp() {
       </Modal.Body>
       <Modal.Footer>
        <p>Don't worry, you can add more subjects later 🙂</p>
+      </Modal.Footer>
+    </Modal>
+
+    <Modal
+       show={payShow}
+       onHide={()=>{setPayShow(false)}}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      className="special_modal"
+      
+      centered>
+      <Modal.Header closeButton closeVariant='white'>
+        <Modal.Title  id="contained-modal-title-vcenter">
+          Welcome to Improvr! Subscribe to get Started!
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Container fluid>
+          <Row>
+              
+              <Col>
+              
+              <Card style={{height:'90%', width:'100%', marginTop:'20px', background:'linear-gradient(180deg, #3277a8,#2a5991)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center'}}>
+                <Card.Title>Monthly</Card.Title>
+                <Card.Body>
+                  <h1></h1>
+
+
+
+                </Card.Body>
+              </Card>
+              </Col>
+              <Col>
+             
+              </Col>
+
+           
+          </Row>
+        </Container>
+        
+      </Modal.Body>
+      <Modal.Footer>
+       
       </Modal.Footer>
     </Modal>
     </Card>

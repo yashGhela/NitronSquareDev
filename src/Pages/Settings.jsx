@@ -29,7 +29,7 @@ function Settings() {
     const LogOut=()=>{
         signOut(auth).then(()=>{
           const cookies = new Cookies();
-          cookies.remove('useraidt');
+          cookies.remove('useraidt', { path: '/' });
           
           nav('/');
           
@@ -219,7 +219,7 @@ function Settings() {
            <div className="LogOut" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
               <Card 
            disabled={false}
-           onClick={LogOut}
+           onClick={()=>{LogOut()}}
            
            style={{marginRight:'5px', marginBottom:'5px', marginTop: '10px',width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(97,149,232)',color:'white'}}>
             Log Out

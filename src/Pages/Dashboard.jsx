@@ -287,7 +287,7 @@ function Dashboard() {
                   
                  
                   <Card 
-                  style={{background:'RGB(12,12,12)' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
                   onClick={()=>{setModalShow(true); setModalData(rec) }}  
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
@@ -364,7 +364,7 @@ function Dashboard() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'RGB(12, 12, 12)', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px',}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'180px', marginTop:'10px',}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>

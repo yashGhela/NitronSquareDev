@@ -1,9 +1,9 @@
 .Page{
     padding: 0%;
     margin: 0%;
-    width: 100%;
+    width: 100vw;
     display: flex;
-    background-color: rgb(41, 44, 51);
+    background-color: #17181a;
     height: 100%;
     padding-bottom: 10%;
     
@@ -69,7 +69,7 @@
 }
 
 .special_modal .modal-content{
-    background-color: rgb(41, 44, 51);
+    background-color: #17181a;
     color: #fff;
 
  }

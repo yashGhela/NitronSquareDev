@@ -183,20 +183,20 @@ await getDoc(subref).then(docSnap=>{
           </Card>
 
          <Container fluid>
-          <Row>
+          
           <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
           {subjectList.map((sub)=>{
               
               return(
-                <Col xs='1' style={{marginRight:'10px', marginLeft:'0'}}>
+               
                 <Card 
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', backgroundColor:'RGB(12,12,12)',color:'lightgray'}}>
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px', height:'35px', cursor:'pointer', display:'flex',paddingBottom:'20px', paddingRight:'5px', paddingLeft:'5px', background:'RGB(12,12,12)',color:'lightgray'}}>
                   {sub}
-                </Card></Col>
+                </Card>
                 
               )
 
@@ -206,7 +206,7 @@ await getDoc(subref).then(docSnap=>{
 
 
           </div>
-          </Row>
+         
          </Container>
           <h4 style={{marginLeft:'20px', color:'lightgray'}}>Trends for {sub}</h4>
 
