@@ -4,7 +4,7 @@ import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
-import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row } from 'react-bootstrap';
+import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row, ListGroup, Badge } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
 
 import Cookies from 'universal-cookie';
@@ -25,6 +25,33 @@ function SignUp() {
   const cookie= new Cookies();
 
   let nav= useNavigate();
+
+  
+  const Paddle = window.Paddle;
+  const openCheckout  = () => { 
+      Paddle.Checkout.open({
+         product: 43741 ,
+         successCallback:(data,err)=>{
+          console.log(data);
+          setPayShow(false)
+         setModalShow(true)
+        
+          
+         }
+        });
+  }
+
+  const openCheckoutAnn  = () => { 
+    Paddle.Checkout.open({
+       product: 	44012 ,
+       successCallback:(data,err)=>{
+        console.log(data);
+        setPayShow(false)
+        setModalShow(true)
+        
+       }
+      });
+}
  
 
   const nextYear = new Date();
@@ -153,17 +180,100 @@ function SignUp() {
               
               <Col>
               
-              <Card style={{height:'90%', width:'100%', marginTop:'20px', background:'linear-gradient(180deg, #3277a8,#2a5991)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center'}}>
+              <Card style={{ width:'100%', marginTop:'20px', background:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
                 <Card.Title>Monthly</Card.Title>
                 <Card.Body>
-                  <h1></h1>
+                  <h1 style={{fontSize:'80px'}}>$5</h1>
+                  <p style={{textAlign:'left'}}>Get access to all of 
+                  Improvr's features, payed on a
+                  monthly basis.</p>
+
+                  <ListGroup as="ol" style={{textAlign:'left'}} >
+                    <ListGroup.Item
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                      style={{background:'none', color:'white', borderColor:'white' }}
+                    >
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">Timer </div>
+                        Access to our powerful timer tool, with focus sounds and quick tools.
+                      </div>
+                     
+                    </ListGroup.Item>
+                    <ListGroup.Item
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                      style={{background:'none', color:'white',  borderColor:'white'}}
+                    >
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">Trends</div>
+                        Access to our powerful statistics tools which give users a better understanding of their work.
+                      </div>
+                    
+                    </ListGroup.Item>
+                    <ListGroup.Item
+                     style={{background:'none', color:'white', borderColor:'white'}}
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                    >
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">Scopes</div>
+                        Access to our goal setting tools, reach for the stars!
+                      </div>
+                     
+                    </ListGroup.Item>
+                  </ListGroup>
 
 
 
                 </Card.Body>
+                <Card.Footer>
+                  <Button style={{width:'100%'}} variant='light' onClick={openCheckout}>Get Started for Free</Button>
+                </Card.Footer>
               </Card>
               </Col>
               <Col>
+              <Card style={{ width:'100%', marginTop:'20px', background:'#282b2e', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
+                <Card.Title>Annual</Card.Title>
+                <Card.Body>
+                  <h1 style={{fontSize:'80px'}}>$50</h1>
+                  <p style={{textAlign:'left'}}>Get access to all of 
+                  Improvr's features, payed on 
+                  an annual basis.</p>
+
+                  <ListGroup as="ol" style={{textAlign:'left'}} >
+                    <ListGroup.Item
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                      style={{background:'none', color:'white', borderColor:'white' }}
+                    >
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">Power </div>
+                        Access to all of our tools listed in the monthly plan. For serious users dedicated to their work.
+                      </div>
+                     
+                    </ListGroup.Item>
+                    <ListGroup.Item
+                      as="li"
+                      className="d-flex justify-content-between align-items-start"
+                      style={{background:'none', color:'white',  borderColor:'white'}}
+                    >
+                      <div className="ms-2 me-auto">
+                        <div className="fw-bold">2 months off </div>
+                        With our annual plan get 2 months for free.
+                      </div>
+                    
+                    </ListGroup.Item>
+                   
+                  </ListGroup>
+
+
+
+                </Card.Body>
+                <Card.Footer>
+                  <Button style={{width:'100%'}} variant='light' onClick={openCheckoutAnn}>Pay</Button>
+                </Card.Footer>
+              </Card>
              
               </Col>
 

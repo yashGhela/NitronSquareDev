@@ -73,38 +73,8 @@ function Settings() {
     }
 
 
-    const Paddle = window.Paddle;
-  const openCheckout  = () => { 
-      Paddle.Checkout.open({
-         product: 43741 ,
-         successCallback:(data,err)=>{
-          console.log(data);
-          UpdateUser()
-          nav('/Dashboard')
-          
-         }
-        });
-  }
-
-  const openCheckoutAnn  = () => { 
-    Paddle.Checkout.open({
-       product: 	44012 ,
-       successCallback:(data,err)=>{
-        console.log(data);
-        UpdateUser()
-        nav('/Dashboard')
-        
-       }
-      });
-}
 
 
-  const UpdateUser=async()=>{
-    const docRef= (db, 'Users', user);
-    await updateDoc(docRef,{
-      tier:'paid'
-    })
-  }
 
   const closeAccount=async()=>{
     const docRef= (db, 'Users', user);
@@ -133,41 +103,7 @@ function Settings() {
           <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
            <div className="Account" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px' , marginBottom:'10px'}}>
            <h2 style={{color:'gray', fontSize:'22px'}}>Your Account</h2>
-           <Row>
-            <Col xs='2' style={{marginRight:'40px'}}>
-             <Card style={{height:'90%', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px'}}>
-                <Card.Body>
-                    <Card.Title>
-                        Monthly
-                    </Card.Title>
-                    <h1 style={{textAlign:'center', fontSize:'60px', fontWeight:'bold'}}>$5/m</h1>
-                    <Card.Text>
-                        Join the Improvr family now and gain unlimited access to all features.<br/>
-                        Start with 14 days free
-                    </Card.Text>
-                 <Button variant='light' style={{width:'180px'}} onClick={openCheckout}>Start for Free </Button>{''}
-                  
-                </Card.Body>
-
-            </Card></Col>
-            <Col>
-            <Card style={{height:'90%', width:'220px', marginTop:'20px', backgroundColor:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px'}}>
-                <Card.Body>
-                    <Card.Title>
-                        Yearly
-                    </Card.Title>
-                    <h1 style={{textAlign:'center', fontSize:'60px', fontWeight:'bold'}}>$50</h1>
-                    <Card.Text>
-                        Join the Improvr family now and gain unlimited access to all features.<br/>
-                        Start with 14 days free
-                    </Card.Text>
-                 <Button variant='light' style={{width:'180px'}} onClick={openCheckoutAnn}>Pay </Button>{''}
-                  
-                </Card.Body>
-
-            </Card>
-            </Col>
-           </Row>
+          
             
            </div>
 
