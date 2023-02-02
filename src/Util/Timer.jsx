@@ -360,7 +360,7 @@ function Timer() {
 
   return (
    
-    <div style={{backgroundColor:'rgb(41, 44, 51)', width:'100', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
+    <div style={{backgroundColor:'#17181a', width:'100', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
