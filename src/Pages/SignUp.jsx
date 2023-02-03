@@ -21,6 +21,7 @@ function SignUp() {
   const [disabled, setDisabled]=useState(true);
   const [errShow, setErrShow]= useState(false);
   const [userData, setUserData]= useState([])
+  const [subId, setSubId]= useState('')
 
   const cookie= new Cookies();
 
@@ -35,9 +36,11 @@ function SignUp() {
           console.log(data);
           setPayShow(false)
          setModalShow(true)
+       
+
         
-          
          }
+         
         });
   }
 
