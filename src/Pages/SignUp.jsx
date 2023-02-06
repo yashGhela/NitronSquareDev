@@ -76,8 +76,8 @@ function SignUp() {
           
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
-          await addDoc(ref,{subject: 'example', WorkTime: 45, BreakTime: 15, description:'this is an example session', rating:4, time:'example date'})
-          await addDoc(Scoperef,{title:'example document', description:'This is an example document of the scopes functions'})
+          await addDoc(ref,{plec:'placeholder'})
+          await addDoc(Scoperef,{plec:'placeholder'})
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
           localStorage.setItem('isAuth', true)
           console.log('added!')
