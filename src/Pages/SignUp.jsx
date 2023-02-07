@@ -32,6 +32,7 @@ function SignUp() {
   const openCheckout  = () => { 
       Paddle.Checkout.open({
          product: 43741 ,
+         email: userData.email,
          successCallback:(data,err)=>{
           console.log(data);
           setPayShow(false)
@@ -47,11 +48,15 @@ function SignUp() {
   const openCheckoutAnn  = () => { 
     Paddle.Checkout.open({
        product: 	44012 ,
+       email: userData.email,
        successCallback:(data,err)=>{
         console.log(data);
         setPayShow(false)
         setModalShow(true)
         
+       },
+       closeCallback: (data)=>{
+        alert('Failed to Checkout')
        }
       });
 }
@@ -72,12 +77,12 @@ function SignUp() {
         await setDoc(docref, {username: userData.displayName, tier: 'Pro', email: userData.email}).then(async ()=>{
           const ref= collection(db,'Users',userData.uid,'Sessions');
           const subref= collection(db, 'Users',userData.uid,'Subjects');
-          const Scoperef= collection(db,'Users',userData.uid,'Scopes')
+          
           
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
           await addDoc(ref,{plec:'placeholder'})
-          await addDoc(Scoperef,{plec:'placeholder'})
+          
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
           localStorage.setItem('isAuth', true)
           console.log('added!')
