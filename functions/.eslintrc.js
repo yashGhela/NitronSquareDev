@@ -13,9 +13,11 @@ module.exports = {
     'google',
   ],
   rules: {
-    'quotes': ['error', 'double'],
+    'max-len': 'off',
     'linebreak-style': ['error', process.platform === 'win32' ? 'windows' : 'unix'],
     'quotes': [2, 'single', {'avoidEscape': true}],
+    'require-jsdoc': 0,
+    'indent': 'off',
 
 
   },
