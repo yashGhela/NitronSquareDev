@@ -1,7 +1,7 @@
 const crypto = require('crypto');
 const Serialize = require('php-serialize');
 const functions = require('firebase-functions');
-const admin = require('firebase-admin')
+const admin = require('firebase-admin');
 
 admin.initializeApp();
 
@@ -19,54 +19,54 @@ AAUYhfUztfmkYWJbnRI5h8hZDPUG7P2pKtDix9/l4mTDWdUKGHSNY61PBSc2mWhH
 xgQAe2VLKU89QBfQ4FFDsUtPc2xiApOEd0JNLDqztQxzFocBOl6E8KTh1/2KYdAA
 jjfkOPCkIKHT87jdjCYI7gAei895TNezfdN5FVlLO9c0OWwj5sW0dMwwxljn+3sg
 sQMKxUZL2r7Kb98nHzbbyvMCAwEAAQ==
------END PUBLIC KEY-----`
+-----END PUBLIC KEY-----`;
 
-function ksort(obj){
-    const keys = Object.keys(obj).sort();
-    let sortedObj = {};
+function ksort(obj) {
+  const keys = Object.keys(obj).sort();
+  const sortedObj = {};
 
-    for (let i in keys) {
-        sortedObj[keys[i]] = obj[keys[i]];
-    }
+  for (const i in keys) {
+    sortedObj[keys[i]] = obj[keys[i]];
+  }
 
-    return sortedObj;
+  return sortedObj;
 }
 
 function validateWebhook(jsonObj) {
-    const mySig = Buffer.from(jsonObj.p_signature, 'base64');
-    delete jsonObj.p_signature;
-    // Need to serialize array and assign to data object
-    jsonObj = ksort(jsonObj);
-    for (let property in jsonObj) {
-        if (jsonObj.hasOwnProperty(property) && (typeof jsonObj[property]) !== "string") {
-            if (Array.isArray(jsonObj[property])) { // is it an array
-                jsonObj[property] = jsonObj[property].toString();
-            } else { //if its not an array and not a string, then it is a JSON obj
-                jsonObj[property] = JSON.stringify(jsonObj[property]);
-            }
-        }
+  const mySig = Buffer.from(jsonObj.p_signature, 'base64');
+  delete jsonObj.p_signature;
+  // Need to serialize array and assign to data object
+  jsonObj = ksort(jsonObj);
+  for (const property in jsonObj) {
+    if (jsonObj.hasOwnProperty(property) && (typeof jsonObj[property]) !== 'string') {
+      if (Array.isArray(jsonObj[property])) { // is it an array
+        jsonObj[property] = jsonObj[property].toString();
+      } else { // if its not an array and not a string, then it is a JSON obj
+        jsonObj[property] = JSON.stringify(jsonObj[property]);
+      }
     }
-    const serialized = Serialize.serialize(jsonObj);
-    // End serialize data object
-    const verifier = crypto.createVerify('sha1');
-    verifier.update(serialized);
-    verifier.end();
+  }
+  const serialized = Serialize.serialize(jsonObj);
+  // End serialize data object
+  const verifier = crypto.createVerify('sha1');
+  verifier.update(serialized);
+  verifier.end();
 
-    const verification = verifier.verify(pubKey, mySig);
+  const verification = verifier.verify(pubKey, mySig);
 
-    return verification;
+  return verification;
 }
 
 exports.webhookPaddle = functions.https.onRequest(async (request, response) => {
-    if (validateWebhook(request.body)) {
-        var data = request.body;
-        delete data.p_signature;
-        if (data.alert_name === 'subscription_created' && data.passthrough) {
-            data.uid = data.passthrough;
-        }
-        await admin.firestore().collection('subscriptions').doc(data.subscription_id).set(data, {merge: true});
-        await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('event').doc(data.alert_id).set(data, {merge: true});
+  if (validateWebhook(request.body)) {
+    const data = request.body;
+    delete data.p_signature;
+    if (data.alert_name === 'subscription_created' && data.passthrough) {
+      data.uid = data.passthrough;
     }
-    response.send(true)
-    // response.send("Hello from Firebase!");
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).set(data, {merge: true});
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('event').doc(data.alert_id).set(data, {merge: true});
+  }
+  response.send(true);
+  // response.send("Hello from Firebase!");
 });
