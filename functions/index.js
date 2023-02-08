@@ -4,8 +4,14 @@ const crypto = require('crypto');
 const Serialize = require('php-serialize');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const serviceAccount = require('./nstudy-dev-firebase-adminsdk-btkt7-dbec87a2c2.json');
 
-admin.initializeApp();
+admin.initializeApp(
+  {
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: 'https://nstudy-dev-default-rtdb.firebaseio.com',
+  },
+);
 
 
 const pubKey = `-----BEGIN PUBLIC KEY-----
@@ -68,6 +74,7 @@ exports.subscriptionCreate = functions.https.onRequest(async (request, response)
     delete data.p_signature;
     if (data.alert_name === 'subscription_created' && data.passthrough) {
       data.uid = data.passthrough;
+      
     }
     await admin.firestore().collection('subscriptions').doc(data.subscription_id).set(data, {merge: true});
     await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('event').doc(data.alert_id).set(data, {merge: true});
