@@ -1,10 +1,9 @@
 
 
-const crypto = require('crypto');
-const Serialize = require('php-serialize');
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const serviceAccount = require('./nstudy-dev-firebase-adminsdk-btkt7-dbec87a2c2.json');
+const {verifyPaddleWebhook} = require('verify-paddle-webhook');
 
 admin.initializeApp(
   {
@@ -29,52 +28,13 @@ jjfkOPCkIKHT87jdjCYI7gAei895TNezfdN5FVlLO9c0OWwj5sW0dMwwxljn+3sg
 sQMKxUZL2r7Kb98nHzbbyvMCAwEAAQ==
 -----END PUBLIC KEY-----`;
 
-function ksort(obj) {
-  const keys = Object.keys(obj).sort();
-  const sortedObj = {};
-
-  for (const i in keys) {
-   if (keys.hasOwn(i)) {
-    sortedObj[keys[i]] = obj[keys[i]];
-   }
-  }
-
-
-  return sortedObj;
-}
-
-function validateWebhook(jsonObj) {
-  const mySig = Buffer.from(jsonObj.p_signature, 'base64');
-  delete jsonObj.p_signature;
-  // Need to serialize array and assign to data object
-  jsonObj = ksort.prototype(jsonObj);
-  for (const property in jsonObj) {
-    if (jsonObj.hasOwn(property) && (typeof jsonObj[property]) !== 'string') {
-      if (Array.isArray(jsonObj[property])) { // is it an array
-        jsonObj[property] = jsonObj[property].toString();
-      } else { // if its not an array and not a string, then it is a JSON obj
-        jsonObj[property] = JSON.stringify(jsonObj[property]);
-      }
-    }
-  }
-  const serialized = Serialize.serialize(jsonObj);
-  // End serialize data object
-  const verifier = crypto.createVerify('sha1');
-  verifier.update(serialized);
-  verifier.end();
-
-  const verification = verifier.verify(pubKey, mySig);
-
-  return verification;
-}
 
 exports.subscriptionCreate = functions.https.onRequest(async (request, response) => {
-  if (validateWebhook(request.body)) {
+  if (verifyPaddleWebhook(pubKey, request.body)) {
     const data = request.body;
     delete data.p_signature;
     if (data.alert_name === 'subscription_created' && data.passthrough) {
       data.uid = data.passthrough;
-      
     }
     await admin.firestore().collection('subscriptions').doc(data.subscription_id).set(data, {merge: true});
     await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('event').doc(data.alert_id).set(data, {merge: true});
