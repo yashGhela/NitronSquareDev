@@ -36,10 +36,32 @@ exports.subscriptionCreate = functions.https.onRequest(async (request, response)
     if (data.alert_name === 'subscription_created' && data.passthrough) {
       data.uid = data.passthrough;
     }
-    await admin.firestore().collection('subscriptions').doc(data.subscription_id).set(data, {merge: true});
-    await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('event').doc(data.alert_id).set(data, {merge: true});
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).set({
+      email: data.email,
+       cancelURL: data.cancel_url,
+       UpdateURL: data.update_url,
+       subID: data.subscription_id,
+       state: data.status,
+       userId: data.user_id,
+      }, {merge: true});
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('Payments').doc(data.alert_id).set(data, {merge: true});
   }
   response.send(true);
   // response.send("Hello from Firebase!");
 });
+
+exports.subscriptionUpdated = functions.https.onRequest(async (request, response) => {
+  if (verifyPaddleWebhook(pubKey, request.body)) {
+    const data = request.body;
+    delete data.p_signature;
+    if (data.alert_name === 'subscription_updated_succeeded' && data.passthrough) {
+      data.uid = data.passthrough;
+    }
+
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).collection('Payments').doc(data.alert_id).set(data, {merge: true});
+  }
+  response.send(true);
+  // response.send("Hello from Firebase!");
+});
+
 

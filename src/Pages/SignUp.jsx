@@ -17,6 +17,7 @@ function SignUp() {
   const [modalShow, setModalShow]= useState(false);
   const [payShow, setPayShow]=useState(false);
   const [firstSub, setFirstSub] = useState('');
+  const [type, setType]= useState('');
   const [firstSubErr, setFirstSubErr]=useState(null);
   const [disabled, setDisabled]=useState(true);
   const [errShow, setErrShow]= useState(false);
@@ -36,6 +37,7 @@ function SignUp() {
          successCallback:(data,err)=>{
           console.log(data);
           setPayShow(false)
+          setType('monthly')
          setModalShow(true)
        
 
@@ -51,8 +53,10 @@ function SignUp() {
        email: userData.email,
        successCallback:(data,err)=>{
         console.log(data);
+        setType('Annual')
         setPayShow(false)
         setModalShow(true)
+        
         
        },
        closeCallback: (data)=>{
@@ -74,7 +78,7 @@ function SignUp() {
         
    
      
-        await setDoc(docref, {username: userData.displayName, tier: 'Pro', email: userData.email}).then(async ()=>{
+        await setDoc(docref, {username: userData.displayName, subscription: 'active',type: type, email: userData.email}).then(async ()=>{
           const ref= collection(db,'Users',userData.uid,'Sessions');
           const subref= collection(db, 'Users',userData.uid,'Subjects');
           
@@ -151,7 +155,7 @@ function SignUp() {
       className="special_modal"
       
       centered>
-      <Modal.Header closeButton closeVariant='white'>
+      <Modal.Header>
         <Modal.Title  id="contained-modal-title-vcenter">
           Welcome to Improvr! Let's add your first subject!
         </Modal.Title>
