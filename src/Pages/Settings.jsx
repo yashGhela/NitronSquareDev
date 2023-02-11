@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Card, Container,Row,Col } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
 import GooglePayButton from '@google-pay/button-react'
-import {arrayRemove, deleteDoc, doc,getDoc, updateDoc} from 'firebase/firestore'
+import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs} from 'firebase/firestore'
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
 import { db,auth } from '../firebaseConfig'
@@ -15,20 +15,68 @@ function Settings() {
 
 
   const Paddle = window.Paddle;
-  const CancelSub=()=>{
-    Paddle.Checkout.open({
-      override: 'https://subscription-management.paddle.com/subscription/12345/hash/.../cancel'
-    });
-  }
-
+  const [email,setEmail]= useState('');
+  const [cancelURL, setCancelURL]=useState('');
+  const [updateURL, setUpdateURL]= useState('');
   
- 
-
-
 
     let nav=useNavigate()
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
+
+    const userE=async()=>{
+      await getDoc(doc(db,'Users',user)).then((snapshot)=>{
+        const data= snapshot.data()
+        setEmail(data.email);
+
+        const getURL=async()=>{
+         
+          await getDocs( query(collection(db,'subscriptions'), where('email','==',email))).then((snap)=>{
+            snap.docs.forEach(doc=>{
+              const deets= doc.data();
+              setCancelURL(deets.cancelURL);
+              setUpdateURL(deets.UpdatURL)
+              
+            })
+           
+            
+          })
+        }
+
+        getURL()
+        
+        
+        
+
+      })
+
+    }
+
+    const CancelSub=()=>{
+      Paddle.Checkout.open({
+        override: cancelURL,
+        successCallback: ()=>{
+          
+          updateUSer();
+        }
+      });
+    }
+
+    const updateUSer=async()=>{
+      await updateDoc(doc(db,'Users', user), {
+        subscription: 'inactive'
+      }).then(()=>{
+        LogOut()
+        console.log('success!')
+      })
+      
+
+    }
+   
+
+
+    
+    
 
 
     
@@ -62,7 +110,8 @@ function Settings() {
   })
 
     useEffect(()=>{
-        docSnap()
+        docSnap();
+        userE()
 
     },[])
 
@@ -92,7 +141,7 @@ function Settings() {
 
 
   return (
-    <div className="Page" style={{height:'100%', paddingBottom:'20%'}}>
+    <div className="Page" style={{height:'100vh', paddingBottom:'20%'}}>
 
        <div className="navB">
         <Sidebar

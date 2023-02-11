@@ -192,7 +192,7 @@ function SignUp() {
               
               <Col>
               
-              <Card style={{ width:'100%', marginTop:'20px', background:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
+              <Card style={{ width:'100%', marginTop:'20px', background:'#282b2e', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
                 <Card.Title>Monthly</Card.Title>
                 <Card.Body>
                   <h1 style={{fontSize:'80px'}}>$5</h1>
@@ -245,7 +245,7 @@ function SignUp() {
               </Card>
               </Col>
               <Col>
-              <Card style={{ width:'100%', marginTop:'20px', background:'#282b2e', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
+              <Card style={{ width:'100%', marginTop:'20px', background:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
                 <Card.Title>Annual</Card.Title>
                 <Card.Body>
                   <h1 style={{fontSize:'80px'}}>$50</h1>

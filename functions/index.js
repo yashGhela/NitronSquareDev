@@ -64,4 +64,18 @@ exports.subscriptionUpdated = functions.https.onRequest(async (request, response
   // response.send("Hello from Firebase!");
 });
 
+exports.subscriptionCancelled = functions.https.onRequest(async (request, response) => {
+  if (verifyPaddleWebhook(pubKey, request.body)) {
+    const data = request.body;
+    delete data.p_signature;
+    if (data.alert_name === 'subscription_cancelled' && data.passthrough) {
+      data.uid = data.passthrough;
+    }
+
+    await admin.firestore().collection('subscriptions').doc(data.subscription_id).delete();
+  }
+  response.send(true);
+  // response.send("Hello from Firebase!");
+});
+
 
