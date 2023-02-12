@@ -62,11 +62,19 @@ function Login() {
       Paddle.Checkout.open({
          product: 43741 ,
          email: userData.email,
-         successCallback:(data,err)=>{
+         successCallback:async (data,err)=>{
          
-          setType('monthly')
-          updateUser()
-         
+          
+          
+          await updateDoc(doc(db,'Users', userData.uid),{
+            subscription:'active',
+            type: 'Monthly'
+          })
+          const cookie = new Cookies();
+                  cookie.set('useraidt', userData.uid, {expires:  nextYear, path:'/'},);
+                  localStorage.setItem('isAuth', true)
+                  nav(`/Dashboard/`);
+          
        
 
         
@@ -79,10 +87,17 @@ function Login() {
     Paddle.Checkout.open({
        product: 	44012 ,
        email: userData.email,
-       successCallback:(data,err)=>{
+       successCallback:async (data,err)=>{
        
-        setType('Annual')
-        updateUser()
+        
+        await updateDoc(doc(db,'Users', userData.uid),{
+          subscription:'active',
+          type: 'Annual'
+        })
+        const cookie = new Cookies();
+                cookie.set('useraidt', userData.uid, {expires:  nextYear, path:'/'},);
+                localStorage.setItem('isAuth', true)
+                nav(`/Dashboard/`);
         
         
        },
@@ -93,14 +108,7 @@ function Login() {
 }
 
 const updateUser=async()=>{
-  await updateDoc(doc(db,'Users', userData.uid),{
-    subscription:'active',
-    type: type
-  })
-  const cookie = new Cookies();
-          cookie.set('useraidt', userData.uid, {expires:  nextYear, path:'/'},);
-          localStorage.setItem('isAuth', true)
-          nav(`/Dashboard/`);
+  
 }
    
   
@@ -191,7 +199,7 @@ const updateUser=async()=>{
 
                 </Card.Body>
                 <Card.Footer>
-                  <Button style={{width:'100%'}} variant='light' onClick={openCheckout}>Get Started for Free</Button>
+                  <Button style={{width:'100%'}} variant='light' onClick={()=>{ openCheckout()}}>Get Started for Free</Button>
                 </Card.Footer>
               </Card>
               </Col>
@@ -234,7 +242,7 @@ const updateUser=async()=>{
 
                 </Card.Body>
                 <Card.Footer>
-                  <Button style={{width:'100%'}} variant='light' onClick={openCheckoutAnn}>Pay</Button>
+                  <Button style={{width:'100%'}} variant='light' onClick={()=>{ openCheckoutAnn()}}>Pay</Button>
                 </Card.Footer>
               </Card>
              

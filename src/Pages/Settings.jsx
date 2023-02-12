@@ -11,16 +11,21 @@ import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { async } from '@firebase/util'
+    
+const Paddle = window.Paddle;
 function Settings() {
 
 
-  const Paddle = window.Paddle;
+      
+   
   const [email,setEmail]= useState('');
   const [cancelURL, setCancelURL]=useState('');
   const [updateURL, setUpdateURL]= useState('');
+  const [docUID, setDocUID]= useState('')
   
 
     let nav=useNavigate()
+    
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
 
@@ -29,49 +34,54 @@ function Settings() {
         const data= snapshot.data()
         setEmail(data.email);
 
-        const getURL=async()=>{
-         
-          await getDocs( query(collection(db,'subscriptions'), where('email','==',email))).then((snap)=>{
-            snap.docs.forEach(doc=>{
-              const deets= doc.data();
-              setCancelURL(deets.cancelURL);
-              setUpdateURL(deets.UpdatURL)
-              
-            })
-           
-            
-          })
-        }
-
-        getURL()
-        
         
         
 
+      }).finally(()=>{
+        getURL();
       })
 
     }
+
+    const getURL=async()=>{
+         
+      await getDocs( query(collection(db,'subscriptions'), where('email','==',email))).then((snap)=>{
+        snap.docs.forEach(doc=>{
+         if (doc.exists()){
+          
+          const deets= doc.data();
+        
+          setCancelURL(deets.cancelURL);
+          setUpdateURL(deets.UpdateURL)
+         
+          setDocUID(doc.id);
+         }
+         
+          
+         
+        })
+        
+       
+        
+      })
+    }
+
 
     const CancelSub=()=>{
+  
       Paddle.Checkout.open({
         override: cancelURL,
-        successCallback: ()=>{
-          
-          updateUSer();
-        }
-      });
-    }
+        successCallback: async()=>{
+          await updateDoc(doc(db,'Users', user), {subscription: 'inactive'});
+          await deleteDoc(doc(db, 'subscriptions', docUID))
+          LogOut()
+        },
+        
+        
+      })}
+    
 
-    const updateUSer=async()=>{
-      await updateDoc(doc(db,'Users', user), {
-        subscription: 'inactive'
-      }).then(()=>{
-        LogOut()
-        console.log('success!')
-      })
-      
-
-    }
+  
    
 
 
@@ -112,6 +122,11 @@ function Settings() {
     useEffect(()=>{
         docSnap();
         userE()
+       
+       
+        
+        
+        
 
     },[])
 
