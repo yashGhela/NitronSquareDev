@@ -56,10 +56,12 @@ function Settings() {
           setCancelURL(deets.cancelURL);
           setUpdateURL(deets.UpdateURL)
           setDocUID(doc.id);
+          
          }  
         })
       })
-      console.log('fetch complete')
+      console.log('fetch complete');
+      
     }
 
 
