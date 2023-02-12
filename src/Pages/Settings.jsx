@@ -22,7 +22,7 @@ function Settings() {
   const [cancelURL, setCancelURL]=useState('');
   const [updateURL, setUpdateURL]= useState('');
   const [docUID, setDocUID]= useState('')
-  const [disabled, setDisabled]= useState(true);
+  const [disabled, setDisabled]= useState(false);
   
 
     let nav=useNavigate()
@@ -32,14 +32,14 @@ function Settings() {
 
     const userE=async()=>{
       await getDoc(doc(db,'Users',user)).then((snapshot)=>{
-        const data= snapshot.data()
-        setEmail(data.email);
-
         
-        
+        console.log(snapshot.data().email)
+        setEmail(snapshot.data().email);
+       
+      
 
       }).then(()=>{
-        getURL();
+        getURL()
       })
 
     }
@@ -57,12 +57,18 @@ function Settings() {
           setUpdateURL(deets.UpdateURL)
           setDocUID(doc.id);
           
+          
          }  
         })
       })
-      console.log('fetch complete');
+      
+      
       
     }
+
+    
+
+    
 
 
     const CancelSub=()=>{
@@ -119,15 +125,21 @@ function Settings() {
 
     useEffect(()=>{
         docSnap();
-        userE()
+        userE();
         
-       
-       
-        
-        
+        setDisabled(cancelValid())
         
 
+
     },[])
+
+    const cancelValid=()=>{
+      if (cancelURL===''){
+        return true
+      }else{
+        return false
+      }
+    }
 
 
 
@@ -180,7 +192,7 @@ function Settings() {
             <Card.Body>
             <Button variant='outline-secondary' style={{width:'100%', marginBottom:'20px'}}>Update Subscription</Button>
 
-              <Button variant='outline-danger' onClick={CancelSub}  style={{width:'100%'}}>Cancel Subscription</Button>
+              <Button variant='outline-danger' onClick={CancelSub} disabled={disabled}  style={{width:'100%'}}>Cancel Subscription</Button>
 
             </Card.Body>
            </Card>
