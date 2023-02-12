@@ -22,6 +22,7 @@ function Settings() {
   const [cancelURL, setCancelURL]=useState('');
   const [updateURL, setUpdateURL]= useState('');
   const [docUID, setDocUID]= useState('')
+  const [disabled, setDisabled]= useState(true);
   
 
     let nav=useNavigate()
@@ -39,15 +40,7 @@ function Settings() {
 
       }).then(()=>{
         getURL();
-      }).finally(()=>{
-        Paddle.Checkout.open({
-          override: cancelURL,
-          successCallback: async()=>{
-            await updateDoc(doc(db,'Users', user), {subscription: 'inactive'});
-            await deleteDoc(doc(db, 'subscriptions', docUID))
-            LogOut();
-        },
-      })})
+      })
 
     }
 
@@ -70,7 +63,18 @@ function Settings() {
     }
 
 
-    
+    const CancelSub=()=>{
+  
+      Paddle.Checkout.open({
+        override: cancelURL,
+        successCallback: async()=>{
+          await updateDoc(doc(db,'Users', user), {subscription: 'inactive'});
+          await deleteDoc(doc(db, 'subscriptions', docUID))
+          LogOut()
+        },
+        
+        
+      })}
     
 
   
@@ -113,7 +117,8 @@ function Settings() {
 
     useEffect(()=>{
         docSnap();
-       
+        userE()
+        
        
        
         
@@ -173,7 +178,7 @@ function Settings() {
             <Card.Body>
             <Button variant='outline-secondary' style={{width:'100%', marginBottom:'20px'}}>Update Subscription</Button>
 
-              <Button variant='outline-danger' onClick={userE} style={{width:'100%'}}>Cancel Subscription</Button>
+              <Button variant='outline-danger' onClick={CancelSub}  style={{width:'100%'}}>Cancel Subscription</Button>
 
             </Card.Body>
            </Card>
