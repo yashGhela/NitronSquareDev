@@ -50,20 +50,15 @@ function Settings() {
          if (doc.exists()){
           
           const deets= doc.data();
+          
         
           setCancelURL(deets.cancelURL);
           setUpdateURL(deets.UpdateURL)
-         
           setDocUID(doc.id);
-         }
-         
-          
-         
+         }  
         })
-        
-       
-        
       })
+      console.log('fetch complete')
     }
 
 
