@@ -30,64 +30,7 @@ function Settings() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
 
-    const userE=async()=>{
-      await getDoc(doc(db,'Users',user)).then((snapshot)=>{
-        
-        console.log(snapshot.data().email)
-        setEmail(snapshot.data().email);
-       
-      
-
-      }).then(()=>{
-        getURL()
-      })
-
-    }
-
-    const getURL=async()=>{
-         
-      await getDocs( query(collection(db,'subscriptions'), where('email','==',email))).then((snap)=>{
-        snap.docs.forEach(doc=>{
-         if (doc.exists()){
-          
-          const deets= doc.data();
-          
-        
-          setCancelURL(deets.cancelURL);
-          setUpdateURL(deets.UpdateURL)
-          setDocUID(doc.id);
-          
-          
-         }  
-        })
-      })
-      
-      
-      
-    }
-
-    
-
-    
-
-
-    const CancelSub=()=>{
-  
-      Paddle.Checkout.open({
-        override: cancelURL,
-        successCallback: async()=>{
-          await updateDoc(doc(db,'Users', user), {subscription: 'inactive'});
-          await deleteDoc(doc(db, 'subscriptions', docUID))
-          LogOut()
-        },
-        
-        
-      })}
-    
-
-  
    
-
 
     
     
@@ -125,21 +68,13 @@ function Settings() {
 
     useEffect(()=>{
         docSnap();
-        userE();
         
-        setDisabled(cancelValid())
         
 
 
     },[])
 
-    const cancelValid=()=>{
-      if (cancelURL===''){
-        return true
-      }else{
-        return false
-      }
-    }
+    
 
 
 
@@ -160,9 +95,9 @@ function Settings() {
   const closeAccount=async()=>{
     const docRef= (db, 'Users', user);
 
-    await deleteDoc(docRef).then(
-      LogOut()
-     )
+    await updateDoc(docRef, {
+      subscription: 'inactive'
+    })
   }
 
 
@@ -182,23 +117,7 @@ function Settings() {
           <h1 style={{color:'white',marginTop:'20px', marginLeft:'10vw'}}>Settings </h1>
 
           <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
-           <div className="Account" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px' , marginBottom:'10px'}}>
-           <h2 style={{color:'gray', fontSize:'22px'}}>Your Account</h2>
-
-           <Card style={{background:'#282b2e', color:'lightgray', width:'45%', padding:'20px'}}>
-            <Card.Title>
-              Manage your account
-            </Card.Title>
-            <Card.Body>
-            <Button variant='outline-secondary' style={{width:'100%', marginBottom:'20px'}}>Update Subscription</Button>
-
-              <Button variant='outline-danger' onClick={CancelSub} disabled={disabled}  style={{width:'100%'}}>Cancel Subscription</Button>
-
-            </Card.Body>
-           </Card>
           
-            
-           </div>
 
 
 

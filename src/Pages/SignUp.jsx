@@ -29,41 +29,7 @@ function SignUp() {
   let nav= useNavigate();
 
   
-  const Paddle = window.Paddle;
-  const openCheckout  = () => { 
-      Paddle.Checkout.open({
-         product: 43741 ,
-         email: userData.email,
-         successCallback:(data,err)=>{
-          console.log(data);
-          setPayShow(false)
-          setType('monthly')
-         setModalShow(true)
-       
-
-        
-         }
-         
-        });
-  }
-
-  const openCheckoutAnn  = () => { 
-    Paddle.Checkout.open({
-       product: 	44012 ,
-       email: userData.email,
-       successCallback:(data,err)=>{
-        console.log(data);
-        setType('Annual')
-        setPayShow(false)
-        setModalShow(true)
-        
-        
-       },
-       closeCallback: (data)=>{
-        alert('Failed to Checkout')
-       }
-      });
-}
+ 
  
 
   const nextYear = new Date();
@@ -113,7 +79,7 @@ function SignUp() {
           if(snapshot.exists()){
             setErrShow(true);
           }else{
-            setPayShow(true)
+            setModalShow(true)
           }
         })
         
@@ -143,7 +109,7 @@ function SignUp() {
       <Card   style={{height:'250px', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)'}}>
       <Card.Title>Sign Up</Card.Title>
       <Card.Body>
-      <Button  variant='dark' onClick={signUp} >Sign Up with Google <Google/></Button>
+      <Button  variant='dark' onClick={()=>{ setType('free');signUp()}} >Sign Up with Google <Google/></Button>
       {errShow&&<Alert style={{marginTop:'5px'}} variant='danger'>This Account already exists</Alert>}
       </Card.Body>
 
@@ -155,7 +121,7 @@ function SignUp() {
       className="special_modal"
       
       centered>
-      <Modal.Header>
+      <Modal.Header closeButton closeVariant='white'>
         <Modal.Title  id="contained-modal-title-vcenter">
           Welcome to Improvr! Let's add your first subject!
         </Modal.Title>
@@ -173,131 +139,7 @@ function SignUp() {
       </Modal.Footer>
     </Modal>
 
-    <Modal
-       show={payShow}
-       onHide={()=>{setPayShow(false)}}
-      size="lg"
-      aria-labelledby="contained-modal-title-vcenter"
-      className="special_modal"
-      
-      centered>
-      <Modal.Header closeButton closeVariant='white'>
-        <Modal.Title  id="contained-modal-title-vcenter">
-          Welcome to Improvr! Subscribe to get Started!
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Container fluid>
-          <Row>
-              
-              <Col>
-              
-              <Card style={{ width:'100%', marginTop:'20px', background:'#282b2e', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
-                <Card.Title>Monthly</Card.Title>
-                <Card.Body>
-                  <h1 style={{fontSize:'80px'}}>$5</h1>
-                  <p style={{textAlign:'left'}}>Get access to all of 
-                  Improvr's features, payed on a
-                  monthly basis.</p>
-
-                  <ListGroup as="ol" style={{textAlign:'left'}} >
-                    <ListGroup.Item
-                      as="li"
-                      className="d-flex justify-content-between align-items-start"
-                      style={{background:'none', color:'white', borderColor:'white' }}
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">Timer </div>
-                        Access to our powerful timer tool, with focus sounds and quick tools.
-                      </div>
-                     
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      as="li"
-                      className="d-flex justify-content-between align-items-start"
-                      style={{background:'none', color:'white',  borderColor:'white'}}
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">Trends</div>
-                        Access to our powerful statistics tools which give users a better understanding of their work.
-                      </div>
-                    
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                     style={{background:'none', color:'white', borderColor:'white'}}
-                      as="li"
-                      className="d-flex justify-content-between align-items-start"
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">Scopes</div>
-                        Access to our goal setting tools, reach for the stars!
-                      </div>
-                     
-                    </ListGroup.Item>
-                  </ListGroup>
-
-
-
-                </Card.Body>
-                <Card.Footer>
-                  <Button style={{width:'100%'}} variant='light' onClick={openCheckout}>Get Started for Free</Button>
-                </Card.Footer>
-              </Card>
-              </Col>
-              <Col>
-              <Card style={{ width:'100%', marginTop:'20px', background:'rgb(97, 149, 232)', color:'white', paddingBottom:'10px',padding:'10px', textAlign:'center', borderRadius:'25px'}}>
-                <Card.Title>Annual</Card.Title>
-                <Card.Body>
-                  <h1 style={{fontSize:'80px'}}>$50</h1>
-                  <p style={{textAlign:'left'}}>Get access to all of 
-                  Improvr's features, payed on 
-                  an annual basis.</p>
-
-                  <ListGroup as="ol" style={{textAlign:'left'}} >
-                    <ListGroup.Item
-                      as="li"
-                      className="d-flex justify-content-between align-items-start"
-                      style={{background:'none', color:'white', borderColor:'white' }}
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">Power </div>
-                        Access to all of our tools listed in the monthly plan. For serious users dedicated to their work.
-                      </div>
-                     
-                    </ListGroup.Item>
-                    <ListGroup.Item
-                      as="li"
-                      className="d-flex justify-content-between align-items-start"
-                      style={{background:'none', color:'white',  borderColor:'white'}}
-                    >
-                      <div className="ms-2 me-auto">
-                        <div className="fw-bold">2 months off </div>
-                        With our annual plan get 2 months for free.
-                      </div>
-                    
-                    </ListGroup.Item>
-                   
-                  </ListGroup>
-
-
-
-                </Card.Body>
-                <Card.Footer>
-                  <Button style={{width:'100%'}} variant='light' onClick={openCheckoutAnn}>Pay</Button>
-                </Card.Footer>
-              </Card>
-             
-              </Col>
-
-           
-          </Row>
-        </Container>
-        
-      </Modal.Body>
-      <Modal.Footer>
-       
-      </Modal.Footer>
-    </Modal>
+   
     </Card>
     </div>
   )
