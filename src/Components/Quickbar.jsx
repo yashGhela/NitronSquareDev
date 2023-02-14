@@ -25,7 +25,7 @@ function Quickbar({L1,L2,L3,L4,L5}) {
     
   }
   return (
- <div className='Sidebar' style={{height:'97vh', marginLeft:'17px', borderRadius:'20px', marginRight:'5px'}}>
+ <div className='Sidebar' style={{height:'97vh', marginLeft:'17px', borderRadius:'20px', marginRight:'5px', backgroundColor:'rgb(97, 149, 232)'}}>
   
    <div style={{marginTop: '150px',}}>
    <Nav >
