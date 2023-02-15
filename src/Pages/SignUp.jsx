@@ -144,21 +144,22 @@ function SignUp() {
 
     
   return (
-    <div style={{display:'grid', placeItems:'center', background:'#17181a', padding:'0%', margin:'0%', height:'100vh'}} >
-      <Card   style={{height:'35%', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)',textAlign:'center'}}>
-      <Card.Title>Sign Up</Card.Title>
+    <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(205,224,255,1) 0%, rgba(173,188,235,1) 48%, rgba(91,118,215,1) 100%)', padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
+      <Card   style={{paddingTop:'30px',height:'380px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px'}}>
+      <Card.Title>Sign Up to Improvr</Card.Title>
       <Card.Body>
-      <Button  variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
-      <p style={{marginTop:'5px'}}>or sign up with email</p>
+      <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
+      <p style={{marginTop:'5px'}}>OR</p>
       <Form>
-        <Form.Control type='email' placeholder='example@email.com' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username===''){setSignDis(true)}else{setSignDis(false)}}}/>
+        <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username===''){setSignDis(true)}else{setSignDis(false)}}}/>
         <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username===''){setSignDis(true)}else{setSignDis(false)} }}/>
-        <Form.Control placeholder='Please enter a username' style={{marginTop:'5px'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' ){setSignDis(true)}else{setSignDis(false)} }}/>
+        <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' ){setSignDis(true)}else{setSignDis(false)} }}/>
         <Button variant='dark' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('free'); signUpEP()}}>Sign Up</Button>
       </Form>
      
       {errShow&&<Alert style={{marginTop:'5px'}} variant='danger'>{errMessage}</Alert>}
       </Card.Body>
+      <p style={{textDecoration:'underline', color:'grey', cursor:'pointer' }} onClick={()=>{nav('/')}}>or go to Log In</p>
 
       <Modal
        show={modalShow}
@@ -188,7 +189,7 @@ function SignUp() {
 
    
     </Card>
-    </div>
+    </Container>
   )
 }
 

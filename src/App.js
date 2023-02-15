@@ -6,7 +6,7 @@ import Sessions from './Pages/Sessions';
 import NotFound from './Pages/notFound';
 
 
-import StartPage from './Pages/StartPage';
+
 import ProtectedRoutes from './ProtectedRoutes';
 
 import Timer from './Util/Timer';
@@ -43,7 +43,7 @@ const user =cookies.get('useraidt');
       <Route path='/Login' element={<Login/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
       <Route path='*' element={<NotFound/>}/>
-        <Route path='/' element={<StartPage />}/>
+        <Route path='/' element={<Login />}/>
      
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path={`/Trends/`} element={<Trends/>}/>

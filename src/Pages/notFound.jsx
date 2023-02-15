@@ -5,6 +5,8 @@ import { useEffect, useState } from 'react';
 
 function NotFound() {
     const nav=useNavigate();
+
+    
     
 
   

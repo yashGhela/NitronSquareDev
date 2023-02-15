@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react'
 
 import {auth, db, provider} from '../firebaseConfig';
-import {browserLocalPersistence, setPersistence, signInWithPopup} from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
+import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth';
+import { Link, useNavigate } from 'react-router-dom';
 import {doc, getDoc, updateDoc} from 'firebase/firestore';
-import {Alert, Button, Card, Form, Modal, ListGroup, Col,Row, Container} from 'react-bootstrap'
+import {Alert, Button, Card, Form, Modal, ListGroup, Col,Row, Container, Navbar} from 'react-bootstrap'
 import {Google} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
+import improvr from '../Assets/improrvr dark.png'
 
 
 function Login() {
@@ -15,6 +16,10 @@ function Login() {
   
   const [type, setType]= useState('');
   const [userData, setUserData]= useState([])
+  const [signDis, setSignDis]= useState(true);
+  const [email, setEmail]= useState('');
+  const [password, setPassword]=useState('');
+  const [errMessage, setErrMessage]= useState('');
 
   const nextYear = new Date();
 
@@ -28,7 +33,7 @@ function Login() {
     }
   })
 
-  const signIn=async()=>{
+  const signInG=async()=>{
     setPersistence(auth,browserLocalPersistence).then(async ()=>{
       const result = await signInWithPopup(auth, provider)
       const ref = doc(db, 'Users', result.user.uid);
@@ -57,6 +62,39 @@ function Login() {
       
     }
 
+    const signInEP=async()=>{
+      setPersistence(auth,browserLocalPersistence).then(async()=>{
+        signInWithEmailAndPassword(auth,email,password).then(async (result)=>{
+          const ref = doc(db, 'Users', result.user.uid);
+      
+      await getDoc(ref).then((snapshot)=>{
+        if(snapshot.exists() && snapshot.data().subscription==='active'){
+          const cookie = new Cookies();
+          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+          localStorage.setItem('isAuth', true)
+          nav(`/Dashboard/`);
+        }else if (!snapshot.exists()){
+          setErrShow(true)
+          setErrMessage('This account does not exist')
+        }else if (snapshot.data().subscription==='inactive'){
+          setErrShow(true)
+          setErrMessage('This account is no longer active')
+         
+
+        }
+      })
+        }).catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrShow(true)
+          setErrMessage('This Email is already in use or is not entered correctly')
+        }
+          )
+      })
+    }
+
+
+
     
 
 
@@ -64,31 +102,49 @@ function Login() {
   
  
   return (
-    <div style={{display:'grid', placeItems:'center', backgroundColor:'#17181a', padding:'0%', margin:'0%', height:'100vh'}}>
+    
+    <div>
+      
+      <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(205,224,255,1) 0%, rgba(173,188,235,1) 48%, rgba(91,118,215,1) 100%)', padding:'0%', margin:'0%', height:'100vh'}} fluid={true}>
+    
+    <Card  style={{paddingTop:'40px',height:'400px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px', textAlign:'center'}}>
+    
+      <Card.Title style={{color:'#282b2e', marginTop:'10px'}}>Welcome back! Please Log In</Card.Title>
+    <Card.Body>
+    <Form>
+    <Form.Group>
+      
      
-      <Card  style={{height:'250px', width:'300px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', backgroundColor:'rgb(192,192,192)'}}>
-        <Card.Title>Welcome back! Please Log In</Card.Title>
-      <Card.Body>
+      <Button variant='primary' style={{marginTop:'5px', width:'300px'}} onClick={signInG}>Sign In with Google <Google/></Button>
+      <p style={{marginTop:'10px'}}>OR</p>
+
       <Form>
-      <Form.Group>
-        
-       
-        <Button variant='dark'  onClick={signIn}>Sign In with Google <Google/></Button>
-
-        {errShow && <Alert style={{marginTop:'5px',}} variant='danger'>This Account does not exist or has been deleted.</Alert>}
-     
-        
-      </Form.Group>
-      </Form>
-      </Card.Body>
-
+      <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''){setSignDis(true)}else{setSignDis(false)}}}/>
+      <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''){setSignDis(true)}else{setSignDis(false)} }}/>
       
-  
-     
+      <Button variant='dark' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{ signInEP()}}>Sign In</Button>
+     </Form>
+
+      {errShow && <Alert style={{marginTop:'5px',}} variant='danger'>{errMessage}</Alert>}
+   
       
-    </Card>
+    </Form.Group>
+    </Form>
+    </Card.Body>
+   <p style={{textDecoration:'underline', color:'grey', cursor:'pointer' }} onClick={()=>{nav('/SignUp')}}>or go to Sign Up</p>
 
     
+
+   
+    
+  </Card>
+  <img src={improvr}
+      height='30px'
+      
+      className='d-inline-block align-top'
+       />
+  
+  </Container>
     </div>
   )
   }
