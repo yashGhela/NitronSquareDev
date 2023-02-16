@@ -170,7 +170,7 @@ function Dashboard() {
             
              margin:'20px',
              height:'150px',
-             backgroundColor:'rgb(97, 149, 232)',
+             backgroundImage:'radial-gradient(circle, rgba(205,224,255,1) 0%, rgba(173,188,235,1) 48%, rgba(91,118,215,1) 100%)',
              backgroundSize:'400% 400%',
              textAlign:'center',
              alignItems:'center',

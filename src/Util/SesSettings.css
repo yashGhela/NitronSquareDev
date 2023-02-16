@@ -1,6 +1,9 @@
 :root{
     --purple: rgb(97, 149, 232);
     --green: #4aec8c;
+    --track-color: #ddd;
+    --purpleHover: #9fc0f5;
+    --greenHover:#77a88b
 }
 
 
@@ -26,29 +29,50 @@
 }
 
 .slider{
-    height: 40px;
-    margin: 20px;
+    
+    
+    
     float: left;
-    border: 2px solid var(--purple); 
-    border-radius: 20px;
-    width: 400px; 
+    /* max width of your slider */
+    width: 400px;
+    /* Optional: Only If you want to center your slider in the page */
+    margin: 20px;
+}
+
+.track{
+    top: 8px;
+      /* thickness of the track */
+      height: 4px;
+      background-color: var(--purple);
 }
 
 .thumb{
-    background-color: var(--purple);
-    border: none;
+    
     cursor: pointer;
-    width: 40px;
-    height: 40px;
-    border-radius: 40px;
+      /*color for the thumb */
+      background: var(--purple);
+      /* shape of the thumb: circle */
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      /* remove default outline when selected */
+      outline: none;
 }
 
-.slider.green{
+.thumb:hover{
+    box-shadow: 0 0 0 8px var(--purpleHover)
+}
+
+.slider.green .track{
     border: 2px solid var(--green);
 }
 
 .slider.green .thumb{
-    background-color: var(--green);
+    background: var(--green);
+}
+
+.slider.green .thumb:hover{
+    box-shadow: 0 0 0 8px var(--greenHover)
 }
 
 
