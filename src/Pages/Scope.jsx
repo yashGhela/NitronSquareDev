@@ -169,7 +169,7 @@ function Scope() {
                         <h3>Incomplete:</h3>
                         <div style={{display:'inline'}}>
                            <Form style={{display:'flex', marginBottom:'10px'}}>
-                              <Form.Control placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
+                              <Form.Control className='special_modal' placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
                               <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:modalData.id});modalData.incomplete.push(newTask)}}>Add</Button>
                             </Form>
                            </div>

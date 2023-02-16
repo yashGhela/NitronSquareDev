@@ -237,7 +237,7 @@ function Dashboard() {
              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
               <h4 style={{placeItems:'center', fontSize:'20px',color:'lightgray'}}>Choose or add a subject</h4>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
-                <Form.Control  placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
+                <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
                 <Button disabled={disabled} onClick={()=>{newSub();setSubjectList([...subjectList,subj])}}>Add</Button>
               </Form>
              
@@ -401,7 +401,7 @@ function Dashboard() {
                         <h3>Incomplete:</h3>
                         <div style={{display:'inline'}}>
                            <Form style={{display:'flex', marginBottom:'10px'}}>
-                              <Form.Control placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
+                              <Form.Control className='special_modal' placeholder='Add a Task' style={{width:'80%'}} onChange={(e)=>{setNewTask(e.target.value)}}/>
                               <Button style={{marginLeft:'10px'}} onClick={()=>{newTassk({id:modalData.id});modalData.incomplete.push(newTask)}}>Add</Button>
                             </Form>
                            </div>

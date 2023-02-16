@@ -5,9 +5,11 @@ import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword, sig
 import { Link, useNavigate } from 'react-router-dom';
 import {doc, getDoc, updateDoc} from 'firebase/firestore';
 import {Alert, Button, Card, Form, Modal, ListGroup, Col,Row, Container, Navbar} from 'react-bootstrap'
-import {Google} from 'react-bootstrap-icons';
+import {Google, Textarea} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
 import improvr from '../Assets/improrvr dark.png'
+import TsCs from '../Components/TsCs';
+import PP from '../Components/PP';
 
 
 function Login() {
@@ -20,6 +22,8 @@ function Login() {
   const [email, setEmail]= useState('');
   const [password, setPassword]=useState('');
   const [errMessage, setErrMessage]= useState('');
+  const [TCshow, setTCshow]=useState(false)
+  const [PPshow, setPPshow]= useState(false);
 
   const nextYear = new Date();
 
@@ -138,13 +142,62 @@ function Login() {
    
     
   </Card>
-  <img src={improvr}
+  
+
+       <div style={{display:'flex', flexDirection:'column', placeItems:'center', margin:'0', bottom:'0', position:'absolute'}}>
+       <img src={improvr}
       height='30px'
+      width={'120px'}
+      style={{
+        marginBottom:'15px'
+      }}
       
       className='d-inline-block align-top'
        />
+       <div style={{display:'flex', marginTop:'10px'}}>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setTCshow(true)}}>Terms & Conditions</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setPPshow(true)}}>Privacy Policy</p>
+        
+       </div>
+       <p style={{marginRight:'20px',  color:'gray'}}>All Rights belong to Nitron Digital</p>
+       </div>
+
+      
   
   </Container>
+  <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={TCshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setTCshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Terms and Conditions</Modal.Header>
+             <Modal.Body>
+              <TsCs/>
+             </Modal.Body>
+
+       </Modal>
+       <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={PPshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setPPshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Privacy Policy</Modal.Header>
+             <Modal.Body>
+              <PP/>
+             </Modal.Body>
+
+       </Modal>
+      
     </div>
   )
   }
