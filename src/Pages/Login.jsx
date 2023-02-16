@@ -113,7 +113,7 @@ function Login() {
     
     <Card  style={{paddingTop:'40px',height:'400px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px', textAlign:'center'}}>
     
-      <Card.Title style={{color:'#282b2e', marginTop:'10px'}}>Welcome back! Please Log In</Card.Title>
+      <Card.Title style={{color:'#282b2e', marginTop:'10px'}}>Log In</Card.Title>
     <Card.Body>
     <Form>
     <Form.Group>

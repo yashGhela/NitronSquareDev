@@ -6,7 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row, ListGroup, Badge } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
-
+import improvr from '../Assets/improrvr dark.png'
+import TsCs from '../Components/TsCs';
+import PP from '../Components/PP';
 import Cookies from 'universal-cookie';
 
 
@@ -28,6 +30,9 @@ function SignUp() {
   const [password, setPassword]=useState('');
   const [errMessage, setErrMessage]= useState('');
   const [username,setUsername]= useState('')
+  const [TCshow, setTCshow]=useState(false)
+  const [PPshow, setPPshow]= useState(false);
+  const [checked, setChecked] = useState(false);
 
   const cookie= new Cookies();
 
@@ -145,16 +150,21 @@ function SignUp() {
     
   return (
     <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(205,224,255,1) 0%, rgba(173,188,235,1) 48%, rgba(91,118,215,1) 100%)', padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
-      <Card   style={{paddingTop:'30px',height:'380px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px'}}>
-      <Card.Title>Sign Up to Improvr</Card.Title>
+      <Card   style={{paddingTop:'50px',height:'460px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px'}}>
+      <Card.Title>Sign Up </Card.Title>
       <Card.Body>
       <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
       <p style={{marginTop:'5px'}}>OR</p>
       <Form>
-        <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username===''){setSignDis(true)}else{setSignDis(false)}}}/>
-        <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username===''){setSignDis(true)}else{setSignDis(false)} }}/>
-        <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' ){setSignDis(true)}else{setSignDis(false)} }}/>
+        <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)}}}/>
+        <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)} }}/>
+        <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' || checked==='false' ){setSignDis(true)}else{setSignDis(false)} }}/>
+       
+        <input type='checkbox' id='check' name='check' onClick={(e)=>{if(e.target.checked){setChecked(true)}else{setChecked(false)}}} />
+        <label for='check' >I here by accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr</label>
+        
         <Button variant='dark' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('free'); signUpEP()}}>Sign Up</Button>
+        
       </Form>
      
       {errShow&&<Alert style={{marginTop:'5px'}} variant='danger'>{errMessage}</Alert>}
@@ -189,6 +199,56 @@ function SignUp() {
 
    
     </Card>
+    <div style={{display:'flex', flexDirection:'column', placeItems:'center', margin:'0', bottom:'0', position:'absolute'}}>
+       <img src={improvr}
+      height='30px'
+      width={'120px'}
+      style={{
+        marginBottom:'15px'
+      }}
+      
+      className='d-inline-block align-top'
+       />
+       <div style={{display:'flex', marginTop:'10px'}}>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setTCshow(true)}}>Terms & Conditions</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setPPshow(true)}}>Privacy Policy</p>
+        
+       </div>
+       <p style={{marginRight:'20px',  color:'gray'}}>All Rights belong to Nitron Digital</p>
+       </div>
+       <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={TCshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setTCshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Terms and Conditions</Modal.Header>
+             <Modal.Body>
+              <TsCs/>
+             </Modal.Body>
+
+       </Modal>
+       <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={PPshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setPPshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Privacy Policy</Modal.Header>
+             <Modal.Body>
+              <PP/>
+             </Modal.Body>
+
+       </Modal>
+      
     </Container>
   )
 }
