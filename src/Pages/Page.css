@@ -90,4 +90,16 @@
     
   }
 
+  .form-control:not(active){
+    background-color:#17181a!important;
+    color: lightgray!important;
+    border-color: gray!important;
+ }
+
+ .form-control:focus{
+    background-color:#17181a!important;
+    color: lightgray!important;
+    border-color: gray!important;
+ }
+
  

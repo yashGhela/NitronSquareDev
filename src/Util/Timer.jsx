@@ -151,7 +151,7 @@ function Timer() {
   var BTArray=[];
 
   const getData=async({sub})=>{
-    const q = query(sesRef,where('subject','==',sub), limit(5));
+    const q = query(sesRef, where('subject','==',sub), limit(5));
     await getDocs(q).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
         var dc= doc.data();
@@ -401,17 +401,20 @@ function Timer() {
       <Modal.Body>
         <h3  style={{fontSize:'20px', fontWeight:'400'}}>Add a rating to your session:</h3>
         <h4 style={{fontSize:'16px', fontWeight:'400', marginTop:'15px'}}>rating⭐: {rating}</h4>
+        <div style={{marginBottom:'10%'}}>
         <ReactSlider
         className='slider purple'
         thumbClassName='thumb'
         trackClassName='track'
         value={rating}
+        
         onChange={newValue => setRating(newValue)}
         min={0}
         max={5}
         
         />
-       <Form style={{marginTop:'20px'}}>
+        </div>
+       <Form style={{marginTop:'40px'}}>
         <Form.Group>
           
           <Form.Control as='textarea' rows={3} placeholder='Enter a description' style={{resize:'none'}} onChange={(e)=>{setDescription(e.target.value)}}/>

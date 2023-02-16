@@ -33,6 +33,7 @@
     
     
     float: left;
+    
     /* max width of your slider */
     width: 400px;
     /* Optional: Only If you want to center your slider in the page */
@@ -41,6 +42,7 @@
 
 .track{
     top: 8px;
+    border-radius: 50px;
       /* thickness of the track */
       height: 4px;
       background-color: var(--purple);
