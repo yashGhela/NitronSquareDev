@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Container,Row,Col } from 'react-bootstrap'
+import { Button, Card, Container,Row,Col, Modal } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
 import GooglePayButton from '@google-pay/button-react'
 import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs} from 'firebase/firestore'
@@ -11,13 +11,16 @@ import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { async } from '@firebase/util'
+import TsCs from '../Components/TsCs';
+import PP from '../Components/PP';
     
 const Paddle = window.Paddle;
 function Settings() {
 
 
       
-   
+  const [TCshow, setTCshow]=useState(false)
+  const [PPshow, setPPshow]= useState(false);
   const [email,setEmail]= useState('');
   const [cancelURL, setCancelURL]=useState('');
   const [updateURL, setUpdateURL]= useState('');
@@ -172,8 +175,43 @@ function Settings() {
           >
             Log Out
            </Button>
+           <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setTCshow(true)}}>Terms & Conditions</p>
+            <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setPPshow(true)}}>Privacy Policy</p>
 
            </div>
+
+           <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={TCshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setTCshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Terms and Conditions</Modal.Header>
+             <Modal.Body>
+              <TsCs/>
+             </Modal.Body>
+
+       </Modal>
+       <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={PPshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          onHide={()=>{setPPshow(false)}}
+          style={{color:'lightgray'}}
+          centered>
+             <Modal.Header closeButton closeVariant='white'>Privacy Policy</Modal.Header>
+             <Modal.Body>
+              <PP/>
+             </Modal.Body>
+
+       </Modal>
 
           
 

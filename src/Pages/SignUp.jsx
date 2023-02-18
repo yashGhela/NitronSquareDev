@@ -155,13 +155,13 @@ function SignUp() {
       <Card.Body>
       <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
       <p style={{marginTop:'5px'}}>OR</p>
-      <Form>
+      <Form style={{textAlign:'left'}}>
         <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)}}}/>
         <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)} }}/>
         <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' || checked==='false' ){setSignDis(true)}else{setSignDis(false)} }}/>
        
-        <input type='checkbox' id='check' name='check' onClick={(e)=>{if(e.target.checked){setChecked(true)}else{setChecked(false)}}} />
-        <label for='check' >I here by accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr</label>
+        <Form.Check type='checkbox'  style={{marginTop:'10px'}}  onChange={(e)=>{if(!e.target.checked){setSignDis(true)}else{setSignDis(false)}}} label='I accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr'/>
+      
         
         <Button variant='dark' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('free'); signUpEP()}}>Sign Up</Button>
         
