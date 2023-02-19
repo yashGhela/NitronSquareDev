@@ -55,13 +55,12 @@ function SignUp() {
    
      
         await setDoc(docref, {username: username, subscription: 'active',type: type, email: userData.email}).then(async ()=>{
-          const ref= collection(db,'Users',userData.uid,'Sessions');
+          
           const subref= collection(db, 'Users',userData.uid,'Subjects');
           
           
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
-          await addDoc(ref,{plec:'placeholder'})
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
           localStorage.setItem('isAuth', true)
@@ -156,11 +155,11 @@ function SignUp() {
       <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
       <p style={{marginTop:'5px'}}>OR</p>
       <Form style={{textAlign:'left'}}>
-        <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)}}}/>
-        <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username==='' || checked==='false'){setSignDis(true)}else{setSignDis(false)} }}/>
-        <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' || checked==='false' ){setSignDis(true)}else{setSignDis(false)} }}/>
+        <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username==='' || !checked){setSignDis(true)}else{setSignDis(false)}}}/>
+        <Form.Control type='password' placeholder='Password' style={{marginTop:'5px'}} onChange={(e)=>{setPassword(e.target.value);if(email==='' || password===''|| username==='' || !checked){setSignDis(true)}else{setSignDis(false)} }}/>
+        <Form.Control placeholder='Username' style={{marginTop:'5px', width:'100%'}} onChange={(e)=>{setUsername(e.target.value);if(email==='' || password==='' || username==='' || !checked ){setSignDis(true)}else{setSignDis(false)} }}/>
        
-        <Form.Check type='checkbox'  style={{marginTop:'10px'}}  onChange={(e)=>{if(!e.target.checked){setSignDis(true)}else{setSignDis(false)}}} label='I accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr'/>
+        <Form.Check type='checkbox'  style={{marginTop:'10px'}}  onChange={(e)=>{if(!e.target.checked || password==='' || email==='' || username===''){setSignDis(true); setChecked(false)}else{setSignDis(false); setChecked(true)}}} label='I accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr'/>
       
         
         <Button variant='dark' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('free'); signUpEP()}}>Sign Up</Button>

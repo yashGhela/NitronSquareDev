@@ -22,7 +22,8 @@ function Dashboard() {
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
   const [modalShow, setModalShow]=useState(false);
   const [modalData, setModalData]= useState([]);
-  
+  const [dataExists, setDataExists] = useState(true);
+  const [scopesExists, setScopesExists]=useState(true);
   
   
   const [gomodalShow, setGoModalShow] = useState(false);
@@ -79,18 +80,31 @@ function Dashboard() {
  useEffect(() => {  //loads all the 
  
   onSnapshot(scopeQ, (snapshot) => {
-    setScopeList(
-       snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-     );
-     
-     
-   });
+    if(snapshot.empty){
+      setScopesExists(false)
+    }else{
+    
+      setScopeList(
+        snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+      );
+      
+      
+    
+    }})
  
  
   onSnapshot(q, (snapshot) => {
-   setRecsesList(
+
+  if (snapshot.empty){
+    setDataExists(false)
+
+  }else {
+   
+    setRecsesList(
       snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
+  
+  }
     
     
   });
@@ -280,7 +294,7 @@ function Dashboard() {
         <div className="Recent" >
           <h3 style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</h3>
          
-            {recsesList.map((rec)=>{
+              {dataExists?   recsesList.map((rec)=>{
               return(
                 
                 <div>
@@ -349,7 +363,7 @@ function Dashboard() {
               
                   </div>                      
               )
-            })}
+            }):<h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>There are no sessions yet</h1>}
 
              
              
@@ -359,7 +373,7 @@ function Dashboard() {
            
          <Container fluid={true}>
           <Row >
-          {scopeList.map((scop)=>{
+          {scopesExists? scopeList.map((scop)=>{
             return(
               <Col xs='2'  >
                 <div>
@@ -455,7 +469,7 @@ function Dashboard() {
 
 
             )
-          })}
+          }): <h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</h1>}
           </Row>
          </Container>
           </div>

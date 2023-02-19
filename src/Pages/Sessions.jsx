@@ -1,7 +1,7 @@
-import React, { useState} from 'react'
+import React, { useEffect, useState} from 'react'
 import { useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
-import { collection, orderBy, query, doc, deleteDoc} from 'firebase/firestore';
+import { collection, orderBy, query, doc, deleteDoc, onSnapshot} from 'firebase/firestore';
 
 import './Page.css';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
@@ -19,6 +19,7 @@ function Sessions() {
 
   const [modalShow, setModalShow]=useState(false);
   const [modalData, setModalData]= useState([]);
+  const [dataExists, setDataExists] = useState(true);
   const subRef=collection(db, 'Users',user,'Sessions');
   let nav = useNavigate();
 
@@ -33,6 +34,18 @@ function Sessions() {
         limit: 9
       }
     );
+
+    useEffect(()=>{
+      onSnapshot(subRef, (snapshot)=>{
+        if(snapshot.empty){
+          setDataExists(false)
+          
+        }
+        
+      })
+
+
+    },[])
 
     const DeleteSes=async({id})=>{
       const delref=doc(db, 'Users',user,'Sessions',id)
@@ -63,7 +76,7 @@ function Sessions() {
        
 
           <div className="Recent" >
-          <h1 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Your Sessions:</h1>
+          { dataExists?  <h1 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Your Sessions:</h1>: <h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>There are no sessions yet</h1>}
          
           {items.map((rec)=>{
               return(

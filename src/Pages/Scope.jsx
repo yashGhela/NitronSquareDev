@@ -25,6 +25,7 @@ function Scope() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     const subref= collection(db,'Users',user,'Scopes');
+    const [scopesExists, setScopesExists]=useState(true);
 
   
 
@@ -36,9 +37,14 @@ function Scope() {
     
  
       onSnapshot(subref, (snapshot) => {
-       setScopeList(
-          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
-        );
+        if(snapshot.empty){
+          setScopesExists(false)
+        }else{
+        
+          setScopeList(
+            snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+          );
+          }    
         
         
       });
@@ -126,7 +132,7 @@ function Scope() {
 
          <Container fluid={true}>
           <Row >
-          {scopeList.map((scop)=>{
+          {scopesExists?   scopeList.map((scop)=>{
             return(
               <Col xs='2'  >
                 <div>
@@ -229,7 +235,7 @@ function Scope() {
 
 
             )
-          })}
+          }):<h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</h1>}
           </Row>
          </Container>
         </div>
