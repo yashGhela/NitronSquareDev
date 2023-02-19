@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Card, Modal, Accordion, Col, Row, Container,Form} from 'react-bootstrap'
+import { Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart, Journals, Bullseye, Check } from 'react-bootstrap-icons'
 import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -7,9 +7,10 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy, deleteDoc } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy, deleteDoc, addDoc } from 'firebase/firestore'
 import { useState } from 'react'
-import { usePagination } from 'use-pagination-firestore';
+
+import { format } from 'date-fns/esm';
 
 
 
@@ -20,6 +21,7 @@ function Scope() {
   
   const[modalData, setModalData]=useState([]);
   const [modalShow, setModalShow] = useState(false);
+  const [offShow, setOffShow]=useState(false)
   
     const nav=useNavigate();
     const cookie = new Cookies()
@@ -28,10 +30,31 @@ function Scope() {
     const [scopesExists, setScopesExists]=useState(true);
 
   
+    const [Newtitle, setNewTitle]=useState();
+    const [Newdescription, setNewDescritption]=useState('');
+    
+    const [disabled, setDisabled]=useState(true);
+    const [task, setTask]=useState('');
+    const [NewtaskList, setNewTaskList]= useState([]);
+  
+    const addScope=async()=>{
+      
+      const subref= collection(db,'Users',user,'Scopes');
+      await addDoc(subref, {
+        title: Newtitle,
+        description: Newdescription,
+        incomplete: NewtaskList,
+        complete: [],
+        date: format(new Date(), 'yyyy/MM/dd')
+      })
+      setOffShow(false)
+      setNewTaskList([])
+      
+    }
 
   
 
-    useEffect(() => {  //loads all the tenants
+    useEffect(() => {  
     
  
     
@@ -122,7 +145,7 @@ function Scope() {
            animation:'gradient 15s ease infinite'
             }}>
           <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Scopes</h1></Card.Title>
-          <Button onClick={()=>{nav(`/CreateScope/`)}} variant='outline-light' style={{height:'60px', width:'120px' }}>Create a New Scope</Button>
+          <Button onClick={()=>{setOffShow(true)}} variant='outline-light' style={{height:'60px', width:'120px' }}>Create a New Scope</Button>
           
         
         
@@ -239,6 +262,44 @@ function Scope() {
           </Row>
          </Container>
         </div>
+
+        <Modal 
+        placement='end' 
+        className='special_modal'
+        show= {offShow}
+        onHide={()=>{setOffShow(false)}}>
+          <Modal.Header closeButton closeVariant='white'>
+            Create a New Scope
+          </Modal.Header>
+          <Modal.Body>
+          <div className="titleBar" style={{ color:'lightgray', display:'grid', placeItems:'center',  marginTop:'20px'}}>
+          <Form style={{width:'100%'}}> 
+            <Form.Group>
+              <Form.Label >Title:</Form.Label>
+              <Form.Control className='special_modal' onChange={(e)=>{setNewTitle(e.target.value); if(e.target.value===''){setDisabled(true)}else{setDisabled(false)}}}/>
+              <Form.Label>Description:</Form.Label>
+              <Form.Control className='special_modal' as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setNewDescritption(e.target.value)}} />
+              <Form.Label>Add a Task:</Form.Label>
+              <Form.Control className='special_modal' onChange={(e)=>{setTask(e.target.value);if(NewtaskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
+              <Button onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
+              
+            </Form.Group>
+          </Form>
+
+
+          <p style={{fontSize:'23px'}}>Your Tasks: </p>
+          {NewtaskList.map((i)=>{
+            return(
+              <ul style={{float:'right'}}>
+                <li>{i}</li>
+              </ul>
+            )
+          })}
+
+          <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled}>Finish</Button>
+          </div>
+          </Modal.Body>
+        </Modal>
        
 
         </div>

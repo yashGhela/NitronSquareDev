@@ -14,20 +14,20 @@ function CreateScope() {
   const nav=useNavigate();
  
 
-  const [title, setTitle]=useState();
-  const [description, setDescritption]=useState('');
+  const [Newtitle, setNewTitle]=useState();
+  const [Newdescription, setNewDescritption]=useState('');
   
   const [disabled, setDisabled]=useState(true);
   const [task, setTask]=useState('');
-  const [taskList, setTaskList]= useState([]);
+  const [NewtaskList, setNewTaskList]= useState([]);
 
   const addScope=async()=>{
     
     const subref= collection(db,'Users',user,'Scopes');
     await addDoc(subref, {
-      title: title,
-      description: description,
-      incomplete: taskList,
+      title: Newtitle,
+      description: Newdescription,
+      incomplete: NewtaskList,
       complete: [],
       date: format(new Date(), 'yyyy/MM/dd')
     })
@@ -50,19 +50,19 @@ function CreateScope() {
           <Form style={{width:'500px'}}> 
             <Form.Group>
               <Form.Label >Title:</Form.Label>
-              <Form.Control className='special_modal' onChange={(e)=>{setTitle(e.target.value); if(e.target.value===''){setDisabled(true)}else{setDisabled(false)}}}/>
+              <Form.Control className='special_modal' onChange={(e)=>{setNewTitle(e.target.value); if(e.target.value===''){setDisabled(true)}else{setDisabled(false)}}}/>
               <Form.Label>Description:</Form.Label>
-              <Form.Control className='special_modal' as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setDescritption(e.target.value)}} />
+              <Form.Control className='special_modal' as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setNewDescritption(e.target.value)}} />
               <Form.Label>Add a Task</Form.Label>
-              <Form.Control className='special_modal' onChange={(e)=>{setTask(e.target.value);if(taskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
-              <Button onClick={()=>{setTaskList([...taskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
+              <Form.Control className='special_modal' onChange={(e)=>{setTask(e.target.value);if(NewtaskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
+              <Button onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
               
             </Form.Group>
           </Form>
 
 
           <h3>Your Tasks </h3>
-          {taskList.map((i)=>{
+          {NewtaskList.map((i)=>{
             return(
               <ul style={{float:'right'}}>
                 <li>{i}</li>
@@ -70,7 +70,7 @@ function CreateScope() {
             )
           })}
 
-          <Button onClick={()=>{setTaskList([...taskList,task]); addScope()}} disabled={disabled}>Finish</Button>
+          <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled}>Finish</Button>
           </div>
 
         
