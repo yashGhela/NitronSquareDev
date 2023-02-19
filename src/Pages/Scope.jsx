@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas} from 'react-bootstrap'
+import { Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas, Badge, Toast} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart, Journals, Bullseye, Check } from 'react-bootstrap-icons'
 import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -281,20 +281,26 @@ function Scope() {
               <Form.Control className='special_modal' as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setNewDescritption(e.target.value)}} />
               <Form.Label>Add a Task:</Form.Label>
               <Form.Control className='special_modal' onChange={(e)=>{setTask(e.target.value);if(NewtaskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
-              <Button onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
+              <Button variant='outline-light' onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
               
             </Form.Group>
           </Form>
 
+          <hr style={{border:0, color:'lightgray',backgroundColor:'lightgray' ,width:'100%'}}/>
 
-          <p style={{fontSize:'23px'}}>Your Tasks: </p>
+
+         <div style={{display:'flex', flexDirection:'column', textAlign:'left', marginBottom:'10px', marginTop:'10px'}}>
+         <p style={{fontSize:'23px', float:'left'}}>Your Tasks: </p>
           {NewtaskList.map((i)=>{
             return(
-              <ul style={{float:'right'}}>
-                <li>{i}</li>
-              </ul>
+         
+                <ul>
+                  <li>{i}</li>
+                </ul>
+              
             )
           })}
+         </div>
 
           <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled}>Finish</Button>
           </div>
