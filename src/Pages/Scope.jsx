@@ -11,6 +11,7 @@ import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, 
 import { useState } from 'react'
 
 import { format } from 'date-fns/esm';
+import { async } from '@firebase/util'
 
 
 
@@ -36,6 +37,11 @@ function Scope() {
     const [disabled, setDisabled]=useState(true);
     const [task, setTask]=useState('');
     const [NewtaskList, setNewTaskList]= useState([]);
+
+    const [updateTitle, setUpdateTitle]=useState('');
+    const [updateDesc, setUpdateDesc]= useState('');
+    const [isUpdate, setIsUpdate]=useState(false);
+    const [saveDis, setSaveDis]=useState(true);
   
     const addScope=async()=>{
       
@@ -109,6 +115,16 @@ function Scope() {
     
   }
 
+  const Save=async({id})=>{
+    const ref = doc(db,'Users',user,'Scopes',id)
+    await updateDoc(ref,{
+      title: updateTitle,
+      description: updateDesc
+    })
+    setModalShow(false)
+    setIsUpdate(false)
+  }
+
 
 
 
@@ -160,7 +176,7 @@ function Scope() {
               <Col xs='2'  >
                 <div>
 
-                 <Card style={{width:'17rem', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop); }}>
+                 <Card style={{width:'17rem', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'180px', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>
                     <Card.Body>
                      <Card.Title>{scop.title}</Card.Title>
                       <Card.Text>
@@ -183,13 +199,28 @@ function Scope() {
                   <Modal.Title  id="contained-modal-title-vcenter"  style={{marginRight:'70%'}}>
                     Scope
                   </Modal.Title>
+                  <Button variant='outline-light' onClick={()=>{if(isUpdate){setIsUpdate(false); setSaveDis(true)}else{setIsUpdate(true); setSaveDis(false)}}} style={{marginRight:'10px'}}>Edit</Button>
+            
                   <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
+                  
                   </Modal.Header>
                     <Modal.Body>
                       
-                      <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{modalData.title}</h1>
+                      {isUpdate? <Form style={{display:'flex',backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px'}}>
+                        <Form.Control style={{width:'80%',}} placeholder={modalData.title} 
+                        onChange={(e)=>{if(!e.target.value){setUpdateTitle(modalData.title)}else{
+                          setUpdateTitle(e.target.value)
+                        }}}/>
+                        
+                      </Form>:<h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{modalData.title}</h1>}
                      
-                      <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} </p>
+                      {isUpdate? <Form style={{display:'flex',backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px'}}>
+                        <Form.Control style={{width:'80%',}} placeholder={modalData.description}
+                        onChange={(e)=>{if(!e.target.value){setUpdateDesc(modalData.description)}else{
+                          setUpdateDesc(e.target.value)
+                        }}}/>
+                        
+                      </Form>:<p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} </p>}
                       
                       <div className="mbod">
                        
@@ -251,6 +282,9 @@ function Scope() {
                         
                       </div>
                     </Modal.Body>
+                    <Modal.Footer>
+                    <Button variant='outline-light' onClick={()=>{Save({id:modalData.id})}} disabled={saveDis}>Save</Button>
+                    </Modal.Footer>
                     </Modal>
 
                 </div>
@@ -286,7 +320,7 @@ function Scope() {
             </Form.Group>
           </Form>
 
-          <hr style={{border:0, color:'lightgray',backgroundColor:'lightgray' ,width:'100%'}}/>
+          <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%'}}/>
 
 
          <div style={{display:'flex', flexDirection:'column', textAlign:'left', marginBottom:'10px', marginTop:'10px'}}>
