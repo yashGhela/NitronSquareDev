@@ -364,7 +364,7 @@ function Timer() {
 
   return (
    
-    <div style={{backgroundImage:`url(${bg1})`, width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
+    <div style={{background:'#17181a', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
