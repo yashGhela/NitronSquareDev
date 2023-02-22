@@ -17,11 +17,13 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import { format } from 'date-fns';
+import bg1 from '../Assets/lightGradient-purple .jpg'
 
 import {
   Chart as ChartJS,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import Draggable from 'react-draggable';
 
 
 window.Chart = ChartJS
@@ -44,6 +46,7 @@ function Timer() {
     const [rating, setRating]=useState(0)
     
     const [description, setDescription]=useState('');
+    const [image, setImage]=useState(null)
     
  
     //This code is for location and navigation, no timer logic
@@ -305,6 +308,7 @@ function Timer() {
        
        
      });
+     setImage(bg1);
     
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
@@ -360,7 +364,7 @@ function Timer() {
 
   return (
    
-    <div style={{backgroundColor:'#17181a', width:'100', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
+    <div style={{backgroundImage:`url(${bg1})`, width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -371,7 +375,8 @@ function Timer() {
     />
   </div>
       
-      <div className='Timer' style={{width:'700px', marginLeft:'30%',alignItems:'center', marginTop:'75px', placeItems: 'center', marginRight:'10px'}}>
+      <div style={{placeItems:'center', width:'80vw'}}>
+      <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
     <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
@@ -379,12 +384,14 @@ function Timer() {
     
     })}
     />
-    <div style={{display:'flex', placeItems:'center', margin:'10px', marginLeft:'250px', marginTop:'50px', marginBottom:'10px'}}>
+    
+    <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
     {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'><Play style={{height:'25px', width:'25px'}}/></Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
     </div>
+  
     
     <Modal
        show={modalShow}
@@ -428,16 +435,19 @@ function Timer() {
 
    
   </div>
+      </div>
 
   <div className="QuickBarModals" style={{float:'left'}}>
+  
    <div className="media">
+   <Draggable handle=".handle">
    <Modal className='special_modal'
      show={mediaShow}
      onHide={()=>{setMediaShow(false)}}
      centered
      style={{background:'none'}}
      >
-      <Modal.Header closeButton closeVariant='white'>
+      <Modal.Header closeButton closeVariant='white' className='handle'>
         Media
       </Modal.Header>
       <Modal.Body>
@@ -464,7 +474,9 @@ function Timer() {
       </Modal.Body>
 
     </Modal>
+    </Draggable>
    </div>
+  
    <div className="time">
    <Modal className='special_modal'
      show={timerShow}

@@ -8,14 +8,6 @@
     padding-bottom: 10%;
     
 }
-.Page2{
-    padding: 0%;
-    margin: 0%;
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(41, 44, 51);
-    height: 100vh;
-}
 
 .bod{
     margin-left: 120px;
@@ -101,5 +93,14 @@
     color: lightgray!important;
     border-color: gray!important;
  }
+
+ .special_modal .modal-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%) !important;
+  transform: translate(-50%, -50%) !important;
+  min-width: 500px !important;
+}
 
  
