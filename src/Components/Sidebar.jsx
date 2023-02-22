@@ -6,7 +6,7 @@ import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/LOGO clean.png'
 import {BoxArrowLeft, Gear} from 'react-bootstrap-icons'
-import { Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Button, Nav, OverlayTrigger, Tooltip, Container } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
@@ -25,10 +25,14 @@ function Sidebar({L1,L2,L3,L4}) {
     
   
   return (
- <div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column', height:'98%'}}>
-  <img src={logo} alt="" style={{height:'40px', width:'40px',marginTop:'10%'}} />
+
+<div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column', maxHeight:'98vh'}}>
+ 
+<img src={logo} alt="" style={{height:'40px', width:'40px'}} />
    <div style={{marginTop: '150px',}}>
    <Nav >
+   
+    
       <Nav.Item style={{marginBottom:'20px'}} >
        <OverlayTrigger
        overlay={renderTooltip('Dashboard')}>
@@ -63,6 +67,7 @@ function Sidebar({L1,L2,L3,L4}) {
     </Nav>
    </div>
  </div>
+
 
   )
 }

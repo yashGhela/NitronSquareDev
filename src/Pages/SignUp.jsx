@@ -10,6 +10,7 @@ import improvr from '../Assets/improrvr dark.png'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 import Cookies from 'universal-cookie';
+import { async } from '@firebase/util';
 
 
 
@@ -32,7 +33,12 @@ function SignUp() {
   const [username,setUsername]= useState('')
   const [TCshow, setTCshow]=useState(false)
   const [PPshow, setPPshow]= useState(false);
+  const [prompt1show,setPrompt1Show]=useState(false);
+  const [prompt2show, setPrompt2Show]=useState(false);
+  const [completePrompt,setCompShow]=useState(false)
   const [checked, setChecked] = useState(false);
+  const [find, setFind]=useState('');
+  const[purpose,setPurpose]=useState('');
 
   const cookie= new Cookies();
 
@@ -88,7 +94,7 @@ function SignUp() {
             setErrShow(true);
             setErrMessage('This Account already exists')
           }else{
-            setModalShow(true)
+            setPrompt1Show(true)
           }
         })
 
@@ -145,6 +151,21 @@ function SignUp() {
       setFirstSubErr(false);
       return false
     }}
+
+    const addForm=async()=>{
+      const ref = doc(db, 'Forms',userData.uid)
+      await setDoc(ref,{
+        username:username,
+        Find: find,
+        Purpose: purpose
+      })
+      setCompShow(false);
+      setModalShow(true)
+
+    }
+
+
+    
 
     
   return (
@@ -247,6 +268,75 @@ function SignUp() {
              </Modal.Body>
 
        </Modal>
+
+       <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={prompt1show}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          
+          style={{color:'lightgray'}}
+          centered>
+            <Modal.Header>
+              How Did You Find Us?
+            </Modal.Header>
+            <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
+              <p>Tell us about how you found us, this will help us create a better experience for all users</p>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Instagram'); setPrompt1Show(false); setPrompt2Show(true)}}>Instagram</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('TikTok'); setPrompt1Show(false); setPrompt2Show(true)}}>TikTok</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Family or Friends'); setPrompt1Show(false); setPrompt2Show(true)}}>Family or Friends</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('School'); setPrompt1Show(false); setPrompt2Show(true)}}>School</Button>
+
+            </Modal.Body>
+
+          </Modal>
+
+          <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={prompt2show}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          
+          style={{color:'lightgray'}}
+          centered>
+            <Modal.Header>
+              How Did You Intend to use Improvr?
+            </Modal.Header>
+            <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
+              <p>Tell us about how you found us, this will help us create a better experience for all users</p>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Increase my marks'); setPrompt2Show(false); setCompShow(true)}}>To Increase my marks</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Increase Productivity'); setPrompt2Show(false); setCompShow(true)}}>To Increase Productivity</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Improve my Focus'); setPrompt2Show(false); setCompShow(true)}}>To Improve my Focus</Button>
+            
+
+            </Modal.Body>
+
+          </Modal>
+
+          <Modal
+       className="special_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={completePrompt}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          
+          style={{color:'lightgray'}}
+          centered>
+            <Modal.Header>
+             Thanks! 
+            </Modal.Header>
+            <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
+              <p>Click here to move on to the next step!</p>
+              <Button variant='primary' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{addForm()}}>Lets go!</Button>
+              
+            </Modal.Body>
+
+          </Modal>
       
     </Container>
   )
