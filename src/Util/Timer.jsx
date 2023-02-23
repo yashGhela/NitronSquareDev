@@ -57,8 +57,9 @@ function Timer() {
 
 
 
-    const [imageUrl,setImageUrl]=useState('');
     const [imageList,setImageList]=useState([]);
+    const [imageUrl,setImageUrl]=useState(ghibli1);
+    
  
     //This code is for location and navigation, no timer logic
 
@@ -387,7 +388,7 @@ function Timer() {
 
   return (
    
-    <div style={{background:`url(${ghibli1})`,backgroundRepeat:'no-repeat', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
+    <div style={{background:`url(${imageUrl})`,backgroundRepeat:'no-repeat', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -410,10 +411,10 @@ function Timer() {
     />
     
     <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='dark'><Play style={{height:'25px', width:'25px'}}/></Button>:
-    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='dark'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
-    <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='dark'> Done!</Button>
+    <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
     </div>
   
     
@@ -688,8 +689,8 @@ function Timer() {
      <Modal.Body>
       {imageList.map((url)=>{
         return(
-          <Card style={{width:'300px', height:'200px'}}>
-          <Card.Img src={url}/>
+          <Card style={{width:'300px', height:'200px', cursor:'pointer'}}>
+          <Card.Img src={url} onClick={()=>{setImageUrl(url)}}/>
           <Card.Body>
            
           </Card.Body>
