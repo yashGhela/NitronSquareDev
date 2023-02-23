@@ -364,7 +364,7 @@ function Timer() {
 
   return (
    
-    <div style={{background:'#17181a', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px'}}>
+    <div style={{background:'url(https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FBotw1.jpeg?alt=media&token=1a0a32f4-daa9-49f4-948d-22f275d49323)', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -398,7 +398,7 @@ function Timer() {
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       onHide={()=>setModalShow(false)}
-      className='special_modal'
+      className='thin_modal'
       centered>
       <Modal.Header closeButton closeVariant='white' >
         <Modal.Title  id="contained-modal-title-vcenter">
@@ -408,7 +408,7 @@ function Timer() {
       <Modal.Body>
         <h3  style={{fontSize:'20px', fontWeight:'400'}}>Add a rating to your session:</h3>
         <h4 style={{fontSize:'16px', fontWeight:'400', marginTop:'15px'}}>rating⭐: {rating}</h4>
-        <div style={{marginBottom:'10%'}}>
+        <div style={{marginBottom:'20%'}}>
         <ReactSlider
         className='slider purple'
         thumbClassName='thumb'

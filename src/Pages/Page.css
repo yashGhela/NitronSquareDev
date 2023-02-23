@@ -62,7 +62,7 @@
 
 .special_modal .modal-content{
     background-color: #17181a;
-    color: #fff;
+    color: lightgray;
 
  }
 
@@ -94,13 +94,26 @@
     border-color: gray!important;
  }
 
- .special_modal .modal-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%) !important;
-  transform: translate(-50%, -50%) !important;
-  min-width: 500px !important;
+ .thin_modal .modal-dialog {
+  
+  max-width: 650px !important;
+}
+
+.thin_modal .modal-content{
+  background-color: #17181a;
+  color: lightgray;
+}
+
+.thin_modal .form-control:focus{
+  background-color:#17181a!important;
+  color: lightgray!important;
+  border-color: gray!important;
+}
+
+.thin_modal .form-control:not(active){
+  background-color:#17181a!important;
+  color: lightgray!important;
+  border-color: gray!important;
 }
 
  

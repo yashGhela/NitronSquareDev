@@ -196,7 +196,7 @@ function SignUp() {
        onHide={()=>{setModalShow(false)}}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      className="special_modal"
+      className="thin_modal"
       
       centered>
       <Modal.Header closeButton closeVariant='white'>
@@ -270,7 +270,7 @@ function SignUp() {
        </Modal>
 
        <Modal
-       className="special_modal"
+       className="thin_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt1show}
@@ -294,7 +294,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="special_modal"
+       className="thin_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt2show}
@@ -318,7 +318,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="special_modal"
+       className="thin_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={completePrompt}
