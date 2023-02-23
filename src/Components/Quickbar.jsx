@@ -10,7 +10,7 @@ import { Button, Nav } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Quickbar({L1,L2,L3,L4,L5}) {
+function Quickbar({L1,L2,L3,L4,L5,L6}) {
 
   let nav = useNavigate();
 
@@ -43,6 +43,9 @@ function Quickbar({L1,L2,L3,L4,L5}) {
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       {L5}
+      </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      {L6}
       </Nav.Item>
       
     </Nav>

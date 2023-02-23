@@ -3,12 +3,12 @@ import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
-import { db } from '../firebaseConfig';
-import { Accordion, Button, Col, Form, Modal, Row } from 'react-bootstrap';
+import { db, storage } from '../firebaseConfig';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container} from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Image, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -17,13 +17,14 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import { format } from 'date-fns';
-import bg1 from '../Assets/lightGradient-purple .jpg'
+
 
 import {
   Chart as ChartJS,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 import Draggable from 'react-draggable';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
 
 
 window.Chart = ChartJS
@@ -36,7 +37,15 @@ function Timer() {
 
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
+
+    //bgs
     
+    const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2Fghibli%201.png?alt=media&token=bb4277fc-884a-44e2-bd43-432baec817d3'
+    
+
+    const imageListRef= ref(storage,'Backgrounds/')
+
+
     const nav=useNavigate();
     
     const cookie = new Cookies()
@@ -44,10 +53,12 @@ function Timer() {
     let subject= location.state.subject;
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
-    
     const [description, setDescription]=useState('');
-    const [image, setImage]=useState(null)
-    
+
+
+
+    const [imageUrl,setImageUrl]=useState('');
+    const [imageList,setImageList]=useState([]);
  
     //This code is for location and navigation, no timer logic
 
@@ -57,7 +68,8 @@ function Timer() {
     const [trendShow, setTrendShow] = useState(false);
     const [scopeShow, setScopeShow] = useState(false);
     const [timerShow, setTimerShow] = useState(false);
-
+    const [imageShow, setImageShow]=useState(false);
+  
     
     let tree= new Audio(treeS);
     let ocean= new Audio(seaS)
@@ -301,6 +313,17 @@ function Timer() {
    useEffect(()=>{
     docSnap()
     initTimer();
+    listAll(imageListRef).then((result)=>{
+      result.items.forEach((item)=>{
+        getDownloadURL(item).then((url)=>{
+         if(imageList.includes(url)){
+          return null
+         }else{
+          setImageList((prev)=>[...prev,url])
+         }
+        })
+      })
+    })
     onSnapshot(scoperef, (snapshot) => {
       setScopeList(
          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
@@ -308,7 +331,7 @@ function Timer() {
        
        
      });
-     setImage(bg1);
+     
     
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
@@ -364,14 +387,15 @@ function Timer() {
 
   return (
    
-    <div style={{background:'url(https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2Fkalen-emsley-Bkci_8qcdvQ-unsplash%201080.jpg?alt=media&token=42b638db-eadf-4e83-982f-97db595a6284)',backgroundRepeat:'no-repeat', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
+    <div style={{background:`url(${ghibli1})`,backgroundRepeat:'no-repeat', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
       L2={<Button  variant='light-outline'  onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
       L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true);getData({sub:subject})}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
-      L5={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
+      L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><Image style={{color:'white', }}/></Button>}
+      L6={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
     />
   </div>
       
@@ -440,11 +464,11 @@ function Timer() {
   <div className="QuickBarModals" style={{float:'left'}}>
   
    <div className="media">
-   <Draggable handle=".handle">
+   
    <Modal className='special_modal'
      show={mediaShow}
      onHide={()=>{setMediaShow(false)}}
-     centered
+    
      style={{background:'none'}}
      >
       <Modal.Header closeButton closeVariant='white' className='handle'>
@@ -474,7 +498,7 @@ function Timer() {
       </Modal.Body>
 
     </Modal>
-    </Draggable>
+   
    </div>
   
    <div className="time">
@@ -648,6 +672,34 @@ function Timer() {
         })}
 
       </Modal.Body>
+
+    </Modal>
+    <Modal
+    className='special_modal'
+    show={imageShow}
+    onHide={()=>{setImageShow(false)}}
+    
+    style={{background:'none'}}
+    >
+    
+    <Modal.Header closeButton closeVariant='white'>
+       Worlds
+     </Modal.Header>
+     <Modal.Body>
+      {imageList.map((url)=>{
+        return(
+          <Card style={{width:'300px', height:'200px'}}>
+          <Card.Img src={url}/>
+          <Card.Body>
+           
+          </Card.Body>
+         </Card>
+
+        )
+       
+      })}
+
+     </Modal.Body>
 
     </Modal>
    </div>
