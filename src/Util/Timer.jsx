@@ -4,11 +4,11 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl} from 'react-bootstrap';
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Image, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Image, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -25,9 +25,11 @@ import {
 import { Line } from 'react-chartjs-2';
 import Draggable from 'react-draggable';
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
+import { async } from '@firebase/util';
 
 
 window.Chart = ChartJS
+
 
 function Timer() {
   
@@ -59,6 +61,25 @@ function Timer() {
 
     const [imageList,setImageList]=useState([]);
     const [imageUrl,setImageUrl]=useState(ghibli1);
+
+    const [toDo, setToDo]=useState('');
+    const [ToDoList, setToDoList]= useState([]);
+    const todoRef=collection(db,'Users',user,'ToDos');
+    const todoQuery= query(todoRef, where('state', '==', 'incomplete'))
+
+    const AddToDo=async()=>{
+      await addDoc(todoRef,{
+        name: toDo,
+        state: 'incomplete'
+      })
+    }
+
+    const CompleteToDo=async({id})=>{
+      await updateDoc(doc(todoRef,id),{
+        state:'complete'
+      })
+    }
+    
     
  
     //This code is for location and navigation, no timer logic
@@ -70,6 +91,7 @@ function Timer() {
     const [scopeShow, setScopeShow] = useState(false);
     const [timerShow, setTimerShow] = useState(false);
     const [imageShow, setImageShow]=useState(false);
+    const [todoShow, setToDoShow]=useState(false);
   
     
     let tree= new Audio(treeS);
@@ -332,6 +354,17 @@ function Timer() {
        
        
      });
+
+    
+  
+
+     onSnapshot(todoQuery,(snap)=>{
+      setToDoList(
+        snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
+      )
+     } )
+
+
      
     
     const interval =setInterval(()=>{
@@ -396,7 +429,9 @@ function Timer() {
       L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true);getData({sub:subject})}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
       L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><Image style={{color:'white', }}/></Button>}
-      L6={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
+      L6={<Button  variant='light-outline' onClick={()=>{setToDoShow(true)}}><ListTask style={{color:'white', }}/></Button>}
+      L7={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
+      
     />
   </div>
       
@@ -675,6 +710,8 @@ function Timer() {
       </Modal.Body>
 
     </Modal>
+    
+    
     <Modal
     className='special_modal'
     show={imageShow}
@@ -683,24 +720,79 @@ function Timer() {
     style={{background:'none'}}
     >
     
+   
     <Modal.Header closeButton closeVariant='white'>
        Worlds
      </Modal.Header>
-     <Modal.Body>
-      {imageList.map((url)=>{
-        return(
-          <Card style={{width:'300px', height:'200px', cursor:'pointer'}}>
-          <Card.Img src={url} onClick={()=>{setImageUrl(url)}}/>
-          <Card.Body>
-           
-          </Card.Body>
-         </Card>
 
+     <Modal.Body style={{display:'flex'}}>
+     
+     
+       <Container>
+        <Row>
+          <Col>
+          {imageList.map((url)=>{
+        return(
+    
+          <Card style={{marginBottom:'10px', cursor:'pointer', padding:'5px'}}>
+          <Card.Img  src={url} onClick={()=>{setImageUrl(url)}}/>
+         
+         </Card>
+       
         )
        
       })}
+          
+          </Col>
+        </Row>
+       </Container>
+       
+       
+        
 
      </Modal.Body>
+
+    </Modal>
+
+    <Modal
+    className='special_modal'
+    show={todoShow}
+    onHide={()=>{setToDoShow(false)}}
+    
+    style={{background:'none'}}
+    >
+      <Modal.Header closeButton closeVariant='white'>
+        To Dos
+      </Modal.Header>
+      <Modal.Body>
+      <Form style={{display:'flex', padding:'20px'}}>
+        <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setToDo(e.target.value)}}/>
+        <Button onClick={()=>{AddToDo()}} variant='outline-light'>Add! </Button>
+      </Form>
+      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%'}}/>
+
+      {ToDoList.map((todos)=>{
+        return(
+          <Card 
+          style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+          
+          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+          minBreakpoint="xxs">
+           <Row>
+            <Col>
+            <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
+            <Col><Button  variant="secondary"  onClick={()=>{CompleteToDo({id: todos.id})}} style={{float:'right'}} ><Check/></Button></Col>
+           </Row>
+        
+            </Card>
+         
+          
+        )
+      })}
+
+      </Modal.Body>
+
+
 
     </Modal>
    </div>

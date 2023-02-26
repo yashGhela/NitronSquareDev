@@ -6,13 +6,19 @@ import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/LOGO clean.png'
 import {BoxArrowLeft} from 'react-bootstrap-icons'
-import { Button, Nav } from 'react-bootstrap';
+import { Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Quickbar({L1,L2,L3,L4,L5,L6}) {
+function Quickbar({L1,L2,L3,L4,L5,L6,L7}) {
 
   let nav = useNavigate();
+
+  const renderTooltip = (label) => (
+    <Tooltip id="button-tooltip" >
+     {label}
+    </Tooltip>
+  );
 
   const LogOut=()=>{
     signOut(auth).then(()=>{
@@ -29,23 +35,48 @@ function Quickbar({L1,L2,L3,L4,L5,L6}) {
   
    <div style={{marginTop: '150px',}}>
    <Nav >
+
       <Nav.Item style={{marginBottom:'20px'}} >
-       {L1}
+      <OverlayTrigger
+      overlay={renderTooltip('Sounds')}>
+      {L1}
+      </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Timer')}>
       {L2}
+      </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Quick Trends')}>
       {L3}
+      </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Quick Scopes')}>
       {L4}
+      </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Worlds')}>
       {L5}
+      </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('To Dos')}>
       {L6}
+      </OverlayTrigger>
+      </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Exit')}>
+      {L7}
+      </OverlayTrigger>
       </Nav.Item>
       
     </Nav>
