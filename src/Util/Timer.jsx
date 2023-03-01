@@ -4,11 +4,12 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image} from 'react-bootstrap';
+
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, Image, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -63,9 +64,26 @@ function Timer() {
     const [imageUrl,setImageUrl]=useState(ghibli1);
 
     const [toDo, setToDo]=useState('');
+    const [state,setState]= useState('incomplete')
     const [ToDoList, setToDoList]= useState([]);
     const todoRef=collection(db,'Users',user,'ToDos');
-    const todoQuery= query(todoRef, where('state', '==', 'incomplete'))
+    
+
+    const getTodo=async ()=>{
+      const todoQuery= query(todoRef, where('state', '==', state))
+      await getDocs(todoQuery).then((snap)=>{
+        setToDoList(
+          snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
+        )
+       } )
+
+    }
+
+    const redoToDo=async({id})=>{
+      await updateDoc(doc(todoRef,id),{
+        state:'incomplete'
+      })
+    }
 
     const AddToDo=async()=>{
       await addDoc(todoRef,{
@@ -358,11 +376,7 @@ function Timer() {
     
   
 
-     onSnapshot(todoQuery,(snap)=>{
-      setToDoList(
-        snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
-      )
-     } )
+     
 
 
      
@@ -428,7 +442,7 @@ function Timer() {
       L2={<Button  variant='light-outline'  onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
       L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true);getData({sub:subject})}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
-      L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><Image style={{color:'white', }}/></Button>}
+      L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
       L6={<Button  variant='light-outline' onClick={()=>{setToDoShow(true)}}><ListTask style={{color:'white', }}/></Button>}
       L7={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
       
@@ -734,10 +748,10 @@ function Timer() {
           {imageList.map((url)=>{
         return(
     
-          <Card style={{marginBottom:'10px', cursor:'pointer', padding:'5px'}}>
-          <Card.Img  src={url} onClick={()=>{setImageUrl(url)}}/>
+          
+          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
          
-         </Card>
+       
        
         )
        
@@ -769,7 +783,12 @@ function Timer() {
         <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setToDo(e.target.value)}}/>
         <Button onClick={()=>{AddToDo()}} variant='outline-light'>Add! </Button>
       </Form>
-      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%'}}/>
+      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+      <div style={{display:'flex', padding:'5px',marginBottom:'15px'}}>
+        <Button variant='outline-light' onClick={()=>{getTodo();setState('incomplete')}} style={{ width:'50%', marginRight:'15px'}}>Incomplete</Button>
+        <Button variant='outline-light'  onClick={()=>{getTodo();setState('complete')}} style={{ width:'50%', marginRight:'15px'}}>Complete</Button>
+      </div>
+      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
 
       {ToDoList.map((todos)=>{
         return(
@@ -781,7 +800,11 @@ function Timer() {
            <Row>
             <Col>
             <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
-            <Col><Button  variant="secondary"  onClick={()=>{CompleteToDo({id: todos.id})}} style={{float:'right'}} ><Check/></Button></Col>
+            <Col><Button  variant="secondary"  onClick={()=>{
+              if(todos.state==='incomplete'){CompleteToDo({id: todos.id})}else {
+                redoToDo({id: todos.id})
+
+              }}} style={{float:'right'}} ><Check/></Button></Col>
            </Row>
         
             </Card>
