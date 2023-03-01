@@ -4,7 +4,7 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck} from 'react-bootstrap';
 
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
@@ -64,38 +64,29 @@ function Timer() {
     const [imageUrl,setImageUrl]=useState(ghibli1);
 
     const [toDo, setToDo]=useState('');
-    const [state,setState]= useState('incomplete')
+    
     const [ToDoList, setToDoList]= useState([]);
     const todoRef=collection(db,'Users',user,'ToDos');
+    const todoQuery= query(todoRef, where('state', '==', 'incomplete'))
     
 
-    const getTodo=async ()=>{
-      const todoQuery= query(todoRef, where('state', '==', state))
-      await getDocs(todoQuery).then((snap)=>{
-        setToDoList(
-          snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
-        )
-       } )
+    
 
-    }
-
-    const redoToDo=async({id})=>{
-      await updateDoc(doc(todoRef,id),{
-        state:'incomplete'
-      })
-    }
+    
 
     const AddToDo=async()=>{
       await addDoc(todoRef,{
         name: toDo,
         state: 'incomplete'
       })
+     
     }
 
     const CompleteToDo=async({id})=>{
       await updateDoc(doc(todoRef,id),{
         state:'complete'
       })
+      
     }
     
     
@@ -369,6 +360,13 @@ function Timer() {
       setScopeList(
          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
        );
+
+       onSnapshot(todoQuery,(snap)=>{
+        setToDoList(
+          snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
+        )
+       } )
+       
        
        
      });
@@ -435,7 +433,7 @@ function Timer() {
 
   return (
    
-    <div style={{background:`url(${imageUrl})`,backgroundRepeat:'no-repeat', width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
+    <div style={{background:`url(${imageUrl}) no-repeat`,width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -524,25 +522,42 @@ function Timer() {
       <Modal.Header closeButton closeVariant='white' className='handle'>
         Media
       </Modal.Header>
-      <Modal.Body>
-        <Row style={{marginBottom:'20px'}}>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={treeSound} ><Tree style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={OceanSound}><Water style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={RainSound}><CloudDrizzle style={{height:'50px', width:'50px'}}/></Button></Col>
-        </Row>
+      <Modal.Body style={{display:'flex', flexDirection:'column'}}>
+       
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                      <Row>
+                      <Col xs={4} > <Tree style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      </Row></Card>
+        <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                      <Row>
+                      <Col xs={4} > <Water style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} onChange={(e)=>{if(e.target.checked){OceanSound()}else{ocean.pause()}}} type='switch'/></Col>
+                      </Row></Card>
+        <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                      <Row>
+                      <Col xs={4} > <CloudDrizzle style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      </Row></Card>
+        <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                      <Row>
+                      <Col xs={4} > <Moon style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      </Row></Card>
+       
+        <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                      <Row>
+                      <Col xs={4} > <Wind style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      </Row></Card>
+        <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
         <Row>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={NightSound}><Moon style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={WindSound}><Wind style={{height:'50px', width:'50px'}}/></Button></Col>
-          <Col><Button variant='outline-light' style={{height:'100px', width:'100px', margin:'0%'}} onClick={FireSound}><Fire style={{height:'50px', width:'50px'}}/></Button></Col>
-        </Row>
-
+        <Col xs={4} > <Fire style={{height:'30px', width:'50px'}}/></Col>
+        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+        </Row></Card>
+      
        <div style={{placeItems:'center'}}>
-       <Button
-        style={{marginTop:'20px', placeItems:'center'}}
-        variant='outline-light'
-        onClick={Stop}
-        
-        ><StopFill style={{height:'50px', width:'50px'}}/></Button>
+      
        </div>
 
       </Modal.Body>
@@ -784,11 +799,7 @@ function Timer() {
         <Button onClick={()=>{AddToDo()}} variant='outline-light'>Add! </Button>
       </Form>
       <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
-      <div style={{display:'flex', padding:'5px',marginBottom:'15px'}}>
-        <Button variant='outline-light' onClick={()=>{getTodo();setState('incomplete')}} style={{ width:'50%', marginRight:'15px'}}>Incomplete</Button>
-        <Button variant='outline-light'  onClick={()=>{getTodo();setState('complete')}} style={{ width:'50%', marginRight:'15px'}}>Complete</Button>
-      </div>
-      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+      
 
       {ToDoList.map((todos)=>{
         return(
@@ -801,10 +812,7 @@ function Timer() {
             <Col>
             <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
             <Col><Button  variant="secondary"  onClick={()=>{
-              if(todos.state==='incomplete'){CompleteToDo({id: todos.id})}else {
-                redoToDo({id: todos.id})
-
-              }}} style={{float:'right'}} ><Check/></Button></Col>
+              CompleteToDo({id: todos.id})}} style={{float:'right'}} ><Check/></Button></Col>
            </Row>
         
             </Card>
