@@ -4,7 +4,7 @@
     width: 100vw;
     display: flex;
     background-color: #17181a;
-    height: 100vh;
+    height: 100vh!important;
     padding-bottom: 10%;
     
 }

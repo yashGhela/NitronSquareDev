@@ -104,12 +104,12 @@ function Timer() {
     const [todoShow, setToDoShow]=useState(false);
   
     
-    let tree= new Audio(treeS);
-    let ocean= new Audio(seaS)
-    let rain= new Audio(RainS)
-    let night= new Audio(NightS);
-    let wind= new Audio(WindS);
-    let fire=new Audio(FireS);
+    const [tree,setTree]= useState(new Audio(treeS));
+    const [ocean,setOcean]= useState(new Audio(seaS))
+    const [rain,setRain]= useState(new Audio(RainS))
+    const [night,setNight]= useState(new Audio(NightS));
+    const [wind,setWind]= useState(new Audio(WindS));
+    const [fire,setFire]=useState(new Audio(FireS));
 
     const treeSound=()=>{
     
@@ -535,34 +535,34 @@ function Timer() {
          <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <Tree style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){treeSound()}else{tree.pause()}}}/></Col>
                       </Row></Card>
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <Water style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}}  type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}}  type='switch' onChange={(e)=>{if(e.target.checked){OceanSound()}else{ocean.pause()}}}/></Col>
                       </Row></Card>
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <CloudDrizzle style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){RainSound()}else{rain.pause()}}}/></Col>
                       </Row></Card>
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <Moon style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){NightSound()}else{night.pause()}}}/></Col>
                       </Row></Card>
        
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <Wind style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){WindSound()}else{wind.pause()}}}/></Col>
                       </Row></Card>
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
-        <Row>
-        <Col xs={4} > <Fire style={{height:'30px', width:'50px'}}/></Col>
-        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch'/></Col>
-        </Row></Card>
+                      <Row>
+                      <Col xs={4} > <Fire style={{height:'30px', width:'50px'}}/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){FireSound()}else{fire.pause()}}}/></Col>
+                      </Row></Card>
       
        <div style={{placeItems:'center'}}>
       

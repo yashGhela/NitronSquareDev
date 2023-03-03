@@ -153,7 +153,7 @@ await getDoc(subref).then(docSnap=>{
   return (
 
     
-    <div className='Page'>
+    <div className='Page' style={{height:'100vh'}}>
 
       <div className="navB">
       <Sidebar

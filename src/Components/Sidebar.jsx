@@ -26,9 +26,9 @@ function Sidebar({L1,L2,L3,L4}) {
   
   return (
 
-<div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column', height:'98vh'}}>
+<div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'20px', marginRight:'5px', display:'flex', flexDirection:'column', height:'97vh'}}>
  
-<img src={logo} alt="" style={{height:'40px', width:'40px', marginBottom:'100px'}} />
+<img src={logo} alt="" style={{height:'40px', width:'40px', marginBottom:'100%'}} />
    <div >
    <Nav >
    

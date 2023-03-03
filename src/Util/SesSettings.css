@@ -23,9 +23,10 @@
     float: left;
     
     /* max width of your slider */
-    width: 400px;
+    width: 300px;
+    
     /* Optional: Only If you want to center your slider in the page */
-    margin: 20px;
+    margin: 25px;
 }
 
 .track{
