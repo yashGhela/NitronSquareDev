@@ -6,7 +6,7 @@ import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col,  Form, Accordion,Container} from 'react-bootstrap';
+import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
 import '../Util/SesSettings.css'
@@ -31,6 +31,7 @@ function Dashboard() {
  
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
+  const [sA1, setSA1]= useState(false);
   
   const [subjectList, setSubjectList] =useState([]);
   const [subj, setSub]=useState('');
@@ -263,7 +264,9 @@ function Dashboard() {
               
               
               />
+              <FormCheck label='Stop after 1 session.' onChange={(e)=>{if(e.target.checked){setSA1(true)}else{setSA1(false)}}} type='switch'/>
               </div>
+
 
              
              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
@@ -284,7 +287,7 @@ function Dashboard() {
                  value={sub} 
                  variant="secondary"
                 
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes,sA1: sA1 , breakMinutes: breakMinutes, subject: (e.target.value)}})}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>

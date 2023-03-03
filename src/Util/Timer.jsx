@@ -54,6 +54,7 @@ function Timer() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     let subject= location.state.subject;
+    let LsA1 = location.state.sA1
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
     const [description, setDescription]=useState('');
@@ -161,8 +162,14 @@ function Timer() {
 
     const [newWorkMinutes, setNewWorkMinutes]= useState(45);
     const [newBreakMinutes,setNewBreakMinutes]=useState(15);
+    const [sA1, setSA1]= useState(false);
 
     const [subjectList, setSubjectList] =useState([]);
+
+    const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
+    const [finBreakTime,setBreakTime]=useState(location.state.breakMinutes);
+
+
   
 
  
@@ -344,6 +351,7 @@ function Timer() {
 
    useEffect(()=>{
     docSnap()
+   
     initTimer();
     listAll(imageListRef).then((result)=>{
       result.items.forEach((item)=>{
@@ -418,8 +426,8 @@ function Timer() {
 
   
   await addDoc(collection(db, 'Users',user,'Sessions'),{
-    WorkTime: settingsInfo.workMinutes,
-    BreakTime: settingsInfo.breakMinutes,
+    WorkTime: finWorkTime,
+    BreakTime: finBreakTime,
     subject: subject,
     description: description,
     rating: rating,
@@ -532,7 +540,7 @@ function Timer() {
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
                       <Col xs={4} > <Water style={{height:'30px', width:'50px'}}/></Col>
-                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} onChange={(e)=>{if(e.target.checked){OceanSound()}else{ocean.pause()}}} type='switch'/></Col>
+                      <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}}  type='switch'/></Col>
                       </Row></Card>
         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
                       <Row>
@@ -607,6 +615,7 @@ function Timer() {
               
               
               />
+               <FormCheck label='Stop after 1 session.' onChange={(e)=>{if(e.target.checked){setSA1(true)}else{setSA1(false)}}} type='switch'/>
               </div>
 
                 {subjectList.map((sub)=>{
@@ -616,7 +625,7 @@ function Timer() {
                 type="checkbox"
                  value={sub} 
                  variant="secondary"
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes, subject: (e.target.value)}}); setTimerShow(false)}}
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, sA1: sA1,breakMinutes: newBreakMinutes, subject: (e.target.value)}}); setTimerShow(false)}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
