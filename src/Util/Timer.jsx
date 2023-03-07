@@ -110,6 +110,7 @@ function Timer() {
     const [night,setNight]= useState(new Audio(NightS));
     const [wind,setWind]= useState(new Audio(WindS));
     const [fire,setFire]=useState(new Audio(FireS));
+    const [alarm,setAlarm]=useState(new Audio(AlarmS))
 
     const treeSound=()=>{
     
@@ -148,15 +149,7 @@ function Timer() {
       
     }
 
-    const Stop=()=>{
-      tree.pause();
-      ocean.pause();
-      rain.pause();
-      night.pause();
-      wind.pause();
-      fire.pause()
-
-    }
+  
 
     //New Times Modal 
 
@@ -166,8 +159,21 @@ function Timer() {
 
     const [subjectList, setSubjectList] =useState([]);
 
-    const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
-    const [finBreakTime,setBreakTime]=useState(location.state.breakMinutes);
+    
+
+    const [WT,setWT]=useState(0);
+    const [BT,setBT]=useState(0);
+    const [Wtcount,setWtcount]=useState(1);
+    const[Btcount,setBtcount]=useState(1);
+
+    const [NWT,setNWT]=useState(0);
+    const[NBT,setNBT]=useState(0);
+    const [NWtcount,setNwtcount]=useState(0);
+    const[Nbtcount,setNbtcount]=useState(0);
+
+    const [finWorkTime, setFinWorkTime]= useState(0);
+    const [finBreakTime,setBreakTime]=useState(0);
+
 
 
   
@@ -328,10 +334,14 @@ function Timer() {
 
    function switchMode(){
 
-       setMode('break');
-       modeRef.current='break';
-      setSecondsLeft(breakSeconds);
-      secondsLeftRef.current= breakSeconds;
+    const nextMode = modeRef.current === 'work' ? 'break' : 'work';
+    const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
+
+    setMode(nextMode);
+    modeRef.current = nextMode;
+
+    setSecondsLeft(nextSeconds);
+    secondsLeftRef.current = nextSeconds;
       
 
     
@@ -390,25 +400,28 @@ function Timer() {
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
         return;
-      }if(modeRef.current==='work' && secondsLeftRef.current===0){ //if its at 0 switch the mode
+      }if(  secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode();
-        let alarm= new Audio(AlarmS);
+        
         alarm.play()
-        
-      }if(modeRef.current==='break'&&secondsLeftRef.current===0){
-        setIsPaused(true);
-        let alarm= new Audio(AlarmS);
-        alarm.play()
-        
-        isPausedRef.current= true;
-        setDisabled(true);
-        
+
+        if(modeRef.current==='work'){
+          setWtcount((Wtcount)=>Wtcount+1);
+          
+          
+        }else if(modeRef.current==='break'){
+          setBtcount((Btcount)=>Btcount+1);
+        }
+        console.log(Wtcount)
+        console.log(Btcount)
+       
       }
       tick(); //ticks
     }, 1000);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
+
 
    const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
    const minutes = Math.floor(secondsLeft/60); 
@@ -435,7 +448,13 @@ function Timer() {
 
 
   })
-  Stop()
+  tree.pause();
+  ocean.pause();
+  wind.pause();
+  night.pause();
+  fire.pause();
+  rain.pause();
+  alarm.pause()
   nav(`/Dashboard/`)
 }
 
@@ -457,7 +476,7 @@ function Timer() {
       
       <div style={{placeItems:'center', width:'80vw'}}>
       <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
-    <CircularProgressbar value={percentage} text={mode==='break'&&secondsLeftRef.current<=  0?'Done!':minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
+    <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
     
@@ -466,8 +485,8 @@ function Timer() {
     />
     
     <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false;  }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
-    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
     </div>
