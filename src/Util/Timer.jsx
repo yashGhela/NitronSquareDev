@@ -54,7 +54,7 @@ function Timer() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     let subject= location.state.subject;
-    let LsA1 = location.state.sA1
+
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
     const [description, setDescription]=useState('');
@@ -155,24 +155,20 @@ function Timer() {
 
     const [newWorkMinutes, setNewWorkMinutes]= useState(45);
     const [newBreakMinutes,setNewBreakMinutes]=useState(15);
-    const [sA1, setSA1]= useState(false);
+   
 
     const [subjectList, setSubjectList] =useState([]);
 
     
 
-    const [WT,setWT]=useState(0);
-    const [BT,setBT]=useState(0);
-    const [Wtcount,setWtcount]=useState(1);
-    const[Btcount,setBtcount]=useState(1);
+    const [WT,setWT]=useState(location.state.workMinutes);
+    const [BT,setBT]=useState(location.state.breakMinutes);
+    let FinWtArr=[];
+    let FinBtArr=[]
 
-    const [NWT,setNWT]=useState(0);
-    const[NBT,setNBT]=useState(0);
-    const [NWtcount,setNwtcount]=useState(0);
-    const[Nbtcount,setNbtcount]=useState(0);
 
     const [finWorkTime, setFinWorkTime]= useState(0);
-    const [finBreakTime,setBreakTime]=useState(0);
+    const [finBreakTime,setFinBreakTime]=useState(0);
 
 
 
@@ -294,6 +290,7 @@ function Timer() {
   }
 
 
+
  
 
 
@@ -388,6 +385,7 @@ function Timer() {
        
        
      });
+  
 
     
   
@@ -402,22 +400,27 @@ function Timer() {
         return;
       }if(  secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode();
-        
         alarm.play()
-
+        
         if(modeRef.current==='work'){
-          setWtcount((Wtcount)=>Wtcount+1);
+          FinWtArr.push(WT)
+          console.log(FinWtArr)
+        
+          
           
           
         }else if(modeRef.current==='break'){
-          setBtcount((Btcount)=>Btcount+1);
+          FinBtArr.push(BT)
+          console.log(FinBtArr)
         }
-        console.log(Wtcount)
-        console.log(Btcount)
-       
+    
+
+        
+      
+        
       }
       tick(); //ticks
-    }, 1000);
+    }, 10);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
@@ -429,11 +432,50 @@ function Timer() {
    if (seconds<10) seconds='0'+seconds;
    
   
+     const changeTimerSet=()=>{
+    setWT(newWorkMinutes); 
+    setBT(newBreakMinutes);
+    workSeconds=newWorkMinutes*60;
+    breakSeconds=newBreakMinutes*60;
+    initTimer()
+    setTimerShow(false)
+
+  }
+
    
 
  //AddDoc function
 
  const doneHand=async()=>{
+
+  
+    let Wtsum=0;
+    let Btsum=0;
+    
+    for(let i=0;i<WTArray.length;i+=1){
+      Wtsum+=WTArray[i];
+      return Wtsum
+    }
+    
+
+    for(let i=0;i<BTArray.length;i+=1){
+      Btsum+=BTArray[i];
+      return Btsum
+    }
+   
+   
+
+    setFinWorkTime(Wtsum);
+    setFinBreakTime(Btsum);
+    console.log(Wtsum);
+    console.log(Btsum)
+
+
+
+
+    
+
+
  
 
 
@@ -634,25 +676,15 @@ function Timer() {
               
               
               />
-               <FormCheck label='Stop after 1 session.' onChange={(e)=>{if(e.target.checked){setSA1(true)}else{setSA1(false)}}} type='switch'/>
+           
               </div>
 
-                {subjectList.map((sub)=>{
-              
-              return(
-                <Button 
-                type="checkbox"
-                 value={sub} 
-                 variant="secondary"
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, sA1: sA1,breakMinutes: newBreakMinutes, subject: (e.target.value)}}); setTimerShow(false)}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
-                  {sub}
-                </Button>
-              )
-            
-            })}
+               
 
       </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={()=>{changeTimerSet() }}>Apply Changes</Button>
+      </Modal.Footer>
 
     </Modal>
    </div>

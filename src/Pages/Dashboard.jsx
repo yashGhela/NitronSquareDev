@@ -31,7 +31,7 @@ function Dashboard() {
  
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
-  const [sA1, setSA1]= useState(false);
+  
   
   const [subjectList, setSubjectList] =useState([]);
   const [subj, setSub]=useState('');
@@ -264,7 +264,7 @@ function Dashboard() {
               
               
               />
-              <FormCheck label='Stop after 1 session.' onChange={(e)=>{if(e.target.checked){setSA1(true)}else{setSA1(false)}}} type='switch'/>
+             
               </div>
 
 
@@ -287,7 +287,7 @@ function Dashboard() {
                  value={sub} 
                  variant="secondary"
                 
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes,sA1: sA1 , breakMinutes: breakMinutes, subject: (e.target.value)}})}}
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
