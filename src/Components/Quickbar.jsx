@@ -31,10 +31,10 @@ function Quickbar({L1,L2,L3,L4,L5,L6,L7}) {
     
   }
   return (
- <div className='Sidebar' style={{height:'97vh', marginLeft:'17px', borderRadius:'20px', marginRight:'5px', backgroundColor:'#282b2e'}}>
+ <div className='Sidebar' style={{height:'55vh', marginLeft:'17px', borderRadius:'10px', marginRight:'5px', backgroundColor:'#282b2e', marginTop:'6%'}}>
   
-   <div style={{marginTop: '150px',}}>
-   <Nav >
+   <div style={{marginTop: '50%',}}>
+   <Nav style={{height:'100%',}} >
 
       <Nav.Item style={{marginBottom:'20px'}} >
       <OverlayTrigger
