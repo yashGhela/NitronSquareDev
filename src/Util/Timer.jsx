@@ -167,8 +167,8 @@ function Timer() {
     let FinBtArr=[]
 
 
-    const [finWorkTime, setFinWorkTime]= useState(0);
-    const [finBreakTime,setFinBreakTime]=useState(0);
+    const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
+    const [finBreakTime,setFinBreakTime]=useState(location.state.breakMinutes);
 
 
 
@@ -420,7 +420,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 10);
+    }, 1000);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
@@ -449,26 +449,18 @@ function Timer() {
  const doneHand=async()=>{
 
   
-    let Wtsum=0;
-    let Btsum=0;
+    const sumArr=()=>{
+      let Wtsum=WTArray.reduce((a, b) => a + b, 0);
+    let Btsum=BTArray.reduce((a, b) => a + b, 0);
     
-    for(let i=0;i<WTArray.length;i+=1){
-      Wtsum+=WTArray[i];
-      return Wtsum
-    }
-    
-
-    for(let i=0;i<BTArray.length;i+=1){
-      Btsum+=BTArray[i];
-      return Btsum
-    }
    
    
 
-    setFinWorkTime(Wtsum);
-    setFinBreakTime(Btsum);
+    
     console.log(Wtsum);
     console.log(Btsum)
+    }
+    sumArr();
 
 
 
@@ -518,6 +510,7 @@ function Timer() {
       
       <div style={{placeItems:'center', width:'80vw'}}>
       <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
+        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {location.state.subject}</p>
     <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
@@ -647,7 +640,7 @@ function Timer() {
       </Modal.Header>
       <Modal.Body>
       <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
-                <h4 >Select Your Times:</h4>
+                <p style={{fontSize:'25px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
               <ReactSlider 
               className='slider'

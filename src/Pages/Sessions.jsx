@@ -75,8 +75,8 @@ function Sessions() {
         <div className="bod1" style={{width:'90%', marginLeft:'120px'}}>
        
 
-          <div className="Recent" >
-          { dataExists?  <h1 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Your Sessions:</h1>: <h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>There are no sessions yet</h1>}
+          <div className="Recent"  >
+          { dataExists?  <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray', textAlign:'center'}}>Your Sessions:</p>: <p style={{color:'lightgray', textAlign:'center', fontSize:'25px', textAlign:'center'}}>There are no sessions yet</p>}
          
           {items.map((rec)=>{
               return(

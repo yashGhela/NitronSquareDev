@@ -211,9 +211,9 @@ function Dashboard() {
              padding:' 10px',
              animation:'gradient 15s ease infinite'
               }}>
-            <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Start A New Session</h1></Card.Title>
+            <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Dashboard</h1></Card.Title>
             
-          <Button  variant='outline-light' style={{height:'60px', width:'100px' }} onClick={()=>{setGoModalShow(true)}}>Lets Go!</Button>
+          <Button  variant='outline-light' style={{height:'60px', width:'120px' }} onClick={()=>{setGoModalShow(true)}}>Start a new Session</Button>
           
           </Card>
 
@@ -235,7 +235,7 @@ function Dashboard() {
         
                   
               <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
-                <h4 >Select Your Times:</h4>
+                <p style={{fontSize:'25px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px',color:'lightgray'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
               className='slider'
@@ -270,7 +270,7 @@ function Dashboard() {
 
              
              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
-              <h4 style={{placeItems:'center', fontSize:'20px',color:'lightgray'}}>Choose or add a subject</h4>
+              <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
                 <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
                 <Button disabled={disabled} onClick={()=>{newSub();setSubjectList([...subjectList,subj])}}>Add</Button>
@@ -285,7 +285,7 @@ function Dashboard() {
                 <Button 
                 type="checkbox"
                  value={sub} 
-                 variant="secondary"
+                 variant="dark"
                 
                  onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
@@ -313,7 +313,7 @@ function Dashboard() {
          
         
         <div className="Recent" >
-          <h3 style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</h3>
+          <p style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</p>
          
               {dataExists?   recsesList.map((rec)=>{
               return(
@@ -390,7 +390,7 @@ function Dashboard() {
              
           </div>
           <div className="RecentScopes">
-          <h3 style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Recent Scopes:</h3>
+          <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Recent Scopes:</p>
            
          <Container fluid={true}>
           <Row >

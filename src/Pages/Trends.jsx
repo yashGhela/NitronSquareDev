@@ -211,7 +211,7 @@ await getDoc(subref).then(docSnap=>{
          </ButtonGroup>
          
          </Container>
-          <h4 style={{marginLeft:'20px', color:'lightgray'}}>Trends for {sub}</h4>
+          <p style={{marginLeft:'20px', color:'lightgray', fontSize:'25px'}}>Trends for {sub}</p>
 
         
 

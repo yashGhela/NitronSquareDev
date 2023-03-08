@@ -117,7 +117,7 @@ function Settings() {
 
         <div className="bod">
           
-          <h1 style={{color:'white',marginTop:'20px', marginLeft:'10vw'}}>Settings </h1>
+          <p style={{color:'white',marginTop:'20px', marginLeft:'10vw',fontSize:'25px'}}>Settings </p>
 
           <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'70vh', borderRadius:'10px'}}>
           
@@ -155,9 +155,9 @@ function Settings() {
 
            <div className="Help" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
            <h2 style={{color:'gray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Help:</h2>
-            <h3 style={{color:'gray', fontSize:'16px', marginTop:'20px', marginBottom:'10px'}}>E-mail: info@nitrondigital.com</h3>
+            <p style={{color:'gray', fontSize:'16px', marginTop:'20px', marginBottom:'10px'}}>E-mail: info@nitrondigital.com</p>
 
-           <Card  onClick={()=>{window.location.href="'https://www.instagram.com/nitrondigital/'"}} style={{backgroundColor:'rgb(12, 12, 12)',height:'50px', width:'50px', border:'none'}}>
+           <Card  onClick={()=>{window.location.href='https://www.instagram.com/nitrondigital/'}} style={{backgroundColor:'rgb(12, 12, 12)',height:'50px', width:'50px', border:'none'}}>
            <Instagram style={{color:'gray', height:'50px', width:'50px',cursor:'pointer'}}/>
            </Card>
 
@@ -171,7 +171,7 @@ function Settings() {
               <Button 
            disabled={false}
            onClick={()=>{LogOut()}}
-           
+           style={{marginBottom:'20px'}}
           >
             Log Out
            </Button>
