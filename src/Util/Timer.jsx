@@ -442,6 +442,20 @@ function Timer() {
 
   }
 
+  const sumArr=()=>{
+    let Wtsum=0;
+    let Btsum=0;
+
+    
+
+    for (let i = 0; i < FinWtArr.length; i++) {
+      Wtsum += FinWtArr[i];
+    }
+    
+    console.log(Wtsum)
+    console.log(FinWtArr)
+  }
+
    
 
  //AddDoc function
@@ -449,30 +463,13 @@ function Timer() {
  const doneHand=async()=>{
 
   
-    const sumArr=()=>{
-      let Wtsum=WTArray.reduce((a, b) => a + b, 0);
-    let Btsum=BTArray.reduce((a, b) => a + b, 0);
-    
+      sumArr()
    
    
-
-    
-    console.log(Wtsum);
-    console.log(Btsum)
-    }
-    sumArr();
-
-
-
-
-    
-
-
- 
 
 
   
-  await addDoc(collection(db, 'Users',user,'Sessions'),{
+  /*await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: finWorkTime,
     BreakTime: finBreakTime,
     subject: subject,
@@ -489,7 +486,7 @@ function Timer() {
   fire.pause();
   rain.pause();
   alarm.pause()
-  nav(`/Dashboard/`)
+  nav(`/Dashboard/`)*/
 }
 
   return (
