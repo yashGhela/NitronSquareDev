@@ -100,6 +100,7 @@ function Timer() {
     const [trendShow, setTrendShow] = useState(false);
     const [scopeShow, setScopeShow] = useState(false);
     const [timerShow, setTimerShow] = useState(false);
+    const [newtimershow,setNewTimerShow]=useState(false);
     const [imageShow, setImageShow]=useState(false);
     const [todoShow, setToDoShow]=useState(false);
   
@@ -434,6 +435,12 @@ function Timer() {
    if (seconds<10) seconds='0'+seconds;
    
   
+   const ApplyNewTimer=()=>{
+    workSeconds=WT*60;
+    breakSeconds=BT*60;
+    setTimerShow(false)
+    initTimer();
+   }
      
   
 
@@ -443,12 +450,6 @@ function Timer() {
  //AddDoc function
 
  const doneHand=async()=>{
-
-  
-   
-
-
-  
   await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: finWorkTime,
     BreakTime: finBreakTime,
@@ -540,6 +541,7 @@ function Timer() {
        </Form>
       </Modal.Body>
       <Modal.Footer>
+        <Button onClick={()=>{setModalShow(false);setNewTimerShow(true)}} variant='dark'>Start a New Session</Button>
        <Button onClick={()=>{doneHand()}} >Done</Button>
       </Modal.Footer>
     </Modal>
@@ -618,13 +620,13 @@ function Timer() {
       <Modal.Body>
       <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {WT}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
               trackClassName='track'
-              value={newWorkMinutes}
-              onChange={newValue => setNewWorkMinutes(newValue)}
+              value={WT}
+              onChange={newValue => setWT(newValue)}
               min={1}
               max={120}
               
@@ -632,14 +634,14 @@ function Timer() {
               />
             
 
-            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
+            <label style={{marginLeft:'20px'}}>Break Minutes: {BT}:00</label>
               
               <ReactSlider 
               className='slider green'
               thumbClassName='thumb'
               trackClassName='track'
-              value={newBreakMinutes}
-              onChange={newValue => setNewBreakMinutes(newValue)}
+              value={BT}
+              onChange={newValue => setBT(newValue)}
               min={1}
               
               max={120}
@@ -653,7 +655,7 @@ function Timer() {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button >Apply Changes</Button>
+        <Button variant='dark' onClick={()=>{ApplyNewTimer()}} >Apply Changes</Button>
       </Modal.Footer>
 
     </Modal>
@@ -854,6 +856,86 @@ function Timer() {
       </Modal.Body>
 
 
+
+    </Modal>
+
+    <Modal className='special_modal'
+     show={newtimershow}
+     onHide={()=>{setNewTimerShow(false)}}
+     
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Timer
+      </Modal.Header>
+      <Modal.Body>
+      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
+                <p style={{fontSize:'25px'}} >Select Your Times:</p>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
+              <ReactSlider 
+              className='slider'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newWorkMinutes}
+              onChange={newValue => setNewWorkMinutes(newValue)}
+              min={1}
+              max={120}
+              
+              
+              />
+            
+
+            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
+              
+              <ReactSlider 
+              className='slider green'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newBreakMinutes}
+              onChange={newValue => setNewBreakMinutes(newValue)}
+              min={1}
+              
+              max={120}
+              
+              
+              />
+           
+              </div>
+
+              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
+              <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
+             
+             
+            <Container fluid={true}>
+              <Row>
+              {subjectList.map((sub)=>{
+              
+              return(
+               <Col xs='1' style={{marginRight:'45px', marginLeft:'0'}}>
+                <Button 
+                type="checkbox"
+                 value={sub} 
+                 variant="dark"
+                
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes, subject: (e.target.value)}})}}
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
+                  {sub}
+                </Button>
+                </Col>
+              )
+            
+            })}
+              </Row>
+            </Container>
+             </div>
+
+
+               
+
+      </Modal.Body>
+      <Modal.Footer>
+      
+      </Modal.Footer>
 
     </Modal>
    </div>
