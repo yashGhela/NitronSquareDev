@@ -163,8 +163,8 @@ function Timer() {
 
     const [WT,setWT]=useState(location.state.workMinutes);
     const [BT,setBT]=useState(location.state.breakMinutes);
-    let FinWtArr=[];
-    let FinBtArr=[]
+    let Wtsum=0;
+    let Btsum=0;
 
 
     const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
@@ -403,15 +403,17 @@ function Timer() {
         alarm.play()
         
         if(modeRef.current==='work'){
-          FinWtArr.push(WT)
-          console.log(FinWtArr)
+          Wtsum+=WT
+          console.log(Wtsum)
+          setFinWorkTime(Wtsum)
         
           
           
           
         }else if(modeRef.current==='break'){
-          FinBtArr.push(BT)
-          console.log(FinBtArr)
+          Btsum+=BT
+          console.log(Btsum)
+          setFinBreakTime(Btsum)
         }
     
 
@@ -432,30 +434,10 @@ function Timer() {
    if (seconds<10) seconds='0'+seconds;
    
   
-     const changeTimerSet=()=>{
-    setWT(newWorkMinutes); 
-    setBT(newBreakMinutes);
-    workSeconds=newWorkMinutes*60;
-    breakSeconds=newBreakMinutes*60;
-    initTimer()
-    setTimerShow(false)
+     
+  
 
-  }
-
-  const sumArr=()=>{
-    let Wtsum=0;
-    let Btsum=0;
-
-    
-
-    for (let i = 0; i < FinWtArr.length; i++) {
-      Wtsum += FinWtArr[i];
-    }
-    
-    console.log(Wtsum)
-    console.log(FinWtArr)
-  }
-
+ 
    
 
  //AddDoc function
@@ -463,13 +445,11 @@ function Timer() {
  const doneHand=async()=>{
 
   
-      sumArr()
-   
    
 
 
   
-  /*await addDoc(collection(db, 'Users',user,'Sessions'),{
+  await addDoc(collection(db, 'Users',user,'Sessions'),{
     WorkTime: finWorkTime,
     BreakTime: finBreakTime,
     subject: subject,
@@ -486,7 +466,7 @@ function Timer() {
   fire.pause();
   rain.pause();
   alarm.pause()
-  nav(`/Dashboard/`)*/
+  nav(`/Dashboard/`)
 }
 
   return (
@@ -673,7 +653,7 @@ function Timer() {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={()=>{changeTimerSet() }}>Apply Changes</Button>
+        <Button >Apply Changes</Button>
       </Modal.Footer>
 
     </Modal>

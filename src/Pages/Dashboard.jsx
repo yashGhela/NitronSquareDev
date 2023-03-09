@@ -390,9 +390,9 @@ function Dashboard() {
              
           </div>
           <div className="RecentScopes">
-          <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray'}}>Recent Scopes:</p>
+          <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'22px', color:'lightgray'}}>Recent Scopes:</p>
            
-         <Container fluid={true}>
+         <Container fluid={true} style={{marginLeft:'8px'}}>
           <Row >
           {scopesExists? scopeList.map((scop)=>{
             return(
