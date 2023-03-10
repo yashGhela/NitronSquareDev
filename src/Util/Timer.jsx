@@ -4,12 +4,12 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton} from 'react-bootstrap';
 
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CameraVideoFill, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind, Youtube } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -24,9 +24,11 @@ import {
   Chart as ChartJS,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import Draggable from 'react-draggable';
+
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
-import { async } from '@firebase/util';
+import ReactPlayer from 'react-player';
+import Draggable from 'react-draggable';
+
 
 
 window.Chart = ChartJS
@@ -69,6 +71,9 @@ function Timer() {
     const [ToDoList, setToDoList]= useState([]);
     const todoRef=collection(db,'Users',user,'ToDos');
     const todoQuery= query(todoRef, where('state', '==', 'incomplete'))
+
+    const [url,setUrl]=useState('');
+    const [urlShow,setURlShow]=useState(false);
     
 
     
@@ -468,6 +473,7 @@ function Timer() {
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
       L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
       L6={<Button  variant='light-outline' onClick={()=>{setToDoShow(true)}}><ListTask style={{color:'white', }}/></Button>}
+      L8={<Button  variant='light-outline' onClick={()=>{setURlShow(true)}}><Youtube style={{color:'white', }}/></Button>}
       L7={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
       
     />
@@ -498,16 +504,17 @@ function Timer() {
       aria-labelledby="contained-modal-title-vcenter"
       onHide={()=>setModalShow(false)}
       className='thin_modal'
+     
       centered>
       <Modal.Header closeButton closeVariant='white' >
         <Modal.Title  id="contained-modal-title-vcenter">
          Time to Add Your Session!
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body >
         <h3  style={{fontSize:'20px', fontWeight:'400'}}>Add a rating to your session:</h3>
         <h4 style={{fontSize:'16px', fontWeight:'400', marginTop:'15px'}}>Rating⭐: {rating}</h4>
-        <div style={{marginBottom:'20%'}}>
+        <div style={{marginBottom:'20%',color:'lightgray'}}>
         <ReactSlider
         className='slider purple'
         thumbClassName='thumb'
@@ -541,14 +548,14 @@ function Timer() {
   
    <div className="media">
    
-   <Modal className='special_modal'
+   <Modal className='timer-modal'
      show={mediaShow}
      onHide={()=>{setMediaShow(false)}}
     
      style={{background:'none'}}
      >
       <Modal.Header closeButton closeVariant='white' className='handle'>
-        Media
+        Sounds
       </Modal.Header>
       <Modal.Body style={{display:'flex', flexDirection:'column'}}>
        
@@ -595,7 +602,7 @@ function Timer() {
    </div>
   
    <div className="time">
-   <Modal className='special_modal'
+   <Modal className='timer-modal'
      show={timerShow}
      onHide={()=>{setTimerShow(false)}}
      
@@ -605,7 +612,7 @@ function Timer() {
         Timer
       </Modal.Header>
       <Modal.Body>
-      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
+      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {WT}:00</label>
               <ReactSlider 
@@ -648,7 +655,7 @@ function Timer() {
     </Modal>
    </div>
    <div className="chart">
-   <Modal className='special_modal'
+   <Modal className='timer-modal'
      show={trendShow}
      onHide={()=>{setTrendShow(false)}}
      
@@ -669,7 +676,7 @@ function Timer() {
     </Modal>
    </div>
    <div className="scopes">
-   <Modal className='special_modal'
+   <Modal className='timer-modal'
      show={scopeShow}
      onHide={()=>{setScopeShow(false)}}
      
@@ -761,7 +768,7 @@ function Timer() {
     
     
     <Modal
-    className='special_modal'
+    className='timer-modal'
     show={imageShow}
     onHide={()=>{setImageShow(false)}}
     
@@ -803,11 +810,11 @@ function Timer() {
     </Modal>
 
     <Modal
-    className='special_modal'
+    className='timer-modal '
     show={todoShow}
     onHide={()=>{setToDoShow(false)}}
     
-    style={{background:'none'}}
+    
     >
       <Modal.Header closeButton closeVariant='white'>
         To Dos
@@ -846,6 +853,40 @@ function Timer() {
 
     </Modal>
 
+   
+    <Draggable>
+    <Modal
+    className='timer-modal'
+    show={urlShow}
+    onHide={()=>{setURlShow(false)}}
+  
+   
+   style={{background:'none'}}>
+    
+      <Modal.Header  closeButton closeVariant='white' >
+        Media
+       
+      </Modal.Header>
+      <Modal.Body>
+      <Form style={{display:'flex', padding:'20px', flexDirection:'column'}}>
+        <p>Enter URL</p>
+        <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
+       
+      </Form>
+      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+     <div style={{height:'350px'}}>
+     <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true}/>
+     </div>
+
+      
+
+      </Modal.Body>
+
+
+
+    </Modal>
+
+    </Draggable>
    </div>
   </div>
   

@@ -10,7 +10,7 @@ import { Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Quickbar({L1,L2,L3,L4,L5,L6,L7}) {
+function Quickbar({L1,L2,L3,L4,L5,L6,L7,L8}) {
 
   let nav = useNavigate();
 
@@ -31,7 +31,7 @@ function Quickbar({L1,L2,L3,L4,L5,L6,L7}) {
     
   }
   return (
- <div className='Sidebar' style={{height:'60%', marginLeft:'17px', borderRadius:'10px', marginRight:'5px', backgroundColor:'#282b2e', marginTop:'6%'}}>
+ <div className='Sidebar' style={{height:'60%', marginLeft:'17px', borderRadius:'10px', marginRight:'5px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'6%'}}>
   
    <div style={{marginTop: '50%',}}>
    <Nav style={{height:'100%',}} >
@@ -70,6 +70,12 @@ function Quickbar({L1,L2,L3,L4,L5,L6,L7}) {
       <OverlayTrigger
       overlay={renderTooltip('To Dos')}>
       {L6}
+      </OverlayTrigger>
+      </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+      overlay={renderTooltip('Media')}>
+      {L8}
       </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
