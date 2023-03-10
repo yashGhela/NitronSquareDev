@@ -153,7 +153,7 @@ await getDoc(subref).then(docSnap=>{
   return (
 
     
-    <div className='Page' style={{height:'100vh'}}>
+    <div className='Page' >
 
       <div className="navB">
       <Sidebar
@@ -182,35 +182,27 @@ await getDoc(subref).then(docSnap=>{
           
           </Card>
 
-         <Container fluid>
-          
-         <ButtonGroup>
-         <div style={{display: 'flex', margin:'20px',color:'lightgray'}}>
-          {subjectList.map((sub)=>{
+          <Container fluid={true} style={{width:'20%',display:'grid', placeItems:'right'}}>
+              <Row >
+              {subjectList.map((sub)=>{
               
               return(
-               
+               <Col xs='2' style={{marginRight:'45px', marginLeft:'0'}}>
                 <Button 
                 type="checkbox"
                  value={sub} 
-                 variant="outline-light"
+                 variant="dark"
+                
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
-                 style={{marginRight:'10px'}}
-                 >
+                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
-                
+                </Col>
               )
-
-              
             
             })}
-
-
-          </div>
-         </ButtonGroup>
-         
-         </Container>
+              </Row>
+            </Container>
           <p style={{marginLeft:'20px', color:'lightgray', fontSize:'25px'}}>Trends for {sub}</p>
 
         

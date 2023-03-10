@@ -60,7 +60,7 @@ function Sessions() {
 
     
 
-    <div className='Page' style={{height:'100vh'}}>
+    <div className='Page' >
 
    
    <Sidebar

@@ -167,7 +167,7 @@ function Scope() {
         
         </Card>
 
-        <div className="Scopes" style={{display:'flex', marginLeft:'7px'}}>
+        <div className="Scopes" style={{display:'flex', marginLeft:'7px',overflow:'auto'}}>
 
          <Container fluid={true} >
           <Row >
@@ -176,7 +176,7 @@ function Scope() {
             return(
               
             
-               <Col style={{width:'25%'}}  xs='2' >
+               <Col style={{width:'450px'}}  xs='2' >
                 
 
                 <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>

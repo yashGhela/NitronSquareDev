@@ -181,7 +181,7 @@ function Dashboard() {
 
   return (
     
-    <div className='Page' style={{height:'100vh'}}>
+    <div className='Page' >
       
      
        
@@ -219,10 +219,9 @@ function Dashboard() {
 
           <Modal
             className="special_modal"
-            breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-            minBreakpoint="xxs"
+           
               show={gomodalShow}
-               size="lg"
+              
                aria-labelledby="contained-modal-title-vcenter"
                onHide={()=>{setGoModalShow(false)}}
                style={{color:'lightgray'}}
@@ -281,7 +280,7 @@ function Dashboard() {
               {subjectList.map((sub)=>{
               
               return(
-               <Col xs='1' style={{marginRight:'45px', marginLeft:'0'}}>
+               <Col xs='2' style={{marginRight:'45px', marginLeft:'0'}}>
                 <Button 
                 type="checkbox"
                  value={sub} 
@@ -392,12 +391,12 @@ function Dashboard() {
           <div className="RecentScopes">
           <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'22px', color:'lightgray'}}>Recent Scopes:</p>
            
-         <Container fluid={true} style={{marginLeft:'8px'}}>
+         <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
           <Row >
           {scopesExists? scopeList.map((scop)=>{
             return(
              
-               <Col style={{width:'25%'}}xs='2' >
+               <Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
                 
 
                 <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px',}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>

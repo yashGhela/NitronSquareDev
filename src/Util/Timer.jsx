@@ -154,8 +154,8 @@ function Timer() {
 
     //New Times Modal 
 
-    const [newWorkMinutes, setNewWorkMinutes]= useState(45);
-    const [newBreakMinutes,setNewBreakMinutes]=useState(15);
+    const [newWorkMinutes, setNewWorkMinutes]= useState(1);
+    const [newBreakMinutes,setNewBreakMinutes]=useState(1);
    
 
     const [subjectList, setSubjectList] =useState([]);
@@ -404,17 +404,31 @@ function Timer() {
         alarm.play()
         
         if(modeRef.current==='work'){
-          Wtsum+=WT
+          if (newWorkMinutes>1){
+            Wtsum+=newWorkMinutes;
+            console.log(newWorkMinutes);
+            setFinWorkTime(Wtsum)
+
+          }else{
+            Wtsum+=WT
           console.log(Wtsum)
           setFinWorkTime(Wtsum)
+          }
         
           
           
           
         }else if(modeRef.current==='break'){
-          Btsum+=BT
+          if (newBreakMinutes>1){
+            Btsum+=newBreakMinutes
           console.log(Btsum)
           setFinBreakTime(Btsum)
+
+          }else{
+            Btsum+=BT
+          console.log(Btsum)
+          setFinBreakTime(Btsum)
+          }
         }
     
 
@@ -436,8 +450,8 @@ function Timer() {
    
   
    const ApplyNewTimer=()=>{
-    workSeconds=WT*60;
-    breakSeconds=BT*60;
+    workSeconds=newWorkMinutes*60;
+    breakSeconds=newBreakMinutes*60;
     setTimerShow(false)
     initTimer();
    }
@@ -467,12 +481,12 @@ function Timer() {
   fire.pause();
   rain.pause();
   alarm.pause()
-  nav(`/Dashboard/`)
+  
 }
 
   return (
    
-    <div style={{background:`url(${imageUrl}) no-repeat`,width:'100vw', height:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',}}>
+    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -541,8 +555,8 @@ function Timer() {
        </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={()=>{setModalShow(false);setNewTimerShow(true)}} variant='dark'>Start a New Session</Button>
-       <Button onClick={()=>{doneHand()}} >Done</Button>
+ 
+       <Button onClick={()=>{doneHand();nav(`/Dashboard/`)}} >Done</Button>
       </Modal.Footer>
     </Modal>
 
@@ -620,13 +634,13 @@ function Timer() {
       <Modal.Body>
       <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {WT}:00</label>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
               trackClassName='track'
-              value={WT}
-              onChange={newValue => setWT(newValue)}
+              value={newWorkMinutes}
+              onChange={newValue => setNewWorkMinutes(newValue)}
               min={1}
               max={120}
               
@@ -634,14 +648,14 @@ function Timer() {
               />
             
 
-            <label style={{marginLeft:'20px'}}>Break Minutes: {BT}:00</label>
+            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
               
               <ReactSlider 
               className='slider green'
               thumbClassName='thumb'
               trackClassName='track'
-              value={BT}
-              onChange={newValue => setBT(newValue)}
+              value={newBreakMinutes}
+              onChange={newValue => setNewBreakMinutes(newValue)}
               min={1}
               
               max={120}
@@ -859,85 +873,6 @@ function Timer() {
 
     </Modal>
 
-    <Modal className='special_modal'
-     show={newtimershow}
-     onHide={()=>{setNewTimerShow(false)}}
-     
-     style={{background:'none'}}
-     >
-      <Modal.Header closeButton closeVariant='white'>
-        Timer
-      </Modal.Header>
-      <Modal.Body>
-      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
-                <p style={{fontSize:'25px'}} >Select Your Times:</p>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
-              <ReactSlider 
-              className='slider'
-              thumbClassName='thumb'
-              trackClassName='track'
-              value={newWorkMinutes}
-              onChange={newValue => setNewWorkMinutes(newValue)}
-              min={1}
-              max={120}
-              
-              
-              />
-            
-
-            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
-              
-              <ReactSlider 
-              className='slider green'
-              thumbClassName='thumb'
-              trackClassName='track'
-              value={newBreakMinutes}
-              onChange={newValue => setNewBreakMinutes(newValue)}
-              min={1}
-              
-              max={120}
-              
-              
-              />
-           
-              </div>
-
-              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
-              <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
-             
-             
-            <Container fluid={true}>
-              <Row>
-              {subjectList.map((sub)=>{
-              
-              return(
-               <Col xs='1' style={{marginRight:'45px', marginLeft:'0'}}>
-                <Button 
-                type="checkbox"
-                 value={sub} 
-                 variant="dark"
-                
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes, subject: (e.target.value)}})}}
-                 style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
-                  {sub}
-                </Button>
-                </Col>
-              )
-            
-            })}
-              </Row>
-            </Container>
-             </div>
-
-
-               
-
-      </Modal.Body>
-      <Modal.Footer>
-      
-      </Modal.Footer>
-
-    </Modal>
    </div>
   </div>
   
