@@ -387,14 +387,6 @@ function Timer() {
        
      });
   
-
-    
-  
-
-     
-
-
-     
     
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
@@ -403,32 +395,13 @@ function Timer() {
         switchMode();
         alarm.play()
         
-        if(modeRef.current==='work'){
-          if (newWorkMinutes>1){
-            Wtsum+=newWorkMinutes;
-            console.log(newWorkMinutes);
-            setFinWorkTime(Wtsum)
-
-          }else{
+        if(modeRef.current==='break'){         
             Wtsum+=WT
           console.log(Wtsum)
           setFinWorkTime(Wtsum)
-          }
-        
-          
-          
-          
-        }else if(modeRef.current==='break'){
-          if (newBreakMinutes>1){
-            Btsum+=newBreakMinutes
+          Btsum+=BT
           console.log(Btsum)
-          setFinBreakTime(Btsum)
-
-          }else{
-            Btsum+=BT
-          console.log(Btsum)
-          setFinBreakTime(Btsum)
-          }
+          setFinBreakTime(Btsum) 
         }
     
 
@@ -450,8 +423,8 @@ function Timer() {
    
   
    const ApplyNewTimer=()=>{
-    workSeconds=newWorkMinutes*60;
-    breakSeconds=newBreakMinutes*60;
+    workSeconds=WT*60;
+    breakSeconds=BT*60;
     setTimerShow(false)
     initTimer();
    }
@@ -634,13 +607,13 @@ function Timer() {
       <Modal.Body>
       <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {WT}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
               trackClassName='track'
-              value={newWorkMinutes}
-              onChange={newValue => setNewWorkMinutes(newValue)}
+              value={WT}
+              onChange={newValue => setWT(newValue)}
               min={1}
               max={120}
               
@@ -648,14 +621,14 @@ function Timer() {
               />
             
 
-            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
+            <label style={{marginLeft:'20px'}}>Break Minutes: {BT}:00</label>
               
               <ReactSlider 
               className='slider green'
               thumbClassName='thumb'
               trackClassName='track'
-              value={newBreakMinutes}
-              onChange={newValue => setNewBreakMinutes(newValue)}
+              value={BT}
+              onChange={newValue => setBT(newValue)}
               min={1}
               
               max={120}
