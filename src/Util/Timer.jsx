@@ -399,11 +399,14 @@ function Timer() {
       }if(  secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode();
         alarm.play()
-        
-        if(modeRef.current==='break'){         
-            Wtsum+=WT
+        if (modeRef.current==='break'){
+          Wtsum+=WT
           console.log(Wtsum)
           setFinWorkTime(Wtsum)
+        }
+        
+        if(modeRef.current==='work'){         
+           
           Btsum+=BT
           console.log(Btsum)
           setFinBreakTime(Btsum) 
@@ -855,7 +858,7 @@ function Timer() {
 
    
     <Draggable>
-    <Modal
+    <Card
     className='timer-modal'
     show={urlShow}
     onHide={()=>{setURlShow(false)}}
@@ -863,11 +866,11 @@ function Timer() {
    
    style={{background:'none'}}>
     
-      <Modal.Header  closeButton closeVariant='white' >
+      <Card.Header  closeButton closeVariant='white' >
         Media
        
-      </Modal.Header>
-      <Modal.Body>
+      </Card.Header>
+      <Card.Body>
       <Form style={{display:'flex', padding:'20px', flexDirection:'column'}}>
         <p>Enter URL</p>
         <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
@@ -875,16 +878,16 @@ function Timer() {
       </Form>
       <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
      <div style={{height:'350px'}}>
-     <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true}/>
+     <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true} playing={()=>{if(urlShow==='true'||urlShow==='false'){return true}}}/>
      </div>
 
       
 
-      </Modal.Body>
+      </Card.Body>
 
 
 
-    </Modal>
+    </Card>
 
     </Draggable>
    </div>
