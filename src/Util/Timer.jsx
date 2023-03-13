@@ -43,6 +43,8 @@ function Timer() {
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
 
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Lofi','Cafe','Video Games', 'Commute', 'Rain']
+
     //bgs
     
     const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2Fghibli%201.png?alt=media&token=bb4277fc-884a-44e2-bd43-432baec817d3'
@@ -159,12 +161,11 @@ function Timer() {
 
     //New Times Modal 
 
-    const [newWorkMinutes, setNewWorkMinutes]= useState(1);
-    const [newBreakMinutes,setNewBreakMinutes]=useState(1);
+    const [newWorkMinutes, setNewWorkMinutes]= useState(45);
+    const [newBreakMinutes,setNewBreakMinutes]=useState(15);
    
 
-    const [subjectList, setSubjectList] =useState([]);
-
+    
     
 
     const [WT,setWT]=useState(location.state.workMinutes);
@@ -172,11 +173,17 @@ function Timer() {
     let Wtsum=0;
     let Btsum=0;
 
+    let NWtsum=0;
+    let NBtsum=0;
+    const[NT,setNT]=useState(false);
+
 
     const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
     const [finBreakTime,setFinBreakTime]=useState(location.state.breakMinutes);
 
 
+
+    const [subjectList, setSubjectList] =useState([]);
 
   
 
@@ -364,6 +371,7 @@ function Timer() {
 
    useEffect(()=>{
     docSnap()
+    console.log(NT)
    
     initTimer();
     listAll(imageListRef).then((result)=>{
@@ -396,20 +404,35 @@ function Timer() {
     const interval =setInterval(()=>{
       if (isPausedRef.current){  //if paused nothing happens
         return;
-      }if(  secondsLeftRef.current===0){ //if its at 0 switch the mode
+      }if(secondsLeftRef.current===0){ //if its at 0 switch the mode
         switchMode();
         alarm.play()
         if (modeRef.current==='break'){
+         if(NT===true){
+          NWtsum+=newWorkMinutes
+          console.log(NWtsum+Wtsum);
+          console.log(NT)
+          setFinWorkTime(Wtsum+NWtsum)
+
+         }else if (NT===false){
           Wtsum+=WT
           console.log(Wtsum)
           setFinWorkTime(Wtsum)
+         }
         }
         
         if(modeRef.current==='work'){         
            
-          Btsum+=BT
+          if(NT===true){
+            NBtsum+=newBreakMinutes
+            console.log(NBtsum+Btsum);
+            setFinBreakTime(Btsum)
+
+          }else if (NT===false){
+            Btsum+=BT
           console.log(Btsum)
           setFinBreakTime(Btsum) 
+          }
         }
     
 
@@ -431,9 +454,11 @@ function Timer() {
    
   
    const ApplyNewTimer=()=>{
-    workSeconds=WT*60;
-    breakSeconds=BT*60;
-    setTimerShow(false)
+    workSeconds=newWorkMinutes*60;
+    breakSeconds=newBreakMinutes*60;
+    setTimerShow(false);
+    setNT(true);
+    
     initTimer();
    }
      
@@ -617,13 +642,13 @@ function Timer() {
       <Modal.Body>
       <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
-              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {WT}:00</label>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
               <ReactSlider 
               className='slider'
               thumbClassName='thumb'
               trackClassName='track'
-              value={WT}
-              onChange={newValue => setWT(newValue)}
+              value={newWorkMinutes}
+              onChange={newValue => setNewWorkMinutes(newValue)}
               min={1}
               max={120}
               
@@ -631,14 +656,14 @@ function Timer() {
               />
             
 
-            <label style={{marginLeft:'20px'}}>Break Minutes: {BT}:00</label>
+            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
               
               <ReactSlider 
               className='slider green'
               thumbClassName='thumb'
               trackClassName='track'
-              value={BT}
-              onChange={newValue => setBT(newValue)}
+              value={newBreakMinutes}
+              onChange={newValue => setNewBreakMinutes(newValue)}
               min={1}
               
               max={120}
@@ -864,7 +889,7 @@ function Timer() {
     onHide={()=>{setURlShow(false)}}
   
    
-   style={{background:'none'}}>
+   style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',}}>
     
       <Card.Header  closeButton closeVariant='white' >
         Media
