@@ -175,6 +175,12 @@ function Timer() {
 
     let NWtsum=0;
     let NBtsum=0;
+
+    let WTsumRef=useRef(Wtsum);
+    let BtsumRef=useRef(Btsum);
+
+    let NWTsumRef=useRef(NWtsum)
+    let NBTsumRef=useRef(NBtsum)
     const[NT,setNT]=useState(false);
 
 
@@ -409,15 +415,15 @@ function Timer() {
         alarm.play()
         if (modeRef.current==='break'){
          if(NT===true){
-          NWtsum+=newWorkMinutes
-          console.log(NWtsum+Wtsum);
-          console.log(NT)
-          setFinWorkTime(Wtsum+NWtsum)
+          NWTsumRef.current+=newWorkMinutes
+          console.log(NWTsumRef.current+WTsumRef.current);
+         
+          setFinWorkTime(WTsumRef.current+NWTsumRef.current)
 
          }else if (NT===false){
-          Wtsum+=WT
-          console.log(Wtsum)
-          setFinWorkTime(Wtsum)
+          WTsumRef.current+=WT
+          console.log(WTsumRef.current)
+          setFinWorkTime(WTsumRef.current)
          }
         }
         
@@ -441,7 +447,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 1000);
+    }, 10);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
