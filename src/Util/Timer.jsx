@@ -388,8 +388,8 @@ function Timer() {
 
    useEffect(()=>{
     docSnap()
-    console.log(OBTsum)
-    console.log(OWTSum)
+   
+   
    
   
    
@@ -430,13 +430,13 @@ function Timer() {
         if (modeRef.current==='break'){
           if(NT===true){
             NWtsum+=newWorkMinutes
-            console.log(OWTSum+NWtsum);
+           
   
             setFinWorkTime(OWTSum+NWtsum)
   
            }else if (NT===false){
             Wtsum+=WT
-            console.log(Wtsum)
+            
             setFinWorkTime(Wtsum)
             setFWT(Wtsum)
            }
@@ -447,12 +447,12 @@ function Timer() {
          
           if(NT===true){
             NBtsum+=newBreakMinutes
-            console.log(OBTsum+NBtsum);
+            
             setFinBreakTime(NBtsum+OBTsum)
 
           }else if (NT===false){
             Btsum+=BT
-          console.log(Btsum)
+          
           setFinBreakTime(Btsum) ;
           setFBT(Btsum)
           }
@@ -464,7 +464,7 @@ function Timer() {
         
       }
       tick(); //ticks
-    }, 10);
+    }, 1000);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
    },  [settingsInfo]);
