@@ -4,7 +4,7 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup} from 'react-bootstrap';
 
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
@@ -43,14 +43,16 @@ function Timer() {
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
 
-    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Lofi','Cafe','Video Games', 'Commute', 'Rain']
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Lofi','Video Games', 'Rainy','City']
 
     //bgs
     
-    const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2Fghibli%201.png?alt=media&token=bb4277fc-884a-44e2-bd43-432baec817d3'
+    const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FGhibli%2Fghibli%201.png?alt=media&token=747bc1da-4d79-40f4-b793-d1edd3fdf75a'
+
+    let [world,setWorld]=useState('Ghibli')
     
 
-    const imageListRef= ref(storage,'Backgrounds/')
+    const imageListRef= ref(storage,`Backgrounds/${world}`)
 
 
     const nav=useNavigate();
@@ -834,7 +836,26 @@ function Timer() {
        Worlds
      </Modal.Header>
 
-     <Modal.Body style={{display:'flex'}}>
+     <Modal.Body style={{display:'flex', flexDirection:'column'}}>
+
+      <ButtonGroup>
+      <div style={{display: 'flex', margin:'20px',color:'lightgray', overflow:'auto'}}>
+      {worldsort.map((i)=>{
+         return(
+          <Button 
+         type="checkbox"
+          value={i} 
+          variant="outline-light"
+          onClick={()=>{setWorld(i)}}
+        
+          style={{marginRight:'10px'}}
+          >
+           {i}
+         </Button>
+         )
+      })}
+       </div>
+      </ButtonGroup>
      
      
        <Container>
