@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Card, Container,Row,Col, Modal } from 'react-bootstrap'
+import { Button, Card, Container,Row,Col, Modal, ButtonGroup } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
 import GooglePayButton from '@google-pay/button-react'
 import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs} from 'firebase/firestore'
@@ -125,30 +125,35 @@ function Settings() {
 
 
 
-           <div className="Subjects" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}>
+           <div className="Subjects" style={{backgroundColor:'rgb(12,12,12)', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto'}}>
            <h2 style={{color:'gray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Delete Subjects:</h2>
            <p style={{color:'gray'}}>Note: Once clicked, your subject will be deleted.</p>
-           <Container fluid={true} style={{display:'flex'}}>
-            
-              {subjectList.map((sub)=>{
-              
+           <ButtonGroup>
+         <div style={{display: 'flex', margin:'20px',color:'lightgray', overflowX:'auto'}}>
+          {subjectList.map((sub)=>{
+
               return(
-               
+
                 <Button 
                 type="checkbox"
                  value={sub} 
                  variant="outline-light"
                  onClick={()=>{DeleteSub(sub)}}
                
-                style={{marginRight:'10px'}}>
+                 style={{marginRight:'10px'}}
+                 >
                   {sub}
                 </Button>
-                
+
               )
-            
+
+
+
             })}
-             
-            </Container>
+
+
+          </div>
+         </ButtonGroup>
            </div>
 
 
