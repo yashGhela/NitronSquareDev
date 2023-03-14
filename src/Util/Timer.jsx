@@ -58,6 +58,8 @@ function Timer() {
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
     let subject= location.state.subject;
+    let OWT=location.state.Wtsum;
+    let OBT=location.state.Btsum;
 
     const [modalShow, setModalShow]= useState(false);
     const [rating, setRating]=useState(0)
@@ -170,18 +172,12 @@ function Timer() {
 
     const [WT,setWT]=useState(location.state.workMinutes);
     const [BT,setBT]=useState(location.state.breakMinutes);
-    let Wtsum=0;
-    let Btsum=0;
+    let Wtsum=(typeof OWT !=='NaN')? 0: OWT;
+    let Btsum=(typeof OBT !=='NaN')? 0: OBT;
 
-    let NWtsum=0;
-    let NBtsum=0;
+  
 
-    let WTsumRef=useRef(Wtsum);
-    let BtsumRef=useRef(Btsum);
-
-    let NWTsumRef=useRef(NWtsum)
-    let NBTsumRef=useRef(NBtsum)
-    const[NT,setNT]=useState(false);
+   
 
 
     const [finWorkTime, setFinWorkTime]= useState(location.state.workMinutes);
@@ -319,9 +315,9 @@ function Timer() {
 
    //Timer code
    
-   const settingsInfo = location.state;
-   let workSeconds = settingsInfo.workMinutes*60;
-   let breakSeconds= settingsInfo.breakMinutes*60;
+   
+   let workSeconds = WT*60;
+   let breakSeconds= BT*60;
 
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
@@ -351,7 +347,7 @@ function Timer() {
    function switchMode(){
 
     const nextMode = modeRef.current === 'work' ? 'break' : 'work';
-    const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
+    const nextSeconds = (nextMode === 'work' ? WT : BT) * 60;
 
     setMode(nextMode);
     modeRef.current = nextMode;
@@ -377,7 +373,9 @@ function Timer() {
 
    useEffect(()=>{
     docSnap()
-    console.log(NT)
+    console.log(Wtsum);
+    console.log(Btsum)
+  
    
     initTimer();
     listAll(imageListRef).then((result)=>{
@@ -414,31 +412,20 @@ function Timer() {
         switchMode();
         alarm.play()
         if (modeRef.current==='break'){
-         if(NT===true){
-          NWTsumRef.current+=newWorkMinutes
-          console.log(NWTsumRef.current+WTsumRef.current);
+        
+          Wtsum+=WT
+          console.log(Wtsum)
+          setFinWorkTime(Wtsum)
          
-          setFinWorkTime(WTsumRef.current+NWTsumRef.current)
-
-         }else if (NT===false){
-          WTsumRef.current+=WT
-          console.log(WTsumRef.current)
-          setFinWorkTime(WTsumRef.current)
-         }
         }
         
         if(modeRef.current==='work'){         
            
-          if(NT===true){
-            NBtsum+=newBreakMinutes
-            console.log(NBtsum+Btsum);
-            setFinBreakTime(Btsum)
-
-          }else if (NT===false){
+         
             Btsum+=BT
           console.log(Btsum)
           setFinBreakTime(Btsum) 
-          }
+          
         }
     
 
@@ -450,7 +437,7 @@ function Timer() {
     }, 10);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
-   },  [settingsInfo]);
+   },  []);
 
 
    const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
@@ -459,14 +446,7 @@ function Timer() {
    if (seconds<10) seconds='0'+seconds;
    
   
-   const ApplyNewTimer=()=>{
-    workSeconds=newWorkMinutes*60;
-    breakSeconds=newBreakMinutes*60;
-    setTimerShow(false);
-    setNT(true);
-    
-    initTimer();
-   }
+   
      
   
 
@@ -515,7 +495,7 @@ function Timer() {
       
       <div style={{placeItems:'center', width:'80vw'}}>
       <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
-        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {location.state.subject}</p>
+        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {subject}</p>
     <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
     textColor: '#fff',
     pathColor:mode === 'work' ? purple : green,
@@ -683,7 +663,7 @@ function Timer() {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='dark' onClick={()=>{ApplyNewTimer()}} >Apply Changes</Button>
+        <Button variant='dark' onClick={()=>{nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes}})}} >Apply Changes</Button>
       </Modal.Footer>
 
     </Modal>
