@@ -170,11 +170,26 @@ function Timer() {
     
     
 
-    const [WT,setWT]=useState(location.state.workMinutes);
-    const [BT,setBT]=useState(location.state.breakMinutes);
-    let Wtsum=(typeof OWT !=='NaN')? 0: OWT;
-    let Btsum=(typeof OBT !=='NaN')? 0: OBT;
+    const WT=location.state.WT;
+    const BT=location.state.BT;
 
+    
+   
+
+    let OWTSum= location.state.OWTsum;
+    let OBTsum=location.state.OBTsum;
+
+    let Wtsum=0;
+    let Btsum=0;
+
+    let NWtsum=0;
+    let NBtsum=0;
+
+    const [FWT,setFWT]=useState(Wtsum)
+    const [FBT,setFBT]=useState(Btsum)
+
+    
+    const NT= location.state.NT
   
 
    
@@ -315,9 +330,9 @@ function Timer() {
 
    //Timer code
    
-   
-   let workSeconds = WT*60;
-   let breakSeconds= BT*60;
+   const settingsInfo = location.state;
+   let workSeconds = settingsInfo.workMinutes*60;
+   let breakSeconds= settingsInfo.breakMinutes*60;
 
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
@@ -347,7 +362,7 @@ function Timer() {
    function switchMode(){
 
     const nextMode = modeRef.current === 'work' ? 'break' : 'work';
-    const nextSeconds = (nextMode === 'work' ? WT : BT) * 60;
+    const nextSeconds = (nextMode === 'work' ? settingsInfo.workMinutes : settingsInfo.breakMinutes) * 60;
 
     setMode(nextMode);
     modeRef.current = nextMode;
@@ -373,8 +388,9 @@ function Timer() {
 
    useEffect(()=>{
     docSnap()
-    console.log(Wtsum);
-    console.log(Btsum)
+    console.log(OBTsum)
+    console.log(OWTSum)
+   
   
    
     initTimer();
@@ -412,20 +428,34 @@ function Timer() {
         switchMode();
         alarm.play()
         if (modeRef.current==='break'){
-        
-          Wtsum+=WT
-          console.log(Wtsum)
-          setFinWorkTime(Wtsum)
-         
+          if(NT===true){
+            NWtsum+=newWorkMinutes
+            console.log(OWTSum+NWtsum);
+  
+            setFinWorkTime(OWTSum+NWtsum)
+  
+           }else if (NT===false){
+            Wtsum+=WT
+            console.log(Wtsum)
+            setFinWorkTime(Wtsum)
+            setFWT(Wtsum)
+           }
         }
         
         if(modeRef.current==='work'){         
            
          
+          if(NT===true){
+            NBtsum+=newBreakMinutes
+            console.log(OBTsum+NBtsum);
+            setFinBreakTime(NBtsum+OBTsum)
+
+          }else if (NT===false){
             Btsum+=BT
           console.log(Btsum)
-          setFinBreakTime(Btsum) 
-          
+          setFinBreakTime(Btsum) ;
+          setFBT(Btsum)
+          }
         }
     
 
@@ -437,7 +467,7 @@ function Timer() {
     }, 10);
     //timeout is 1000 go, activates how much should be minused by
     return ()=>clearInterval(interval); //clears the interval
-   },  []);
+   },  [settingsInfo]);
 
 
    const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
@@ -446,7 +476,7 @@ function Timer() {
    if (seconds<10) seconds='0'+seconds;
    
   
-   
+ 
      
   
 
@@ -663,7 +693,17 @@ function Timer() {
 
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='dark' onClick={()=>{nav(`/Timer/`, {state:{workMinutes: newWorkMinutes, breakMinutes: newBreakMinutes}})}} >Apply Changes</Button>
+        <Button variant='dark' onClick={()=>{nav(`/Timer/`, {state:{
+                  workMinutes: newWorkMinutes, 
+                  breakMinutes: newBreakMinutes,
+                  subject: subject, 
+                  WT: newWorkMinutes, 
+                  BT: newBreakMinutes, 
+                  OWTsum:FWT,
+                  OBTsum:FBT,
+                  NT:true
+                 }}); 
+                 setTimerShow(false)}} >Apply Changes</Button>
       </Modal.Footer>
 
     </Modal>

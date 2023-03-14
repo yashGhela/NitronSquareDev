@@ -286,7 +286,16 @@ function Dashboard() {
                  value={sub} 
                  variant="dark"
                 
-                 onClick={(e)=>{ nav(`/Timer/`, {state:{workMinutes: workMinutes, breakMinutes: breakMinutes, subject: (e.target.value)}})}}
+                 onClick={(e)=>{ nav(`/Timer/`, {state:{
+                  workMinutes: workMinutes, 
+                  breakMinutes: breakMinutes,
+                  subject: (e.target.value), 
+                  WT: workMinutes, 
+                  BT: breakMinutes, 
+                  OWTsum:0,
+                  OBTsum:0,
+                  NT:false
+                 }})}}
                  style={{marginRight:'5px', marginBottom:'5px', width:'100px'}}>
                   {sub}
                 </Button>
