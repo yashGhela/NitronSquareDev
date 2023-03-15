@@ -945,7 +945,7 @@ function Timer() {
 
    
    {urlShow?
-    <Draggable>
+   
     <Card
     className='timer-modal'
     show={urlShow}
@@ -976,7 +976,7 @@ function Timer() {
 
     </Card>
 
-    </Draggable>:null}
+   :null}
    </div>
   </div>
   
