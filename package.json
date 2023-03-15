@@ -27,6 +27,7 @@
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-slider": "^2.0.4",
+    "react-spotify-player": "^1.0.4",
     "universal-cookie": "^4.0.4",
     "use-pagination-firestore": "^0.6.0",
     "use-sound": "^4.0.1",

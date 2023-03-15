@@ -10,7 +10,7 @@ import { Button, Nav, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Quickbar({L1,L2,L3,L4,L5,L6,L7,L8}) {
+function Quickbar({L1,L2,L3,L4,L5,L6,L7,L8,L9}) {
 
   let nav = useNavigate();
 
@@ -80,10 +80,17 @@ function Quickbar({L1,L2,L3,L4,L5,L6,L7,L8}) {
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
+      overlay={renderTooltip('Spotify')}>
+      {L9}
+      </OverlayTrigger>
+      </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
       overlay={renderTooltip('Exit')}>
       {L7}
       </OverlayTrigger>
       </Nav.Item>
+      
       
     </Nav>
    </div>

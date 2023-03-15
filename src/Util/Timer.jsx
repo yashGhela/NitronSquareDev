@@ -9,7 +9,7 @@ import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl,
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
-import { BarChart, BoxArrowLeft, Bullseye, CameraVideoFill, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, StopFill, Stopwatch, Tree, Water, Wind, Youtube } from 'react-bootstrap-icons';
+import { BarChart, BoxArrowLeft, Bullseye, CameraVideoFill, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, Spotify, StopFill, Stopwatch, Tree, Water, Wind, Youtube } from 'react-bootstrap-icons';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -28,6 +28,7 @@ import { Line } from 'react-chartjs-2';
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
 import ReactPlayer from 'react-player';
 import Draggable from 'react-draggable';
+import SpotifyPlayer from 'react-spotify-player';
 
 
 
@@ -95,6 +96,8 @@ function Timer() {
 
     const [url,setUrl]=useState('');
     const [urlShow,setURlShow]=useState(false);
+    
+    const [spotifyShow,setSpotifyShow]=useState(false);
     
 
     
@@ -535,6 +538,7 @@ function Timer() {
       L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
       L6={<Button  variant='light-outline' onClick={()=>{setToDoShow(true)}}><ListTask style={{color:'white', }}/></Button>}
       L8={<Button  variant='light-outline' onClick={()=>{setURlShow(true)}}><Youtube style={{color:'white', }}/></Button>}
+      L9={<Button  variant='light-outline' onClick={()=>{setSpotifyShow(true)}}><Spotify style={{color:'white', }}/></Button>}
       L7={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
       
     />
@@ -948,9 +952,8 @@ function Timer() {
    
     <Card
     className='timer-modal'
-    show={urlShow}
-    onHide={()=>{setURlShow(false)}}
-    style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',}}>
+ 
+    style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
     
       <Card.Header style={{display:'flex'}}>
         Media
@@ -977,6 +980,35 @@ function Timer() {
     </Card>
 
    :null}
+
+      {spotifyShow? 
+      <Card
+      className='timer-modal'
+      
+      style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
+      
+        <Card.Header style={{display:'flex'}}>
+          Spotify
+          <CloseButton style={{marginLeft:'70%'}} onClick={()=>setSpotifyShow(false)}/>
+          
+        </Card.Header>
+        <Card.Body>
+      
+        <SpotifyPlayer
+
+        uri="https://open.spotify.com/playlist/3WLDIcG4Cx2UOPy0rbFhQn?si=d5bed878c963410e"
+        view='list'
+        theme='black'
+        size='large'/>
+
+
+        
+
+        </Card.Body>
+
+
+
+      </Card>:null}
    </div>
   </div>
   
