@@ -49,10 +49,25 @@ function Timer() {
     
     const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FGhibli%2Fghibli%201.png?alt=media&token=747bc1da-4d79-40f4-b793-d1edd3fdf75a'
 
-    let [world,setWorld]=useState('Ghibli')
+    let [world,setWorld]=useState('')
     
 
-    const imageListRef= ref(storage,`Backgrounds/${world}`)
+    var imageListRef= ref(storage,`Backgrounds/${world}`)
+
+    const getWorlds=({id})=>{
+      setWorld(id);
+      listAll(imageListRef).then((result)=>{
+        result.items.forEach((item)=>{
+          getDownloadURL(item).then((url)=>{
+           if(imageList.includes(url)){
+            return null
+           }else{
+            setImageList((prev)=>[...prev,url])
+           }
+          })
+        })
+      })
+    }
 
 
     const nav=useNavigate();
@@ -846,7 +861,7 @@ function Timer() {
          type="checkbox"
           value={i} 
           variant="outline-light"
-          onClick={()=>{setWorld(i)}}
+          onClick={()=>{getWorlds({id:i}); console.log(i)}}
         
           style={{marginRight:'10px'}}
           >
