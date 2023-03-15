@@ -157,7 +157,7 @@ function SignUp() {
       await setDoc(ref,{
         username:username,
         Find: find,
-        Purpose: purpose
+        Level: purpose
       })
       setCompShow(false);
       setModalShow(true)
@@ -284,10 +284,11 @@ function SignUp() {
             </Modal.Header>
             <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
               <p>Tell us about how you found us, this will help us create a better experience for all users</p>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Instagram'); setPrompt1Show(false); setPrompt2Show(true)}}>Instagram</Button>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('TikTok'); setPrompt1Show(false); setPrompt2Show(true)}}>TikTok</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Instagram'); setPrompt1Show(false); setPrompt2Show(true)}}>Social Media</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('TikTok'); setPrompt1Show(false); setPrompt2Show(true)}}>Blogs</Button>
               <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Family or Friends'); setPrompt1Show(false); setPrompt2Show(true)}}>Family or Friends</Button>
               <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('School'); setPrompt1Show(false); setPrompt2Show(true)}}>School</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('School'); setPrompt1Show(false); setPrompt2Show(true)}}>Reddit</Button>
 
             </Modal.Body>
 
@@ -304,13 +305,16 @@ function SignUp() {
           style={{color:'lightgray'}}
           centered>
             <Modal.Header>
-              How Did You Intend to use Improvr?
+              At What Level are you?
             </Modal.Header>
             <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
-              <p>Tell us about how you found us, this will help us create a better experience for all users</p>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Increase my marks'); setPrompt2Show(false); setCompShow(true)}}>To Increase my marks</Button>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Increase Productivity'); setPrompt2Show(false); setCompShow(true)}}>To Increase Productivity</Button>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('To Improve my Focus'); setPrompt2Show(false); setCompShow(true)}}>To Improve my Focus</Button>
+              <p>I am in:</p>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('Primary School(Gr1-Gr7)'); setPrompt2Show(false); setCompShow(true)}}>Primary School(Gr1-Gr7)</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('High School(Gr8-Gr12)'); setPrompt2Show(false); setCompShow(true)}}>High School(Gr8-Gr12)</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('Bachelors Degree'); setPrompt2Show(false); setCompShow(true)}}>Bachelor's Degree</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('Honors Degree'); setPrompt2Show(false); setCompShow(true)}}>Honor's Degree</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('Masters Degree'); setPrompt2Show(false); setCompShow(true)}}>Master's Degree</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setPurpose('PHD Degree'); setPrompt2Show(false); setCompShow(true)}}>PHD Degree</Button>
             
 
             </Modal.Body>
