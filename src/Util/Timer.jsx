@@ -53,7 +53,7 @@ function Timer() {
     let [world,setWorld]=useState('')
     
 
-    var imageListRef= ref(storage,`Backgrounds/${world}`)
+    let imageListRef= ref(storage,`Backgrounds/${world}`)
 
     const getWorlds=({id})=>{
       setWorld(id);
@@ -528,7 +528,7 @@ function Timer() {
 
   return (
    
-    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%'}}>
+    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
@@ -763,7 +763,7 @@ function Timer() {
       <Modal.Body>
         {scopeList.map((scop)=>{
           return(
-            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px', marginBottom:'10px' }} >
+            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px', marginBottom:'10px' }}  className='special_modal'>
               <Accordion.Header >
                 {scop.title}
               </Accordion.Header>
@@ -857,7 +857,7 @@ function Timer() {
 
      <Modal.Body style={{display:'flex', flexDirection:'column'}}>
 
-      <ButtonGroup>
+     <ButtonGroup>
       <div style={{display: 'flex', margin:'20px',color:'lightgray', overflow:'auto'}}>
       {worldsort.map((i)=>{
          return(
@@ -865,7 +865,7 @@ function Timer() {
          type="checkbox"
           value={i} 
           variant="outline-light"
-          onClick={()=>{getWorlds({id:i}); console.log(i)}}
+          onClick={()=>{getWorlds({id:i})}}
         
           style={{marginRight:'10px'}}
           >
@@ -895,7 +895,6 @@ function Timer() {
           </Col>
         </Row>
        </Container>
-       
        
         
 

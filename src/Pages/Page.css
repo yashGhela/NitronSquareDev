@@ -69,18 +69,18 @@
 
  }
 
- .accordion-button {
+ .special_modal .accordion-button {
     background-color: rgb(12, 12, 12) !important;
     color: white!important;
     margin-bottom: 5px !important;
   }
   
-  .accordion-button:focus {
+  .special_modal .accordion-button:focus {
     box-shadow: none;
     color: white;
   }
   
-  .accordion-button:not(.collapsed) {
+  .special_modal .accordion-button:not(.collapsed) {
     color: #e5e8eb!important;
     
   }
@@ -125,4 +125,21 @@
   box-shadow:0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) ;
 }
 
+
+.timer-modal .accordion-button {
+  background-color: rgba( 255, 255, 255, 0.25 );
+  backdrop-filter: blur( 50px );
+  box-shadow:0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) ;
+  margin-bottom: 5px!important;
+}
+
+.timer-modal .accordion-button:focus {
+  box-shadow: none;
+  color: black;
+}
+
+.timer-modal .accordion-button:not(.collapsed) {
+  color: black!important;
+  
+}
  
