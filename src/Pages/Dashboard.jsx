@@ -437,7 +437,7 @@ function Dashboard() {
                      
                    {isUpdate? <Form style={{display:'flex',backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px'}}>
                        <Form.Control style={{width:'80%',}} placeholder={modalData.title} 
-                       onChange={(e)=>{if(!e.target.value){setUpdateTitle(modalData.title)}else{
+                       onChange={(e)=>{if(e.target.value===''){setUpdateTitle(modalData.title)}else{
                          setUpdateTitle(e.target.value)
                        }}}/>
                        
