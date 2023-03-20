@@ -240,7 +240,7 @@ function Timer() {
       
       
     }else{
-      console.log('null');
+      return null;
     }
     setSubjectList(subData)
    
@@ -268,7 +268,7 @@ function Timer() {
         datesArray.push(date);
         WTArray.push(WT);
         BTArray.push(BT);
-        console.log(datesArray)
+     
       })
 
     });setChartData({
@@ -791,7 +791,7 @@ function Timer() {
                            <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
                            movetask({id:scop.id, task:inc}); 
                            var del= scop.incomplete.indexOf(inc); 
-                           console.log(del);
+                       
                            scop.incomplete.splice(del,1);
                             scop.complete.push(inc)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
@@ -856,9 +856,10 @@ function Timer() {
      </Modal.Header>
 
      <Modal.Body style={{display:'flex', flexDirection:'column'}}>
-
+     <p style={{textAlign:'center'}}>Double click to load</p>
      <ButtonGroup>
-      <div style={{display: 'flex', margin:'20px',color:'lightgray', overflow:'auto'}}>
+   
+      <div style={{display: 'flex', margin:'10px',color:'lightgray', overflow:'auto'}}>
       {worldsort.map((i)=>{
          return(
           <Button 

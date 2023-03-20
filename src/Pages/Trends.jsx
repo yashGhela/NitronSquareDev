@@ -66,7 +66,7 @@ function Trends() {
         datesArray.push(date);
         WTArray.push(WT);
         BTArray.push(BT);
-        console.log(datesArray)
+    
       })
 
     });setChartData({
@@ -119,7 +119,7 @@ await getDoc(subref).then(docSnap=>{
     
     
   }else{
-    console.log('null');
+   return null;
   }
   setSubjectList(subData)
  

@@ -62,7 +62,7 @@ function Settings() {
       
       
     }else{
-      console.log('null');
+     return null
     }
     setSubjectList(subData)
    
@@ -88,7 +88,7 @@ function Settings() {
         });
         
         
-        console.log('removed')
+       
     }
 
 

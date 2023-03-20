@@ -70,7 +70,7 @@ function SignUp() {
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
           localStorage.setItem('isAuth', true)
-          console.log('added!')
+         
          
           nav(`/Dashboard/`)
 

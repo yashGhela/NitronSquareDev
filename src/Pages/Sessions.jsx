@@ -50,7 +50,7 @@ function Sessions() {
     const DeleteSes=async({id})=>{
       const delref=doc(db, 'Users',user,'Sessions',id)
       await deleteDoc(delref)
-      console.log('deleted');
+     
       setModalShow(false)
     }
 

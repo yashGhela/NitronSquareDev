@@ -103,7 +103,7 @@ function Scope() {
    const DeleteSes=async({id})=>{
     const delref=doc(db, 'Users',user,'Scopes',id)
     await deleteDoc(delref)
-    console.log('deleted');
+   
     setModalShow(false)
   }
 
@@ -244,7 +244,7 @@ function Scope() {
                            <Button  variant="secondary"  value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{
                              movetask({id:modalData.id, task:inc}); 
                              var del= modalData.incomplete.indexOf(inc); 
-                             console.log(del);
+                        
                              modalData.incomplete.splice(del,1);
                               modalData.complete.push(inc)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>

@@ -66,7 +66,7 @@ function Dashboard() {
       
       
     }else{
-      console.log('null');
+     return null
     }
     setSubjectList(subData)
    
@@ -124,7 +124,7 @@ function Dashboard() {
   const DeleteSes=async({id})=>{
     const delref=doc(db, 'Users',user,'Sessions',id)
     await deleteDoc(delref)
-    console.log('deleted');
+   
     setModalShow(false)
   }
 
@@ -152,7 +152,7 @@ function Dashboard() {
    const DeleteSco=async({id})=>{
     const delref=doc(db, 'Users',user,'Scopes',id)
     await deleteDoc(delref)
-    console.log('deleted');
+   
     setModalShow(false)
   }
 
@@ -470,7 +470,7 @@ function Dashboard() {
 
                            <Button  variant="secondary" value={inc}  style={{marginRight:'5px', marginBottom:'5px'}} onClick={()=>{movetask({id:modalData.id, task:inc}); 
                              var del= modalData.incomplete.indexOf(inc); 
-                             console.log(del);
+                            
                              modalData.incomplete.splice(del,1);
                               modalData.complete.push(inc)}}><Check/></Button>
                            <label style={{marginBottom: '5px'}}>{inc}</label><br/>
