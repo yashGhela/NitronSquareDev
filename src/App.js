@@ -19,6 +19,7 @@ import Cookies from 'universal-cookie';
 import Scope from './Pages/Scope';
 
 import Settings from './Pages/Settings';
+import { useEffect } from 'react';
 
 
 
@@ -27,6 +28,13 @@ function App() {
   
 const cookies = new Cookies();
 const user =cookies.get('useraidt');
+
+useEffect=(()=>{
+  if (window.location.hostname == "nstudy-dev.firebaseapp.com" || 
+    window.location.hostname == "nstudy-dev.web.app") {
+       window.location.href = 'https://improvr.nitrondigital.com/'; 
+}
+})
 
  
 
