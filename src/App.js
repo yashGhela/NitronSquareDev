@@ -29,12 +29,7 @@ function App() {
 const cookies = new Cookies();
 const user =cookies.get('useraidt');
 
-useEffect=(()=>{
-  if (window.location.hostname == "nstudy-dev.firebaseapp.com" || 
-    window.location.hostname == "nstudy-dev.web.app") {
-       window.location.href = 'https://improvr.nitrondigital.com/'; 
-}
-})
+
 
  
 

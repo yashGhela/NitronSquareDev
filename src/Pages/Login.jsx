@@ -14,6 +14,9 @@ import PP from '../Components/PP';
 
 function Login() {
   let nav= useNavigate();
+  const goDash=()=>{
+    nav('/Dashboard')
+  }
   const [errShow, setErrShow ]=useState(false);
   
   const [type, setType]= useState('');
@@ -30,6 +33,7 @@ function Login() {
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
   useEffect(()=>{
+    
     const cookie= new Cookies()
     const user= cookie.get('useraidt')
     if(user){
@@ -45,9 +49,9 @@ function Login() {
       await getDoc(ref).then((snapshot)=>{
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
-          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'},);
           localStorage.setItem('isAuth', true)
-          nav(`/Dashboard/`);
+          window.location.pathname='/Dashboard';
         }else if (!snapshot.exists()){
           setErrShow(true)
         }else if (snapshot.data().subscription==='inactive'){
@@ -74,7 +78,7 @@ function Login() {
       await getDoc(ref).then((snapshot)=>{
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
-          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'},);
           localStorage.setItem('isAuth', true)
           nav(`/Dashboard/`);
         }else if (!snapshot.exists()){

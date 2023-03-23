@@ -42,8 +42,12 @@ function SignUp() {
 
   const cookie= new Cookies();
 
+ 
   let nav= useNavigate();
 
+  const goDash=()=>{
+    nav('/Dashboard')
+  }
   
  
  
@@ -68,7 +72,7 @@ function SignUp() {
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
           
-          cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'/'});
+          cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});
           localStorage.setItem('isAuth', true)
          
          
@@ -137,6 +141,7 @@ function SignUp() {
   }
 
   useEffect(()=>{
+    
    
     setDisabled(formValidation());
    
