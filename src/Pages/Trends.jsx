@@ -21,6 +21,7 @@ import { useEffect } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import 'chart.js/auto'
 import { useState } from 'react';
+import { async } from '@firebase/util';
 
 
 
@@ -39,12 +40,12 @@ function Trends() {
   const [subjectList, setSubjectList] =useState([]);
   const [sesDone, setSesDone]=useState(0);
   const [sub,setSub]=useState('none chosen');
+  const [avgWt,setavgWt]=useState(0);
+  const [avgBT,setAvgBT]=useState(0);
 
 
  
   const col = collection(db,'Users',user,'Sessions');
-
-  
 
 
 
@@ -53,20 +54,34 @@ function Trends() {
   var datesArray=[];
   var WTArray=[];
   var BTArray=[];
+  var objectsArray=[];
+  var obsort=[]
 
   const getData=async({sub})=>{
     const q = query(col,where('subject','==',sub), limit(30));
     await getDocs(q).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
-        var dc= doc.data();
-        var date = dc.time;
-        var WT = dc.WorkTime;
-        var BT = dc.BreakTime;
+        var dc=doc.data();
+       objectsArray.push({
+        date: dc.time,
+        WT: dc.WorkTime,
+        BT: dc.BreakTime
+       })
+       
+    
+      })
+
+      obsort=objectsArray.sort((a, b) => (a.date > b.date) ? 1 : -1)
+      
+      obsort.forEach((doc)=>{
+        var dc= doc;
+        var date = dc.date;
+        var WT = dc.WT;
+        var BT = dc.BT;
 
         datesArray.push(date);
         WTArray.push(WT);
         BTArray.push(BT);
-    
       })
 
     });setChartData({
@@ -98,6 +113,38 @@ function Trends() {
     )
     
   }
+
+  var WTA=0;
+  var WTC=0;
+  
+
+  const GetAvgWt= async({sub})=>{
+    const q = query(col,where('subject','==',sub));
+    await getDocs(q).then((snapshot)=>{
+      snapshot.docs.forEach(doc=>{
+        WTA+=doc.data().WorkTime;
+        WTC+=1
+
+      })
+      setavgWt(Math.floor(WTA/WTC));
+    })
+  }
+
+  var BTA=0;
+  var BTC=0;
+
+  const GetAvgBt= async({sub})=>{
+    const q = query(col,where('subject','==',sub));
+    await getDocs(q).then((snapshot)=>{
+      snapshot.docs.forEach(doc=>{
+        BTA+=doc.data().BreakTime;
+        BTC+=1
+
+      })
+      setAvgBT(Math.floor(BTA/BTC));
+    })
+  }
+
 
   
 
@@ -193,7 +240,7 @@ await getDoc(subref).then(docSnap=>{
                 type="checkbox"
                  value={sub} 
                  variant="outline-light"
-                 onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub)}}
+                 onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub); GetAvgWt({sub:sub}); GetAvgBt({sub:sub})}}
                  style={{marginRight:'10px'}}
                  >
                   {sub}
@@ -228,11 +275,31 @@ await getDoc(subref).then(docSnap=>{
            </div>
 
 
-           <Card style={{marginLeft:'20px', height:'200px', width:'150px',padding:'20px', backgroundColor:'rgb(12,12,12)',color:'lightgray'}}>
+       <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
+        <Row>
+          <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
             <Card.Text style={{fontSize:'25px'}}>Sessions Done:</Card.Text>
             <h1>{sesDone}</h1>
            </Card>
 
+          </Col>
+          <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
+            <Card.Text style={{fontSize:'25px'}}>Average Work Time:</Card.Text>
+            <h1>{avgWt} minutes</h1>
+           </Card>
+
+          </Col>
+          <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
+            <Card.Text style={{fontSize:'25px'}}>Average Break Time:</Card.Text>
+            <h1>{avgBT} minutes</h1>
+           </Card>
+
+          </Col>
+        </Row>
+       </Container>
 
 
           

@@ -293,7 +293,7 @@ function SignUp() {
               <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('TikTok'); setPrompt1Show(false); setPrompt2Show(true)}}>Blogs</Button>
               <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Family or Friends'); setPrompt1Show(false); setPrompt2Show(true)}}>Family or Friends</Button>
               <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('School'); setPrompt1Show(false); setPrompt2Show(true)}}>School</Button>
-              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('School'); setPrompt1Show(false); setPrompt2Show(true)}}>Reddit</Button>
+              <Button variant='outline-light' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{setFind('Reddit'); setPrompt1Show(false); setPrompt2Show(true)}}>Reddit</Button>
 
             </Modal.Body>
 
