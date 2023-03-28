@@ -50,8 +50,12 @@ function Login() {
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
           cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'},);
+          if (snapshot.data().type==='pro',{expires:  nextYear, path:'improvr.nitrondigital.com'}){
+            cookie.set('PAIDT', 'Tnf',)
+          }
           localStorage.setItem('isAuth', true)
-          window.location.pathname='/Dashboard';
+          nav(`/Dashboard/`);
+         
         }else if (!snapshot.exists()){
           setErrShow(true)
         }else if (snapshot.data().subscription==='inactive'){
@@ -79,6 +83,9 @@ function Login() {
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
           cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'},);
+          if (snapshot.data().type==='pro',{expires:  nextYear, path:'improvr.nitrondigital.com'}){
+            cookie.set('PAIDT', 'Tnf',)
+          }
           localStorage.setItem('isAuth', true)
           nav(`/Dashboard/`);
         }else if (!snapshot.exists()){

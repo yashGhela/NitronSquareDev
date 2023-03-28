@@ -58,7 +58,7 @@ function Trends() {
   var obsort=[]
 
   const getData=async({sub})=>{
-    const q = query(col,where('subject','==',sub), limit(30));
+    const q = query(col,where('subject','==',sub));
     await getDocs(q).then((snapshot)=>{
       snapshot.docs.forEach(doc=>{
         var dc=doc.data();
