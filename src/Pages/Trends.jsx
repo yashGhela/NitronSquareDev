@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 
-import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye, Journal, Archive } from 'react-bootstrap-icons'
 
 
 import {
@@ -205,9 +205,10 @@ await getDoc(subref).then(docSnap=>{
       <div className="navB">
       <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
         </div>
 
         <div className="bod">
@@ -278,21 +279,21 @@ await getDoc(subref).then(docSnap=>{
        <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
         <Row>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
             <Card.Text style={{fontSize:'25px'}}>Sessions Done:</Card.Text>
             <h1>{sesDone}</h1>
            </Card>
 
           </Col>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
             <Card.Text style={{fontSize:'25px'}}>Average Work Time:</Card.Text>
             <h1>{avgWt} minutes</h1>
            </Card>
 
           </Col>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
             <Card.Text style={{fontSize:'25px'}}>Average Break Time:</Card.Text>
             <h1>{avgBT} minutes</h1>
            </Card>

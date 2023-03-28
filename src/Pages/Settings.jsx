@@ -6,7 +6,7 @@ import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where,
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
 import { db,auth } from '../firebaseConfig'
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram , Journal, Archive} from 'react-bootstrap-icons'
 import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
@@ -110,9 +110,10 @@ function Settings() {
        <div className="navB">
         <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
         </div>
 
         <div className="bod">

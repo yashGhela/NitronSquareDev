@@ -5,7 +5,7 @@ import {    useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive } from 'react-bootstrap-icons'
 import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
@@ -188,9 +188,10 @@ function Dashboard() {
         <div className="navB">
         <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
         </div>
        
         
@@ -408,7 +409,7 @@ function Dashboard() {
                <Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
                 
 
-                <Card style={{width:'100%', background:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px',}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                    <Card.Body>
                     <Card.Title>{scop.title}</Card.Title>
                     <Card.Text>

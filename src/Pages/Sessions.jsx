@@ -6,7 +6,7 @@ import { collection, orderBy, query, doc, deleteDoc, onSnapshot} from 'firebase/
 import './Page.css';
 import {Button, Card, Row, Col, Modal} from 'react-bootstrap';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Journal, Archive } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
 import Cookies from 'universal-cookie';
 
@@ -65,9 +65,10 @@ function Sessions() {
    
    <Sidebar
         L1={<Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>}
-        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Journals style={{color:'white'}}/></Button>}
+        L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
-        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}/>
+        L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
 
    
 
