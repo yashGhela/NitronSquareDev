@@ -1,19 +1,25 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect} from 'react'
 import Sidebar from '../Components/Sidebar'
 import { Button, Card, Modal } from 'react-bootstrap'
 import {    useNavigate } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2 } from 'react-bootstrap-icons'
+
+
+import { EDITOR_JS_TOOLS } from '../Components/tools';
+import Editor from '../Components/Editor';
 
 
 
-
-function Notes() {
+function Cards() {
     const cookie = new Cookies()
   const user=cookie.get('useraidt')
   
   let nav = useNavigate();
+
+
+ 
 
 
   const [showModal, setShowModal]=useState(false);
@@ -27,7 +33,7 @@ function Notes() {
         L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
         L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
-        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Cards')}}><Wallet2 style={{color:'white'}}/></Button>}/>
         </div>
 
         <div className="bod">
@@ -44,28 +50,15 @@ function Notes() {
             padding:' 10px',
             animation:'gradient 15s ease infinite'
              }}>
-           <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}} >Notes</h1></Card.Title>
+           <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}} >Cards</h1></Card.Title>
            
-         <Button  variant='outline-light' style={{height:'60px', width:'120px' }} onClick={()=>{setShowModal(true)}}>Add a new note</Button>
+         <Button  variant='outline-light' style={{height:'60px', width:'120px' }} onClick={()=>{setShowModal(true)}}>Add a new card set</Button>
          
          </Card>
+         
+        
 
-         <Modal
-         show={showModal}
-         fullscreen={true}
-         className='special_modal'
-         onHide={()=>{setShowModal(false)}}
-          
-          >
-            <Modal.Header closeButton closeVariant='white'>
-                Your Note
-            </Modal.Header>
-
-            <Modal.Body>
-               
-            </Modal.Body>
-
-         </Modal>
+         
             </div>
         </div>
        
@@ -73,4 +66,4 @@ function Notes() {
   )
 }
 
-export default Notes
+export default Cards

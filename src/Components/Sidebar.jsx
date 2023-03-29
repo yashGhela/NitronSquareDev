@@ -59,7 +59,7 @@ function Sidebar({L1,L2,L3,L4,L5}) {
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
-       overlay={renderTooltip('Notes')}>
+       overlay={renderTooltip('Cards')}>
        {L5}
        </OverlayTrigger>
       </Nav.Item>

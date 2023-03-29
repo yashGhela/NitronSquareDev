@@ -12,12 +12,12 @@ import Strikethrough from '@sotaproject/strikethrough';
 import ChangeCase from 'editorjs-change-case';
 import LinkTool from '@editorjs/link'
 import NestedList from '@editorjs/nested-list';
-import editorjsNestedChecklist from '@calumk/editorjs-nested-checklist';
+
 
 export const EDITOR_JS_TOOLS = {
     // NOTE: Paragraph is default tool. Declare only when you want to change paragraph option.
     // paragraph: Paragraph,
-    embed: Embed,
+
     table: Table,
     list: List,
     underline:Underline,
@@ -28,8 +28,7 @@ export const EDITOR_JS_TOOLS = {
     strikethrough:Strikethrough,
     changecase:ChangeCase,
     nestedlist:NestedList,
-    editornestedlist: editorjsNestedChecklist,
-  
+ 
   
     header: Header,
     quote: Quote,
@@ -38,3 +37,18 @@ export const EDITOR_JS_TOOLS = {
   
     
   }
+
+export const DEFAULT_INITIAL_DATA = () => {
+  return {
+    "time": new Date().getTime(),
+    "blocks": [
+      {
+        "type": "header",
+        "data": {
+          "text": "This is my awesome editor!",
+          "level": 1
+        }
+      },
+    ]
+  }
+}

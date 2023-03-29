@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas, Badge, Toast} from 'react-bootstrap'
-import {Speedometer,CardText,BarChart, Journals, Bullseye, Check, Journal, Archive } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart, Journals, Bullseye, Check, Journal, Archive, Wallet2 } from 'react-bootstrap-icons'
 import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
 import Cookies from 'universal-cookie'
@@ -143,7 +143,7 @@ function Scope() {
         L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
         L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
-        L5={<Button variant='light-outline' onClick={()=>{nav('/Notes')}}><Journal style={{color:'white'}}/></Button>}/>
+        L5={<Button variant='light-outline' onClick={()=>{nav('/Cards')}}><Wallet2 style={{color:'white'}}/></Button>}/>
         
          </div>
 
