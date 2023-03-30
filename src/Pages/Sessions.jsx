@@ -68,7 +68,7 @@ function Sessions() {
         L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
         L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
-        L5={<Button variant='light-outline' onClick={()=>{nav('/Cards')}}><Wallet2 style={{color:'white'}}/></Button>}/>
+        />
 
    
 
