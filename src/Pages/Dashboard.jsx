@@ -207,7 +207,8 @@ function Dashboard() {
             
              margin:'20px',
              height:'150px',
-             backgroundImage:'radial-gradient(circle, rgba(244,250,255,1) 0%, rgba(183,191,242,1) 50%, rgba(255,255,255,1) 100%)',
+             backgroundColor:'#17181a',
+             border: '3px solid rgb(97, 149, 232)',
              backgroundSize:'400% 400%',
              textAlign:'center',
              alignItems:'center',

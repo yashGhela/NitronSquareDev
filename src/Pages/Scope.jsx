@@ -153,7 +153,8 @@ function Scope() {
          
            margin:'20px',
            height:'150px',
-           backgroundImage:'linear-gradient(-45deg ,rgb(163, 207, 137) , rgb(52, 110, 235))',
+           border: '3px solid  rgb(163, 207, 137)',
+           backgroundColor:'#17181a',
            backgroundSize:'400% 400%',
            textAlign:'center',
            alignItems:'center',
