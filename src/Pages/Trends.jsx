@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom';
 
 import Sidebar from '../Components/Sidebar'
 
-import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye, Journal, Archive, Wallet2 } from 'react-bootstrap-icons'
+import {Speedometer,CardText,BarChart,Hr, Journals, Bullseye, Journal, Archive, Wallet2, Check2Square } from 'react-bootstrap-icons'
 
 
 import {
@@ -208,6 +208,7 @@ await getDoc(subref).then(docSnap=>{
         L2={<Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>}
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
         L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
+        L5={<Button variant='light-outine' onClick={()=>nav('/Todos')}><Check2Square style={{color:'white'}}/></Button>}
       />
         </div>
 
