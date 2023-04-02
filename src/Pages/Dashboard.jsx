@@ -216,9 +216,9 @@ function Dashboard() {
              padding:' 10px',
              animation:'gradient 15s ease infinite'
               }}>
-            <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Dashboard</h1></Card.Title>
+            <Card.Title style={{  marginBottom:'30px'}}><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Dashboard</h1></Card.Title>
             
-          <Button  variant='outline-light' style={{height:'60px', width:'120px' }} onClick={()=>{setGoModalShow(true)}}>Start a new Session</Button>
+          <Button  variant='outline-light'  onClick={()=>{setGoModalShow(true)}}>Start a new Session</Button>
           
           </Card>
 
@@ -238,7 +238,7 @@ function Dashboard() {
           </Modal.Header>
         
                   
-              <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
+              <div className="times" style={{border: '3px solid rgb(97, 149, 232)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px',color:'lightgray'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
@@ -273,7 +273,7 @@ function Dashboard() {
 
 
              
-             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',backgroundColor:'rgb(12,12,12)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
+             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',border: '3px solid rgb(97, 149, 232)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
               <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
                 <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>

@@ -1,11 +1,73 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
-import { Button, Card } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Button, Card, FormCheck,Form, Container ,Row,Col, Badge} from 'react-bootstrap'
+import {  useNavigate } from 'react-router-dom'
 import { Check2Square, Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear  } from 'react-bootstrap-icons'
+import { collection, doc, onSnapshot, updateDoc, addDoc, query, orderBy } from 'firebase/firestore'
+import Cookies from 'universal-cookie';
+import { db } from '../firebaseConfig'
+import { format } from 'date-fns'
 
 function Todos() {
-    let nav=useNavigate()
+    let nav=useNavigate();
+    const date= new Date()
+    const today=format(date, 'yyyy/MM/dd')
+    const tomorrow= format(date.getDate()+1, 'yyyy/MM/dd')
+    const cookie = new Cookies()
+    const user=cookie.get('useraidt')
+    const q= collection(db,'Users',user,'ToDos');
+    const todoRef= query(q, orderBy('date','desc'))
+
+    const [todoExists, setTodoExists]=useState(true)
+    const [todoList,setTodoList]=useState([]);
+    const [todo,setTodo]=useState('');
+    const [stateUp,setStateUp]=useState('complete')
+
+    const state=(todo)=>{
+      if(todo.state==='incomplete'){return('danger')}else{return('success')}
+    }
+
+    const CompleteToDo=async({id})=>{
+      await updateDoc(doc(todoRef,id),{
+        state:stateUp
+      })
+      
+    }
+
+    
+    const AddToDo=async()=>{
+      await addDoc(todoRef,{
+        name: todo,
+        state: 'incomplete',
+        date: format(new Date(), 'yyyy/MM/dd')
+      })
+     
+    }
+   
+
+    useEffect(()=>{
+      onSnapshot(todoRef,(snapshot)=>{
+        if(snapshot.empty){
+          setTodoExists(false)
+          console.log(todoList)
+        }else{
+          setTodoList(
+            snapshot.docs.map((doc)=>({...doc.data(),id:doc.id}))
+          )
+          setTodoExists(true)
+          
+          console.log(todoList)
+          
+
+        }
+        
+          
+        })
+       
+      
+        
+
+    },[])
   return (
     <div className='Page'>
         
@@ -34,11 +96,56 @@ function Todos() {
             animation:'gradient 15s ease infinite'
              }}>
            <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Todos</h1></Card.Title>
-           
-        
-         
          </Card>
+
+         
+         <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'100%', borderRadius:'10px', color:'lightgray'}}>
+          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}> 
+          <p style={{color:'lightgray',fontSize:'25px'}}>Add a Task </p>
+          <Form  className='special_modal' style={{display:'flex', padding:'20px'}}>
+          <Form.Control className='special_modal' style={{width:'80%', marginRight:'15px'}} value={todo} onChange={(e)=>{setTodo(e.target.value)}}/>
+        <Button onClick={()=>{AddToDo(); setTodo('')}} variant='outline-light'>Add! </Button>
+          </Form>
+          </div>
+          </Container>
+    
+
+        
+         <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'100%', borderRadius:'10px', color:'lightgray'}}>
+          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}> 
+           
+          <p style={{color:'lightgray',fontSize:'25px'}}>Todos </p>
+           
+            
+              <div>
+              {todoList.map((todo)=>{
+                return(
+                  <Card 
+                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+                  
+                  breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+                  minBreakpoint="xxs">
+                   <Row>
+                    <Col>
+                    <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todo.name}</h3></Col>
+                    <Col><h3 style={{fontWeight:'400', fontSize:'20px'}}>{todo.date}</h3></Col>
+                    <Col><Badge pill bg={state(todo)}>{todo.state}</Badge></Col>
+                    <Col><Button  variant="secondary" onClick={()=>{CompleteToDo({id: todo.id}); if (todo.state==='incomplete'){setStateUp('complete')}else{setStateUp('incomplete')}}}  style={{float:'right'}} ><Check/></Button></Col>
+                   </Row>
+                
+                    </Card>
+                )
+              })}
+              </div>
+            
+          </div>
+          </Container>
+        
+
+         
         </div>
+
+       
     </div>
   )
 }

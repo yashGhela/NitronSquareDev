@@ -101,13 +101,14 @@ function Timer() {
     
 
     
-
+  
     
 
     const AddToDo=async()=>{
       await addDoc(todoRef,{
         name: toDo,
-        state: 'incomplete'
+        state: 'incomplete',
+        date: format(new Date(), 'yyyy/MM/dd')
       })
      
     }
