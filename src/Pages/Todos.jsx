@@ -8,15 +8,19 @@ import Cookies from 'universal-cookie';
 import { db } from '../firebaseConfig'
 import { format } from 'date-fns'
 
+
 function Todos() {
     let nav=useNavigate();
     const date= new Date()
     const today=format(date, 'yyyy/MM/dd')
     const tomorrow= format(date.getDate()+1, 'yyyy/MM/dd')
     const cookie = new Cookies()
+    const paidt= cookie.get('PAIDT')
+
     const user=cookie.get('useraidt')
     const q= collection(db,'Users',user,'ToDos');
     const todoRef= query(q, orderBy('date','desc'))
+   
 
     const [todoExists, setTodoExists]=useState(true)
     const [todoList,setTodoList]=useState([]);
@@ -63,6 +67,7 @@ function Todos() {
         
           
         })
+
        
       
         
@@ -81,6 +86,7 @@ function Todos() {
      />
         </div>
 
+        {paidt==='Tnf'?
         <div className='bod'>
         <Card style={{
             
@@ -144,6 +150,30 @@ function Todos() {
 
          
         </div>
+        :
+        <div className='bod'>
+           <Card style={{
+            
+            margin:'20px',
+            height:'150px',
+            border: '3px solid  rgb(199, 78, 120)',
+            backgroundColor:'#17181a',
+            backgroundSize:'400% 400%',
+            textAlign:'center',
+            alignItems:'center',
+            color:'white',
+            padding:' 10px',
+            animation:'gradient 15s ease infinite'
+             }}>
+           <Card.Title ><h1 style={{FontWeight:'400', FontSize:'40px'}}>Todos</h1></Card.Title>
+         </Card>
+
+         <div style={{textAlign:'center', color:'lightgray'}}>
+          <p >Pro mode coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
+         </div>
+
+        </div>
+            }
 
        
     </div>

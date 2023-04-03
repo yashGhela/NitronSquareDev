@@ -4,7 +4,7 @@ import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup} from 'react-bootstrap';
+import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup,Badge} from 'react-bootstrap';
 
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
@@ -72,9 +72,15 @@ function Timer() {
 
 
     const nav=useNavigate();
+    const state=(todo)=>{
+      if(todo.state==='incomplete'){return('danger')}else{return('success')}
+    }
     
     const cookie = new Cookies()
-    const user=cookie.get('useraidt')
+    const user=cookie.get('useraidt');
+    const paidt= cookie.get('PAIDT');
+    const [stateUp,setStateUp]=useState('complete')
+
     let subject= location.state.subject;
     let OWT=location.state.Wtsum;
     let OBT=location.state.Btsum;
@@ -115,7 +121,7 @@ function Timer() {
 
     const CompleteToDo=async({id})=>{
       await updateDoc(doc(todoRef,id),{
-        state:'complete'
+        state:stateUp
       })
       
     }
@@ -431,7 +437,7 @@ function Timer() {
          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
        );
 
-       onSnapshot(todoQuery,(snap)=>{
+       onSnapshot(todoRef,(snap)=>{
         setToDoList(
           snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
         )
@@ -915,32 +921,40 @@ function Timer() {
         To Dos
       </Modal.Header>
       <Modal.Body>
-      <Form style={{display:'flex', padding:'20px'}}>
-        <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setToDo(e.target.value)}}/>
-        <Button onClick={()=>{AddToDo()}} variant='outline-light'>Add! </Button>
-      </Form>
-      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
-      
+      {paidt==='Tnf'?
+      <div>
+         <Form style={{display:'flex', padding:'20px'}}>
+       <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setToDo(e.target.value)}}/>
+       <Button onClick={()=>{AddToDo()}} variant='outline-light'>Add! </Button>
+     </Form>
+     <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+     
 
-      {ToDoList.map((todos)=>{
-        return(
-          <Card 
-          style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
-          
-          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-          minBreakpoint="xxs">
-           <Row>
-            <Col>
-            <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
-            <Col><Button  variant="secondary"  onClick={()=>{
-              CompleteToDo({id: todos.id})}} style={{float:'right'}} ><Check/></Button></Col>
-           </Row>
-        
-            </Card>
+     {ToDoList.map((todos)=>{
+       return(
+         <Card 
+         style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
          
-          
-        )
-      })}
+         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+         minBreakpoint="xxs">
+          <Row>
+           <Col>
+           <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
+           <Col><Badge pill bg={state(todos)}>{todos.state}</Badge></Col>
+           <Col><Button  variant="secondary"  onClick={()=>{
+             CompleteToDo({id: todos.id});if (todos.state==='incomplete'){setStateUp('complete')}else{setStateUp('incomplete')}}} style={{float:'right'}} ><Check/></Button></Col>
+          </Row>
+       
+           </Card>
+        
+         
+       )
+     })}
+      </div>
+     : <div style={{textAlign:'center', color:'black'}}>
+     <p >Pro mode coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
+    </div>}
+
 
       </Modal.Body>
 

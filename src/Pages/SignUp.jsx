@@ -235,45 +235,13 @@ function SignUp() {
       className='d-inline-block align-top'
        />
        <div style={{display:'flex', marginTop:'10px'}}>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setTCshow(true)}}>Terms & Conditions</p>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{setPPshow(true)}}>Privacy Policy</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/Ts&Cs')}}>Terms & Conditions</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/PrivacyPolicy')}}>Privacy Policy</p>
         
        </div>
        <p style={{marginRight:'20px',  color:'gray'}}>All Rights belong to Nitron Digital</p>
        </div>
-       <Modal
-       className="special_modal"
-       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-       minBreakpoint="xxs"
-         show={TCshow}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          onHide={()=>{setTCshow(false)}}
-          style={{color:'lightgray'}}
-          centered>
-             <Modal.Header closeButton closeVariant='white'>Terms and Conditions</Modal.Header>
-             <Modal.Body>
-              <TsCs/>
-             </Modal.Body>
-
-       </Modal>
-       <Modal
-       className="special_modal"
-       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-       minBreakpoint="xxs"
-         show={PPshow}
-          size="lg"
-          aria-labelledby="contained-modal-title-vcenter"
-          onHide={()=>{setPPshow(false)}}
-          style={{color:'lightgray'}}
-          centered>
-             <Modal.Header closeButton closeVariant='white'>Privacy Policy</Modal.Header>
-             <Modal.Body>
-              <PP/>
-             </Modal.Body>
-
-       </Modal>
-
+     
        <Modal
        className="thin_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}

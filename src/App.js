@@ -20,6 +20,8 @@ import Scope from './Pages/Scope';
 
 import Settings from './Pages/Settings';
 import { useEffect } from 'react';
+import PrivPol from './Pages/PrivPol';
+import TsCs from './Pages/TsCs';
 
 
 
@@ -45,6 +47,8 @@ const user =cookies.get('useraidt');
       <Routes>
       <Route path='/Login' element={<Login/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
+      <Route path='/PrivacyPolicy' element={<PrivPol/>}/>
+      <Route path='/Ts&Cs' element={<TsCs/>}/>
       <Route path='*' element={<NotFound/>}/>
         <Route path='/' element={<Login />}/>
      
