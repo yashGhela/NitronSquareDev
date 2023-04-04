@@ -501,7 +501,7 @@ function Timer() {
    const minutes = Math.floor(secondsLeft/60); 
    let seconds = secondsLeft%60;
    if (seconds<10) seconds='0'+seconds;
-   
+
   
  
      
@@ -530,7 +530,7 @@ function Timer() {
   fire.pause();
   rain.pause();
   alarm.pause()
-  
+
 }
 
   return (
