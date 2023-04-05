@@ -32,7 +32,7 @@ function Todos() {
     }
 
     const CompleteToDo=async({id})=>{
-      await updateDoc(doc(todoRef,id),{
+      await updateDoc(doc(q,id),{
         state:stateUp
       })
       
