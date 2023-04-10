@@ -102,7 +102,7 @@ function Login() {
           const errorCode = error.code;
           const errorMessage = error.message;
           setErrShow(true)
-          setErrMessage('This Email is already in use or is not entered correctly')
+          setErrMessage('Password or Email is incorrect')
         }
           )
       })

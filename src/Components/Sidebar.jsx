@@ -10,7 +10,7 @@ import { Button, Nav, OverlayTrigger, Tooltip, Container } from 'react-bootstrap
 import Cookies from 'universal-cookie';
 
 
-function Sidebar({L1,L2,L3,L4,L5}) {
+function Sidebar({L1,L2,L3,L4,L5, L6}) {
 
   let nav = useNavigate();
 
@@ -63,6 +63,13 @@ function Sidebar({L1,L2,L3,L4,L5}) {
        {L5}
        </OverlayTrigger>
       </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+       overlay={renderTooltip('Cards')}>
+       {L6}
+       </OverlayTrigger>
+      </Nav.Item>
+      
    
       <Nav.Item style={{marginTop:'47vh'}} >
        <OverlayTrigger

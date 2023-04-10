@@ -12,8 +12,7 @@ import { format } from 'date-fns'
 function Todos() {
     let nav=useNavigate();
     const date= new Date()
-    const today=format(date, 'yyyy/MM/dd')
-    const tomorrow= format(date.getDate()+1, 'yyyy/MM/dd')
+    
     const cookie = new Cookies()
     const paidt= cookie.get('PAIDT')
 
@@ -53,14 +52,14 @@ function Todos() {
       onSnapshot(todoRef,(snapshot)=>{
         if(snapshot.empty){
           setTodoExists(false)
-          console.log(todoList)
+        
         }else{
           setTodoList(
             snapshot.docs.map((doc)=>({...doc.data(),id:doc.id}))
           )
           setTodoExists(true)
           
-          console.log(todoList)
+          
           
 
         }
@@ -83,6 +82,7 @@ function Todos() {
         L3={<Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>}
         L4={<Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>}
         L5={<Button variant='light-outine'><Check2Square style={{color:'white'}}/></Button>}
+        L6={<Button variant='light-outine' onClick={()=>nav('/Cards')}><Wallet2 style={{color:'white'}}/></Button>}
      />
         </div>
 
