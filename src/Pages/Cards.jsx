@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear, Check2Square } from 'react-bootstrap-icons'
 import Sidebar from '../Components/Sidebar'
-import { Button, Card } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
+import { Button, Card, FormControl,Form, Modal } from 'react-bootstrap'
+import {  useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 
 function Cards() {
@@ -11,6 +11,15 @@ function Cards() {
     const paidt= cookie.get('PAIDT')
 
     const user=cookie.get('useraidt')
+
+
+    const [AddCardModal, setAddCardModal]= useState(false);
+    const [Title,SetTitle]=useState('');
+    const [Description,setDescription]=useState('');
+    const [Question, setQuestion]= useState('');
+    const [Answer, setAnswer]=useState('');
+    let CardsQA=[]
+
   return (
     <div className='Page'>
         <div className="navB">
@@ -41,11 +50,42 @@ function Cards() {
              animation:'gradient 15s ease infinite'
               }}>
             <Card.Title style={{  marginBottom:'30px'}}><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Cards</h1></Card.Title>
-            
+            <Button  variant='outline-light' onClick={()=>{setAddCardModal(true)}}  >Add a new Card Set</Button>
          
           
           </Card>
           </div>
+
+          <Modal
+           className="special_modal"
+           
+           show={AddCardModal}
+           
+            aria-labelledby="contained-modal-title-vcenter"
+            onHide={()=>{setAddCardModal(false)}}
+            style={{color:'lightgray'}}
+            centered>
+               <Modal.Header closeButton closeVariant='white'>
+           <Modal.Title style={{color:'lightgray'}}>
+            Add your Card set
+           </Modal.Title>
+           </Modal.Header>
+           <Modal.Body>
+            <Form>
+              <Form.Control  placeholder='Title' style={{marginBottom:'10px'}} onChange={(e)=>{SetTitle(e.target.value)}}/>
+              <Form.Control  as='textarea' rows={3} style={{resize:'none',marginBottom:'10px'}} placeholder='Description' onChange={(e)=>{setDescription(e.target.value)}}/>
+              <div style={{display:'flex'}}>
+              <Form.Control placeholder='Question' style={{width:'50%', marginRight:'10px'}} onChange={(e)=>{setQuestion(e.target.value)}}/>
+              <Form.Control placeholder='Answer' style={{width:'50%'}} onChange={(e)=>{setAnswer(e.target.value)}}/>
+              </div>
+              <Button variant='outline-light' style={{width:'100%', marginTop:'10px'}} >Add Card</Button>
+            </Form>
+           </Modal.Body>
+           <Modal.Footer>
+            <Button >Add</Button>
+           </Modal.Footer>
+
+          </Modal>
         </div>
         
         : 
