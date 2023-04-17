@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear, Check2Square } from 'react-bootstrap-icons'
 import Sidebar from '../Components/Sidebar'
-import { Button, Card, FormControl,Form, Modal, Row,Col, Container } from 'react-bootstrap'
+import { Button, Card, FormControl,Form, Modal, Row,Col, Container, Accordion } from 'react-bootstrap'
 import {  useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore'
@@ -17,13 +17,22 @@ function Cards() {
 
 
     const [AddCardModal, setAddCardModal]= useState(false);
+    const [cardDetailsM, setCardDetailsM]=useState(false)
+    const [cardActionM,setCardActionM]=useState(false);
+    const [CardData, setCardData]=useState([])
     const [CardList,setCardList]=useState([]);
     const [Title,SetTitle]=useState('');
     const [Description,setDescription]=useState('');
     const [Question, setQuestion]= useState('');
     const [Answer, setAnswer]=useState('');
+    const [arrQna, setArrQna]=useState(CardData.QnA);
+    const [AoQ, setAoQ]=useState('Q')
+    const [currData,setCurrData]=useState('');
     const [arr,setArr]=useState([])
   
+    const cards=CardData.QnA;
+
+    const cardCounter=0;
     
 
     const addCard=({q,a})=>{
@@ -108,7 +117,8 @@ function Cards() {
             {CardList.map((set)=>{
                return(
                 <Col style={{width:'450px'}}  xs='2' >
-                <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}} >
+                <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}}  
+                onClick={()=>{setCardDetailsM(true); setCardData(set)}}>
                <Card.Body>
                 <Card.Title>{set.Title}</Card.Title>
                  <Card.Text>
@@ -166,6 +176,87 @@ function Cards() {
            </Modal.Footer>
 
           </Modal>
+
+         <div>
+         <Modal
+           className="special_modal"
+           
+           show={cardDetailsM}
+           
+            aria-labelledby="contained-modal-title-vcenter"
+            onHide={()=>{setCardDetailsM(false)}}
+            style={{color:'lightgray'}}
+            centered>
+              <Modal.Header closeButton closeVariant='white'>
+              <Modal.Title>Your Card</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+              <div className="subject" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                      <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Name: </h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{CardData.Title}</h4>
+               </div>
+
+              <div className="desc" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
+                <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{CardData.Description}</p>
+              </div>
+
+              <div>
+                {CardData.QnA?.map((i)=>{
+                  return(
+                    <Accordion style={{background:'rgb(12,12,12)', borderRadius:'10px', marginBottom:'10px' }}  className='special_modal'>
+                       <Accordion.Header >
+                        {i.Q}
+                      </Accordion.Header>
+                      <Accordion.Body>
+                        {i.A}
+                      </Accordion.Body>
+
+                    </Accordion>
+                  )
+                })}
+             
+              </div>
+              </Modal.Body>
+
+              <Modal.Footer>
+                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); setArrQna(CardData.QnA); setCurrData(arrQna[0].AoQ) }}>Start Now!</Button>
+              </Modal.Footer>
+
+
+            </Modal>
+         </div>
+            <div>
+            <Modal
+           className="special_modal"
+           
+           show={cardActionM}
+           
+            aria-labelledby="contained-modal-title-vcenter"
+            onHide={()=>{setCardActionM(false)}}
+            style={{color:'lightgray'}}
+            centered>
+              <Modal.Header closeButton closeVariant='white'>
+              <Modal.Title>Card Session</Modal.Title>
+              </Modal.Header>
+
+              <Modal.Body>
+              <div className="subject" 
+              style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', cursor:'pointer'}}
+              onClick={()=>{setAoQ('A')}}
+              
+              >
+                      
+                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{currData}</h4>
+               </div>
+
+              </Modal.Body>
+
+
+
+            </Modal>
+            </div>
         </div>
         
         : 

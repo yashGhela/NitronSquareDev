@@ -74,6 +74,7 @@
     background-color: rgb(12, 12, 12) !important;
     color: white!important;
     margin-bottom: 5px !important;
+    border-radius: 10px;
   }
   
   .special_modal .accordion-button:focus {
