@@ -13,7 +13,8 @@ function Cards() {
     const paidt= cookie.get('PAIDT')
 
     const user=cookie.get('useraidt');
-    var objectsArray=[]
+    var objectsArray=[];
+
 
 
     const [AddCardModal, setAddCardModal]= useState(false);
@@ -25,22 +26,25 @@ function Cards() {
     const [Description,setDescription]=useState('');
     const [Question, setQuestion]= useState('');
     const [Answer, setAnswer]=useState('');
-    const [arrQna, setArrQna]=useState(CardData.QnA);
-    const [AoQ, setAoQ]=useState('Q')
-    const [currData,setCurrData]=useState('');
+    const [arrQna, setArrQna]=useState([]);
+    const [cardQA,setCardQA]=useState('')
+    
     const [arr,setArr]=useState([])
   
-    const cards=CardData.QnA;
+  
+   const [counter, setCounter]=useState(0)
+   
 
-    const cardCounter=0;
+   
     
+ 
 
     const addCard=({q,a})=>{
       setArr((prev)=>[...prev,{Q:q, A:a}]);
      
       setQuestion('');
       setAnswer('');
-      console.log(arr)
+      
       
 
     }
@@ -51,13 +55,14 @@ function Cards() {
  
     
  
+     
       onSnapshot(ref, (snapshot) => {
       
         
           setCardList(
             snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
           );
-          console.log(arr)
+          
             
         
         
@@ -118,7 +123,7 @@ function Cards() {
                return(
                 <Col style={{width:'450px'}}  xs='2' >
                 <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}}  
-                onClick={()=>{setCardDetailsM(true); setCardData(set)}}>
+                onClick={()=>{setCardDetailsM(true); setCardData(set);setArrQna(CardData.QnA);console.log(CardData.QnA) }}>
                <Card.Body>
                 <Card.Title>{set.Title}</Card.Title>
                  <Card.Text>
@@ -221,7 +226,7 @@ function Cards() {
               </Modal.Body>
 
               <Modal.Footer>
-                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); setArrQna(CardData.QnA); setCurrData(arrQna[0].AoQ) }}>Start Now!</Button>
+                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); }}>Start Now!</Button>
               </Modal.Footer>
 
 
@@ -244,11 +249,11 @@ function Cards() {
               <Modal.Body>
               <div className="subject" 
               style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', cursor:'pointer'}}
-              onClick={()=>{setAoQ('A')}}
+              
               
               >
                       
-                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{currData}</h4>
+                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{arrQna[counter].Q}</h4>
                </div>
 
               </Modal.Body>
