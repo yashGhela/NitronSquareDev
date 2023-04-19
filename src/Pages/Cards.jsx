@@ -5,6 +5,7 @@ import { Button, Card, FormControl,Form, Modal, Row,Col, Container, Accordion } 
 import {  useNavigate } from 'react-router-dom'
 import Cookies from 'universal-cookie';
 import { addDoc, collection, onSnapshot } from 'firebase/firestore'
+import ReactPaginate from 'react-paginate'
 import { db } from '../firebaseConfig'
 
 function Cards() {
@@ -26,13 +27,29 @@ function Cards() {
     const [Description,setDescription]=useState('');
     const [Question, setQuestion]= useState('');
     const [Answer, setAnswer]=useState('');
-    const [arrQna, setArrQna]=useState([]);
-    const [cardQA,setCardQA]=useState('')
+  
+
+    
+    let items=[]
+      const [currentPage,setCurrentPage]=useState(1)
+      
+      const [postsPerPage] = useState(1);
+    
+
+      const indexOfLastPost = currentPage * postsPerPage;
+      const indexOfFirstPost = indexOfLastPost - postsPerPage;
+      const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
+    
+  
+      const paginate = ({ selected }) => {
+        setCurrentPage(selected + 1);
+     };
+   
     
     const [arr,setArr]=useState([])
   
   
-   const [counter, setCounter]=useState(0)
+  
    
 
    
@@ -51,6 +68,7 @@ function Cards() {
     const ref=collection(db,'Users', user, 'Cards');
 
     useEffect(() => {  
+   
     
  
     
@@ -123,7 +141,7 @@ function Cards() {
                return(
                 <Col style={{width:'450px'}}  xs='2' >
                 <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}}  
-                onClick={()=>{setCardDetailsM(true); setCardData(set);setArrQna(CardData.QnA);console.log(CardData.QnA) }}>
+                onClick={()=>{setCardDetailsM(true); setCardData(set)}}>
                <Card.Body>
                 <Card.Title>{set.Title}</Card.Title>
                  <Card.Text>
@@ -226,7 +244,7 @@ function Cards() {
               </Modal.Body>
 
               <Modal.Footer>
-                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); }}>Start Now!</Button>
+                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); items=CardData.QnA; console.log(items) }}>Start Now!</Button>
               </Modal.Footer>
 
 
@@ -253,8 +271,26 @@ function Cards() {
               
               >
                       
-                       <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{arrQna[counter].Q}</h4>
+                                      <div>
+                      {currentPosts.map((item) => (
+                        <h4>{item.Q}</h4>
+                      ))}
+                     
+                    </div>
+
                </div>
+                <ReactPaginate
+                  onPageChange={paginate}
+                  pageCount={Math.ceil(items.length / postsPerPage)}
+                  previousLabel={<Button variant='dark' style={{marginRight:'20px'}}>Previous</Button>}
+                  nextLabel={<Button variant='dark'>Next</Button>}
+                  containerClassName={'pagination'}
+                  pageLinkClassName={'page-number'}
+                  previousLinkClassName={'page-number'}
+                  nextLinkClassName={'page-number'}
+                  activeLinkClassName={'active'}
+               />
+            
 
               </Modal.Body>
 
