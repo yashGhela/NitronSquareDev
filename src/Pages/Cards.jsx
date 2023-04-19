@@ -26,24 +26,21 @@ function Cards() {
     const [Title,SetTitle]=useState('');
     const [Description,setDescription]=useState('');
     const [Question, setQuestion]= useState('');
+    
     const [Answer, setAnswer]=useState('');
   
 
     
     let items=[]
-      const [currentPage,setCurrentPage]=useState(1)
-      
-      const [postsPerPage] = useState(1);
-    
+    const [show,setShow]=useState('');
 
-      const indexOfLastPost = currentPage * postsPerPage;
-      const indexOfFirstPost = indexOfLastPost - postsPerPage;
-      const currentPosts = items.slice(indexOfFirstPost, indexOfLastPost);
     
-  
-      const paginate = ({ selected }) => {
-        setCurrentPage(selected + 1);
-     };
+    
+    const [showQA,setShowQA]=useState('')
+   
+    let currentPage=0;
+    let lastPage=currentPage-1;
+    let nextPage=currentPage+1
    
     
     const [arr,setArr]=useState([])
@@ -141,7 +138,7 @@ function Cards() {
                return(
                 <Col style={{width:'450px'}}  xs='2' >
                 <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}}  
-                onClick={()=>{setCardDetailsM(true); setCardData(set)}}>
+                onClick={()=>{setCardDetailsM(true); setCardData(set);items=CardData.QnA; console.log(items); setShow(items[currentPage]); setShowQA(show.Q)}}>
                <Card.Body>
                 <Card.Title>{set.Title}</Card.Title>
                  <Card.Text>
@@ -244,7 +241,7 @@ function Cards() {
               </Modal.Body>
 
               <Modal.Footer>
-                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true); items=CardData.QnA; console.log(items) }}>Start Now!</Button>
+                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true);  }}>Start Now!</Button>
               </Modal.Footer>
 
 
@@ -267,29 +264,18 @@ function Cards() {
               <Modal.Body>
               <div className="subject" 
               style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', cursor:'pointer'}}
-              
+              onClick={()=>{setShowQA(show.A)}}
               
               >
-                      
-                                      <div>
-                      {currentPosts.map((item) => (
-                        <h4>{item.Q}</h4>
-                      ))}
-                     
-                    </div>
+
+              <h4 >{showQA}</h4>
+
 
                </div>
-                <ReactPaginate
-                  onPageChange={paginate}
-                  pageCount={Math.ceil(items.length / postsPerPage)}
-                  previousLabel={<Button variant='dark' style={{marginRight:'20px'}}>Previous</Button>}
-                  nextLabel={<Button variant='dark'>Next</Button>}
-                  containerClassName={'pagination'}
-                  pageLinkClassName={'page-number'}
-                  previousLinkClassName={'page-number'}
-                  nextLinkClassName={'page-number'}
-                  activeLinkClassName={'active'}
-               />
+               <div style={{display:'flex'}}>
+               <Button variant='dark' style={{marginRight:'20px'}}>Previous</Button>
+               <Button variant='dark' >Next</Button>
+               </div>
             
 
               </Modal.Body>
