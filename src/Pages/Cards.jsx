@@ -15,7 +15,8 @@ function Cards() {
 
     const user=cookie.get('useraidt');
     var objectsArray=[];
-
+ 
+    const NOVISION=false;
 
 
     const [AddCardModal, setAddCardModal]= useState(false);
@@ -108,7 +109,7 @@ function Cards() {
      />
         </div>
 
-        {paidt==='Tnf'?
+        {NOVISION===true?
         <div className="bod">
             <div className="top">
          <Card style={{
@@ -138,7 +139,10 @@ function Cards() {
                return(
                 <Col style={{width:'450px'}}  xs='2' >
                 <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}}  
-                onClick={()=>{setCardDetailsM(true); setCardData(set);items=CardData.QnA; console.log(items); setShow(items[currentPage]); setShowQA(show.Q)}}>
+                onClick={()=>{setCardDetailsM(true);
+                 setCardData(set);
+                 items=CardData.QnA;
+                  console.log(items)}}>
                <Card.Body>
                 <Card.Title>{set.Title}</Card.Title>
                  <Card.Text>
@@ -241,7 +245,7 @@ function Cards() {
               </Modal.Body>
 
               <Modal.Footer>
-                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true);  }}>Start Now!</Button>
+                <Button onClick={()=>{setCardDetailsM(false); setCardActionM(true);  setShow(items[currentPage]); setShowQA(show.Q) }}>Start Now!</Button>
               </Modal.Footer>
 
 
@@ -274,7 +278,7 @@ function Cards() {
                </div>
                <div style={{display:'flex'}}>
                <Button variant='dark' style={{marginRight:'20px'}}>Previous</Button>
-               <Button variant='dark' >Next</Button>
+               <Button variant='dark'>Next</Button>
                </div>
             
 
@@ -305,7 +309,7 @@ function Cards() {
          </Card>
 
          <div style={{textAlign:'center', color:'lightgray'}}>
-          <p >Pro mode coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
+          <p >Feature coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
          </div>
 
         </div>}
