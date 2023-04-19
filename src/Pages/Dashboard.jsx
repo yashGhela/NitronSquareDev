@@ -17,6 +17,9 @@ function Dashboard() {
 
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
+  const paidt= cookie.get('PAIDT')
+
+  
   
   const subRef=collection(db, 'Users',user,'Sessions');
   const [recsesList, setRecsesList]=useState([]); //Recent Sessions 
@@ -80,12 +83,24 @@ function Dashboard() {
    
     
   }
+  
+  const[maxTime,setMaxTime]=useState(0)
+
  
  const q = query(subRef,orderBy('time', 'desc'),limit(5));
+
+ const proTimeVal=()=>{
+  if(paidt==='Tnf'){
+    setMaxTime(140)
+  }else {
+    setMaxTime(60)
+  }
+ }
 
 
  useEffect(() => {  //loads all the 
  
+  proTimeVal()
   onSnapshot(scopeQ, (snapshot) => {
     if(snapshot.empty){
       setScopesExists(false)
@@ -249,7 +264,7 @@ function Dashboard() {
               value={workMinutes}
               onChange={newValue => setWorkMinutes(newValue)}
               min={1}
-              max={120}
+              max={maxTime}
               
               
               />
@@ -265,7 +280,7 @@ function Dashboard() {
               onChange={newValue => setBreakMinutes(newValue)}
               min={1}
               
-              max={120}
+              max={maxTime}
               
               
               />
