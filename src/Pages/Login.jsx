@@ -50,7 +50,7 @@ function Login() {
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
           cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
-          if (snapshot.data().tier==='pro'){
+          if (snapshot.data().type==='pro' || snapshot.data().tier==='pro'){
             cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
           }
           localStorage.setItem('isAuth', true)
@@ -83,7 +83,7 @@ function Login() {
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
           cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
-          if (snapshot.data().tier==='pro'){
+          if (snapshot.data().type==='pro' || snapshot.data().tier==='pro'){
             cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
           }
           localStorage.setItem('isAuth', true)

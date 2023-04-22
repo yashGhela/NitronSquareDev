@@ -1,10 +1,10 @@
-import { addDoc, collection,doc,getDoc, getDocs, query, limit, where, onSnapshot,updateDoc,arrayUnion, arrayRemove, orderBy} from 'firebase/firestore';
+import { addDoc, collection,doc,getDoc, getDocs, query, limit, where, onSnapshot,updateDoc,arrayUnion, arrayRemove, orderBy, getCountFromServer} from 'firebase/firestore';
 import React, { useEffect, useState , useRef} from 'react'
 import { CircularProgressbar, buildStyles} from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import {  useNavigate , useLocation} from 'react-router-dom';
 import { db, storage } from '../firebaseConfig';
-import { Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup,Badge} from 'react-bootstrap';
+import {Alert, Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup,Badge} from 'react-bootstrap';
 
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
@@ -135,6 +135,7 @@ function Timer() {
     const [mediaShow, setMediaShow]= useState(false);
     const [trendShow, setTrendShow] = useState(false);
     const [scopeShow, setScopeShow] = useState(false);
+    const [alert,showAlert]=useState(false)
     const [timerShow, setTimerShow] = useState(false);
     const [newtimershow,setNewTimerShow]=useState(false);
     const [imageShow, setImageShow]=useState(false);
@@ -411,11 +412,20 @@ function Timer() {
       setSecondsLeft(secondsLeftRef.current);
       
    }
+
+   const proTimeVal=()=>{
+    if(paidt==='Tnf'){
+      setMaxTime(180)
+    }else {
+      setMaxTime(90)
+    }
+   }
+   const[maxTime,setMaxTime]=useState(0)
   
 
    useEffect(()=>{
     docSnap()
-   
+    proTimeVal()
    
    
   
@@ -513,23 +523,55 @@ function Timer() {
  //AddDoc function
 
  const doneHand=async()=>{
-  await addDoc(collection(db, 'Users',user,'Sessions'),{
-    WorkTime: finWorkTime,
-    BreakTime: finBreakTime,
-    subject: subject,
-    description: description,
-    rating: rating,
-    time: format(new Date(), 'yyyy/MM/dd')
+  await getDoc(doc(db,'Users',user)).then(async (snap)=>{
+    if(snap.data().type==='free'){
+      const colRef=collection(db,'Users',user,'Sessions');
+      await getCountFromServer(colRef).then(async (snap)=>{
+        if (snap.data().count<500){
+          await addDoc(collection(db, 'Users',user,'Sessions'),{
+            WorkTime: finWorkTime,
+            BreakTime: finBreakTime,
+            subject: subject,
+            description: description,
+            rating: rating,
+            time: format(new Date(), 'yyyy/MM/dd')
+        
+        
+          })
+          tree.pause();
+          ocean.pause();
+          wind.pause();
+          night.pause();
+          fire.pause();
+          rain.pause();
+          alarm.pause();
+          nav(`/Dashboard/`)
+        }else {
+          showAlert(true)
+        }
 
-
+      })
+    }else {
+      await addDoc(collection(db, 'Users',user,'Sessions'),{
+        WorkTime: finWorkTime,
+        BreakTime: finBreakTime,
+        subject: subject,
+        description: description,
+        rating: rating,
+        time: format(new Date(), 'yyyy/MM/dd')
+    
+    
+      })
+      tree.pause();
+      ocean.pause();
+      wind.pause();
+      night.pause();
+      fire.pause();
+      rain.pause();
+      alarm.pause();
+      nav(`/Dashboard/`)
+    }
   })
-  tree.pause();
-  ocean.pause();
-  wind.pause();
-  night.pause();
-  fire.pause();
-  rain.pause();
-  alarm.pause()
 
 }
 
@@ -607,8 +649,9 @@ function Timer() {
        </Form>
       </Modal.Body>
       <Modal.Footer>
+        {alert&&<Alert variant='warning'>You have already created 500 sessions, click here to upgrade to pro for unlimited sessions. <span style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}>Upgrade</span></Alert>}
  
-       <Button onClick={()=>{doneHand();nav(`/Dashboard/`)}} >Done</Button>
+       <Button onClick={()=>{doneHand();}} >Done</Button>
       </Modal.Footer>
     </Modal>
 
@@ -694,7 +737,7 @@ function Timer() {
               value={newWorkMinutes}
               onChange={newValue => setNewWorkMinutes(newValue)}
               min={1}
-              max={120}
+              max={maxTime}
               
               
               />
@@ -710,7 +753,7 @@ function Timer() {
               onChange={newValue => setNewBreakMinutes(newValue)}
               min={1}
               
-              max={120}
+              max={maxTime}
               
               
               />
