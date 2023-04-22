@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas, Badge, Toast} from 'react-bootstrap'
+import { Alert,Button , Card, Modal, Accordion, Col, Row, Container,Form, Offcanvas, Badge, Toast} from 'react-bootstrap'
 import {Speedometer,CardText,BarChart, Journals, Bullseye, Check, Journal, Archive, Wallet2, Check2Square } from 'react-bootstrap-icons'
 import {  useNavigate } from 'react-router-dom'
 import Sidebar from '../Components/Sidebar'
@@ -7,7 +7,7 @@ import Cookies from 'universal-cookie'
 import { Hr } from 'react-bootstrap-icons'
 import { db } from '../firebaseConfig'
 import { useEffect } from 'react'
-import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy, deleteDoc, addDoc } from 'firebase/firestore'
+import { onSnapshot, collection, updateDoc, arrayRemove, arrayUnion,doc, query, orderBy, deleteDoc, addDoc, getDoc, getCountFromServer } from 'firebase/firestore'
 import { useState } from 'react'
 
 import { format } from 'date-fns/esm';
@@ -33,6 +33,7 @@ function Scope() {
   
     const [Newtitle, setNewTitle]=useState();
     const [Newdescription, setNewDescritption]=useState('');
+    const [alert, showAlert]=useState(false)
     
     const [disabled, setDisabled]=useState(true);
     const [task, setTask]=useState('');
@@ -45,16 +46,38 @@ function Scope() {
   
     const addScope=async()=>{
       
-      const subref= collection(db,'Users',user,'Scopes');
-      await addDoc(subref, {
-        title: Newtitle,
-        description: Newdescription,
-        incomplete: NewtaskList,
-        complete: [],
-        date: format(new Date(), 'yyyy/MM/dd')
-      })
-      setOffShow(false)
-      setNewTaskList([])
+     await getDoc(doc(db,'Users',user)).then(async(snap)=>{
+      if(snap.data().type==='free'){
+        const colref=collection(db, 'Users',user,'Sessions');
+        await getCountFromServer(colref).then(async(snap)=>{
+          if(snap.data().count<50){
+            const subref= collection(db,'Users',user,'Scopes');
+            await addDoc(subref, {
+              title: Newtitle,
+              description: Newdescription,
+              incomplete: NewtaskList,
+              complete: [],
+              date: format(new Date(), 'yyyy/MM/dd')
+            })
+            setOffShow(false)
+            setNewTaskList([])
+          }else{
+            showAlert(true)
+          }
+        })
+      }else {
+        const subref= collection(db,'Users',user,'Scopes');
+        await addDoc(subref, {
+          title: Newtitle,
+          description: Newdescription,
+          incomplete: NewtaskList,
+          complete: [],
+          date: format(new Date(), 'yyyy/MM/dd')
+        })
+        setOffShow(false)
+        setNewTaskList([])
+      }
+     })
       
     }
 
@@ -344,6 +367,7 @@ function Scope() {
             )
           })}
          </div>
+         {alert&&<Alert variant='warning'>You have already created 50 scopes, click here to upgrade to pro for unlimited sessions. <span style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}>Upgrade</span></Alert>}
 
           <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled}>Finish</Button>
           </div>
