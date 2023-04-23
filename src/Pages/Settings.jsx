@@ -1,7 +1,12 @@
 import React from 'react'
 import { Button, Card, Container,Row,Col, Modal, ButtonGroup } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
-import GooglePayButton from '@google-pay/button-react'
+import {
+	PayPalScriptProvider,
+	PayPalButtons,
+	usePayPalScriptReducer
+} from "@paypal/react-paypal-js";
+
 import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs} from 'firebase/firestore'
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
@@ -13,25 +18,36 @@ import { useEffect } from 'react'
 import { async } from '@firebase/util'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
+import { PayPalButton } from 'react-paypal-button-v2'
     
-const Paddle = window.Paddle;
+
 function Settings() {
 
 
-      
-  const [TCshow, setTCshow]=useState(false)
-  const [PPshow, setPPshow]= useState(false);
-  const [email,setEmail]= useState('');
-  const [cancelURL, setCancelURL]=useState('');
-  const [updateURL, setUpdateURL]= useState('');
-  const [docUID, setDocUID]= useState('')
-  const [disabled, setDisabled]= useState(false);
+
+
+  const paypalSubscribe = (data, actions) => {
+    return actions.subscription.create({
+    'plan_id': "P-9TB1232794763483RMRCQQDY",
+    });
+    };
+    const paypalOnError = (err) => {
+    console.log("Error")
+    }
+    const paypalOnApprove = (data, detail) => {
+    // call the backend api to store transaction details
+    console.log("Payment approved")
+    console.log(data)
+    };
+   
+  
   
 
     let nav=useNavigate()
     
     const cookie = new Cookies()
     const user=cookie.get('useraidt')
+    const paidt= cookie.get('PAIDT')
 
    
 
@@ -92,6 +108,8 @@ function Settings() {
        
     }
 
+  
+
 
 
 
@@ -127,6 +145,33 @@ function Settings() {
           
 
 
+          <div className="Subjects" style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto'}}>
+           <h2 style={{color:'lightgray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Your Account:</h2>
+
+           {paidt==='Tnf'?
+           <div style={{padding:'20px', }}>
+            <Button variant='outline-danger'>Cancel Subscription</Button>
+
+
+           </div>
+           :<div style={{width:'30%'}}>
+              <PayPalButton
+              
+              amount = "$5"
+              currency = "USD"
+              createSubscription={paypalSubscribe}
+              onApprove={paypalOnApprove}
+              catchError={paypalOnError}
+              onError={paypalOnError}
+              onCancel={paypalOnError}
+              />
+                  
+           
+            
+            </div>}
+      
+        
+           </div>
 
 
            <div className="Subjects" style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto'}}>
