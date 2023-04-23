@@ -7,7 +7,7 @@ import {
 	usePayPalScriptReducer
 } from "@paypal/react-paypal-js";
 
-import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs} from 'firebase/firestore'
+import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs, addDoc} from 'firebase/firestore'
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
 import { db,auth } from '../firebaseConfig'
@@ -25,6 +25,7 @@ function Settings() {
 
 
 
+  const nextYear = new Date();
 
   const paypalSubscribe = (data, actions) => {
     return actions.subscription.create({
@@ -37,8 +38,20 @@ function Settings() {
     const paypalOnApprove = (data, detail) => {
     // call the backend api to store transaction details
     console.log("Payment approved")
-    console.log(data)
+    updateToPro({data:data})
+    cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
     };
+    
+    const updateToPro=async({data})=>{
+      await updateDoc(doc(db,'Users',user),{
+        type: 'pro'
+      });
+      await addDoc(collection(db,'Users',user,'Subscription'),{
+        data: data
+      })
+      
+
+    }
    
   
   
@@ -150,7 +163,10 @@ function Settings() {
 
            {paidt==='Tnf'?
            <div style={{padding:'20px', }}>
-            <Button variant='outline-danger'>Cancel Subscription</Button>
+            <Button variant='outline-danger'
+           
+            >Cancel Subscription</Button>
+            <p style={{color:'lightgray', marginTop:'20px'}}> If you are experiencing difficulties cancelling your subscription,<br/> please contact us at info@nitrondigital.com </p>
 
 
            </div>

@@ -39,7 +39,7 @@ function Todos() {
 
     
     const AddToDo=async()=>{
-      await addDoc(todoRef,{
+      await addDoc(q,{
         name: todo,
         state: 'incomplete',
         date: format(new Date(), 'yyyy/MM/dd')
