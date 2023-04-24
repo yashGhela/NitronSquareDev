@@ -23,8 +23,12 @@ import { PayPalButton } from 'react-paypal-button-v2'
 
 function Settings() {
 
+  const [cancelMod, setCancelMod]=useState(false)
 
 
+  const cookie = new Cookies()
+  const user=cookie.get('useraidt')
+  const paidt= cookie.get('PAIDT')
   const nextYear = new Date();
 
   const paypalSubscribe = (data, actions) => {
@@ -36,8 +40,6 @@ function Settings() {
     console.log("Error")
     }
     const paypalOnApprove = (data, detail) => {
-    // call the backend api to store transaction details
-    console.log("Payment approved")
     updateToPro({data:data})
     cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
     };
@@ -58,9 +60,15 @@ function Settings() {
 
     let nav=useNavigate()
     
-    const cookie = new Cookies()
-    const user=cookie.get('useraidt')
-    const paidt= cookie.get('PAIDT')
+   
+
+    const cancelSub=async()=>{
+      await updateDoc(doc(db,'Users',user),{
+        type: 'free'
+      });
+      cookie.remove('PAIDT',{path:'/'});
+      setCancelMod(false)
+    }
 
    
 
@@ -158,21 +166,52 @@ function Settings() {
           
 
 
-          <div className="Subjects" style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto'}}>
+          <div className="Your Account" style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto'}}>
            <h2 style={{color:'lightgray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Your Account:</h2>
 
            {paidt==='Tnf'?
            <div style={{padding:'20px', }}>
             <Button variant='outline-danger'
-           
+            
+            onClick={()=>{setCancelMod(true)}}
             >Cancel Subscription</Button>
             <p style={{color:'lightgray', marginTop:'20px'}}> If you are experiencing difficulties cancelling your subscription,<br/> please contact us at info@nitrondigital.com </p>
+            <Modal
+             aria-labelledby="contained-modal-title-vcenter"
+             centered
+              show={cancelMod}
+              onHide={()=>setCancelMod(false)}
+              className='special_modal'>
+                <Modal.Header closeButton closeVariant='white' >Cancel Subscription</Modal.Header>
+                <Modal.Body>
+                  <p style={{color:'lightgray'}}>Are you sure you want to cancel your subscription?</p>
+                  <div style={{display:'flex'}}>
+                    <Button variant='outline-danger' onClick={()=>{cancelSub()}} style={{marginRight:'5px', width:'50%'}}>Yes</Button>
+                    <Button variant='outline-light' onClick={()=>setCancelMod(false)} style={{marginRight:'5px', width:'50%'}}>No</Button>
+                  </div>
+                </Modal.Body>
+              </Modal>
+
 
 
            </div>
            :<div style={{width:'30%'}}>
-              <PayPalButton
+              <Card
               
+              style={{background:'#282b2e',border:'3px solid rgb(97, 149, 232)' , display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'lightgray', overflow:'auto'}}
+              >
+                <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
+                <h1 style={{fontSize:'50px'}}>$5/m</h1>
+                <span>✔️Unlimited Sessions</span>
+                <span>✔️Unlimited Scopes</span>
+                <span>✔️Todos </span>
+                <span>✔️All Creator Kits</span>
+                <span>✔️Up to 180 minutes a session</span>
+                <span>✔️Upcoming features</span>
+                <hr/>
+
+                <PayPalButton
+              style={{color:'blue'}}
               amount = "$5"
               currency = "USD"
               createSubscription={paypalSubscribe}
@@ -181,6 +220,10 @@ function Settings() {
               onError={paypalOnError}
               onCancel={paypalOnError}
               />
+
+                
+              </Card>
+             
                   
            
             
