@@ -1,16 +1,12 @@
 import React from 'react'
 import { Button, Card, Container,Row,Col, Modal, ButtonGroup } from 'react-bootstrap'
 import Sidebar from '../Components/Sidebar'
-import {
-	PayPalScriptProvider,
-	PayPalButtons,
-	usePayPalScriptReducer
-} from "@paypal/react-paypal-js";
 
-import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs, addDoc} from 'firebase/firestore'
+
+import {arrayRemove, collection, deleteDoc, doc,getDoc, query, updateDoc, where, getDocs, setDoc} from 'firebase/firestore'
 import Cookies from 'universal-cookie'
 import { useState } from 'react'
-import { db,auth } from '../firebaseConfig'
+import { db,auth, functions } from '../firebaseConfig'
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram , Journal, Archive, Check2Square, Wallet2} from 'react-bootstrap-icons'
 import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
@@ -19,11 +15,15 @@ import { async } from '@firebase/util'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 import { PayPalButton } from 'react-paypal-button-v2'
+
+import {  httpsCallable } from 'firebase/functions'
     
 
 function Settings() {
 
   const [cancelMod, setCancelMod]=useState(false)
+ const [subID, setSubID]=useState('')
+
 
 
   const cookie = new Cookies()
@@ -48,7 +48,7 @@ function Settings() {
       await updateDoc(doc(db,'Users',user),{
         type: 'pro'
       });
-      await addDoc(collection(db,'Users',user,'Subscription'),{
+      await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
         data: data
       })
       
@@ -106,14 +106,34 @@ function Settings() {
    
     
   })
+  const subId=async()=>{
+    await getDoc(doc(db,'Users',user,'Subscription','SubDetails')).then((snap)=>{
+      const data=snap.data().data
+      setSubID(data.subscriptionID)
+    });
+  }
 
-    useEffect(()=>{
+    useEffect( ()=>{
         docSnap();
+        subId()
+       
+        
         
         
 
 
-    },[])
+    },[]);
+
+    const callFunction=event=>{
+     
+      const callableFunc=httpsCallable(functions,'cancelPaypalSubscription');
+
+      callableFunc({id: subID}).then((result) => {
+        console.log(result.data.output);
+      }).catch((error) => {
+        console.log(`error: ${JSON.stringify(error)}`);
+      });
+    }
 
     
 
@@ -173,7 +193,7 @@ function Settings() {
            <div style={{padding:'20px', }}>
             <Button variant='outline-danger'
             
-            onClick={()=>{setCancelMod(true)}}
+            onClick={()=>{setCancelMod(true);console.log(subID)}}
             >Cancel Subscription</Button>
             <p style={{color:'lightgray', marginTop:'20px'}}> If you are experiencing difficulties cancelling your subscription,<br/> please contact us at info@nitrondigital.com </p>
             <Modal
@@ -186,7 +206,7 @@ function Settings() {
                 <Modal.Body>
                   <p style={{color:'lightgray'}}>Are you sure you want to cancel your subscription?</p>
                   <div style={{display:'flex'}}>
-                    <Button variant='outline-danger' onClick={()=>{cancelSub()}} style={{marginRight:'5px', width:'50%'}}>Yes</Button>
+                    <Button variant='outline-danger' onClick={()=>{cancelSub(); callFunction()}} style={{marginRight:'5px', width:'50%'}}>Yes</Button>
                     <Button variant='outline-light' onClick={()=>setCancelMod(false)} style={{marginRight:'5px', width:'50%'}}>No</Button>
                   </div>
                 </Modal.Body>

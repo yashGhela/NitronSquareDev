@@ -13,12 +13,11 @@ admin.initializeApp(
 );
 
 
-exports.cancelPaypalSubscription = functions.https.onRequest(async (req, res) => {
-  const id = req.query.id;
+exports.cancelPaypalSubscription = functions.https.onCall(async (id, res) => {
   const post = bent(
     'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + id,
     'POST',
-    {'Authorization': 'Basic ' + functions.config().paypal.key,
+    {
      'Content-Type': 'application/json',
     });
   return await post('/cancel', {reason: 'User downgraded'});
