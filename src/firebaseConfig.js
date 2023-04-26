@@ -5,7 +5,7 @@ import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import { getAnalytics } from "firebase/analytics";
 import 'firebase/functions';
 import {getStorage} from 'firebase/storage'
-import { getFunctions } from "firebase/functions";
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 
 
 
@@ -27,5 +27,6 @@ const firebaseConfig = {
   const storage=getStorage(app)
   const analytics = getAnalytics(app);
   const functions=getFunctions(app,'us-central1')
+
 
   export {db, auth, provider,storage,functions};

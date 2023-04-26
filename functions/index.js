@@ -12,12 +12,15 @@ admin.initializeApp(
   },
 );
 
+const CLIENTID='ATV2Co73t1tlgpv3pR_tKU7RQVo4CO1cpwLj-KQ4XFuVDzi1BfDKpcl83XnVeE1ynQZOYuDnIHcx2fB2';
+const SECRET='EFW45r53knvyP18tZY2mFVWhGod9a4YpfM6R4kftC9_WzRHTpkV9FFgHHZDPlfDn3HpIpxpxmMj-DbFp';
 
-exports.cancelPaypalSubscription = functions.https.onCall(async (id, res) => {
+
+exports.cancelPaypalSubscription = functions.https.onCall(async (id) => {
   const post = bent(
-    'https://api.sandbox.paypal.com/v1/billing/subscriptions/' + id,
+    'https://api-m.sandbox.paypal.com/v1/billing/subscriptions/' + id,
     'POST',
-    {
+    {'Authorization': 'Basic ' + CLIENTID+':'+SECRET,
      'Content-Type': 'application/json',
     });
   return await post('/cancel', {reason: 'User downgraded'});

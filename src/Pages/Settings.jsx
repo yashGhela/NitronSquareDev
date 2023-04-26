@@ -31,6 +31,8 @@ function Settings() {
   const paidt= cookie.get('PAIDT')
   const nextYear = new Date();
 
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+
   const paypalSubscribe = (data, actions) => {
     return actions.subscription.create({
     'plan_id': "P-9TB1232794763483RMRCQQDY",
@@ -41,7 +43,8 @@ function Settings() {
     }
     const paypalOnApprove = (data, detail) => {
     updateToPro({data:data})
-    cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
+    
+    
     };
     
     const updateToPro=async({data})=>{
@@ -51,6 +54,8 @@ function Settings() {
       await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
         data: data
       })
+      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+    
       
 
     }
@@ -70,6 +75,7 @@ function Settings() {
       setCancelMod(false)
     }
 
+    
    
 
     
@@ -124,11 +130,11 @@ function Settings() {
 
     },[]);
 
-    const callFunction=event=>{
+    const callFunction=()=>{
      
       const callableFunc=httpsCallable(functions,'cancelPaypalSubscription');
 
-      callableFunc({id: subID}).then((result) => {
+      callableFunc({id:subID}).then((result) => {
         console.log(result.data.output);
       }).catch((error) => {
         console.log(`error: ${JSON.stringify(error)}`);
@@ -232,7 +238,7 @@ function Settings() {
 
                 <PayPalButton
               style={{color:'blue'}}
-              amount = "$5"
+              amount = "5"
               currency = "USD"
               createSubscription={paypalSubscribe}
               onApprove={paypalOnApprove}
