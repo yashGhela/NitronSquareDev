@@ -16,9 +16,9 @@ const CLIENTID='ATV2Co73t1tlgpv3pR_tKU7RQVo4CO1cpwLj-KQ4XFuVDzi1BfDKpcl83XnVeE1y
 const SECRET='EFW45r53knvyP18tZY2mFVWhGod9a4YpfM6R4kftC9_WzRHTpkV9FFgHHZDPlfDn3HpIpxpxmMj-DbFp';
 
 
-exports.cancelPaypalSubscription = functions.https.onCall(async (id) => {
+exports.cancelPaypalSubscription = functions.https.onCall(async (data, context) => {
   const post = bent(
-    'https://api-m.sandbox.paypal.com/v1/billing/subscriptions/' + id,
+    'https://api-m.sandbox.paypal.com/v1/billing/subscriptions/' + data.id,
     'POST',
     {'Authorization': 'Basic ' + CLIENTID+':'+SECRET,
      'Content-Type': 'application/json',
