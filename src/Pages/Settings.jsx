@@ -23,6 +23,8 @@ function Settings() {
 
   const [cancelMod, setCancelMod]=useState(false)
  const [subID, setSubID]=useState('')
+ const [token,setToken]=useState('')
+ const [cancelStatus, setCancelStatus] = useState('');
 
 
 
@@ -59,6 +61,15 @@ function Settings() {
       
 
     }
+
+   /* const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${authToken}`
+      },
+      body: JSON.stringify({id: subID}),
+    };*/
    
   
   
@@ -71,11 +82,14 @@ function Settings() {
       await updateDoc(doc(db,'Users',user),{
         type: 'free'
       });
+      await deleteDoc(doc(db,'User',user,'Subscription','SubDetails'))
       cookie.remove('PAIDT',{path:'/'});
       setCancelMod(false)
     }
 
-    
+   
+    const CLIENT_ID='ATV2Co73t1tlgpv3pR_tKU7RQVo4CO1cpwLj-KQ4XFuVDzi1BfDKpcl83XnVeE1ynQZOYuDnIHcx2fB2';
+    const SECRET='EFW45r53knvyP18tZY2mFVWhGod9a4YpfM6R4kftC9_WzRHTpkV9FFgHHZDPlfDn3HpIpxpxmMj-DbFp';
    
 
     
@@ -119,9 +133,15 @@ function Settings() {
     });
   }
 
+
+
+
+
     useEffect( ()=>{
         docSnap();
         subId()
+       
+        
        
         
         
@@ -130,16 +150,41 @@ function Settings() {
 
     },[]);
 
-    const callFunction=()=>{
-     
-      const callableFunc=httpsCallable(functions,'cancelPaypalSubscription');
+  
 
-      callableFunc({id:subID}).then((result) => {
-        console.log(result.data.output);
-      }).catch((error) => {
-        console.log(`error: ${JSON.stringify(error)}`);
-      });
-    }
+    const callFunction=async ()=>{
+     
+      
+
+      
+        try {
+          const response = await fetch(
+            `https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
+            {
+              method: 'POST',
+              headers: {
+                'Authorization': `Basic ${btoa(CLIENT_ID + ':' + SECRET)}`,
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+              },
+              body: JSON.stringify({ reason: 'Not satisfied with the service' }),
+            }
+          );
+    
+          const responseData = await response.json();
+    
+          if (response.ok) {
+            setCancelStatus('Subscription canceled successfully');
+            console.log(cancelStatus)
+          } else {
+            setCancelStatus(`Error canceling subscription: ${responseData.message}`);
+          }
+        } catch (error) {
+          console.error(error);
+          setCancelStatus('Error canceling subscription');
+        }
+      };
+    
 
     
 
@@ -199,7 +244,7 @@ function Settings() {
            <div style={{padding:'20px', }}>
             <Button variant='outline-danger'
             
-            onClick={()=>{setCancelMod(true);console.log(subID)}}
+            onClick={()=>{setCancelMod(true);console.log(subID);}}
             >Cancel Subscription</Button>
             <p style={{color:'lightgray', marginTop:'20px'}}> If you are experiencing difficulties cancelling your subscription,<br/> please contact us at info@nitrondigital.com </p>
             <Modal
