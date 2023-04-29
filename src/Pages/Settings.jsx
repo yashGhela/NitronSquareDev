@@ -17,6 +17,7 @@ import PP from '../Components/PP';
 import { PayPalButton } from 'react-paypal-button-v2'
 
 import {  httpsCallable } from 'firebase/functions'
+import { APP_SECRET, CLIENT_ID } from '../Util/config'
     
 
 function Settings() {
@@ -88,8 +89,6 @@ function Settings() {
     }
 
    
-    const CLIENT_ID='ATV2Co73t1tlgpv3pR_tKU7RQVo4CO1cpwLj-KQ4XFuVDzi1BfDKpcl83XnVeE1ynQZOYuDnIHcx2fB2';
-    const SECRET='EFW45r53knvyP18tZY2mFVWhGod9a4YpfM6R4kftC9_WzRHTpkV9FFgHHZDPlfDn3HpIpxpxmMj-DbFp';
    
 
     
@@ -163,7 +162,7 @@ function Settings() {
             {
               method: 'POST',
               headers: {
-                'Authorization': `Basic ${btoa(CLIENT_ID + ':' + SECRET)}`,
+                'Authorization': `Basic ${btoa(CLIENT_ID + ':' + APP_SECRET)}`,
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
               },
