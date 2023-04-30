@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
 import { Button, Card, FormCheck,Form, Container ,Row,Col, Badge} from 'react-bootstrap'
 import {  useNavigate } from 'react-router-dom'
-import { Check2Square, Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear  } from 'react-bootstrap-icons'
-import { collection, doc, onSnapshot, updateDoc, addDoc, query, orderBy } from 'firebase/firestore'
+import { Check2Square, Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear, X  } from 'react-bootstrap-icons'
+import { collection, doc, onSnapshot, updateDoc, addDoc, query, orderBy, deleteDoc } from 'firebase/firestore'
 import Cookies from 'universal-cookie';
 import { db } from '../firebaseConfig'
 import { format } from 'date-fns'
@@ -29,7 +29,7 @@ function Todos() {
     const state=(todo)=>{
       if(todo.state==='incomplete'){return('danger')}else{return('success')}
     }
-
+   
     const CompleteToDo=async({id})=>{
       await updateDoc(doc(q,id),{
         state:stateUp
@@ -46,6 +46,13 @@ function Todos() {
       })
      
     }
+
+    const DeleteToDo=async ({id})=>{
+      const ref=doc(db, 'Users',user,'ToDos',id)
+
+      await deleteDoc(ref)
+    }
+
    
 
     useEffect(()=>{
@@ -127,7 +134,7 @@ function Todos() {
               {todoList.map((todo)=>{
                 return(
                   <Card 
-                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px',color:'lightgray'}} 
                   
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
@@ -137,6 +144,7 @@ function Todos() {
                     <Col><h3 style={{fontWeight:'400', fontSize:'20px'}}>{todo.date}</h3></Col>
                     <Col><Badge pill bg={state(todo)}>{todo.state}</Badge></Col>
                     <Col><Button  variant="secondary" onClick={()=>{CompleteToDo({id: todo.id}); if (todo.state==='incomplete'){setStateUp('complete')}else{setStateUp('incomplete')}}}  style={{float:'right'}} ><Check/></Button></Col>
+                    <Col><Button onClick={()=>{DeleteToDo({id:todo.id}); console.log(todo.id)}} variant='outline-danger' style={{marginRight:'100%'}}><X/></Button></Col>
                    </Row>
                 
                     </Card>

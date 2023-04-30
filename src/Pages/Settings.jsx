@@ -45,7 +45,9 @@ function Settings() {
     console.log("Error")
     }
     const paypalOnApprove = (data, detail) => {
-    updateToPro({data:data})
+    updateToPro({data:data}).then((snap)=>{
+      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+    })
     
     
     };
@@ -57,20 +59,13 @@ function Settings() {
       await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
         data: data
       })
-      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+      
     
       
 
     }
 
-   /* const options = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${authToken}`
-      },
-      body: JSON.stringify({id: subID}),
-    };*/
+ 
    
   
   
@@ -174,7 +169,7 @@ function Settings() {
     
           if (response.ok) {
             setCancelStatus('Subscription canceled successfully');
-            console.log(cancelStatus)
+            console.log('Success')
           } else {
             setCancelStatus(`Error canceling subscription: ${responseData.message}`);
           }
