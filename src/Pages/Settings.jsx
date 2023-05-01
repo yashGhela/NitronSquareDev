@@ -38,16 +38,15 @@ function Settings() {
 
   const paypalSubscribe = (data, actions) => {
     return actions.subscription.create({
-    'plan_id': "P-9TB1232794763483RMRCQQDY",
+    'plan_id': "P-0G807194D16574536MRCPXFI",
     });
     };
     const paypalOnError = (err) => {
     console.log("Error")
     }
     const paypalOnApprove = (data, detail) => {
-    updateToPro({data:data}).then((snap)=>{
-      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
-    })
+    updateToPro({data:data});
+    
     
     
     };
@@ -55,7 +54,10 @@ function Settings() {
     const updateToPro=async({data})=>{
       await updateDoc(doc(db,'Users',user),{
         type: 'pro'
-      });
+      }).then(()=>{
+        cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
+        window.location.reload()
+      })
       await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
         data: data
       })
@@ -153,7 +155,7 @@ function Settings() {
       
         try {
           const response = await fetch(
-            `https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
+            `https://api-m.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
             {
               method: 'POST',
               headers: {
