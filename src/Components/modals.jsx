@@ -10,7 +10,7 @@ import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
 import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
-import { AddToDo, CompleteToDo, movetask, movetaskBack, newTassk } from './functions';
+import { AddToDo, CompleteToDo, movetask, movetaskBack, newTassk } from '../Util/functions';
 import ReactPlayer from 'react-player';
 import SpotifyPlayer from 'react-spotify-player';
 import Cookies from 'universal-cookie';

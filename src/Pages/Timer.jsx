@@ -17,13 +17,12 @@ import { format } from 'date-fns';
 import {
   Chart as ChartJS,
 } from 'chart.js';
-import { Line } from 'react-chartjs-2';
+
 
 import { getDownloadURL, listAll, ref } from 'firebase/storage';
-import ReactPlayer from 'react-player';
-import Draggable from 'react-draggable';
+
 import SpotifyPlayer from 'react-spotify-player';
-import { AddToDo, CompleteToDo, getData, movetask, movetaskBack, newTassk } from './functions';
+import { AddToDo, CompleteToDo, getData, movetask, movetaskBack, newTassk } from '../Util/functions';
 import treeS from '../Assets/Nitron Music/Forrest Sounds.mp3'
 import seaS from '../Assets/Nitron Music/Ocean Sounds.mp3'
 import RainS from '../Assets/Nitron Music/Rain Sounds.mp3'
@@ -31,7 +30,9 @@ import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
 import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
-import  { SoundsModal, TrendsModal,ScopesModal, TodoModal, MediaModal, WorldModal } from './modals';
+import  { SoundsModal, TrendsModal,ScopesModal, TodoModal, MediaModal, WorldModal } from '../Components/modals';
+import { useTimer } from 'react-timer-hook';
+import Timercomponent from '../Components/timercomponent';
 
 
 
@@ -211,6 +212,40 @@ function Timer() {
   //Quick Trends Stuff 
 
  
+  const Timebomb=()=>{
+    switchMode();
+    alarm.play()
+    if (modeRef.current==='break'){
+      if(NT===true){
+        NWtsum+=newWorkMinutes
+       
+
+        setFinWorkTime(OWTSum+NWtsum)
+
+       }else if (NT===false){
+        Wtsum+=WT
+        
+        setFinWorkTime(Wtsum)
+        setFWT(Wtsum)
+       }
+    }
+    
+    if(modeRef.current==='work'){         
+       
+     
+      if(NT===true){
+        NBtsum+=newBreakMinutes
+        
+        setFinBreakTime(NBtsum+OBTsum)
+
+      }else if (NT===false){
+        Btsum+=BT
+      
+      setFinBreakTime(Btsum) ;
+      setFBT(Btsum)
+      }
+    }
+  }
 
 
 
@@ -386,6 +421,12 @@ function Timer() {
    const minutes = Math.floor(secondsLeft/60); 
    let seconds = secondsLeft%60;
    if (seconds<10) seconds='0'+seconds;
+   const time=new Date();
+   time.setSeconds(time.getSeconds()+workSeconds)
+
+
+ 
+
 
   
  
@@ -471,18 +512,11 @@ function Timer() {
       <div style={{placeItems:'center', width:'80vw'}}>
       <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
         <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {subject}</p>
-    <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
-    textColor: '#fff',
-    pathColor:mode === 'work' ? purple : green,
-    
-    
-    })}
-    />
+        <Timercomponent isPausedRef={isPausedRef} func={Timebomb} setIsPaused={setIsPaused} expiryTimestamp={time} disabled={disabled} isPaused={isPaused}/>
+   
     
     <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
-    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
-    
+   
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
     </div>
   

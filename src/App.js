@@ -9,7 +9,7 @@ import Todos from './Pages/Todos';
 
 import ProtectedRoutes from './ProtectedRoutes';
 
-import Timer from './Util/Timer';
+import Timer from './Pages/Timer';
 import SignUp from './Pages/SignUp';
 
 import Trends from './Pages/Trends';
