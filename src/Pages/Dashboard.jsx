@@ -9,6 +9,7 @@ import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, A
 import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck, Nav} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
+
 import '../Util/SesSettings.css'
 
 

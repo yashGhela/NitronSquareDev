@@ -9,6 +9,7 @@ import {Alert, Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormCo
 import ReactSlider from 'react-slider';
 import Cookies from 'universal-cookie';
 import Quickbar from '../Components/Quickbar';
+import ReactPlayer from 'react-player';
 import { BarChart, BoxArrowLeft, Bullseye, CameraVideoFill, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, Spotify, StopFill, Stopwatch, Tree, Water, Wind, Youtube } from 'react-bootstrap-icons';
 
 import { format } from 'date-fns';
@@ -31,8 +32,7 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import  { SoundsModal, TrendsModal,ScopesModal, TodoModal, MediaModal, WorldModal } from '../Components/modals';
-import { useTimer } from 'react-timer-hook';
-import Timercomponent from '../Components/timercomponent';
+
 
 
 
@@ -656,7 +656,34 @@ function Timer() {
    
    {urlShow?
    
-   <MediaModal show={urlShow} setURlShow={setURlShow} setUrl={setUrl} url={url}/>
+   <Card
+   className='timer-modal'
+
+   style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
+   
+     <Card.Header style={{display:'flex'}}>
+       Media
+       <CloseButton style={{marginLeft:'70%'}} onClick={()=>setURlShow(false)}/>
+      
+     </Card.Header>
+     <Card.Body>
+     <Form style={{display:'flex', flexDirection:'column'}}>
+       <p>Enter URL</p>
+       <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
+      
+     </Form>
+     <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+    <div style={{height:'150px'}}>
+    <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true} playing={()=>{if(urlShow==='true'||urlShow==='false'){return true}}}/>
+    </div>
+
+     
+
+     </Card.Body>
+
+
+
+   </Card>
 
    :null}
 
