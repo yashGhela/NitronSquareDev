@@ -421,8 +421,7 @@ function Timer() {
    const minutes = Math.floor(secondsLeft/60); 
    let seconds = secondsLeft%60;
    if (seconds<10) seconds='0'+seconds;
-   const time=new Date();
-   time.setSeconds(time.getSeconds()+workSeconds)
+  
 
 
  
@@ -512,10 +511,16 @@ function Timer() {
       <div style={{placeItems:'center', width:'80vw'}}>
       <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
         <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {subject}</p>
-        <Timercomponent isPausedRef={isPausedRef} func={Timebomb} setIsPaused={setIsPaused} expiryTimestamp={time} disabled={disabled} isPaused={isPaused}/>
-   
-    
+        <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
+    textColor: '#fff',
+    pathColor:mode === 'work' ? purple : green,
+
+
+    })}
+    />
     <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
    
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
     </div>
