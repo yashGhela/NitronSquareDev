@@ -272,9 +272,9 @@ function Settings() {
                 <span>✔️Unlimited Sessions</span>
                 <span>✔️Unlimited Scopes</span>
                 <span>✔️Todos </span>
-                <span>✔️All Creator Kits</span>
+                
                 <span>✔️Up to 180 minutes a session</span>
-                <span>✔️Upcoming features</span>
+                
                 <hr/>
 
                 <PayPalButton

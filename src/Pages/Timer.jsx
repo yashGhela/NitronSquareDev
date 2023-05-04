@@ -651,7 +651,66 @@ function Timer() {
     <TodoModal show={todoShow} setShow={setToDoShow} ToDoList={ToDoList} stateUp={stateUp} setStateUp={setStateUp} toDo={toDo} setToDo={setToDo}/>
 
   
-  <WorldModal imageList={imageList} getWorlds={getWorlds} setImageShow={setImageShow} imageShow={imageShow} setImageUrl={setImageUrl} worldsort={worldsort}/>
+    <Modal
+    className='timer-modal'
+    show={imageShow}
+    onHide={()=>{setImageShow(false)}}
+    
+    style={{background:'none'}}
+    >
+    
+   
+    <Modal.Header closeButton closeVariant='white'>
+       Worlds
+     </Modal.Header>
+
+     <Modal.Body style={{display:'flex', flexDirection:'column'}}>
+     <p style={{textAlign:'center'}}>Double click to load</p>
+     <ButtonGroup>
+   
+      <div style={{display: 'flex', margin:'10px',color:'lightgray', overflow:'auto'}}>
+      {worldsort.map((i)=>{
+         return(
+          <Button 
+         type="checkbox"
+          value={i} 
+          variant="outline-light"
+          onClick={()=>{getWorlds({id:i})}}
+        
+          style={{marginRight:'10px'}}
+          >
+           {i}
+         </Button>
+         )
+      })}
+       </div>
+      </ButtonGroup>
+     
+     
+       <Container>
+        <Row>
+          <Col>
+          {imageList.map((url)=>{
+        return(
+    
+          
+          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
+         
+       
+       
+        )
+       
+      })}
+          
+          </Col>
+        </Row>
+       </Container>
+       
+        
+
+     </Modal.Body>
+
+    </Modal>
 
    
    {urlShow?
