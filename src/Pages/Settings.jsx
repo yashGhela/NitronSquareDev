@@ -272,7 +272,7 @@ function Settings() {
                 <span>✔️Unlimited Sessions</span>
                 <span>✔️Unlimited Scopes</span>
                 <span>✔️Todos </span>
-                
+                <span>✔️All creator kits </span>
                 
                 <span>✔️Up to 180 minutes a session</span>
                 
