@@ -19,7 +19,7 @@ import Cookies from 'universal-cookie';
 import Scope from './Pages/Scope';
 
 import Settings from './Pages/Settings';
-import { useEffect } from 'react';
+
 import PrivPol from './Pages/PrivPol';
 import TsCs from './Pages/TsCs';
 import Cards from './Pages/Cards';

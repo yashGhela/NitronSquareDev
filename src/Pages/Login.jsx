@@ -14,9 +14,7 @@ import PP from '../Components/PP';
 
 function Login() {
   let nav= useNavigate();
-  const goDash=()=>{
-    nav('/Dashboard')
-  }
+ 
   const [errShow, setErrShow ]=useState(false);
   
   const [type, setType]= useState('');
