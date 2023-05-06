@@ -5,7 +5,7 @@ import {getAuth, GoogleAuthProvider} from 'firebase/auth';
 import { getAnalytics } from "firebase/analytics";
 import 'firebase/functions';
 import {getStorage} from 'firebase/storage'
-import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
+import {  getFunctions } from "firebase/functions";
 
 
 

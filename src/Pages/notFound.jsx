@@ -1,7 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from 'react-bootstrap';
-import { useEffect, useState } from 'react';
+
 
 function NotFound() {
     const nav=useNavigate();
