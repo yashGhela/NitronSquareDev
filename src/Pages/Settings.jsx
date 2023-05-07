@@ -153,7 +153,7 @@ function Settings() {
       
         try {
           const response = await fetch(
-            `https://api-m.sandbox.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
+            `https://api-m.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
             {
               method: 'POST',
               headers: {
