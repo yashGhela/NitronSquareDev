@@ -26,7 +26,7 @@ const firebaseConfig = {
   const auth = getAuth(app);
   const storage=getStorage(app)
   const analytics = getAnalytics(app);
-  const functions=getFunctions(app,'us-central1')
 
 
-  export {db, auth, provider,storage,functions};
+
+  export {db, auth, provider,storage};
