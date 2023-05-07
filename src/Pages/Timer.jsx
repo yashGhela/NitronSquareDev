@@ -212,40 +212,7 @@ function Timer() {
   //Quick Trends Stuff 
 
  
-  const Timebomb=()=>{
-    switchMode();
-    alarm.play()
-    if (modeRef.current==='break'){
-      if(NT===true){
-        NWtsum+=newWorkMinutes
-       
-
-        setFinWorkTime(OWTSum+NWtsum)
-
-       }else if (NT===false){
-        Wtsum+=WT
-        
-        setFinWorkTime(Wtsum)
-        setFWT(Wtsum)
-       }
-    }
-    
-    if(modeRef.current==='work'){         
-       
-     
-      if(NT===true){
-        NBtsum+=newBreakMinutes
-        
-        setFinBreakTime(NBtsum+OBTsum)
-
-      }else if (NT===false){
-        Btsum+=BT
-      
-      setFinBreakTime(Btsum) ;
-      setFBT(Btsum)
-      }
-    }
-  }
+  
 
 
 

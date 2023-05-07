@@ -92,7 +92,7 @@ function Dashboard() {
 
  const proTimeVal=()=>{
   if(paidt==='Tnf'){
-    setMaxTime(180)
+    setMaxTime(210)
   }else {
     setMaxTime(90)
   }

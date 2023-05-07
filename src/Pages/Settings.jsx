@@ -38,7 +38,7 @@ function Settings() {
 
   const paypalSubscribe = (data, actions) => {
     return actions.subscription.create({
-    'plan_id': "P-9TB1232794763483RMRCQQDY",
+    'plan_id': "P-5JW39259P5674953XMRL2XFA",
     });
     };
     const paypalOnError = (err) => {
@@ -266,19 +266,20 @@ function Settings() {
               style={{background:'#282b2e',border:'3px solid rgb(97, 149, 232)' , display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'lightgray', overflow:'auto'}}
               >
                 <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                <h1 style={{fontSize:'50px'}}>$5/m</h1>
+                <h1 style={{fontSize:'50px'}}>$35/year</h1>
                 <span>✔️Unlimited Sessions</span>
                 <span>✔️Unlimited Scopes</span>
+                <span>✔️Up to 210 minutes a session</span>
                 <span>✔️Todos </span>
                 <span>✔️All creator kits </span>
                 
-                <span>✔️Up to 180 minutes a session</span>
+             
                 
                 <hr/>
 
                 <PayPalButton
               style={{color:'blue'}}
-              amount = "5"
+              amount = "35"
               currency = "USD"
               createSubscription={paypalSubscribe}
               onApprove={paypalOnApprove}
