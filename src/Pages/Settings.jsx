@@ -45,9 +45,7 @@ function Settings() {
     console.log("Error")
     }
     const paypalOnApprove = (data, detail) => {
-    updateToPro({data:data}).then((snap)=>{
-      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
-    })
+    updateToPro({data:data})
     
     
     };
@@ -55,6 +53,9 @@ function Settings() {
     const updateToPro=async({data})=>{
       await updateDoc(doc(db,'Users',user),{
         type: 'pro'
+      }).then(()=>{
+        cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
+        window.location.reload()
       });
       await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
         data: data
