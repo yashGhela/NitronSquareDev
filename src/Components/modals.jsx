@@ -314,111 +314,6 @@ function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) 
 
 
 
-function MediaModal({urlShow, setURlShow, setUrl, url}) {
-  return (
-    <div>
-         <Card
-    className='timer-modal'
- 
-    style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
-    
-      <Card.Header style={{display:'flex'}}>
-        Media
-        <CloseButton style={{marginLeft:'70%'}} onClick={()=>setURlShow(false)}/>
-       
-      </Card.Header>
-      <Card.Body>
-      <Form style={{display:'flex', flexDirection:'column'}}>
-        <p>Enter URL</p>
-        <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
-       
-      </Form>
-      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
-     <div style={{height:'150px'}}>
-     <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true} playing={()=>{if(urlShow==='true'||urlShow==='false'){return true}}}/>
-     </div>
-
-      
-
-      </Card.Body>
-
-
-
-    </Card>
-    </div>
-  )
-}
-
-
-
-function WorldModal({setImageShow, imageShow, worldsort, setImageUrl, imageList, getWorlds}) {
-
-    
-  return (
-    <div>
-        <Modal
-    className='timer-modal'
-    show={imageShow}
-    onHide={()=>{setImageShow(false)}}
-    
-    style={{background:'none'}}
-    >
-    
-   
-    <Modal.Header closeButton closeVariant='white'>
-       Worlds
-     </Modal.Header>
-
-     <Modal.Body style={{display:'flex', flexDirection:'column'}}>
-     <p style={{textAlign:'center'}}>Double click to load</p>
-     <ButtonGroup>
-   
-      <div style={{display: 'flex', margin:'10px',color:'lightgray', overflow:'auto'}}>
-      {worldsort.map((i)=>{
-         return(
-          <Button 
-         type="checkbox"
-          value={i} 
-          variant="outline-light"
-          onClick={()=>{getWorlds({id:i})}}
-        
-          style={{marginRight:'10px'}}
-          >
-           {i}
-         </Button>
-         )
-      })}
-       </div>
-      </ButtonGroup>
-     
-     
-       <Container>
-        <Row>
-          <Col>
-          {imageList.map((url)=>{
-        return(
-    
-          
-          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
-         
-       
-       
-        )
-       
-      })}
-          
-          </Col>
-        </Row>
-       </Container>
-       
-        
-
-     </Modal.Body>
-
-    </Modal>
-    </div>
-  )
-}
 
 
 
@@ -439,7 +334,7 @@ export   {SoundsModal,
     TrendsModal, 
     ScopesModal,
     TodoModal,
-    MediaModal,
-    WorldModal
+    
+    
     
 }

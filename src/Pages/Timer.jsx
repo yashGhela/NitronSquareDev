@@ -31,7 +31,7 @@ import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
 import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
-import  { SoundsModal, TrendsModal,ScopesModal, TodoModal, MediaModal, WorldModal } from '../Components/modals';
+import  { SoundsModal, TrendsModal,ScopesModal, TodoModal,   } from '../Components/modals';
 
 
 
@@ -302,7 +302,7 @@ function Timer() {
 
    const proTimeVal=()=>{
     if(paidt==='Tnf'){
-      setMaxTime(180)
+      setMaxTime(210)
     }else {
       setMaxTime(90)
     }
@@ -313,6 +313,7 @@ function Timer() {
    useEffect(()=>{
     docSnap()
     proTimeVal()
+    
    
    
   
