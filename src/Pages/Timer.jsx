@@ -110,6 +110,44 @@ function Timer() {
     const [spotifyShow,setSpotifyShow]=useState(false);
     
 
+
+    const treeSound=()=>{
+    
+        tree.play()
+        tree.loop=true;
+      }
+  
+      const OceanSound=()=>{
+      
+        ocean.play();
+        ocean.loop=true;
+      }
+      
+      const RainSound=()=>{
+       
+        rain.play();
+        rain.loop=true;
+      }
+      
+      const NightSound=()=>{
+        
+        night.play();
+        night.loop=true
+      }
+      
+      const WindSound=()=>{
+        
+        wind.play();
+        wind.loop=true
+      }
+      
+      const FireSound=()=>{
+        
+        fire.play();
+        fire.loop=true
+        
+      }
+
     
     
  
@@ -543,7 +581,56 @@ function Timer() {
 
   <div className="QuickBarModals" style={{float:'left'}}>
   
-  <SoundsModal show={mediaShow} setShow={setMediaShow}/>
+  <Modal className='timer-modal'
+      show={mediaShow}
+      onHide={()=>{setMediaShow(false)}}
+     
+      style={{background:'none'}}
+      >
+       <Modal.Header closeButton closeVariant='white' className='handle'>
+         Sounds
+       </Modal.Header>
+       <Modal.Body style={{display:'flex', flexDirection:'column'}}>
+        
+          <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <Tree style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){treeSound()}else{tree.pause()}}}/></Col>
+                       </Row></Card>
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <Water style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}}  type='switch' onChange={(e)=>{if(e.target.checked){OceanSound()}else{ocean.pause()}}}/></Col>
+                       </Row></Card>
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <CloudDrizzle style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){RainSound()}else{rain.pause()}}}/></Col>
+                       </Row></Card>
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <Moon style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){NightSound()}else{night.pause()}}}/></Col>
+                       </Row></Card>
+        
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <Wind style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){WindSound()}else{wind.pause()}}}/></Col>
+                       </Row></Card>
+         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+                       <Row>
+                       <Col xs={4} > <Fire style={{height:'30px', width:'50px'}}/></Col>
+                       <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){FireSound()}else{fire.pause()}}}/></Col>
+                       </Row></Card>
+       
+        <div style={{placeItems:'center'}}>
+       
+        </div>
+ 
+       </Modal.Body>
+ 
+     </Modal>
   
    <div className="time">
    <Modal className='timer-modal'
