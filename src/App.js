@@ -22,7 +22,7 @@ import Settings from './Pages/Settings';
 
 import PrivPol from './Pages/PrivPol';
 import TsCs from './Pages/TsCs';
-import Cards from './Pages/Cards';
+
 
 
 
@@ -60,7 +60,7 @@ const user =cookies.get('useraidt');
         <Route path={`/Timer/`} element={<Timer/>}/>
         <Route path={`/Sessions/`} element={<Sessions/>}/>
         <Route path={`/Scopes/`} element={<Scope/>}/>
-        <Route path={`/Cards/`} element={<Cards/>}/>
+       
 
     
         <Route path={`/Settings`} element={<Settings/>}/>
