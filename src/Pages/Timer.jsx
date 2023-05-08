@@ -49,7 +49,7 @@ function Timer() {
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
 
-    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Video Games', 'Rainy','City']
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City']
 
     //bgs
     
