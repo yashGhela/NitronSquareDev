@@ -70,6 +70,19 @@
 
  }
 
+ .special_modal .modal-header {
+  border-bottom: 0 none;
+  background-color: #282b2e;
+  padding: 20px;
+
+}
+
+.special_modal .modal-footer {
+  border-top: 0 none;
+  background-color: #282b2e;
+  padding: 20px;
+}
+
  .special_modal .accordion-button {
     background-color: rgb(12, 12, 12) !important;
     color: white!important;
@@ -146,3 +159,26 @@
   
 }
  
+
+.thin_modal .modal-header {
+  border-bottom: 0 none;
+  background-color: #282b2e;
+  padding: 20px;
+
+}
+
+.thin_modal .modal-footer {
+  border-top: 0 none;
+  background-color: #282b2e;
+  padding: 20px;
+}
+
+.btn-primary,  .btn-primary:visited {
+  background-color: rgb(97, 149, 232) !important;
+  border-color: rgb(97, 149, 232) !important;
+}
+
+.btn-primary:hover, .btn-primary:active{
+  background-color: rgb(84, 132, 209) !important;
+  border-color: rgb(84, 132, 209) !important;
+}

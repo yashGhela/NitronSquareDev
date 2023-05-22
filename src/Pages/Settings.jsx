@@ -264,7 +264,7 @@ function Settings() {
            :<div style={{width:'30%'}}>
               <Card
               
-              style={{background:'#282b2e',border:'3px solid rgb(97, 149, 232)' , display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'lightgray', overflow:'auto'}}
+              style={{background:'#fff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
               >
                 <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
                 <h1 style={{fontSize:'50px'}}>$35/year</h1>

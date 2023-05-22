@@ -49,7 +49,7 @@ function Timer() {
 
     
 
-    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom']
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom','@tealdays']
 
     //bgs
     
@@ -427,7 +427,7 @@ function Timer() {
       </Modal.Header>
       <Modal.Body >
         <h3  style={{fontSize:'20px', fontWeight:'400'}}>Add a rating to your session:</h3>
-        <h4 style={{fontSize:'16px', fontWeight:'400', marginTop:'15px'}}>Rating⭐: {rating}</h4>
+        <h4 style={{fontSize:'20px', fontWeight:'400', marginTop:'15px'}}>⭐: {rating}</h4>
         <div style={{marginBottom:'20%',color:'lightgray'}}>
         <ReactSlider
         className='slider purple'
@@ -451,7 +451,7 @@ function Timer() {
       <Modal.Footer>
         {alert&&<Alert variant='warning'>You have already created 500 sessions, click here to upgrade to pro for unlimited sessions. <span style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}>Upgrade</span></Alert>}
  
-       <Button onClick={()=>{doneHand();}} >Done</Button>
+       <Button style={{width:'100%'}} onClick={()=>{doneHand();}} >Done</Button>
       </Modal.Footer>
     </Modal>
 

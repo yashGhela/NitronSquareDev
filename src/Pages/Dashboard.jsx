@@ -223,7 +223,7 @@ function Dashboard() {
          <Card style={{
             
              margin:'20px',
-             height:'150px',
+             height:'160px',
              backgroundColor:'#17181a',
              border: '3px solid rgb(97, 149, 232)',
              backgroundSize:'400% 400%',
@@ -235,7 +235,7 @@ function Dashboard() {
               }}>
             <Card.Title style={{  marginBottom:'30px'}}><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Dashboard</h1></Card.Title>
             
-          <Button  variant='outline-light'  onClick={()=>{setGoModalShow(true)}}>Start a new Session</Button>
+          <Button  variant='primary' size='lg' onClick={()=>{setGoModalShow(true)}}>Start a new Session</Button>
           
           </Card>
 
@@ -342,7 +342,7 @@ function Dashboard() {
 
          
         
-        <div className="Recent" >
+        <div className="Recent" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
           <p style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</p>
          
               {dataExists?   recsesList.map((rec)=>{
@@ -419,7 +419,7 @@ function Dashboard() {
              
              
           </div>
-          <div className="RecentScopes">
+          <div className="RecentScopes" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
           <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'22px', color:'lightgray'}}>Recent Scopes:</p>
            
          <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>

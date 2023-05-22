@@ -78,13 +78,13 @@ function Sessions() {
         <div className="bod1" style={{width:'90%', marginLeft:'120px'}}>
        
 
-          <div className="Recent"  >
+          <div className="Recent" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
           { dataExists?  <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'20px', color:'lightgray', textAlign:'center'}}>Your Sessions:</p>: <p style={{color:'lightgray', textAlign:'center', fontSize:'25px', textAlign:'center'}}>There are no sessions yet</p>}
          
           {items.map((rec)=>{
               return(
                 <div>
-                  <Card style={{background:'#282b2e' , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
+                  <Card style={{background:'#282b2e'  , display:'flex', width:'100%', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} onClick={()=>{setModalShow(true); setModalData(rec) }}>
                     <Row>
                       <Col xs={6}> <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.subject}</h3></Col>
                       <Col > <h3 style={{fontWeight:'400', fontSize:'20px'}}>{rec.WorkTime} Minutes</h3></Col>
