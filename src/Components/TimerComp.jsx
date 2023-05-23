@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import { Pause, Play } from 'react-bootstrap-icons';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newBreakMinutes, setFinBreakTime, subject, alarm, setNewWorkMinutes, setNewBreakMinutes, timerShow, setTimerShow, maxTime }) {
 
@@ -144,6 +145,7 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
 
   return (
     <div>
+     
            <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
         <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {subject}</p>
         <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
@@ -229,3 +231,4 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
 }
 
 export default TimerComp
+

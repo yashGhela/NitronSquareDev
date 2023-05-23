@@ -9,8 +9,10 @@ import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, A
 import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck, Nav} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
+import firstTimeLogin from '../Components/firstTimeLogin';
 
 import '../Util/SesSettings.css'
+import { Helmet } from 'react-helmet';
 
 
 function Dashboard() {
@@ -19,6 +21,7 @@ function Dashboard() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
   const paidt= cookie.get('PAIDT')
+  const first= cookie.get('1stSignUp')
 
   
   
@@ -38,6 +41,7 @@ function Dashboard() {
   
   
   const [subjectList, setSubjectList] =useState([]);
+  const [fshow, setfshow]=useState(true);
   const [subj, setSub]=useState('');
 
   const [disabled, setDisabled]=useState(true);
@@ -201,6 +205,7 @@ function Dashboard() {
     <div className='Page' >
       
       
+      
      
        
         <div className="navB">
@@ -215,6 +220,7 @@ function Dashboard() {
         </div>
        
         
+        {first==='true' ? <firstTimeLogin showModal={fshow} setModalShow={setfshow}/>:null}
      
        
         <div className="bod">

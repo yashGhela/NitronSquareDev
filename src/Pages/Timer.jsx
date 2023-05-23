@@ -32,7 +32,8 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import  { SoundsModal, TrendsModal,ScopesModal, TodoModal,   } from '../Components/modals';
-import TimerComp from '../Components/TimerComp';
+import TimerComp, { minutes, seconds } from '../Components/TimerComp';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -377,6 +378,7 @@ function Timer() {
   return (
    
     <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
+
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setMediaShow(true);}}><MusicNoteBeamed style={{color:'white', }}/></Button>}

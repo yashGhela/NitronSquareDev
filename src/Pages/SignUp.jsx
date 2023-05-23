@@ -11,6 +11,7 @@ import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 import Cookies from 'universal-cookie';
 import { async } from '@firebase/util';
+import ConfettiExplosion from 'react-confetti-explosion';
 
 
 
@@ -39,15 +40,13 @@ function SignUp() {
   const [checked, setChecked] = useState(false);
   const [find, setFind]=useState('');
   const[purpose,setPurpose]=useState('');
+  const [isExploding, setIsExploding]=useState('false')
 
   const cookie= new Cookies();
 
  
   let nav= useNavigate();
 
-  const goDash=()=>{
-    nav('/Dashboard')
-  }
   
  
  
@@ -73,6 +72,7 @@ function SignUp() {
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});
+          cookie.set('1stSignUp', true, {expires: new Date(), path:'/'})
           localStorage.setItem('isAuth', true)
          
          
@@ -175,6 +175,7 @@ function SignUp() {
     
   return (
     <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(244,250,255,1) 0%, rgba(183,191,242,1) 50%, rgba(255,255,255,1) 100%)', padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
+    
       <Card   style={{paddingTop:'50px',height:'460px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px'}}>
       <Card.Title>Sign Up </Card.Title>
       <Card.Body>
@@ -201,7 +202,7 @@ function SignUp() {
        onHide={()=>{setModalShow(false)}}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      className="thin_modal"
+      className="timer-modal"
       
       centered>
       <Modal.Header closeButton closeVariant='white'>
@@ -243,7 +244,7 @@ function SignUp() {
        </div>
      
        <Modal
-       className="thin_modal"
+       className="timer-modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt1show}
@@ -268,7 +269,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="thin_modal"
+       className="timer-modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt2show}
@@ -295,7 +296,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="thin_modal"
+       className="timer-modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={completePrompt}
@@ -307,9 +308,10 @@ function SignUp() {
             <Modal.Header>
              Thanks! 
             </Modal.Header>
+            {isExploding && <ConfettiExplosion />}
             <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
               <p>Click here to move on to the next step!</p>
-              <Button variant='primary' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{addForm()}}>Lets go!</Button>
+              <Button variant='primary' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{addForm(); setIsExploding(true)}}>Lets go!</Button>
               
             </Modal.Body>
 
