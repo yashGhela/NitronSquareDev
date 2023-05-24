@@ -282,21 +282,21 @@ await getDoc(subref).then(docSnap=>{
        <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
         <Row>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px', border:' 2px solid #393d40'}} >
             <Card.Text style={{fontSize:'25px'}}>Sessions Done:</Card.Text>
             <h1>{sesDone}</h1>
            </Card>
 
           </Col>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px', border:' 2px solid #393d40'}} >
             <Card.Text style={{fontSize:'25px'}}>Average Work Time:</Card.Text>
             <h1>{avgWt} minutes</h1>
            </Card>
 
           </Col>
           <Col Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
-          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px'}} >
+          <Card style={{width:'100%', background:'#282b2e', color:'lightgray' ,  height:'100%', marginTop:'10px', padding:'20px', border:' 2px solid #393d40'}} >
             <Card.Text style={{fontSize:'25px'}}>Average Break Time:</Card.Text>
             <h1>{avgBT} minutes</h1>
            </Card>

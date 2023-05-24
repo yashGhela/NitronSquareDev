@@ -105,13 +105,13 @@
   .special_modal .form-control:not(active){
     background-color:#17181a!important;
     color: lightgray!important;
-    border-color: gray!important;
+    border-color: #393d40!important;
  }
 
   .special_modal.form-control:focus{
     background-color:#17181a!important;
     color: lightgray!important;
-    border-color: gray!important;
+    border-color: #393d40!important;
  }
 
  .thin_modal .modal-dialog {
@@ -127,13 +127,13 @@
 .thin_modal .form-control:focus{
   background-color:#17181a!important;
   color: lightgray!important;
-  border-color: gray!important;
+  border-color: #393d40!important;
 }
 
 .thin_modal .form-control:not(active){
   background-color:#17181a!important;
   color: lightgray!important;
-  border-color: gray!important;
+  border-color: #393d40!important;
 }
 
 .timer-modal .modal-content{

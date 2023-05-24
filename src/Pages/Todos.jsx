@@ -113,7 +113,7 @@ function Todos() {
 
          
          <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'100%', borderRadius:'10px', color:'lightgray'}}>
-          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}> 
+          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px', border:' 2px solid #393d40'}}> 
           <p style={{color:'lightgray',fontSize:'25px'}}>Add a Task </p>
           <Form  className='special_modal' style={{display:'flex', padding:'20px'}}>
           <Form.Control className='special_modal' style={{width:'80%', marginRight:'15px'}} value={todo} onChange={(e)=>{setTodo(e.target.value)}}/>
@@ -125,7 +125,7 @@ function Todos() {
 
         
          <Container style={{  padding:'20px',  marginLeft:'10vw', marginTop:'10px', width:'70vw', height:'100%', borderRadius:'10px', color:'lightgray'}}>
-          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px'}}> 
+          <div style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px', border:' 2px solid #393d40'}}> 
            
           <p style={{color:'lightgray',fontSize:'25px'}}>Todos </p>
            
@@ -134,7 +134,7 @@ function Todos() {
               {todoList.map((todo)=>{
                 return(
                   <Card 
-                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px',color:'lightgray'}} 
+                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px',color:'lightgray', border:' 2px solid #393d40'}} 
                   
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
