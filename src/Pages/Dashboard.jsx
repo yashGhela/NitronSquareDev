@@ -358,7 +358,7 @@ function Dashboard() {
                   
                  
                   <Card 
-                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+                  style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray', border:' 2px solid #393d40'}} 
                   onClick={()=>{setModalShow(true); setModalData(rec) }}  
                   breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
                   minBreakpoint="xxs">
@@ -391,25 +391,25 @@ function Dashboard() {
                     <Button variant='danger' onClick={()=>{DeleteSes({id: modalData.id})}}>Delete</Button>
                     </Modal.Header>
                      <Modal.Body>
-                      <div className="subject" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                      <div className="subject" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', border:' 2px solid #393d40'}}>
                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Subject: </h4>
                        <h4  style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.subject}</h4>
                       </div>
-                       <div className="times"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                       <div className="times"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', border:' 2px solid #393d40'}}>
                        <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Work Time: </h4>
                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.WorkTime} minutes</h4>
                        <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}> Break Time: </h4>
                        <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.BreakTime} minutes</h4>
                        </div>
-                       <div className="date"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                       <div className="date"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', border:' 2px solid #393d40'}}>
                        <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Date: </h4>
                         <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.time}</h4>
                        </div>
-                      <div className="rating"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                      <div className="rating"  style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', border:' 2px solid #393d40'}}>
                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Rating: </h4>
                         <h4 style={{fontWeight:'400', fontSize:'20px',color:'lightgray'}}>{modalData.rating}⭐</h4>
                       </div>
-                       <div className="desc" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px'}}>
+                       <div className="desc" style={{backgroundColor:'rgb(12,12,12)',padding:'10px', borderRadius:'10px', margin:'10px', border:' 2px solid #393d40'}}>
                        <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                        </div>
@@ -436,7 +436,7 @@ function Dashboard() {
                <Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
                 
 
-                <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
+                <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , cursor:'pointer', height:'100%', marginTop:'10px', border:' 2px solid #393d40'}} onClick={()=>{setScopeModalShow(true); setModalData(scop); }}>
                    <Card.Body>
                     <Card.Title>{scop.title}</Card.Title>
                     <Card.Text>
@@ -469,7 +469,7 @@ function Dashboard() {
                          setUpdateTitle(e.target.value)
                        }}}/>
                        
-                     </Form>:<h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{modalData.title}</h1>}
+                     </Form>:<h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray', border:' 2px solid #393d40'}}>{modalData.title}</h1>}
                     
                      {isUpdate? <Form style={{display:'flex',backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px'}}>
                        <Form.Control style={{width:'80%',}} placeholder={modalData.description}
@@ -477,12 +477,12 @@ function Dashboard() {
                          setUpdateDesc(e.target.value)
                        }}}/>
                        
-                     </Form>:<p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} </p>}
+                     </Form>:<p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray',  border:' 2px solid #393d40'}}>Description:<br/>{modalData.description} </p>}
                      
                      
                      <div className="mbod">
 
-                     <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                     <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray', border:' 2px solid #393d40'}}>
                        <h3>Incomplete:</h3>
                        <div style={{display:'inline'}}>
                           <Form style={{display:'flex', marginBottom:'10px'}}>
@@ -510,7 +510,7 @@ function Dashboard() {
                      </div>
                        
 
-                     <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                     <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40'}}>
                        <h3>Complete:</h3>
                        {modalData.complete?.map((comp)=>{
                        return(

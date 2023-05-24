@@ -205,7 +205,7 @@ function Scope() {
                <Col style={{width:'450px'}}  xs='2' >
                 
 
-                <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>
+                <Card style={{width:'100%', background:'#282b2e',color:'lightgray',  cursor:'pointer', height:'100%', marginTop:'10px',  border:' 2px solid #393d40'}} onClick={()=>{setModalShow(true); setModalData(scop);}}>
                    <Card.Body>
                     <Card.Title>{scop.title}</Card.Title>
                      <Card.Text>
@@ -241,7 +241,7 @@ function Scope() {
                          setUpdateTitle(e.target.value)
                        }}}/>
                        
-                     </Form>:<h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{modalData.title}</h1>}
+                     </Form>:<h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40'}}>{modalData.title}</h1>}
                     
                      {isUpdate? <Form style={{display:'flex',backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px'}}>
                        <Form.Control style={{width:'80%',}} placeholder={modalData.description}
@@ -249,12 +249,12 @@ function Scope() {
                          setUpdateDesc(e.target.value)
                        }}}/>
                        
-                     </Form>:<p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{modalData.description} </p>}
+                     </Form>:<p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray',  border:' 2px solid #393d40'}}>Description:<br/>{modalData.description} </p>}
                      
                      <div className="mbod">
                       
 
-                       <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40'}}>
                        <h3>Incomplete:</h3>
                        <div style={{display:'inline'}}>
                           <Form style={{display:'flex', marginBottom:'10px'}}>
@@ -280,7 +280,7 @@ function Scope() {
                      })}
                        </div>
 
-                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40'}}>
                        <h3>Complete:</h3>
                        {modalData.complete?.map((comp)=>{
                        return(
