@@ -120,7 +120,7 @@ function Login() {
       
       <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(244,250,255,1) 0%, rgba(183,191,242,1) 50%, rgba(255,255,255,1) 100%)', padding:'0%', margin:'0%', height:'100vh'}} fluid={true}>
     
-    <Card  style={{paddingTop:'40px',height:'400px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px', textAlign:'center'}}>
+    <Card  style={{paddingTop:'40px',height:'400px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px', textAlign:'center', border:'2px solid #b1b4b5'}}>
     
       <Card.Title style={{color:'#282b2e', marginTop:'10px'}}>Log In</Card.Title>
     <Card.Body>

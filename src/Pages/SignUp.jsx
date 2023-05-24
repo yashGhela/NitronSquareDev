@@ -176,7 +176,7 @@ function SignUp() {
   return (
     <Container style={{display:'grid', placeItems:'center', backgroundImage:'radial-gradient(circle, rgba(244,250,255,1) 0%, rgba(183,191,242,1) 50%, rgba(255,255,255,1) 100%)', padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
     
-      <Card   style={{paddingTop:'50px',height:'460px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px'}}>
+      <Card   style={{paddingTop:'50px',height:'460px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )', borderRadius:'20px', border:'2px solid #b1b4b5'}}>
       <Card.Title>Sign Up </Card.Title>
       <Card.Body>
       <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
