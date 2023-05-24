@@ -21,7 +21,7 @@ function Dashboard() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
   const paidt= cookie.get('PAIDT')
-  const first= cookie.get('1stSignUp')
+  const first= localStorage.getItem('1stSignUp')
 
   
   
@@ -220,7 +220,7 @@ function Dashboard() {
         </div>
        
         
-        {first==='true' ? <firstTimeLogin showModal={fshow} setModalShow={setfshow}/>:null}
+        {first===true ? <firstTimeLogin showModal={fshow} setModalShow={setfshow}/>:null}
      
        
         <div className="bod">

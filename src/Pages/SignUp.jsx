@@ -72,7 +72,7 @@ function SignUp() {
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});
-          cookie.set('1stSignUp', true, {expires: new Date(), path:'/'})
+          localStorage.setItem('1stSignUp', true)
           localStorage.setItem('isAuth', true)
          
          
