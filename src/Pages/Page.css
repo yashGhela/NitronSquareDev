@@ -146,7 +146,7 @@
 
 
 .timer-modal .accordion-button {
-  background-color: rgba( 255, 255, 255, 0.25 );
+  background-color: #17181a!important;
   backdrop-filter: blur( 50px );
   box-shadow:0 8px 32px 0 rgba( 31, 38, 135, 0.37 ) ;
   margin-bottom: 5px!important;
@@ -154,11 +154,11 @@
 
 .timer-modal .accordion-button:focus {
   box-shadow: none;
-  color: black;
+  color: lightgray;
 }
 
 .timer-modal .accordion-button:not(.collapsed) {
-  color: black!important;
+  color: lightgray!important;
   
 }
  

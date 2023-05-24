@@ -47,10 +47,10 @@ const user =cookies.get('useraidt');
     
 
       <Routes>
+      <Route path='/' element={<FreeTimer/>}/>
       <Route path='/Login' element={<Login/>}/>
       <Route path='/SignUp' element={<SignUp/>}/>
-      <Route path='/PrivacyPolicy' element={<PrivPol/>}/>
-      <Route path='/' element={<FreeTimer/>}/>
+      <Route path='/PrivacyPolicy' element={<PrivPol/>}/> 
       <Route path='/Ts&Cs' element={<TsCs/>}/>
       <Route path='*' element={<NotFound/>}/>
         <Route path='/' element={<Login />}/>

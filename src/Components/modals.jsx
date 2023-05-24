@@ -168,19 +168,19 @@ function ScopesModal({scopeList, show, setShow, newTask, setNewTask}) {
       <Modal.Body>
         {scopeList.map((scop)=>{
           return(
-            <Accordion  style={{background:'rgb(12,12,12)', borderRadius:'10px', marginBottom:'10px' }}  className='special_modal'>
+            <Accordion  style={{background:'#17181a', borderRadius:'10px', marginBottom:'10px', border:'2px solid #393d40' }}  className='special_modal'>
               <Accordion.Header >
                 {scop.title}
               </Accordion.Header>
               <Accordion.Body>
-              <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>{scop.title}</h1>
+              <h1  style={{fontWeight:'bold', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray', border:'2px solid #393d40' }}>{scop.title}</h1>
                      
-                     <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray'}}>Description:<br/>{scop.description} minutes</p>
+                     <p style={{fontWeight:'400', backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,fontWeight:'lighter', fontSize:'20px',color:'lightgray', border:'2px solid #393d40' }}>Description:<br/>{scop.description} minutes</p>
                      
                      <div className="mbod">
                       
 
-                       <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <div className="Incomplete" style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray', border:'2px solid #393d40' }}>
                        <h3>Incomplete:</h3>
                        <div style={{display:'inline'}}>
                           <Form style={{display:'flex', marginBottom:'10px'}}>
@@ -206,7 +206,7 @@ function ScopesModal({scopeList, show, setShow, newTask, setNewTask}) {
                      })}
                        </div>
 
-                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray'}}>
+                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray', border:'2px solid #393d40' }}>
                        <h3>Complete:</h3>
                        {scop.complete?.map((comp)=>{
                        return(
@@ -280,7 +280,7 @@ function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) 
      {ToDoList.map((todos)=>{
        return(
          <Card 
-         style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}} 
+         style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray', border:'2px solid #393d40' }} 
          
          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
          minBreakpoint="xxs">
