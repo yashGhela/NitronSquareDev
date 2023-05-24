@@ -299,7 +299,7 @@ function Dashboard() {
              <div className="list" style={{display:'inline',padding:'20px', margin:'10px',border: '3px solid rgb(97, 149, 232)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
               <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
-                <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}} onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
+                <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}}  onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
                 <Button disabled={disabled} onClick={()=>{newSub();setSubjectList([...subjectList,subj])}}>Add</Button>
               </Form>
              

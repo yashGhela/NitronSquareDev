@@ -592,9 +592,9 @@ function Timer() {
    <Card
    className='timer-modal'
 
-   style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
+   style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px', border:'2px solid #b1b4b5'}}>
    
-     <Card.Header style={{display:'flex'}}>
+     <Card.Header style={{display:'flex', borderBottom:'2px solid #b1b4b5'}}>
        Media
        <CloseButton style={{marginLeft:'70%'}} onClick={()=>setURlShow(false)}/>
       
@@ -624,9 +624,9 @@ function Timer() {
       <Card
       className='timer-modal'
       
-      style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px'}}>
+      style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px', border:'2px solid #b1b4b5'}}>
       
-        <Card.Header style={{display:'flex'}}>
+        <Card.Header style={{display:'flex', borderBottom:'2px solid #b1b4b5'}}>
           Spotify
           <CloseButton style={{marginLeft:'70%'}} onClick={()=>setSpotifyShow(false)}/>
           
