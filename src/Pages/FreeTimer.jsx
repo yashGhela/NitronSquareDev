@@ -1,0 +1,342 @@
+import React, {useState, useEffect, useRef} from 'react'
+import {Alert, Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup,Badge} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import ReactPlayer from 'react-player';
+import { db, storage } from '../firebaseConfig';
+import SpotifyPlayer from 'react-spotify-player';
+import { BarChart, BoxArrowLeft, Bullseye, CameraVideoFill, Check, CloudDrizzle, Fire, ImageAlt, ListTask, Moon, MusicNoteBeamed, Pause, Play, Spotify, StopFill, Stopwatch, Tree, Water, Wind, Youtube } from 'react-bootstrap-icons';
+import { getDownloadURL, listAll, ref } from 'firebase/storage';
+import AlarmS from '../Assets/Alarm.mp3'
+import Quickbar from '../Components/Quickbar';
+import TimerComp from '../Components/TimerComp';
+import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
+import Cookies from 'universal-cookie';
+
+
+function FreeTimer() {
+ 
+    let nav=useNavigate()
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom','@tealdays']
+    const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FGhibli%2Fghibli%201.png?alt=media&token=747bc1da-4d79-40f4-b793-d1edd3fdf75a'
+
+
+    const purple= 'rgb(97, 149, 232)';
+    const green = '#70FFB2';
+  
+   let workSeconds = 45*60;
+   let breakSeconds= 15*60;
+
+   const [isPaused, setIsPaused]= useState(false); //checks if paused or not
+   const [mode, setMode] = useState('work')//work,break, pause
+   const [secondsLeft, setSecondsLeft] = useState(0);//decides the seconds left
+   
+   const [disabled, setDisabled]=useState(false);
+
+   const secondsLeftRef = useRef(secondsLeft);//references the main objects in order to keep things consistent
+   const isPausedRef = useRef(isPaused);
+   const modeRef = useRef(mode);
+   
+   const totalSeconds = mode==='work'? //total seconds is = to which ever mode chosen
+   workSeconds//multiplies the workminutes by 60 to become actual minutes
+   : breakSeconds //multiplies the breakminutes by 60 to become actual minutes
+
+
+   function initTimer(){ //initializes the timer
+    secondsLeftRef.current= workSeconds; //current seconds left is = to work minutes
+    setSecondsLeft(secondsLeftRef.current); //sets the seconds left to the the current ref
+    
+
+   }
+
+   function switchMode(){
+
+    const nextMode = modeRef.current === 'work' ? 'break' : 'work';
+    const nextSeconds = (nextMode === 'work' ? 45 :15) * 60;
+
+    setMode(nextMode);
+    modeRef.current = nextMode;
+
+    setSecondsLeft(nextSeconds);
+    secondsLeftRef.current = nextSeconds;
+      
+
+    
+//sets mode to the next mode 
+    
+   
+    
+   }
+
+
+    
+    //bgs
+
+    const [alarm,setAlarm]=useState(new Audio(AlarmS))
+    const [imageShow, setImageShow]=useState(false);
+    const [signUpShow, setSignUpShow]=useState(false);
+    const [imageList,setImageList]=useState([]);
+    const [imageUrl,setImageUrl]=useState(ghibli1);
+
+    const [url,setUrl]=useState('');
+    const [urlShow,setURlShow]=useState(false);
+    
+    const [spotifyShow,setSpotifyShow]=useState(false);
+    
+    
+    let [world,setWorld]=useState('')
+    
+
+    let imageListRef= ref(storage,`Backgrounds/${world}`)
+
+   
+
+    const getWorlds=({id})=>{
+      setWorld(id);
+      listAll(imageListRef).then((result)=>{
+        result.items.forEach((item)=>{
+          getDownloadURL(item).then((url)=>{
+           if(imageList.includes(url)){
+            return null
+           }else{
+            setImageList((prev)=>[...prev,url])
+           }
+          })
+        })
+      })
+    }
+
+
+    function tick(){ 
+   
+        secondsLeftRef.current--;//minuses by 1 each time
+        setSecondsLeft(secondsLeftRef.current);
+        
+     }
+  
+     useEffect(()=>{
+
+     const cookie= new Cookies()
+    const user= cookie.get('useraidt')
+    if(user){
+      nav(`/Dashboard/`)
+    }
+      initTimer()
+      const interval =setInterval(()=>{
+          if (isPausedRef.current){  //if paused nothing happens
+            return;
+          }if(secondsLeftRef.current===0){ //if its at 0 switch the mode
+            switchMode();
+            alarm.play()
+            
+        
+    
+            
+          
+            
+          }
+          tick(); //ticks
+        }, 1000);
+        //timeout is 1000 go, activates how much should be minused by
+        return ()=>clearInterval(interval); 
+  
+     },[]);
+
+
+
+     const percentage = Math.round(secondsLeft/totalSeconds *100); //rounds the number 
+     const minutes = Math.floor(secondsLeft/60); 
+     let seconds = secondsLeft%60;
+     if (seconds<10) seconds='0'+seconds;
+
+
+
+  return (
+    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
+
+      <div className="quickBar">
+    <Quickbar
+      L1={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
+      L2={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
+      L3={<Button  variant='light-outline'  onClick={()=>{setSignUpShow(true)}}><BarChart style={{color:'white', }}/></Button>}
+      L4={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
+      L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
+      L6={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><ListTask style={{color:'white', }}/></Button>}
+      L8={<Button  variant='light-outline' onClick={()=>{setURlShow(true)}}><Youtube style={{color:'white', }}/></Button>}
+      L9={<Button  variant='light-outline' onClick={()=>{setSpotifyShow(true)}}><Spotify style={{color:'white', }}/></Button>}
+      L7={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><BoxArrowLeft style={{color:'white', }}/></Button>}
+      
+    />
+  </div>
+     <div style={{placeItems:'center', width:'80vw'}}>          
+     <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
+        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Sign up from Improvr</p>
+        <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
+    textColor: '#fff',
+    pathColor:mode === 'work' ? purple : green,
+
+
+    })}
+    />
+    <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
+    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
+   
+    <Button  onClick={()=>{setSignUpShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
+    </div>
+    
+  </div>
+  </div> 
+                
+            <div className="QuickBarModals" style={{float:'left'}}>
+  
+ 
+  
+
+
+  
+    <Modal
+    className='timer-modal'
+    show={imageShow}
+    onHide={()=>{setImageShow(false)}}
+    
+    style={{background:'none'}}
+    >
+    
+   
+    <Modal.Header closeButton closeVariant='white'>
+       Worlds
+     </Modal.Header>
+
+     <Modal.Body style={{display:'flex', flexDirection:'column'}}>
+     <p style={{textAlign:'center'}}>Double click to load</p>
+     <ButtonGroup>
+   
+      <div style={{display: 'flex', margin:'10px',color:'lightgray', overflow:'auto'}}>
+      {worldsort.map((i)=>{
+         return(
+          <Button 
+         type="checkbox"
+          value={i} 
+          variant="outline-light"
+          onClick={()=>{getWorlds({id:i})}}
+        
+          style={{marginRight:'10px'}}
+          >
+           {i}
+         </Button>
+         )
+      })}
+       </div>
+      </ButtonGroup>
+     
+     
+       <Container>
+        <Row>
+          <Col>
+          {imageList.map((url)=>{
+        return(
+    
+          
+          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
+         
+       
+       
+        )
+       
+      })}
+          
+          </Col>
+        </Row>
+       </Container>
+       
+        
+
+     </Modal.Body>
+
+    </Modal>
+
+   
+   {urlShow?
+   
+   <Card
+   className='timer-modal'
+
+   style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px', border:'2px solid #b1b4b5'}}>
+   
+     <Card.Header style={{display:'flex', borderBottom:'2px solid #b1b4b5'}}>
+       Media
+       <CloseButton style={{marginLeft:'70%'}} onClick={()=>setURlShow(false)}/>
+      
+     </Card.Header>
+     <Card.Body>
+     <Form style={{display:'flex', flexDirection:'column'}}>
+       <p>Enter URL</p>
+       <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
+      
+     </Form>
+     <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
+    <div style={{height:'150px'}}>
+    <ReactPlayer url={url} width='100%' height='100%' stopOnUnmount={false} pip={true} controls={true} playing={()=>{if(urlShow==='true'||urlShow==='false'){return true}}}/>
+    </div>
+
+     
+
+     </Card.Body>
+
+
+
+   </Card>
+
+   :null}
+
+      {spotifyShow? 
+      <Card
+      className='timer-modal'
+      
+      style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.37 )',backdropFilter: 'blur( 50px )', background:'rgba( 255, 255, 255, 0.25 )',marginBottom:'10px', border:'2px solid #b1b4b5'}}>
+      
+        <Card.Header style={{display:'flex', borderBottom:'2px solid #b1b4b5'}}>
+          Spotify
+          <CloseButton style={{marginLeft:'70%'}} onClick={()=>setSpotifyShow(false)}/>
+          
+        </Card.Header>
+        <Card.Body>
+      
+        <SpotifyPlayer
+
+        uri="https://open.spotify.com/playlist/3WLDIcG4Cx2UOPy0rbFhQn?si=d5bed878c963410e"
+        view='list'
+        theme='black'
+        size='large'/>
+
+
+        
+
+        </Card.Body>
+
+
+
+      </Card>:null}
+
+      <Modal
+      className='timer-modal'
+      show={signUpShow}
+      onHide={()=>{setSignUpShow(false)}}
+      
+      style={{background:'none'}}>
+        <Modal.Header closeButton closeVariant=''>
+            Sign up for full access
+      </Modal.Header>
+      <Modal.Body>
+        To access these features you must sign up.
+        Sign up below 
+        <Button onClick={()=>{nav('/SignUp')}}>Get me in</Button>
+      </Modal.Body>
+      </Modal>
+   </div>
+  </div>
+
+  )
+}
+
+export default FreeTimer

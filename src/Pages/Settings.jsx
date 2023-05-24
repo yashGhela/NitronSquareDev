@@ -98,7 +98,7 @@ function Settings() {
           cookies.remove('useraidt', { path: '/' });
           cookie.remove('PAIDT',{path:'/'} )
           
-          nav('/');
+          nav('/Login');
           
         })}
 

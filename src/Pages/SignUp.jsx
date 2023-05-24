@@ -195,7 +195,7 @@ function SignUp() {
      
       {errShow&&<Alert style={{marginTop:'5px'}} variant='danger'>{errMessage}</Alert>}
       </Card.Body>
-      <p style={{textDecoration:'underline', color:'grey', cursor:'pointer' }} onClick={()=>{nav('/')}}>or go to Log In</p>
+      <p style={{textDecoration:'underline', color:'grey', cursor:'pointer' }} onClick={()=>{nav('/Login')}}>or go to Log In</p>
 
       <Modal
        show={modalShow}

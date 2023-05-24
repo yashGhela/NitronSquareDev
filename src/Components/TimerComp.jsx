@@ -11,7 +11,7 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
     let nav= useNavigate()
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
-    const settingsInfo = location.state;
+    const settingsInfo = location.state ;
    let workSeconds = settingsInfo.workMinutes*60;
    let breakSeconds= settingsInfo.breakMinutes*60;
 
@@ -30,8 +30,8 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
    : breakSeconds //multiplies the breakminutes by 60 to become actual minutes
 
    
-   const WT=location.state.WT;
-   const BT=location.state.BT;
+   const WT=location.state.WT ;
+   const BT=location.state.BT ;
 
    
   
