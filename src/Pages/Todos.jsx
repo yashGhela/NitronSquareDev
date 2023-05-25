@@ -177,7 +177,8 @@ function Todos() {
          </Card>
 
          <div style={{textAlign:'center', color:'lightgray'}}>
-          <p >Pro mode coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
+          <p >Upgrade to Pro to use this feature. <br/> </p>
+          <p style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}>Click here to upgrade</p>
          </div>
 
         </div>

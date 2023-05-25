@@ -204,7 +204,7 @@ function SignUp() {
        onHide={()=>{setModalShow(false)}}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
-      className="timer-modal"
+      className="special_modal"
       
       centered>
       <Modal.Header closeButton closeVariant='white'>
@@ -246,7 +246,7 @@ function SignUp() {
        </div>
      
        <Modal
-       className="timer-modal"
+       className="special_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt1show}
@@ -271,7 +271,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="timer-modal"
+       className="special_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={prompt2show}
@@ -298,7 +298,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="timer-modal"
+       className="special_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={completePrompt}
