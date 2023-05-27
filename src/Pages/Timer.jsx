@@ -50,7 +50,7 @@ function Timer() {
 
     
 
-    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom','@tealdays']
+    let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom', 'Stardew Valley']
 
     //bgs
     
