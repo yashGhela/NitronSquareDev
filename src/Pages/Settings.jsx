@@ -24,8 +24,9 @@ function Settings() {
 
   const [cancelMod, setCancelMod]=useState(false)
  const [subID, setSubID]=useState('')
- const [token,setToken]=useState('')
+
  const [cancelStatus, setCancelStatus] = useState('');
+ const [TP, setTP]=useState('Monthly')
 
 
 
@@ -36,11 +37,17 @@ function Settings() {
 
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
-  const paypalSubscribe = (data, actions) => {
+  const paypalSubscribeY = (data, actions) => {
     return actions.subscription.create({
-    'plan_id': "P-5JW39259P5674953XMRL2XFA",
+    'plan_id': 'P-5JW39259P5674953XMRL2XFA',
     });
     };
+
+    const paypalSubscribeM = (data, actions) => {
+      return actions.subscription.create({
+      'plan_id': 'P-0G807194D16574536MRCPXFI',
+      });
+      };
     const paypalOnError = (err) => {
     console.log("Error")
     }
@@ -264,30 +271,68 @@ function Settings() {
            :<div style={{width:'30%'}}>
               <Card
               
-              style={{background:'#fff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
+              style={{background:'#f0f4ff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
               >
-                <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                <h1 style={{fontSize:'50px'}}>$35/year</h1>
-                <span>✔️Unlimited Sessions</span>
-                <span>✔️Unlimited Scopes</span>
-                <span>✔️Up to 210 minutes a session</span>
-                <span>✔️Todos </span>
-                <span>✔️All creator kits </span>
-                
-             
-                
-                <hr/>
+                <Card.Header style={{borderBottom:'0 none'}}>
+                  <div style={{display:'flex'}}>
+                    <Button variant='dark' style={{width:'50%', marginRight:'5px'}} onClick={()=>{setTP('Monthly')}}>Monthly</Button>
+                    <Button variant='dark' style={{width:'50%'}} onClick={()=>{setTP('Yearly')}}>Yearly</Button>
+                  </div>
+                </Card.Header>
+                  {TP==='Yearly'?
+                  <div>
+                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
+                        <h1 style={{fontSize:'40px'}}>$35/year</h1><br/>
+                        <span>✔️Unlimited Sessions</span><br/>
+                        <span>✔️Unlimited Scopes</span><br/>
+                        <span>✔️Up to 210 minutes a session</span><br/>
+                        <span>✔️Todos </span><br/>
+                        <span>✔️All creator kits </span><br/>
+                        
+                    
+                        
+                        <hr/>
 
-                <PayPalButton
-              style={{color:'blue'}}
-              amount = "35"
-              currency = "USD"
-              createSubscription={paypalSubscribe}
-              onApprove={paypalOnApprove}
-              catchError={paypalOnError}
-              onError={paypalOnError}
-              onCancel={paypalOnError}
-              />
+                        <PayPalButton
+                      style={{color:'blue'}}
+                      amount = "35"
+                      currency = "USD"
+                      createSubscription={paypalSubscribeY}
+                      onApprove={paypalOnApprove}
+                      catchError={paypalOnError}
+                      onError={paypalOnError}
+                      onCancel={paypalOnError}
+                      />
+                  </div>
+                  :
+                  <div>
+
+                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
+                          <h1 style={{fontSize:'40px'}}>$5/month</h1><br/>
+                          <span>✔️Unlimited Sessions</span><br/>
+                          <span>✔️Unlimited Scopes</span><br/>
+                          <span>✔️Up to 210 minutes a session</span><br/>
+                          <span>✔️Todos </span><br/>
+                          <span>✔️All creator kits </span><br/>
+                          
+                      
+                          
+                          <hr/>
+
+                          <PayPalButton
+                        style={{color:'blue'}}
+                        amount = "5"
+                        currency = "USD"
+                        createSubscription={paypalSubscribeM}
+                        onApprove={paypalOnApprove}
+                        catchError={paypalOnError}
+                        onError={paypalOnError}
+                        onCancel={paypalOnError}
+                        />
+                  </div>
+                  
+                  
+                  }
 
                 
               </Card>

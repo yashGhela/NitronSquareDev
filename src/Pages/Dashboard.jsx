@@ -349,6 +349,7 @@ function Dashboard() {
          
         
         <div className="Recent" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
+          
           <p style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</p>
          
               {dataExists?   recsesList.map((rec)=>{
