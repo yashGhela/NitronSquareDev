@@ -4,13 +4,13 @@ import { useNavigate} from 'react-router-dom'
 
 import {auth} from '../firebaseConfig';
 
-import logo from '../Assets/LOGO clean.png'
-import {Archive, BarChart, BoxArrowLeft, Bullseye, Check2Square, Gear, Speedometer} from 'react-bootstrap-icons'
+import logo from '../Assets/Plugin icon - 1.png'
+import {Archive, BarChart, BoxArrowLeft, Bullseye, Check2Square, Gear, PlusCircle, PlusSquare, Speedometer} from 'react-bootstrap-icons'
 import { Button, Nav, OverlayTrigger, Tooltip, Container } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
 
-function Sidebar({L1,L2,L3,L4,L5, L6}) {
+function Sidebar() {
 
   let nav = useNavigate();
 
@@ -58,7 +58,14 @@ function Sidebar({L1,L2,L3,L4,L5, L6}) {
        <Button variant='light-outine' onClick={()=>nav('/Todos')}><Check2Square style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
-      <Nav.Item style={{marginBottom:'20px', marginTop:'45vh'}}>
+      <div style={{ marginTop:'45vh'}}>
+      <Nav.Item style={{marginBottom:'20px'}}>
+      <OverlayTrigger
+       overlay={renderTooltip('Templates')}>
+       <Button variant='light-outline' onClick={()=>nav(`/`)}><PlusSquare style={{color:'white'}}/></Button>
+       </OverlayTrigger>
+      </Nav.Item>
+      <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Sessions')}>
        <Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>
@@ -72,6 +79,7 @@ function Sidebar({L1,L2,L3,L4,L5, L6}) {
        <Button onClick={()=>{nav('/Settings')}}  variant='light-outline'><Gear style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
+      </div>
      
     </Nav>
    </div>
