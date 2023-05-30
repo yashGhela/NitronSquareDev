@@ -5,7 +5,7 @@ import { useNavigate} from 'react-router-dom'
 import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/LOGO clean.png'
-import {BoxArrowLeft, Gear} from 'react-bootstrap-icons'
+import {Archive, BarChart, BoxArrowLeft, Bullseye, Check2Square, Gear, Speedometer} from 'react-bootstrap-icons'
 import { Button, Nav, OverlayTrigger, Tooltip, Container } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
@@ -26,7 +26,7 @@ function Sidebar({L1,L2,L3,L4,L5, L6}) {
   
   return (
 
-<div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'10px', marginRight:'5px', display:'flex', flexDirection:'column', height:'97vh',  border:' 2px solid #393d40'}}>
+<div className='Sidebar' style={{marginTop:'10px', marginLeft:'7px', borderRadius:'10px', marginRight:'5px', display:'flex', flexDirection:'column', height:'97dvh',  border:' 2px solid #393d40'}}>
  
 <img src={logo} alt="" style={{height:'40px', width:'40px', marginBottom:'100%'}} />
    <div >
@@ -36,37 +36,37 @@ function Sidebar({L1,L2,L3,L4,L5, L6}) {
       <Nav.Item style={{marginBottom:'20px'}} >
        <OverlayTrigger
        overlay={renderTooltip('Dashboard')}>
-       {L1}
+       <Button variant='light-outline' onClick={()=>nav(`/Dashboard/`)}><Speedometer style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
-      <Nav.Item style={{marginBottom:'20px'}}>
-      <OverlayTrigger
-       overlay={renderTooltip('Sessions')}>
-       {L2}
-       </OverlayTrigger>
-      </Nav.Item>
+      
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Trends')}>
-       {L3}
+      <Button variant='light-outline' onClick={()=>nav(`/Trends/`)}><BarChart style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Scopes')}>
-       {L4}
+       <Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Todos')}>
-       {L5}
+       <Button variant='light-outine' onClick={()=>nav('/Todos')}><Check2Square style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
-     
+      <Nav.Item style={{marginBottom:'20px', marginTop:'45vh'}}>
+      <OverlayTrigger
+       overlay={renderTooltip('Sessions')}>
+       <Button variant='light-outline' onClick={()=>nav(`/Sessions/`)}><Archive style={{color:'white'}}/></Button>
+       </OverlayTrigger>
+      </Nav.Item>
       
    
-      <Nav.Item style={{marginTop:'47vh'}} >
+      <Nav.Item  >
        <OverlayTrigger
         overlay={renderTooltip('Settings')}>
        <Button onClick={()=>{nav('/Settings')}}  variant='light-outline'><Gear style={{color:'white'}}/></Button>
