@@ -414,7 +414,11 @@ function Dashboard() {
               
                   </div>                      
               )
-            }):<h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>There are no sessions yet</h1>}
+            }): 
+            <center>
+              <p style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No Sessions added yet</p>
+               <Button onClick={()=>{nav('/Templates')}}  variant='outline-secondary' style={{borderStyle:'dashed', marginRight:'10px', borderRadius:'15px'}}>Find a Template to get started</Button>
+            </center>}
 
              
              
@@ -541,7 +545,12 @@ function Dashboard() {
              
 
             )
-          }): <h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</h1>}
+          }): <div >
+              <center>
+              <p style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</p>
+               <Button onClick={()=>{nav('/Templates')}}  variant='outline-secondary' style={{borderStyle:'dashed', marginRight:'10px', borderRadius:'15px'}}>Find a Template to get started</Button>
+              </center>
+            </div>}
           </Row>
          </Container>
           </div>

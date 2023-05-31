@@ -318,7 +318,10 @@ function Scope() {
 
 
             )
-          }):<h1 style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</h1>}
+          }):  <center>
+          <p style={{color:'lightgray', textAlign:'center', fontSize:'25px'}}>No scopes added yet</p>
+           <Button onClick={()=>{nav('/Templates')}}  variant='outline-secondary' style={{borderStyle:'dashed', marginRight:'10px', borderRadius:'15px'}}>Find a Template to get started</Button>
+          </center>}
           </Row>
          </Container>
         </div>
