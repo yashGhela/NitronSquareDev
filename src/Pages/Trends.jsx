@@ -236,9 +236,9 @@ await getDoc(subref).then(docSnap=>{
                 <Button 
                 type="checkbox"
                  value={sub} 
-                 variant="outline-light"
+                 variant='outline-secondary' style={{borderStyle:'dashed', marginRight:'10px', borderRadius:'15px'}}
                  onClick={()=>{getData({sub:sub}); docCount({sub:sub}); setSub(sub); GetAvgWt({sub:sub}); GetAvgBt({sub:sub})}}
-                 style={{marginRight:'10px'}}
+                
                  >
                   {sub}
                 </Button>

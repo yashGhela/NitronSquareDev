@@ -187,7 +187,7 @@ function Scope() {
         
         </Card>
 
-        <div className="Scopes" style={{display:'flex', marginLeft:'7px',overflow:'auto',padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
+        <div className="Scopes" style={{display:'flex', marginLeft:'7px',overflow:'auto',padding:'20px', borderRadius:'10px', border:'1px solid #282b2e', margin:'20px'}} >
 
          <Container fluid={true} >
           <Row >

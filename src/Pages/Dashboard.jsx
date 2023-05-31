@@ -341,7 +341,7 @@ function Dashboard() {
 
          
         
-        <div className="Recent" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
+        <div className="Recent" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e', margin:'20px'}} >
           
           <p style={{marginBottom:'10px', fontSize:'23px',color:'lightgray'}}>Recent Sessions:</p>
          
@@ -419,7 +419,7 @@ function Dashboard() {
              
              
           </div>
-          <div className="RecentScopes" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e'}} >
+          <div className="RecentScopes" style={{ padding:'20px', borderRadius:'10px', border:'1px solid #282b2e', margin:'20px'}} >
           <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'22px', color:'lightgray'}}>Recent Scopes:</p>
            
          <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>

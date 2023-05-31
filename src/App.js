@@ -23,6 +23,7 @@ import Settings from './Pages/Settings';
 import PrivPol from './Pages/PrivPol';
 import TsCs from './Pages/TsCs';
 import FreeTimer from './Pages/FreeTimer';
+import Templates from './Pages/Templates';
 
 
 
@@ -62,7 +63,7 @@ const user =cookies.get('useraidt');
         <Route path={`/Timer/`} element={<Timer/>}/>
         <Route path={`/Sessions/`} element={<Sessions/>}/>
         <Route path={`/Scopes/`} element={<Scope/>}/>
-       
+       <Route path={'/Templates'} element={<Templates/>}/>
 
     
         <Route path={`/Settings`} element={<Settings/>}/>

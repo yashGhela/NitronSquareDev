@@ -333,7 +333,8 @@ function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) 
 export   {SoundsModal,
     TrendsModal, 
     ScopesModal,
-    TodoModal,
+    TodoModal
+  
     
     
     
