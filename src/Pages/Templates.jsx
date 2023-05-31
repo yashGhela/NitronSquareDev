@@ -18,7 +18,7 @@ function Templates() {
             margin:'20px',
             height:'160px',
             backgroundColor:'#17181a',
-            border: '3px solid #745a96',
+            border: '3px solid #a26ded',
             backgroundSize:'400% 400%',
             textAlign:'center',
             alignItems:'center',
@@ -41,6 +41,8 @@ function Templates() {
            })}
 
         </div>
+        <div style={{padding:'20px', borderRadius:'10px', border:'1px solid #282b2e', overflow:'auto', display:'flex', margin:'20px'}}>
+            </div>
     </div>
    </div>
   )
