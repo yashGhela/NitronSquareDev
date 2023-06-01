@@ -24,7 +24,10 @@ import { APP_SECRET, CLIENT_ID } from '../Util/config'
 function Settings() {
 
   const [cancelMod, setCancelMod]=useState(false)
- const [subID, setSubID]=useState('')
+  const [subID, setSubID]=useState('');
+  const [email,setEmail]=useState('');
+
+
 
  
 
@@ -72,14 +75,6 @@ function Settings() {
     
    
 
-    const cancelSub=async()=>{
-      await updateDoc(doc(db,'Users',user),{
-        type: 'free'
-      });
-      await deleteDoc(doc(db,'User',user,'Subscription','SubDetails'))
-      cookie.remove('PAIDT',{path:'/'});
-      setCancelMod(false)
-    }
 
    
    
@@ -195,7 +190,16 @@ function Settings() {
            <h2 style={{color:'lightgray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Your Account:</h2>
 
            {paidt==='Tnf'?
-            <p>Pro</p>
+             <Card style={{width:'250px', background:'#393d40',color:'lightgray',   height:'100%', marginTop:'10px',  border:' 2px solid #393d40'}} >
+             <Card.Body>
+             
+               <Card.Text style={{padding:'20px',backgroundColor:'#282b2e', color:'lightgray', borderRadius:'10px'}}>
+                 <h1>Pro</h1>
+                  
+                </Card.Text>
+              </Card.Body>
+
+             </Card>
            :<div style={{width:'30%'}}>
               <Card
               
