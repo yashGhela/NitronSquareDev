@@ -18,6 +18,7 @@ import { PayPalButton } from 'react-paypal-button-v2'
 
 import {  httpsCallable } from 'firebase/functions'
 import { APP_SECRET, CLIENT_ID } from '../Util/config'
+
     
 
 function Settings() {
@@ -25,8 +26,7 @@ function Settings() {
   const [cancelMod, setCancelMod]=useState(false)
  const [subID, setSubID]=useState('')
 
- const [cancelStatus, setCancelStatus] = useState('');
- const [TP, setTP]=useState('Monthly')
+ 
 
 
 
@@ -37,17 +37,7 @@ function Settings() {
 
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
-  const paypalSubscribeY = (data, actions) => {
-    return actions.subscription.create({
-    'plan_id': 'P-5JW39259P5674953XMRL2XFA',
-    });
-    };
-
-    const paypalSubscribeM = (data, actions) => {
-      return actions.subscription.create({
-      'plan_id': 'P-0G807194D16574536MRCPXFI',
-      });
-      };
+ 
     const paypalOnError = (err) => {
     console.log("Error")
     }
@@ -154,38 +144,7 @@ function Settings() {
 
   
 
-    const callFunction=async ()=>{
-     
-      
 
-      
-        try {
-          const response = await fetch(
-            `https://api-m.paypal.com/v1/billing/subscriptions/${subID}/cancel`,
-            {
-              method: 'POST',
-              headers: {
-                'Authorization': `Basic ${btoa(CLIENT_ID + ':' + APP_SECRET)}`,
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-              },
-              body: JSON.stringify({ reason: 'Not satisfied with the service' }),
-            }
-          );
-    
-          const responseData = await response.json();
-    
-          if (response.ok) {
-            setCancelStatus('Subscription canceled successfully');
-            console.log('Success')
-          } else {
-            setCancelStatus(`Error canceling subscription: ${responseData.message}`);
-          }
-        } catch (error) {
-          console.error(error);
-          setCancelStatus('Error canceling subscription');
-        }
-      };
     
 
     
@@ -236,51 +195,23 @@ function Settings() {
            <h2 style={{color:'lightgray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Your Account:</h2>
 
            {paidt==='Tnf'?
-           <div style={{padding:'20px', }}>
-            <Button variant='outline-danger'
-            
-            onClick={()=>{setCancelMod(true);console.log(subID);}}
-            >Cancel Subscription</Button>
-            <p style={{color:'lightgray', marginTop:'20px'}}> If you are experiencing difficulties cancelling your subscription,<br/> please contact us at info@nitrondigital.com </p>
-            <Modal
-             aria-labelledby="contained-modal-title-vcenter"
-             centered
-              show={cancelMod}
-              onHide={()=>setCancelMod(false)}
-              className='special_modal'>
-                <Modal.Header closeButton closeVariant='white' >Cancel Subscription</Modal.Header>
-                <Modal.Body>
-                  <p style={{color:'lightgray'}}>Are you sure you want to cancel your subscription?</p>
-                  <div style={{display:'flex'}}>
-                    <Button variant='outline-danger' onClick={()=>{cancelSub(); callFunction()}} style={{marginRight:'5px', width:'50%'}}>Yes</Button>
-                    <Button variant='outline-light' onClick={()=>setCancelMod(false)} style={{marginRight:'5px', width:'50%'}}>No</Button>
-                  </div>
-                </Modal.Body>
-              </Modal>
-
-
-
-           </div>
+            <p>Pro</p>
            :<div style={{width:'30%'}}>
               <Card
               
               style={{background:'#f0f4ff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
               >
-                <Card.Header style={{borderBottom:'0 none'}}>
-                  <div style={{display:'flex'}}>
-                    <Button variant='dark' style={{width:'50%', marginRight:'5px'}} onClick={()=>{setTP('Monthly')}}>Monthly</Button>
-                    <Button variant='dark' style={{width:'50%'}} onClick={()=>{setTP('Yearly')}}>Yearly</Button>
-                  </div>
-                </Card.Header>
-                  {TP==='Yearly'?
-                  <div>
+                
+                <div>
                     <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                        <h1 style={{fontSize:'40px'}}>$35/year</h1><br/>
+                        <h1 style={{fontSize:'40px'}}>$10</h1><br/>
                         <span>✔️Unlimited Sessions</span><br/>
                         <span>✔️Unlimited Scopes</span><br/>
+                        <span>✔️Unlimited Session tasks </span><br/>
                         <span>✔️Up to 210 minutes a session</span><br/>
-                        <span>✔️Todos </span><br/>
-                        <span>✔️All creator kits </span><br/>
+                        
+                        <span>✔️All Templates </span><br/>
+                        
                         
                     
                         
@@ -288,44 +219,29 @@ function Settings() {
 
                         <PayPalButton
                       style={{color:'blue'}}
-                      amount = "35"
+                      amount = "10"
                       currency = "USD"
-                      createSubscription={paypalSubscribeY}
+                      createOrder={(data,actions)=>{
+                        return actions.order.create({
+                          purchase_units: [{
+                            amount: {
+                              currency_code: "USD",
+                              value: "10"
+                            }
+                          }],
+                          application_context: {
+                            shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                           }
+                        });
+                      
+                      }}
+                    
                       onApprove={paypalOnApprove}
                       catchError={paypalOnError}
                       onError={paypalOnError}
                       onCancel={paypalOnError}
                       />
                   </div>
-                  :
-                  <div>
-
-                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                          <h1 style={{fontSize:'40px'}}>$5/month</h1><br/>
-                          <span>✔️Unlimited Sessions</span><br/>
-                          <span>✔️Unlimited Scopes</span><br/>
-                          <span>✔️Up to 210 minutes a session</span><br/>
-                          <span>✔️Todos </span><br/>
-                          <span>✔️All creator kits </span><br/>
-                          
-                      
-                          
-                          <hr/>
-
-                          <PayPalButton
-                        style={{color:'blue'}}
-                        amount = "5"
-                        currency = "USD"
-                        createSubscription={paypalSubscribeM}
-                        onApprove={paypalOnApprove}
-                        catchError={paypalOnError}
-                        onError={paypalOnError}
-                        onCancel={paypalOnError}
-                        />
-                  </div>
-                  
-                  
-                  }
 
                 
               </Card>

@@ -327,7 +327,7 @@ function Timer() {
     if(snap.data().type==='free'){
       const colRef=collection(db,'Users',user,'Sessions');
       await getCountFromServer(colRef).then(async (snap)=>{
-        if (snap.data().count<500){
+        if (snap.data().count<30){
           await addDoc(collection(db, 'Users',user,'Sessions'),{
             WorkTime: finWorkTime,
             BreakTime: finBreakTime,

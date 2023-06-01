@@ -50,7 +50,7 @@ function Scope() {
       if(snap.data().type==='free'){
         const colref=collection(db, 'Users',user,'Sessions');
         await getCountFromServer(colref).then(async(snap)=>{
-          if(snap.data().count<50){
+          if(snap.data().count<10){
             const subref= collection(db,'Users',user,'Scopes');
             await addDoc(subref, {
               title: Newtitle,

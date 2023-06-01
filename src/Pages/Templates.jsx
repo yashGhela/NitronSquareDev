@@ -42,6 +42,7 @@ function Templates() {
 
         </div>
         <div style={{padding:'20px', borderRadius:'10px', border:'1px solid #282b2e', overflow:'auto', display:'flex', margin:'20px'}}>
+        <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'5px', color:'lightgray'}}>Favourites:</p>
             </div>
     </div>
    </div>
