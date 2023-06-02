@@ -100,10 +100,9 @@ function Timer() {
 
     const [toDo, setToDo]=useState('');
     
-    const [ToDoList, setToDoList]= useState([]);
-  
+    const [ToDoList, setToDoList]=useState([]);
    
-    const todoRef=collection(db,'Users',user,'ToDos');
+
 
     const [url,setUrl]=useState('');
     const [urlShow,setURlShow]=useState(false);
@@ -163,7 +162,7 @@ function Timer() {
     const [timerShow, setTimerShow] = useState(false);
 
     const [imageShow, setImageShow]=useState(false);
-    const [todoShow, setToDoShow]=useState(false);
+    
   
     
     const [tree,setTree]= useState(new Audio(treeS));
@@ -291,11 +290,7 @@ function Timer() {
          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
        );
 
-       onSnapshot(todoRef,(snap)=>{
-        setToDoList(
-          snap.docs.map((doc)=> ({ ...doc.data(), id: doc.id }))
-        )
-       } )
+       
        
        
        
@@ -386,7 +381,7 @@ function Timer() {
       L3={<Button  variant='light-outline'   onClick={()=>{setTrendShow(true);getData({sub:subject, setChartData: setChartData});}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline'  onClick={()=>{setScopeShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
       L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
-      L6={<Button  variant='light-outline' onClick={()=>{setToDoShow(true)}}><ListTask style={{color:'white', }}/></Button>}
+      
       L8={<Button  variant='light-outline' onClick={()=>{setURlShow(true)}}><Youtube style={{color:'white', }}/></Button>}
       L9={<Button  variant='light-outline' onClick={()=>{setSpotifyShow(true)}}><Spotify style={{color:'white', }}/></Button>}
       L7={<Button  variant='light-outline' onClick={()=>{nav('/Dashboard')}}><BoxArrowLeft style={{color:'white', }}/></Button>}
@@ -411,6 +406,41 @@ function Timer() {
         maxTime={maxTime}
         
         />
+
+        <div style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', placeItems: 'center', marginRight:'10px'}}>
+        <Container style={{borderRadius:'10px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'20px', border:'2px solid #b1b4b5', padding:'20px',  }}>
+        <p style={{marginBottom:'10px', fontSize:'22px', marginLeft:'5px', color:'white'}}>Session Tasks:</p>
+        <Form style={{display:'flex'}}>
+          <Form.Control width={'70%'} style={{marginRight:'10px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setToDo(e.target.value)}}/>
+          <Button variant='outline-light' onClick={()=>{setToDoList(prev=>[...prev,toDo]); console.log(ToDoList)}} >Add</Button>
+        </Form>
+
+          <hr/>
+
+       <div>
+       {ToDoList.map((i)=>{
+            return(
+              <Card 
+         style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 10px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'gray', border:'2px solid #b1b4b5' }} 
+         
+         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+         minBreakpoint="xxs">
+          <Row>
+           <Col>
+           <h3 style={{fontWeight:'400', fontSize:'20px'}}>{i}</h3></Col>
+        
+           <Col><Button  variant="secondary"  
+              style={{float:'right'}} ><Check/></Button></Col>
+          </Row>
+       
+           </Card>
+        
+            )
+            
+          })}
+       </div>
+          </Container>
+        </div>
    
   
     
@@ -522,7 +552,7 @@ function Timer() {
     
     
 
-    <TodoModal show={todoShow} setShow={setToDoShow} ToDoList={ToDoList} stateUp={stateUp} setStateUp={setStateUp} toDo={toDo} setToDo={setToDo}/>
+   
 
   
     <Modal
@@ -602,7 +632,7 @@ function Timer() {
      <Card.Body>
      <Form style={{display:'flex', flexDirection:'column'}}>
        <p>Enter URL</p>
-       <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setUrl(e.target.value)}} />
+       <FormControl style={{width:'80%', marginRight:'15px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setUrl(e.target.value)}} />
       
      </Form>
      <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>

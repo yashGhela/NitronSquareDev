@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef} from 'react'
 import ReactSlider from 'react-slider';
-import { Button, Modal } from 'react-bootstrap';
+import { Button, Container, Modal } from 'react-bootstrap';
 import { Pause, Play } from 'react-bootstrap-icons';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { useNavigate } from 'react-router-dom';
@@ -147,20 +147,18 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
     <div>
      
            <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
-        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Studying {subject}</p>
-        <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
-    textColor: '#fff',
-    pathColor:mode === 'work' ? purple : green,
-
-
-    })}
-    />
-    <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+        
+       <Container style={{borderRadius:'10px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'6%', border:'4px solid ', padding:'20px', borderColor:(mode==='work'?purple:green), }}>
+        <center>
+        <p style={{textAlign:'center', fontSize:'20px', color:'white', marginTop:'0',}}>Studying {subject}</p>
+        <h1 style={{fontSize:'68px', color:'white', paddingLeft:'0px'}}>{minutes}:{seconds}</h1>
+        {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
    
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
-    </div>
+        </center>
+       </Container>
+    
     
   </div>
 
@@ -174,7 +172,7 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
         Timer
       </Modal.Header>
       <Modal.Body>
-      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
+      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray',}}>
                 <p style={{fontSize:'25px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
               <ReactSlider 
