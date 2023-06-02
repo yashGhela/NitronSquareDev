@@ -407,6 +407,32 @@ function Dashboard() {
                        <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                        </div>
+                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40', overflowY:'scroll', height:'200px'}}>
+                       <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Session Tasks:</h4>
+                       {modalData.sessionTasks?.map((comp)=>{
+                       return(
+                         <div className="list">
+
+                                 <Card 
+                                style={{background:'#282b2e', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray', border:'2px solid #393d40' }} 
+                                
+                                breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+                                minBreakpoint="xxs">
+                                  <Row>
+                                  <Col>
+                                  <h3 style={{fontWeight:'400', fontSize:'20px'}}>{comp}</h3></Col>
+                                  
+                                
+                                  </Row>
+                              
+                                  </Card>
+
+                         </div >
+                       )
+                     })}
+                       </div>
+                            
+                       
                      </Modal.Body>
                      </Modal>
 

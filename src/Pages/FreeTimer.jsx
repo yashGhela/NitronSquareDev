@@ -168,24 +168,24 @@ function FreeTimer() {
     />
   </div>
      <div style={{placeItems:'center', width:'80vw'}}>          
-     <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
-        <p style={{textAlign:'center', fontSize:'20px', color:'lightgray'}}>Sign up from Improvr</p>
-        <CircularProgressbar value={percentage} text={minutes+':'+seconds} styles={buildStyles({rotation:0,strokeLinecap:0,
-    textColor: '#fff',
-    pathColor:mode === 'work' ? purple : green,
-
-
-    })}
-    />
-    <div style={{paddingLeft:'32%', paddingTop:'30px'}}>
-    {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
-    <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
-      <Button  onClick={()=>{nav('/Login')}} style={{margin:'10px'}} variant='outline-light'> Login</Button>
-    <Button  onClick={()=>{setSignUpShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
+     <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'46%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
+        
+        <Container style={{borderRadius:'10px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'6%', border:'4px solid ', padding:'20px', borderColor:(mode==='work'?purple:green), }}>
+         <center>
+         <p style={{textAlign:'center', fontSize:'20px', color:'white', marginTop:'0',}}>Sign up for Improvr</p>
+         <h1 style={{fontSize:'68px', color:'white', paddingLeft:'0px'}}>{minutes}:{seconds}</h1>
+         {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
+     <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
     
-    </div>
-    
-  </div>
+     <Button  onClick={()=>{setSignUpShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
+         </center>
+        </Container>
+        <center >
+         
+         </center>
+     
+     
+   </div>
   </div> 
                 
             <div className="QuickBarModals" style={{float:'left'}}>

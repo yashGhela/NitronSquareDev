@@ -54,12 +54,7 @@ function Sidebar() {
        <Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
-      <Nav.Item style={{marginBottom:'20px'}}>
-      <OverlayTrigger
-       overlay={renderTooltip('Todos')}>
-       <Button variant='light-outine' onClick={()=>nav('/Todos')}><Check2Square style={{color:'white'}}/></Button>
-       </OverlayTrigger>
-      </Nav.Item>
+     
       <div style={{ marginTop:'45vh'}}>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger

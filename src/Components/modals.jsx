@@ -11,8 +11,7 @@ import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
 import { AddToDo, CompleteToDo, movetask, movetaskBack, newTassk } from '../Util/functions';
-import ReactPlayer from 'react-player';
-import SpotifyPlayer from 'react-spotify-player';
+
 import Cookies from 'universal-cookie';
 
 const cookie = new Cookies()
@@ -251,45 +250,47 @@ function ScopesModal({scopeList, show, setShow, newTask, setNewTask}) {
 
 
 
-function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) {
-    const state=(todo)=>{
-        if(todo.state==='incomplete'){return('danger')}else{return('success')}
-      }
-  return (
-    <div>
-          <Modal
+
+
+function SessionTasks({show,setShow,setToDo,toDo,ToDoList, finlist, setToDoList, setFinlist}){
+  const addToDo=({i})=>{
+    setToDoList(prev=>[...prev,i])
+  }
+
+  const CompleteToDo=({i})=>{
+    setFinlist(prev=>[...prev,i])
+    var del = ToDoList.indexOf(i)
+    ToDoList.splice(del,1)
+  }
+
+  
+
+  return(
+    <Modal
     className='timer-modal '
     show={show}
     onHide={()=>{setShow(false)}}
-    
-    
     >
-      <Modal.Header closeButton closeVariant='white'>
-        To Dos
-      </Modal.Header>
+      <Modal.Header closeButton closeVariant='white'>Session Tasks:</Modal.Header>
       <Modal.Body>
-      {paidt==='Tnf'?
-      <div>
-         <Form style={{display:'flex', padding:'20px'}}>
-       <FormControl style={{width:'80%', marginRight:'15px'}} onChange={(e)=>{setToDo(e.target.value)}}/>
-       <Button onClick={()=>{AddToDo({toDo:toDo})}} variant='outline-light'>Add! </Button>
+      <Form style={{display:'flex', padding:'20px'}}>
+       <FormControl style={{width:'80%', marginRight:'15px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setToDo(e.target.value)}}/>
+       <Button onClick={()=>{addToDo({i:toDo});console.log(ToDoList)}} variant='outline-light'>Add! </Button>
      </Form>
-     <hr style={{ color:'lightgray',backgroundColor:'lightgray' ,width:'100%',}}/>
-     
-
-     {ToDoList.map((todos)=>{
+     <hr/>
+     {ToDoList.map((todo)=>{
        return(
          <Card 
-         style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray', border:'2px solid #393d40' }} 
+         style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e', border:'2px solid #b1b4b5' }} 
          
          breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
          minBreakpoint="xxs">
           <Row>
            <Col>
-           <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todos.name}</h3></Col>
-           <Col><Badge pill bg={state(todos)}>{todos.state}</Badge></Col>
+           <h3 style={{fontWeight:'400', fontSize:'20px'}}>{todo}</h3></Col>
+           
            <Col><Button  variant="secondary"  onClick={()=>{
-             CompleteToDo({id: todos.id, stateUp:stateUp});if (todos.state==='incomplete'){setStateUp('complete')}else{setStateUp('incomplete')}}} style={{float:'right'}} ><Check/></Button></Col>
+             CompleteToDo({i:todo});}} style={{float:'right'}} ><Check/></Button></Col>
           </Row>
        
            </Card>
@@ -297,18 +298,8 @@ function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) 
          
        )
      })}
-      </div>
-     : <div style={{textAlign:'center', color:'black'}}>
-     <p >Pro mode coming soon. <br/> Follow our instagram for more updates <br/> @nitrondigital</p>
-    </div>}
-
-
       </Modal.Body>
-
-
-
     </Modal>
-    </div>
   )
 }
 
@@ -333,7 +324,8 @@ function TodoModal({show, setShow, toDo,setToDo, stateUp,setStateUp, ToDoList}) 
 export   {SoundsModal,
     TrendsModal, 
     ScopesModal,
-    TodoModal
+    
+    SessionTasks
   
     
     

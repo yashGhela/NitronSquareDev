@@ -146,7 +146,7 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
   return (
     <div>
      
-           <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
+           <div className='Timer' style={{minWidth:'200px',maxWidth:'500px', marginLeft:'46%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px'}}>
         
        <Container style={{borderRadius:'10px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'6%', border:'4px solid ', padding:'20px', borderColor:(mode==='work'?purple:green), }}>
         <center>
@@ -158,6 +158,9 @@ function TimerComp({location, setModalShow, newWorkMinutes, setFinWorkTime, newB
     <Button  onClick={()=>{setModalShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
         </center>
        </Container>
+       <center >
+        
+        </center>
     
     
   </div>

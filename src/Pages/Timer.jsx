@@ -31,7 +31,7 @@ import NightS from '../Assets/Nitron Music/Night Sounds.mp3'
 import WindS from '../Assets/Nitron Music/Wind Sounds.mp3'
 import FireS from '../Assets/Nitron Music/Campfire Sounds.mp3'
 import AlarmS from '../Assets/Alarm.mp3'
-import  { SoundsModal, TrendsModal,ScopesModal, TodoModal,   } from '../Components/modals';
+import  { SoundsModal, TrendsModal,ScopesModal, TodoModal, SessionTasks,   } from '../Components/modals';
 import TimerComp, { minutes, seconds } from '../Components/TimerComp';
 import { Helmet } from 'react-helmet';
 
@@ -99,8 +99,10 @@ function Timer() {
     const [imageUrl,setImageUrl]=useState(ghibli1);
 
     const [toDo, setToDo]=useState('');
+    const [show,setShow]=useState(false);
     
-    const [ToDoList, setToDoList]=useState([]);
+    const [ToDoList,setToDoList]=useState([])
+    const [finlist,setFinList]=useState([])
    
 
 
@@ -329,7 +331,8 @@ function Timer() {
             subject: subject,
             description: description,
             rating: rating,
-            time: format(new Date(), 'yyyy/MM/dd')
+            time: format(new Date(), 'yyyy/MM/dd'),
+            sessionTasks:ToDoList
         
         
           })
@@ -353,7 +356,8 @@ function Timer() {
         subject: subject,
         description: description,
         rating: rating,
-        time: format(new Date(), 'yyyy/MM/dd')
+        time: format(new Date(), 'yyyy/MM/dd'),
+        sessionTasks:ToDoList
     
     
       })
@@ -405,42 +409,16 @@ function Timer() {
         setTimerShow={setTimerShow}
         maxTime={maxTime}
         
+        
         />
 
-        <div style={{minWidth:'200px',maxWidth:'500px', marginLeft:'50%',alignItems:'center', placeItems: 'center', marginRight:'10px'}}>
-        <Container style={{borderRadius:'10px', boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', marginTop:'20px', border:'2px solid #b1b4b5', padding:'20px',  }}>
-        <p style={{marginBottom:'10px', fontSize:'22px', marginLeft:'5px', color:'white'}}>Session Tasks:</p>
-        <Form style={{display:'flex'}}>
-          <Form.Control width={'70%'} style={{marginRight:'10px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setToDo(e.target.value)}}/>
-          <Button variant='outline-light' onClick={()=>{setToDoList(prev=>[...prev,toDo]); console.log(ToDoList)}} >Add</Button>
-        </Form>
 
-          <hr/>
-
-       <div>
-       {ToDoList.map((i)=>{
-            return(
-              <Card 
-         style={{boxShadow: '0 8px 32px 0 rgba( 31, 38, 135, 0.4 )',backdropFilter: 'blur( 10px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'gray', border:'2px solid #b1b4b5' }} 
-         
-         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
-         minBreakpoint="xxs">
-          <Row>
-           <Col>
-           <h3 style={{fontWeight:'400', fontSize:'20px'}}>{i}</h3></Col>
-        
-           <Col><Button  variant="secondary"  
-              style={{float:'right'}} ><Check/></Button></Col>
-          </Row>
+          <div style={{minWidth:'200px',maxWidth:'500px',marginLeft:'46%',alignItems:'center', marginTop:'10%', placeItems: 'center', marginRight:'10px', marginTop:'20px'}}>
+          <Button onClick={()=>{setShow(true)}} variant='light' style={{width:'100%'}} size='lg'>Session Tasks</Button>
+          </div>
        
-           </Card>
-        
-            )
-            
-          })}
-       </div>
-          </Container>
-        </div>
+
+      
    
   
     
@@ -548,8 +526,21 @@ function Timer() {
    
    <div className="scopes">
    <ScopesModal show={scopeShow} setShow={setScopeShow} scopeList={scopeList} newTask={newTask} setNewTask={setNewTask}/>
-    
-    
+   
+
+   <SessionTasks 
+   show={show} 
+   setShow={setShow}  
+   setToDo={setToDo} 
+   toDo={toDo}
+   ToDoList={ToDoList} 
+   setToDoList={setToDoList}
+   setFinlist={setFinList}
+   finlist={finlist}
+   
+   
+  
+   />
     
 
    

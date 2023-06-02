@@ -90,20 +90,3 @@ export   const getData=async({sub, setChartData})=>{
   }
 
   
-  export const AddToDo=async({toDo})=>{
-    const todoRef=collection(db,'Users',user,'ToDos');
-    await addDoc(todoRef,{
-      name: toDo,
-      state: 'incomplete',
-      date: format(new Date(), 'yyyy/MM/dd')
-    })
-   
-  }
-
-  export const CompleteToDo=async({id,stateUp})=>{
-    const todoRef=collection(db,'Users',user,'ToDos');
-    await updateDoc(doc(todoRef,id),{
-      state:stateUp
-    })
-    
-  }

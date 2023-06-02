@@ -4,7 +4,7 @@ import Dashboard from './Pages/Dashboard';
 import Login from './Pages/Login';
 import Sessions from './Pages/Sessions';
 import NotFound from './Pages/notFound';
-import Todos from './Pages/Todos';
+
 
 
 import ProtectedRoutes from './ProtectedRoutes';
@@ -59,7 +59,7 @@ const user =cookies.get('useraidt');
         <Route path='/' element={<ProtectedRoutes/>}>
         <Route path={`/Trends/`} element={<Trends/>}/>
         <Route path={`/Dashboard/`} element={<Dashboard/>}/>
-        <Route path={`/Todos/`} element={<Todos/>}/>
+   
         <Route path={`/Timer/`} element={<Timer/>}/>
         <Route path={`/Sessions/`} element={<Sessions/>}/>
         <Route path={`/Scopes/`} element={<Scope/>}/>
