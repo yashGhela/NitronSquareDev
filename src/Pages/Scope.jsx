@@ -50,7 +50,7 @@ function Scope() {
       if(snap.data().type==='free'){
         const colref=collection(db, 'Users',user,'Sessions');
         await getCountFromServer(colref).then(async(snap)=>{
-          if(snap.data().count<10){
+          if(snap.data().count<3){
             const subref= collection(db,'Users',user,'Scopes');
             await addDoc(subref, {
               title: Newtitle,
@@ -338,13 +338,13 @@ function Scope() {
           <div className="titleBar" style={{ color:'lightgray', display:'grid', placeItems:'center',  marginTop:'20px'}}>
           <Form style={{width:'100%'}}> 
             <Form.Group>
-              <Form.Label >Title:</Form.Label>
+              <Form.Label style={{textAlign:'center'}} >Title:</Form.Label>
               <Form.Control className='special_modal' onChange={(e)=>{setNewTitle(e.target.value); if(e.target.value===''){setDisabled(true)}else{setDisabled(false)}}}/>
-              <Form.Label>Description:</Form.Label>
+              <Form.Label style={{textAlign:'center'}}>Description:</Form.Label>
               <Form.Control className='special_modal' as='textarea' rows={3} style={{resize:'none'}} onChange={(e)=>{setNewDescritption(e.target.value)}} />
-              <Form.Label>Add a Task:</Form.Label>
+              <Form.Label style={{textAlign:'center'}}>Add a Task:</Form.Label>
               <Form.Control className='special_modal' onChange={(e)=>{setTask(e.target.value);if(NewtaskList===[]){setDisabled(true)}else{setDisabled(false)}}} style={{marginTop:'5px'}} value={task}/>
-              <Button variant='outline-light' onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px'}} >Add</Button>
+              <Button variant='outline-light' onClick={()=>{setNewTaskList([...NewtaskList,task]);setTask(''); <h2>Added!</h2>}} style={{marginTop:'10px', width:'100%'}} >Add</Button>
               
             </Form.Group>
           </Form>
@@ -357,16 +357,26 @@ function Scope() {
           {NewtaskList.map((i)=>{
             return(
          
-                <ul>
-                  <li>{i}</li>
-                </ul>
+              <Card 
+              style={{background:'#282b2e', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px',color:'lightgray', border:'2px solid #393d40' , width:'300px'}} 
+              
+              breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+              minBreakpoint="xxs">
+                <Row>
+                <Col>
+                <h3 style={{fontWeight:'400', fontSize:'20px'}}>{i}</h3></Col>
+                
+              
+                </Row>
+            
+                </Card>
               
             )
           })}
          </div>
          {alert&&<Alert variant='warning'>You have already created 50 scopes, click here to upgrade to pro for unlimited sessions. <span style={{textDecoration:'underline', cursor:'pointer'}} onClick={()=>{nav('/Settings')}}>Upgrade</span></Alert>}
 
-          <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled}>Finish</Button>
+          <Button onClick={()=>{setNewTaskList([...NewtaskList,task]); addScope()}} disabled={disabled} style={{width:'100%'}}>Finish</Button>
           </div>
           </Modal.Body>
         </Modal>

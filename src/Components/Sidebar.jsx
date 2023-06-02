@@ -54,14 +54,15 @@ function Sidebar() {
        <Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
-     
-      <div style={{ marginTop:'45vh'}}>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Templates')}>
        <Button variant='light-outline' onClick={()=>nav('/Templates')} ><PlusSquare style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
+     
+      <div style={{ marginTop:'45vh'}}>
+     
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Sessions')}>

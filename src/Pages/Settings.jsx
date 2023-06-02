@@ -209,12 +209,13 @@ function Settings() {
                 <div>
                     <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
                         <h1 style={{fontSize:'40px'}}>$10</h1><br/>
-                        <span>✔️Unlimited Sessions</span><br/>
-                        <span>✔️Unlimited Scopes</span><br/>
-                        <span>✔️Unlimited Session tasks </span><br/>
-                        <span>✔️Up to 210 minutes a session</span><br/>
+                        <span>✅The full Improvr experience</span><br/>
+                        <span>✅Unlimited Sessions</span><br/>
+                        <span>✅Unlimited Scopes</span><br/>
+                       
+                        <span>✅Up to 210 minutes a session</span><br/>
                         
-                        <span>✔️All Templates </span><br/>
+                        <span>✅All Templates </span><br/>
                         
                         
                     

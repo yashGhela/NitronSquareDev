@@ -481,33 +481,33 @@ function Timer() {
        </Modal.Header>
        <Modal.Body style={{display:'flex', flexDirection:'column'}}>
         
-          <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+          <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}  >
                        <Row>
                        <Col xs={4} > <Tree style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){treeSound()}else{tree.pause()}}}/></Col>
                        </Row></Card>
-         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+         <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}   >
                        <Row>
                        <Col xs={4} > <Water style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}}  type='switch' onChange={(e)=>{if(e.target.checked){OceanSound()}else{ocean.pause()}}}/></Col>
                        </Row></Card>
-         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+         <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}  >
                        <Row>
                        <Col xs={4} > <CloudDrizzle style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){RainSound()}else{rain.pause()}}}/></Col>
                        </Row></Card>
-         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+         <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}   >
                        <Row>
                        <Col xs={4} > <Moon style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){NightSound()}else{night.pause()}}}/></Col>
                        </Row></Card>
         
-         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+         <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}   >
                        <Row>
                        <Col xs={4} > <Wind style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){WindSound()}else{wind.pause()}}}/></Col>
                        </Row></Card>
-         <Card variant='outline-light' style={{background:'#282b2e' , display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'lightgray'}}  >
+         <Card variant='outline-light' style={{backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )', display:'flex', marginBottom:'20px', fontWeight:'lighter', padding:'15px', cursor:'pointer',color:'#282b2e'}}   >
                        <Row>
                        <Col xs={4} > <Fire style={{height:'30px', width:'50px'}}/></Col>
                        <Col>< FormCheck style={{marginLeft:'70%', marginTop:'3%'}} type='switch' onChange={(e)=>{if(e.target.checked){FireSound()}else{fire.pause()}}}/></Col>
