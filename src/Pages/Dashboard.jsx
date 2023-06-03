@@ -407,7 +407,7 @@ function Dashboard() {
                        <h5 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Description:</h5>
                        <p style={{fontWeight:'400', fontSize:'15x', padding:'10px', backgroundColor:'light-gray'}}>{modalData.description}</p>
                        </div>
-                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40', overflowY:'scroll', height:'200px'}}>
+                       <div className="Complete"  style={{backgroundColor:'RGB(12,12,12)', padding:'10px', margin:'10px', borderRadius:'10px' ,color:'lightgray',  border:' 2px solid #393d40', overflowY:'scroll', height:'100px'}}>
                        <h4 style={{fontWeight:'bold', fontSize:'20px',color:'lightgray'}}>Session Tasks:</h4>
                        {modalData.sessionTasks?.map((comp)=>{
                        return(

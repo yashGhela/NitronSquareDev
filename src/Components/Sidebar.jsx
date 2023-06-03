@@ -5,7 +5,7 @@ import { useNavigate} from 'react-router-dom'
 import {auth} from '../firebaseConfig';
 
 import logo from '../Assets/Plugin icon - 1.png'
-import {Archive, BarChart, BoxArrowLeft, Bullseye, Check2Square, Gear, PlusCircle, PlusSquare, Speedometer} from 'react-bootstrap-icons'
+import {Archive, BarChart, BoxArrowLeft, Bullseye, Check2Square, Clipboard, Gear, PlusCircle, PlusSquare, Speedometer} from 'react-bootstrap-icons'
 import { Button, Nav, OverlayTrigger, Tooltip, Container } from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 
@@ -57,7 +57,7 @@ function Sidebar() {
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
        overlay={renderTooltip('Templates')}>
-       <Button variant='light-outline' onClick={()=>nav('/Templates')} ><PlusSquare style={{color:'white'}}/></Button>
+       <Button variant='light-outline' onClick={()=>nav('/Templates')} ><Clipboard style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
      

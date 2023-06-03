@@ -172,8 +172,8 @@ function SessionTasks({show,setShow,setToDo,toDo,ToDoList, finlist, setToDoList,
       <Modal.Header closeButton closeVariant='white'>Session Tasks:</Modal.Header>
       <Modal.Body>
       <Form style={{display:'flex', padding:'20px'}}>
-       <FormControl style={{width:'80%', marginRight:'15px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setToDo(e.target.value)}}/>
-       <Button onClick={()=>{addToDo({i:toDo});console.log(ToDoList)}} variant='outline-light'>Add! </Button>
+       <FormControl value={toDo} style={{width:'80%', marginRight:'15px',backdropFilter: 'blur( 2px )', background:'rgba( 255, 255, 255, 0.25 )',}} onChange={(e)=>{setToDo(e.target.value)}}/>
+       <Button onClick={()=>{addToDo({i:toDo});console.log(ToDoList); setToDo('')}} variant='outline-light'>Add! </Button>
      </Form>
      <hr/>
      {ToDoList.map((todo)=>{
