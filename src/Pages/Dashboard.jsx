@@ -13,6 +13,7 @@ import firstTimeLogin from '../Components/firstTimeLogin';
 
 import '../Util/SesSettings.css'
 import { Helmet } from 'react-helmet';
+import { Notice } from '../Components/modals';
 
 
 function Dashboard() {
@@ -50,6 +51,7 @@ function Dashboard() {
   const [scopeModal, setScopeModalShow]= useState(false)
 
   const [newTask, setNewTask]=useState('');
+  const [Free,setFree]=useState('true')
 
 
   const [updateTitle, setUpdateTitle]=useState('');
@@ -104,6 +106,8 @@ function Dashboard() {
 
 
  useEffect(() => {  //loads all the 
+
+
  
   proTimeVal()
   onSnapshot(scopeQ, (snapshot) => {
@@ -205,15 +209,15 @@ function Dashboard() {
     <div className='Page' >
       
       
-      
+      {paidt==='Tnf'?null:<Notice show={Free} setShow={setFree}/>}
+    
      
        
         <div className="navB">
         <Sidebar />
         </div>
        
-        
-        {first===true ? <firstTimeLogin showModal={fshow} setModalShow={setfshow}/>:null}
+
      
        
         <div className="bod">

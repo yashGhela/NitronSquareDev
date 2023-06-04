@@ -320,36 +320,8 @@ function Timer() {
  //AddDoc function
 
  const doneHand=async()=>{
-  await getDoc(doc(db,'Users',user)).then(async (snap)=>{
-    if(snap.data().type==='free'){
-      const colRef=collection(db,'Users',user,'Sessions');
-      await getCountFromServer(colRef).then(async (snap)=>{
-        if (snap.data().count<30){
-          await addDoc(collection(db, 'Users',user,'Sessions'),{
-            WorkTime: finWorkTime,
-            BreakTime: finBreakTime,
-            subject: subject,
-            description: description,
-            rating: rating,
-            time: format(new Date(), 'yyyy/MM/dd'),
-            sessionTasks:ToDoList
-        
-        
-          })
-          tree.pause();
-          ocean.pause();
-          wind.pause();
-          night.pause();
-          fire.pause();
-          rain.pause();
-          alarm.pause();
-          nav(`/Dashboard/`)
-        }else {
-          showAlert(true)
-        }
-
-      })
-    }else {
+  await getDoc(doc(db,'Users',user)).then(async ()=>{
+    
       await addDoc(collection(db, 'Users',user,'Sessions'),{
         WorkTime: finWorkTime,
         BreakTime: finBreakTime,
@@ -370,7 +342,7 @@ function Timer() {
       alarm.pause();
       nav(`/Dashboard/`)
     }
-  })
+  )
 
 }
 

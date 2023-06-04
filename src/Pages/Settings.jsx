@@ -11,13 +11,7 @@ import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram , Journ
 import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
-import { async } from '@firebase/util'
-import TsCs from '../Components/TsCs';
-import PP from '../Components/PP';
-import { PayPalButton } from 'react-paypal-button-v2'
 
-import {  httpsCallable } from 'firebase/functions'
-import { APP_SECRET, CLIENT_ID } from '../Util/config'
 
     
 
@@ -41,30 +35,8 @@ function Settings() {
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
  
-    const paypalOnError = (err) => {
-    console.log("Error")
-    }
-    const paypalOnApprove = (data, detail) => {
-    updateToPro({data:data})
     
     
-    };
-    
-    const updateToPro=async({data})=>{
-      await updateDoc(doc(db,'Users',user),{
-        type: 'pro'
-      }).then(()=>{
-        cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'});
-        window.location.reload()
-      });
-      await setDoc(doc(db,'Users',user,'Subscription','SubDetails'),{
-        data: data
-      })
-      
-    
-      
-
-    }
 
  
    
@@ -189,7 +161,7 @@ function Settings() {
           <div className="Your Account" style={{backgroundColor:'#282b2e', padding:'20px', borderRadius:'10px', marginBottom:'10px' ,overflowX:'auto', border:' 2px solid #393d40'}}>
            <h2 style={{color:'lightgray', fontSize:'22px', marginTop:'20px', marginBottom:'10px'}}>Your Account:</h2>
 
-           {paidt==='Tnf'?
+          
              <Card style={{width:'250px', background:'#393d40',color:'lightgray',   height:'100%', marginTop:'10px',  border:' 2px solid #393d40'}} >
              <Card.Body>
              
@@ -200,61 +172,7 @@ function Settings() {
               </Card.Body>
 
              </Card>
-           :<div style={{width:'30%'}}>
-              <Card
-              
-              style={{background:'#f0f4ff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
-              >
-                
-                <div>
-                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                        <h1 style={{fontSize:'40px'}}>$10</h1><br/>
-                        <span>✅The full Improvr experience</span><br/>
-                        <span>✅Unlimited Sessions</span><br/>
-                        <span>✅Unlimited Scopes</span><br/>
-                       
-                        <span>✅Up to 210 minutes a session</span><br/>
-                        
-                        <span>✅All Templates </span><br/>
-                        
-                        
-                    
-                        
-                        <hr/>
-
-                        <PayPalButton
-                      style={{color:'blue'}}
-                      amount = "10"
-                      currency = "USD"
-                      createOrder={(data,actions)=>{
-                        return actions.order.create({
-                          purchase_units: [{
-                            amount: {
-                              currency_code: "USD",
-                              value: "10"
-                            }
-                          }],
-                          application_context: {
-                            shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
-                           }
-                        });
-                      
-                      }}
-                    
-                      onApprove={paypalOnApprove}
-                      catchError={paypalOnError}
-                      onError={paypalOnError}
-                      onCancel={paypalOnError}
-                      />
-                  </div>
-
-                
-              </Card>
-             
-                  
-           
-            
-            </div>}
+          
       
         
            </div>

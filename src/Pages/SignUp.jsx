@@ -12,6 +12,7 @@ import PP from '../Components/PP';
 import Cookies from 'universal-cookie';
 import { async } from '@firebase/util';
 import ConfettiExplosion from 'react-confetti-explosion';
+import { PayPalButton } from 'react-paypal-button-v2';
 
 
 
@@ -55,6 +56,23 @@ function SignUp() {
 
   nextYear.setFullYear(nextYear.getFullYear() + 1);
 
+  const paypalOnError = (err) => {
+    console.log("Error")
+    }
+  const paypalOnApprove = async (data, detail) => {
+      
+      step({data:data})
+    
+    };
+
+    const step=async ({data})=>{
+      await setDoc(doc(db,'Users',userData.uid,'Subscription','SubDetails'),{
+        data: data
+      })
+    setModalShow(true)
+    setIsExploding(true)
+    setCompShow(false)
+    }
 
 
   const createSes=async()=>{
@@ -63,7 +81,7 @@ function SignUp() {
         
    
      
-        await setDoc(docref, {username: username, subscription: 'active',type: type, email: userData.email}).then(async ()=>{
+        await setDoc(docref, {username: username, subscription: 'active',type: 'pro', email: userData.email}).then(async ()=>{
           
           const subref= collection(db, 'Users',userData.uid,'Subjects');
           
@@ -72,6 +90,8 @@ function SignUp() {
           await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});
+          cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+    
           localStorage.setItem('1stSignUp', true)
           localStorage.setItem('isAuth', true)
          
@@ -132,7 +152,7 @@ function SignUp() {
             setErrShow(true);
             setErrMessage('This Account already exists')
           }else{
-            setModalShow(true)
+            setPrompt1Show(true)
           }
         })
         
@@ -180,7 +200,7 @@ function SignUp() {
       <Card   style={{paddingTop:'50px',height:'480px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',background:'#282b2e', borderRadius:'20px', border:'4px solid rgb(97, 149, 232)', color:'lightgray'}}>
       <Card.Title>Sign Up </Card.Title>
       <Card.Body>
-      <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('free');signUpG()}} >Sign Up with Google <Google/></Button>
+      <Button style={{marginTop:'5px', width:'300px'}} variant='primary' onClick={()=>{ setType('pro');signUpG()}} >Sign Up with Google <Google/></Button>
       <p style={{marginTop:'5px'}}>OR</p>
       <Form style={{textAlign:'left'}}>
         <Form.Control type='email' placeholder='Email' onChange={(e)=>{setEmail(e.target.value); if(email==='' || password===''|| username==='' || !checked){setSignDis(true)}else{setSignDis(false)}}}/>
@@ -190,7 +210,7 @@ function SignUp() {
         <Form.Check type='checkbox'  style={{marginTop:'10px'}}  onChange={(e)=>{if(!e.target.checked || password==='' || email==='' || username===''){setSignDis(true); setChecked(false)}else{setSignDis(false); setChecked(true)}}} label='I accept the Terms and Conditions and Privacy Policy of Nitron Digital Improvr'/>
       
         
-        <Button variant='secondary' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('free'); signUpEP()}}>Sign Up</Button>
+        <Button variant='secondary' disabled={signDis} style={{marginTop:'5px', width:'100%'}} onClick={()=>{setType('pro'); signUpEP()}}>Sign Up</Button>
         
       </Form>
      
@@ -308,12 +328,67 @@ function SignUp() {
           style={{color:'lightgray'}}
           centered>
             <Modal.Header>
-             Thanks! 
+             Join Improvr! 
             </Modal.Header>
             {isExploding && <ConfettiExplosion />}
             <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
-              <p>Click here to move on to the next step!</p>
-              <Button variant='primary' style={{width:'70%', marginBottom:'10px'}} onClick={()=>{addForm(); setIsExploding(true)}}>Lets go!</Button>
+            <div >
+              <Card
+              
+              style={{background:'#f0f4ff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
+              >
+
+
+                
+                <div>
+                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
+                        <h1 style={{fontSize:'40px'}}>$10</h1><br/>
+                        <span>✅The full Improvr experience</span><br/>
+                        <span>✅Unlimited Sessions</span><br/>
+                        <span>✅Unlimited Scopes</span><br/>
+                       
+                        <span>✅Up to 210 minutes a session</span><br/>
+                        
+                        <span>✅All Templates </span><br/>
+                        
+                        
+                    
+                        
+                        <hr/>
+
+                        <PayPalButton
+                      style={{color:'blue'}}
+                      amount = "10"
+                      currency = "USD"
+                      createOrder={(data,actions)=>{
+                        return actions.order.create({
+                          purchase_units: [{
+                            amount: {
+                              currency_code: "USD",
+                              value: "10"
+                            }
+                          }],
+                          application_context: {
+                            shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                           }
+                        });
+                      
+                      }}
+                    
+                      onApprove={paypalOnApprove}
+                      catchError={paypalOnError}
+                      onError={paypalOnError}
+                      onCancel={paypalOnError}
+                      />
+                  </div>
+
+                
+              </Card>
+             
+                  
+           
+            
+            </div>
               
             </Modal.Body>
 

@@ -47,25 +47,7 @@ function Scope() {
     const addScope=async()=>{
       
      await getDoc(doc(db,'Users',user)).then(async(snap)=>{
-      if(snap.data().type==='free'){
-        const colref=collection(db, 'Users',user,'Sessions');
-        await getCountFromServer(colref).then(async(snap)=>{
-          if(snap.data().count<3){
-            const subref= collection(db,'Users',user,'Scopes');
-            await addDoc(subref, {
-              title: Newtitle,
-              description: Newdescription,
-              incomplete: NewtaskList,
-              complete: [],
-              date: format(new Date(), 'yyyy/MM/dd')
-            })
-            setOffShow(false)
-            setNewTaskList([])
-          }else{
-            showAlert(true)
-          }
-        })
-      }else {
+      
         const subref= collection(db,'Users',user,'Scopes');
         await addDoc(subref, {
           title: Newtitle,
@@ -77,7 +59,7 @@ function Scope() {
         setOffShow(false)
         setNewTaskList([])
       }
-     })
+     )
       
     }
 
@@ -86,6 +68,7 @@ function Scope() {
     useEffect(() => {  
     
  
+      
     
  
       onSnapshot(subref, (snapshot) => {

@@ -13,10 +13,12 @@ import AlarmS from '../Assets/Alarm.mp3'
 import { AddToDo, CompleteToDo, movetask, movetaskBack, newTassk } from '../Util/functions';
 
 import Cookies from 'universal-cookie';
+import { doc, updateDoc } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
 
 const cookie = new Cookies()
-    const user=cookie.get('useraidt');
-    const paidt= cookie.get('PAIDT');
+const user=cookie.get('useraidt');
+const paidt= cookie.get('PAIDT');
 
 
 
@@ -203,7 +205,48 @@ function SessionTasks({show,setShow,setToDo,toDo,ToDoList, finlist, setToDoList,
 
 
 
+function Notice({show,setShow}){
 
+  
+  const nextYear = new Date();
+
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+  const updateMe=async ()=>{
+    await updateDoc(doc(db,'Users',user),{
+      type: 'pro'
+    }).then(()=>{
+      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+      setShow('false')
+      window.location.reload()
+    })
+    
+  }
+ return(
+  <Modal
+  className='special_modal'
+  centered
+  show={show}
+  onHide={()=>{setShow('false')}}
+  >
+    <Modal.Header>Thanks for supporting us!</Modal.Header>
+    <Modal.Body>
+      <h1>Hi there loyal user!</h1>
+      <p>Thanks for supporting us in our early days! <br/> 
+        Thanks to your support Improvr is officially out of beta!<br/>
+        This means that Improvr will no longer have a free mode <br/>
+        however, for supporting us we've given you Improvr for free, FOREVER!
+        We look forward to hearing more from you!
+      </p>
+    </Modal.Body>
+    <Modal.Footer>
+      <Button style={{width:'100%'}} onClick={()=>{updateMe()}}>Got it!</Button>
+    </Modal.Footer>
+
+
+  </Modal>
+ )
+}
 
 
 
@@ -220,7 +263,8 @@ function SessionTasks({show,setShow,setToDo,toDo,ToDoList, finlist, setToDoList,
 
 
 export   {
-    TrendsModal, 
+    TrendsModal,
+    Notice, 
     ScopesModal,
     
     SessionTasks
