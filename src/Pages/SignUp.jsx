@@ -50,7 +50,7 @@ function SignUp() {
 
   const bg='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FMountains%2Fkurt-cotoaga-cqbLg3lZEpk-unsplash.jpg?alt=media&token=f49d81dc-a14a-4f2e-8e63-ed07f1df4cd3'
  
-  let num=Math.floor(Math.random() * 30) + 1;
+  let num=Math.floor(Math.random() * 30) + 2;
  
 
   const nextYear = new Date();

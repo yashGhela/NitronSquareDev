@@ -40,9 +40,11 @@ function Dashboard() {
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   
+  const [ToDoList,setToDoList]=useState([])
+  const [toDo, setToDo]=useState('');
   
   const [subjectList, setSubjectList] =useState([]);
-  const [fshow, setfshow]=useState(true);
+ const [subject, setSubject]=useState('');
   const [subj, setSub]=useState('');
 
   const [disabled, setDisabled]=useState(true);
@@ -250,7 +252,7 @@ function Dashboard() {
                aria-labelledby="contained-modal-title-vcenter"
                onHide={()=>{setGoModalShow(false)}}
                style={{color:'lightgray'}}
-               centered>
+               >
                 <Modal.Header closeButton closeVariant='white'>
            <Modal.Title style={{color:'lightgray'}}>
             Configure your Session
@@ -259,7 +261,7 @@ function Dashboard() {
         
                   
               <div className="times" style={{border: '3px solid rgb(97, 149, 232)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
-                <p style={{fontSize:'25px'}} >Select Your Times:</p>
+                <p style={{fontSize:'20px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px',color:'lightgray'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
               className='slider'
@@ -290,6 +292,8 @@ function Dashboard() {
               />
              
               </div>
+
+            
 
 
              
@@ -336,7 +340,7 @@ function Dashboard() {
      
 
          
-          
+         
 
           </Modal>
           
