@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row, ListGroup, Badge } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
-import improvr from '../Assets/improrvr dark.png'
+import improvr from '../Assets/improvr logo.png'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 import Cookies from 'universal-cookie';
@@ -48,8 +48,9 @@ function SignUp() {
  
   let nav= useNavigate();
 
-  
+  const bg='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FMountains%2Fkurt-cotoaga-cqbLg3lZEpk-unsplash.jpg?alt=media&token=f49d81dc-a14a-4f2e-8e63-ed07f1df4cd3'
  
+  let num=Math.floor(Math.random() * 30) + 1;
  
 
   const nextYear = new Date();
@@ -195,7 +196,7 @@ function SignUp() {
 
     
   return (
-    <Container style={{display:'grid', placeItems:'center', backgroundColor:'#17181a', padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
+    <Container style={{display:'grid', placeItems:'center', background: `url(${bg}) no-repeat`, padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
     
       <Card   style={{paddingTop:'50px',height:'480px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',background:'#282b2e', borderRadius:'20px', border:'4px solid rgb(97, 149, 232)', color:'lightgray'}}>
       <Card.Title>Sign Up </Card.Title>
@@ -258,11 +259,11 @@ function SignUp() {
       className='d-inline-block align-top'
        />
        <div style={{display:'flex', marginTop:'10px'}}>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/Ts&Cs')}}>Terms & Conditions</p>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/PrivacyPolicy')}}>Privacy Policy</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'lightgray', cursor:'pointer'}} onClick={()=>{nav('/Ts&Cs')}}>Terms & Conditions</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'lightgray', cursor:'pointer'}} onClick={()=>{nav('/PrivacyPolicy')}}>Privacy Policy</p>
         
        </div>
-       <p style={{marginRight:'20px',  color:'gray'}}>All Rights belong to Nitron Digital</p>
+       <p style={{marginRight:'20px',  color:'lightgray'}}>All Rights belong to Nitron Digital</p>
        </div>
      
        <Modal
@@ -318,7 +319,7 @@ function SignUp() {
           </Modal>
 
           <Modal
-       className="special_modal"
+       className="thin_modal"
        breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
        minBreakpoint="xxs"
          show={completePrompt}
@@ -333,16 +334,22 @@ function SignUp() {
             {isExploding && <ConfettiExplosion />}
             <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
             <div >
+              <div style={{border:'2px solid rgb(97, 149, 232)', borderRadius:'5px', marginBottom:'10px', textAlign:'center'}}>
+                <p style={{marginTop:'15px'}}>{num} people joined today</p>
+
+              </div>
+
               <Card
               
-              style={{background:'#f0f4ff', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'#17181a', overflow:'auto'}}
+              style={{border:'2px solid #393d40',background:'#17181a', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'lightgray', overflow:'auto'}}
               >
 
 
                 
                 <div>
                     <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
-                        <h1 style={{fontSize:'40px'}}>$10</h1><br/>
+                        <h1 style={{fontSize:'40px', color:'rgb(97, 149, 232)'}}>$10</h1><br/>
+                        <h3 style={{fontSize:'18px'}}>once off</h3>
                         <span>✅The full Improvr experience</span><br/>
                         <span>✅Unlimited Sessions</span><br/>
                         <span>✅Unlimited Scopes</span><br/>

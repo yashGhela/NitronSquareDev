@@ -7,13 +7,16 @@ import {doc, getDoc, updateDoc} from 'firebase/firestore';
 import {Alert, Button, Card, Form, Modal, ListGroup, Col,Row, Container, Navbar} from 'react-bootstrap'
 import {Google, Textarea} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
-import improvr from '../Assets/improrvr dark.png'
+import improvr from '../Assets/improvr logo.png'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 
 
 function Login() {
   let nav= useNavigate();
+ 
+  const bg='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FMountains%2Fkurt-cotoaga-cqbLg3lZEpk-unsplash.jpg?alt=media&token=f49d81dc-a14a-4f2e-8e63-ed07f1df4cd3'
+ 
  
   const [errShow, setErrShow ]=useState(false);
   
@@ -118,7 +121,7 @@ function Login() {
     
     <div>
       
-      <Container style={{display:'grid', placeItems:'center', backgroundImage:'#17181a', padding:'0%', margin:'0%', height:'100vh'}} fluid={true}>
+      <Container style={{display:'grid', placeItems:'center', background: `url(${bg}) no-repeat`, padding:'0%', margin:'0%', height:'100vh'}} fluid={true}>
     
     <Card  style={{paddingTop:'40px',height:'400px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',  background:'#282b2e', borderRadius:'20px', textAlign:'center', border:'2px solid rgb(97, 149, 232)', color:'lightgray'}}>
     
@@ -164,11 +167,11 @@ function Login() {
       className='d-inline-block align-top'
        />
        <div style={{display:'flex', marginTop:'10px'}}>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/Ts&Cs')}}>Terms & Conditions</p>
-        <p style={{marginRight:'20px', textDecoration:'underline', color:'gray', cursor:'pointer'}} onClick={()=>{nav('/PrivacyPolicy')}}>Privacy Policy</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'lightgray', cursor:'pointer'}} onClick={()=>{nav('/Ts&Cs')}}>Terms & Conditions</p>
+        <p style={{marginRight:'20px', textDecoration:'underline', color:'lightgray', cursor:'pointer'}} onClick={()=>{nav('/PrivacyPolicy')}}>Privacy Policy</p>
         
        </div>
-       <p style={{marginRight:'20px',  color:'gray'}}>All Rights belong to Nitron Digital</p>
+       <p style={{marginRight:'20px',  color:'lightgray'}}>All Rights belong to Nitron Digital</p>
        </div>
 
       
