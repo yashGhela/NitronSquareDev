@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Sidebar from '../Components/Sidebar'
-import { Button, Card, Col, Container, Modal, Row, Form, Badge } from 'react-bootstrap'
-import { addDoc, collection, doc, getDoc, onSnapshot } from 'firebase/firestore';
+import { Button, Card, Col, Container, Modal, Row, Form, Badge, Dropdown } from 'react-bootstrap'
+import { addDoc, collection, deleteDoc, doc, getDoc, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
-import { BrightnessHigh, PersonWorkspace, Trash } from 'react-bootstrap-icons';
+import { Book, BrightnessHigh, PersonWorkspace, ThreeDotsVertical, Trash } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -75,6 +75,11 @@ function Templates() {
      });
      setGoModalShow(false)
 
+  }
+
+  const DeleteTemplate=async({id})=>{
+    const delref=doc(db, 'Users',user,'Templates',id)
+    await deleteDoc(delref)
   }
 
 
@@ -272,11 +277,21 @@ function Templates() {
            return (
             <Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
             <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , height:'100%', marginTop:'10px', border:' 2px solid #393d40'}} >
-              <Card.Header style={{display:'flex'}}><Card.Title>{temp.title}</Card.Title> </Card.Header>
+              <Card.Header style={{display:'flex'}}>
+                <Card.Title>{temp.title}</Card.Title> 
+                <Dropdown style={{marginLeft:'70%'}}>
+                  <Dropdown.Toggle variant='outline-secondary'>
+                    <ThreeDotsVertical/>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>
+                    <Dropdown.Item style={{color:'red'}} onClick={()=>{DeleteTemplate({id:temp.id})}}>Delete</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+               </Card.Header>
            <Card.Body>
             
             <Card.Text>
-               <Badge pill >{temp.subject}</Badge>
+               <p><Book style={{marginRight:'5px'}}/>{temp.subject}</p>
                <div style={{marginTop:'10px'}}>
                <p><PersonWorkspace style={{marginRight:'5px'}}/>{temp.workTime} Minutes</p>
                <p><BrightnessHigh style={{marginRight:'5px'}}/>{temp.breakTime} Minutes</p>

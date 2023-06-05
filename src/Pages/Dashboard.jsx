@@ -5,8 +5,8 @@ import {    useNavigate } from 'react-router-dom';
 import Sidebar from '../Components/Sidebar'
 import './Page.css';
 import { db } from '../firebaseConfig';
-import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear, Check2Square } from 'react-bootstrap-icons'
-import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck, Nav} from 'react-bootstrap';
+import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Check, Journal, Archive, Wallet2,Gear, Check2Square, ThreeDotsVertical, PersonWorkspace, Book, BrightnessHigh } from 'react-bootstrap-icons'
+import {Button, Modal, Card, Row, Col,  Form, Accordion,Container, FormCheck, Nav, Dropdown} from 'react-bootstrap';
 import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
 import firstTimeLogin from '../Components/firstTimeLogin';
@@ -54,10 +54,13 @@ function Dashboard() {
   const [newTask, setNewTask]=useState('');
   const [Free,setFree]=useState('true')
 
+  const [templatesList, setTemplatesList]=useState([]);
+  const [tdataExists, setTDataExists]=useState(true);
 
   const [updateTitle, setUpdateTitle]=useState('');
   const [updateDesc, setUpdateDesc]= useState('');
   const [isUpdate, setIsUpdate]=useState(false);
+  const [templates,setTemplates]=useState(true)
   const [saveDis, setSaveDis]=useState(true);
  
  
@@ -94,7 +97,7 @@ function Dashboard() {
   
   const[maxTime,setMaxTime]=useState(0)
 
- 
+  const tempref= collection(db, 'Users', user, 'Templates');
  const q = query(subRef,orderBy('time', 'desc'),limit(5));
 
  const proTimeVal=()=>{
@@ -123,6 +126,24 @@ function Dashboard() {
       
     
     }})
+
+    
+    onSnapshot(tempref, (snapshot) => {
+
+      if (snapshot.empty){
+        setTDataExists(false)
+    
+      }else {
+       
+        setTDataExists(true)
+        setTemplatesList(
+          snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+        );
+      
+      }
+        
+        
+      });
  
  
   onSnapshot(q, (snapshot) => {
@@ -257,9 +278,67 @@ function Dashboard() {
             Configure your Session
            </Modal.Title>
           </Modal.Header>
-        
-                  
-              <div className="times" style={{border: '3px solid rgb(97, 149, 232)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
+           <Modal.Body>
+           <div>
+          <div style={{display:'flex'}}>
+                    <Button variant='dark' style={{width:'50%', marginRight:'5px'}} onClick={()=>{setTemplates(false)}}>Custom</Button>
+                    <Button variant='dark' style={{width:'50%'}} onClick={()=>{setTemplates(true)}}>Templates</Button>
+                  </div>
+          </div>
+          {templates?
+          <div>
+            {tdataExists? templatesList.map((temp)=>{
+           return (
+            <Col style={{width:'450px', marginBottom:'10px', padding:'10px'}}xs='2' >
+            <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , height:'100%', marginTop:'10px', border:' 2px solid #393d40'}} >
+              <Card.Header style={{display:'flex'}}>
+                <Card.Title>{temp.title}</Card.Title> 
+                
+               </Card.Header>
+           <Card.Body>
+            
+            <Card.Text>
+               <p><Book style={{marginRight:'5px'}}/>{temp.subject}</p>
+               <div style={{marginTop:'10px'}}>
+               <p><PersonWorkspace style={{marginRight:'5px'}}/>{temp.workTime} Minutes</p>
+               <p><BrightnessHigh style={{marginRight:'5px'}}/>{temp.breakTime} Minutes</p>
+               </div>
+               </Card.Text>
+            </Card.Body>
+            <Card.Footer><Button 
+            style={{width:'100%'}}
+            onClick={(e)=>{ nav(`/Timer/`, {state:{
+              workMinutes: temp.workTime, 
+              breakMinutes: temp.breakTime,
+              subject: temp.subject, 
+              WT: temp.WorkTime, 
+              BT: temp.breakTime, 
+              OWTsum:0,
+              sessionTasks: temp.sessionTasks,
+              OBTsum:0,
+              NT:false
+             }})}}
+            >Start</Button></Card.Footer>
+
+           </Card>
+           </Col>
+           )
+
+        }):
+        <div>
+          <center>
+          <p style={{color:'lightgray', textAlign:'center', fontSize:'15px', marginTop:'10px'}}>No Templates added yet</p>
+         <Button onClick={()=>{nav('/Templates')}}  variant='outline-secondary' style={{borderStyle:'dashed', marginRight:'10px', borderRadius:'15px'}}>Create a template</Button>
+          </center>
+          </div>
+          }
+          </div>
+          
+          
+          :
+          <div>
+            
+            <div className="times" style={{border: '3px solid rgb(97, 149, 232)',marginTop:'20px' ,display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
                 <p style={{fontSize:'20px'}} >Select Your Times:</p>
               <label style={{marginLeft:'20px', marginTop:'10px',color:'lightgray'}}>Work Minutes: {workMinutes}:00</label>
               <ReactSlider 
@@ -296,10 +375,10 @@ function Dashboard() {
 
 
              
-             <div className="list" style={{display:'inline',padding:'20px', margin:'10px',border: '3px solid rgb(97, 149, 232)', borderRadius:'20px', placeItems:'center',color:'lightgray'}}>
+             <div className="list" style={{border: '3px solid rgb(97, 149, 232)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray'}}>
               <p  style={{placeItems:'center', fontSize:'25px',color:'lightgray'}}>Choose or add a subject</p>
               <Form style={{display:'flex', marginTop:'10px', marginBottom:'10px'}}>
-                <Form.Control className='special_modal' placeholder='Math' style={{width:'450px', marginRight:'5px'}}  onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
+                <Form.Control className='special_modal' placeholder='Math' style={{width:'350px', marginRight:'5px'}}  onChange={(e)=>{setSub(e.target.value);if(e.target.value===''){setDisabled(true)} else{setDisabled(false)}}}/>
                 <Button disabled={disabled} onClick={()=>{newSub();setSubjectList([...subjectList,subj])}}>Add</Button>
               </Form>
              
@@ -335,6 +414,12 @@ function Dashboard() {
             </Container>
              </div>
 
+          </div>
+          
+          }
+        
+           </Modal.Body>
+                  
               
      
 

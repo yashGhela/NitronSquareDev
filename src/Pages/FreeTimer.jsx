@@ -176,8 +176,9 @@ function FreeTimer() {
          <h1 style={{fontSize:'68px', color:'white', paddingLeft:'0px'}}>{minutes}:{seconds}</h1>
          {isPaused? <Button  onClick={() => { setIsPaused(false); isPausedRef.current = false; alarm.pause() }}disabled={disabled} style={{margin:'10px'}} variant='outline-light'><Play style={{height:'25px', width:'25px'}}/></Button>:
      <Button  onClick={() => { setIsPaused(true); isPausedRef.current = true;alarm.pause()}} disabled={disabled} style={{margin:'10px'}} variant='outline-light'> <Pause style={{height:'25px', width:'25px'}}/></Button>}
-    
+     <Button  onClick={()=>{nav('/Login')}} style={{margin:'10px'}} variant='outline-light'> Login</Button>
      <Button  onClick={()=>{setSignUpShow(true)}} style={{margin:'10px'}} variant='outline-light'> Done!</Button>
+     
          </center>
         </Container>
         <center >
