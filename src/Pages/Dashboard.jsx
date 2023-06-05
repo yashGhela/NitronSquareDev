@@ -22,7 +22,7 @@ function Dashboard() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
   const paidt= cookie.get('PAIDT')
-  const first= localStorage.getItem('1stSignUp')
+ 
 
   
   
@@ -40,11 +40,10 @@ function Dashboard() {
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   
-  const [ToDoList,setToDoList]=useState([])
-  const [toDo, setToDo]=useState('');
+  
   
   const [subjectList, setSubjectList] =useState([]);
- const [subject, setSubject]=useState('');
+
   const [subj, setSub]=useState('');
 
   const [disabled, setDisabled]=useState(true);

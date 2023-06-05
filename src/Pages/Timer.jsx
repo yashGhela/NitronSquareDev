@@ -101,7 +101,7 @@ function Timer() {
     const [toDo, setToDo]=useState('');
     const [show,setShow]=useState(false);
     
-    const [ToDoList,setToDoList]=useState([])
+    const [ToDoList,setToDoList]=useState(location.state.sessionTasks || [])
     const [finlist,setFinList]=useState([])
    
 
