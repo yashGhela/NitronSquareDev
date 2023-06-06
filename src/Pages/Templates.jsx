@@ -22,11 +22,13 @@ function Templates() {
   const [title,setTitle]=useState('');
   const [dataExists, setDataExists] = useState(true);
   const [templatesList, setTemplatesList]=useState([]);
+  const [storeList,setStoreList]=useState([]);
 
   const [workMinutes, setWorkMinutes] = useState(45);//sets work minutes
   const [breakMinutes, setBreakMinutes] = useState(15);//sets break minutes
   const[maxTime,setMaxTime]=useState(0)
   const tempref= collection(db, 'Users', user, 'Templates');
+  const storeref= collection(db,'Templates');
   
   
   
@@ -104,6 +106,20 @@ function Templates() {
           
           
         });
+
+        onSnapshot(storeref, (snapshot) => {
+
+          
+           
+      
+            setStoreList(
+              snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+            );
+          
+          
+            
+            
+          });
 
     },[])
   return (
@@ -268,7 +284,7 @@ function Templates() {
           
 
      
-        <div style={{padding:'20px', borderRadius:'10px', border:'1px solid #282b2e',   margin:'20px'}}>
+        <div style={{padding:'20px', borderRadius:'10px', border:'1px solid #282b2e',   margin:'20px', overflow:'auto'}}>
         <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'5px', color:'lightgray'}}>Library:</p>
 
         <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
@@ -324,6 +340,57 @@ function Templates() {
             </Row>
             </Container>
             </div>
+
+            <div style={{padding:'20px', borderRadius:'10px', border:'1px solid #282b2e',   margin:'20px', overflow:'auto'}}>
+            <p style={{marginBottom:'10px', fontSize:'23px', marginLeft:'5px', color:'lightgray'}}>Store:</p>
+            <Container fluid={true} style={{marginLeft:'8px', overflow:'auto'}}>
+          <Row >
+            {storeList.map((temp)=>{
+           return (
+            <Col style={{width:'450px', marginBottom:'10px'}}xs='2' >
+            <Card style={{width:'100%', backgroundColor:'#282b2e', color:'lightgray' , height:'100%', marginTop:'10px', border:' 2px solid #393d40'}} >
+              <Card.Header style={{display:'flex'}}>
+                <Card.Title>{temp.Title}</Card.Title> 
+               
+               </Card.Header>
+           <Card.Body>
+            
+            <Card.Text>
+               <p><Book style={{marginRight:'5px'}}/>{temp.Subject}</p>
+               <div style={{marginTop:'10px'}}>
+               <p><PersonWorkspace style={{marginRight:'5px'}}/>{temp.WorkTime} Minutes</p>
+               <p><BrightnessHigh style={{marginRight:'5px'}}/>{temp.BreakTime} Minutes</p>
+               </div>
+               </Card.Text>
+            </Card.Body>
+            <Card.Footer><Button 
+            style={{width:'100%'}}
+            onClick={(e)=>{ nav(`/Timer/`, {state:{
+              workMinutes: temp.WorkTime, 
+              breakMinutes: temp.BreakTime,
+              subject: temp.Subject, 
+              WT: temp.WorkTime, 
+              BT: temp.breakTime, 
+              OWTsum:0,
+              sessionTasks: temp.SessionTasks,
+              OBTsum:0,
+              NT:false
+             }})}}
+            >Start</Button></Card.Footer>
+
+           </Card>
+           </Col>
+           )
+
+        })}
+        </Row>
+        </Container>
+
+
+
+
+              </div>
+
     </div>
    </div>
   )
