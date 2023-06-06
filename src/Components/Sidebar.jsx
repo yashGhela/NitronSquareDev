@@ -50,8 +50,8 @@ function Sidebar() {
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>
       <OverlayTrigger
-       overlay={renderTooltip('Scopes')}>
-       <Button variant='light-outline' onClick={()=>nav(`/Scopes/`)}><Bullseye style={{color:'white'}}/></Button>
+       overlay={renderTooltip('Projects')}>
+       <Button variant='light-outline' onClick={()=>nav(`/Projects/`)}><Bullseye style={{color:'white'}}/></Button>
        </OverlayTrigger>
       </Nav.Item>
       <Nav.Item style={{marginBottom:'20px'}}>

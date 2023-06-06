@@ -62,7 +62,7 @@ function ScopesModal({scopeList, show, setShow, newTask, setNewTask}) {
      style={{background:'none'}}
      >
       <Modal.Header closeButton closeVariant='white'>
-        Quick Scopes
+        Quick Projects
       </Modal.Header>
       <Modal.Body>
         {scopeList.map((scop)=>{
@@ -205,23 +205,11 @@ function SessionTasks({show,setShow,setToDo,toDo,ToDoList, finlist, setToDoList,
 
 
 
-function Notice({show,setShow}){
+function Notice({show,setShow, update}){
 
   
-  const nextYear = new Date();
 
-  nextYear.setFullYear(nextYear.getFullYear() + 1);
-
-  const updateMe=async ()=>{
-    await updateDoc(doc(db,'Users',user),{
-      type: 'pro'
-    }).then(()=>{
-      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
-      setShow('false')
-      window.location.reload()
-    })
-    
-  }
+  
  return(
   <Modal
   className='special_modal'
@@ -240,7 +228,7 @@ function Notice({show,setShow}){
       </p>
     </Modal.Body>
     <Modal.Footer>
-      <Button style={{width:'100%'}} onClick={()=>{updateMe()}}>Got it!</Button>
+      <Button style={{width:'100%'}} onClick={()=>{update()}}>Got it!</Button>
     </Modal.Footer>
 
 

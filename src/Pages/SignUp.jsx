@@ -352,7 +352,7 @@ function SignUp() {
                         <h3 style={{fontSize:'18px'}}>once off</h3>
                         <span>✅The full Improvr experience</span><br/>
                         <span>✅Unlimited Sessions</span><br/>
-                        <span>✅Unlimited Scopes</span><br/>
+                        <span>✅Unlimited Projects</span><br/>
                        
                         <span>✅Up to 210 minutes a session</span><br/>
                         

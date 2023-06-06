@@ -15,7 +15,7 @@ import { async } from '@firebase/util'
 
 
 
-function Scope() {
+function Projects() {
 
   const [scopeList, setScopeList]= useState([]);
   const [newTask, setNewTask]=useState('');
@@ -163,8 +163,8 @@ function Scope() {
            padding:' 10px',
            animation:'gradient 15s ease infinite'
             }}>
-          <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Scopes</h1></Card.Title>
-          <Button onClick={()=>{setOffShow(true)}} variant='outline-light' >Create a New Scope</Button>
+          <Card.Title ><h1 style={{FontWeight:'bold', FontSize:'40px'}}>Projects</h1></Card.Title>
+          <Button onClick={()=>{setOffShow(true)}} variant='outline-light' >Create a New Project</Button>
           
         
         
@@ -315,7 +315,7 @@ function Scope() {
         show= {offShow}
         onHide={()=>{setOffShow(false)}}>
           <Modal.Header closeButton closeVariant='white'>
-            Create a New Scope
+            Create a New Project
           </Modal.Header>
           <Modal.Body>
           <div className="titleBar" style={{ color:'lightgray', display:'grid', placeItems:'center',  marginTop:'20px'}}>
@@ -370,4 +370,4 @@ function Scope() {
   )
 }
 
-export default Scope
+export default Projects

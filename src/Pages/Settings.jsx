@@ -17,9 +17,6 @@ import { useEffect } from 'react'
 
 function Settings() {
 
-  const [cancelMod, setCancelMod]=useState(false)
-  const [subID, setSubID]=useState('');
-  const [email,setEmail]=useState('');
 
 
 
@@ -62,7 +59,7 @@ function Settings() {
           cookies.remove('useraidt', { path: '/' });
           cookie.remove('PAIDT',{path:'/'} )
           
-          nav('/Login');
+          nav('/');
           
         })}
 
@@ -85,12 +82,6 @@ function Settings() {
    
     
   })
-  const subId=async()=>{
-    await getDoc(doc(db,'Users',user,'Subscription','SubDetails')).then((snap)=>{
-      const data=snap.data().data
-      setSubID(data.subscriptionID)
-    });
-  }
 
 
 
@@ -98,7 +89,7 @@ function Settings() {
 
     useEffect( ()=>{
         docSnap();
-        subId()
+        
        
         
        

@@ -16,7 +16,7 @@ import Trends from './Pages/Trends';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cookies from 'universal-cookie';
-import Scope from './Pages/Scope';
+
 
 import Settings from './Pages/Settings';
 
@@ -24,6 +24,7 @@ import PrivPol from './Pages/PrivPol';
 import TsCs from './Pages/TsCs';
 import FreeTimer from './Pages/FreeTimer';
 import Templates from './Pages/Templates';
+import Projects from './Pages/Projects';
 
 
 
@@ -62,7 +63,7 @@ const user =cookies.get('useraidt');
    
         <Route path={`/Timer/`} element={<Timer/>}/>
         <Route path={`/Sessions/`} element={<Sessions/>}/>
-        <Route path={`/Scopes/`} element={<Scope/>}/>
+        <Route path={`/Projects/`} element={<Projects/>}/>
        <Route path={'/Templates'} element={<Templates/>}/>
 
     

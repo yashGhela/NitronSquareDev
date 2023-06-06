@@ -22,6 +22,7 @@ function Dashboard() {
   const cookie = new Cookies()
   const user=cookie.get('useraidt')
   const paidt= cookie.get('PAIDT')
+  const freedt=cookie.get('FAIDT')
  
 
   
@@ -70,6 +71,7 @@ function Dashboard() {
   const scopeQ= query(scoperef,limit(5));
   
  
+ 
   const docSnap = async()=>
   
   await getDoc(subref).then(docSnap=>{
@@ -112,7 +114,6 @@ function Dashboard() {
  useEffect(() => {  //loads all the 
 
 
- 
   proTimeVal()
   onSnapshot(scopeQ, (snapshot) => {
     if(snapshot.empty){
@@ -220,6 +221,20 @@ function Dashboard() {
     setIsUpdate(false)
   }
 
+  const nextYear = new Date();
+  nextYear.setFullYear(nextYear.getFullYear() + 1);
+  const ref= doc(db,'Users',user);
+  const updateMe=async ()=>{
+    await updateDoc(ref,{
+      type: 'pro'
+    }).then(()=>{
+      cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+      setFree('false')
+     
+    })
+    
+  }
+
 
 
 
@@ -231,7 +246,7 @@ function Dashboard() {
     <div className='Page' >
       
       
-      {paidt==='Tnf'?null:<Notice show={Free} setShow={setFree}/>}
+      {paidt==='Tnf'?null:<Notice show={Free} setShow={setFree} update={updateMe}/>}
     
      
        
