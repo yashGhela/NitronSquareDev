@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
 import {Alert, Accordion, Button, Card, Col, Form, Modal, Row ,Container, FormControl, Image, FormCheck, CloseButton, ButtonGroup,Badge} from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ReactPlayer from 'react-player';
 import { db, storage } from '../firebaseConfig';
 import SpotifyPlayer from 'react-spotify-player';
@@ -11,6 +11,9 @@ import Quickbar from '../Components/Quickbar';
 import TimerComp from '../Components/TimerComp';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import Cookies from 'universal-cookie';
+import { Helmet } from 'react-helmet';
+import { SessionTasks } from '../Components/modals';
+import ReactSlider from 'react-slider';
 
 
 function FreeTimer() {
@@ -19,12 +22,13 @@ function FreeTimer() {
     let worldsort=['Ghibli', 'Mountains','Ocean', 'Forest', 'Rainy','City', 'Animal Crossing', 'Tears of The Kingdom', 'Stardew Valley']
     const ghibli1='https://firebasestorage.googleapis.com/v0/b/nstudy-dev.appspot.com/o/Backgrounds%2FGhibli%2Fghibli%201.png?alt=media&token=747bc1da-4d79-40f4-b793-d1edd3fdf75a'
 
+    let location= useLocation();
 
     const purple= 'rgb(97, 149, 232)';
     const green = '#70FFB2';
   
-   let workSeconds = 45*60;
-   let breakSeconds= 15*60;
+   let workSeconds =   45*60;
+   let breakSeconds=  15*60;
 
    const [isPaused, setIsPaused]= useState(false); //checks if paused or not
    const [mode, setMode] = useState('work')//work,break, pause
@@ -51,7 +55,7 @@ function FreeTimer() {
    function switchMode(){
 
     const nextMode = modeRef.current === 'work' ? 'break' : 'work';
-    const nextSeconds = (nextMode === 'work' ? 45 :15) * 60;
+    const nextSeconds = (nextMode === 'work' ? workSeconds :breakSeconds) ;
 
     setMode(nextMode);
     modeRef.current = nextMode;
@@ -76,12 +80,21 @@ function FreeTimer() {
     const [signUpShow, setSignUpShow]=useState(false);
     const [imageList,setImageList]=useState([]);
     const [imageUrl,setImageUrl]=useState(ghibli1);
+    const [timershow, setTimerShow]=useState(false);
 
     const [url,setUrl]=useState('');
     const [urlShow,setURlShow]=useState(false);
     
     const [spotifyShow,setSpotifyShow]=useState(false);
     
+    const [toDo, setToDo]=useState('');
+    const [show,setShow]=useState(false);
+
+    const [newWorkMinutes, setNewWorkMinutes]=useState(45);
+    const [newBreakMinutes, setNewBreakMinutes]=useState(15);
+    
+    const [ToDoList,setToDoList]=useState( [])
+    const [finlist,setFinList]=useState([])
     
     let [world,setWorld]=useState('')
     
@@ -151,12 +164,19 @@ function FreeTimer() {
 
 
   return (
-    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
 
+
+    <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
+            
+        <Helmet>
+          <title>Pomodoro Timer | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
       <div className="quickBar">
     <Quickbar
       L1={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><MusicNoteBeamed style={{color:'white', }}/></Button>}
-      L2={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
+      L2={<Button  variant='light-outline' onClick={()=>{setTimerShow(true)}}><Stopwatch style={{color:'white', }}/></Button>}
       L3={<Button  variant='light-outline'  onClick={()=>{setSignUpShow(true)}}><BarChart style={{color:'white', }}/></Button>}
       L4={<Button  variant='light-outline' onClick={()=>{setSignUpShow(true)}}><Bullseye style={{color:'white', }}/></Button>}
       L5={<Button  variant='light-outline' onClick={()=>{setImageShow(true)}}><ImageAlt style={{color:'white', }}/></Button>}
@@ -181,16 +201,88 @@ function FreeTimer() {
      
          </center>
         </Container>
-        <center >
-         
-         </center>
+        <Button onClick={()=>{setShow(true)}} variant='light' style={{width:'100%', marginTop:'10px'}} size='lg'>Session Tasks</Button>
+      
      
      
    </div>
   </div> 
+  <SessionTasks 
+   show={show} 
+   setShow={setShow}  
+   setToDo={setToDo} 
+   toDo={toDo}
+   ToDoList={ToDoList} 
+   setToDoList={setToDoList}
+   setFinlist={setFinList}
+   finlist={finlist}
+   
+   
+  
+   />
+
+
+
+    
                 
             <div className="QuickBarModals" style={{float:'left'}}>
-  
+
+    <Modal className='timer-modal'
+     show={timershow}
+     onHide={()=>{setTimerShow(false)}}
+     
+     style={{background:'none'}}
+     >
+      <Modal.Header closeButton closeVariant='white'>
+        Timer
+      </Modal.Header>
+      <Modal.Body>
+      <div className="times" style={{backgroundColor:'rgb(12,12,12)', display:'flex', flexDirection:'column', placeItems:'center', margin:'10px', borderRadius:'20px', padding:'20px',color:'lightgray',}}>
+                <p style={{fontSize:'25px'}} >Select Your Times:</p>
+              <label style={{marginLeft:'20px', marginTop:'10px'}}>Work Minutes: {newWorkMinutes}:00</label>
+              <ReactSlider 
+              className='slider'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newWorkMinutes}
+              onChange={newValue => setNewWorkMinutes(newValue)}
+              min={1}
+              max={60}
+              
+              
+              />
+            
+
+            <label style={{marginLeft:'20px'}}>Break Minutes: {newBreakMinutes}:00</label>
+              
+              <ReactSlider 
+              className='slider green'
+              thumbClassName='thumb'
+              trackClassName='track'
+              value={newBreakMinutes}
+              onChange={newValue => setNewBreakMinutes(newValue)}
+              min={1}
+              
+              max={60}
+              
+              
+              />
+           
+              </div>
+
+               
+
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant='dark' onClick={()=>{
+                workSeconds=newWorkMinutes*60;
+                breakSeconds=newBreakMinutes*60
+                initTimer() 
+               
+                 setTimerShow(false)}} >Apply Changes</Button>
+      </Modal.Footer>
+
+    </Modal>
  
   
 
@@ -332,7 +424,9 @@ function FreeTimer() {
       <Modal.Body>
         To access these features you must sign up.
         Sign up below 
+        <center>
         <Button onClick={()=>{nav('/SignUp')}}>Get me in</Button>
+        </center>
       </Modal.Body>
       </Modal>
    </div>
