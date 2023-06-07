@@ -10,6 +10,7 @@ import Cookies from 'universal-cookie';
 import improvr from '../Assets/improvr logo.png'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
+import { Helmet } from 'react-helmet';
 
 
 function Login() {
@@ -122,6 +123,11 @@ function Login() {
   return (
     
     <div>
+       <Helmet>
+          <title>Login | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
       
       <Container style={{display:'grid', placeItems:'center', background: `url(${bg}) no-repeat`, padding:'0%', margin:'0%', height:'100vh'}} fluid={true}>
     

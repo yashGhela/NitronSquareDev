@@ -7,6 +7,7 @@ import Cookies from 'universal-cookie';
 import ReactSlider from 'react-slider';
 import { Book, BrightnessHigh, PersonWorkspace, ThreeDotsVertical, Trash } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 
 
 function Templates() {
@@ -124,6 +125,11 @@ function Templates() {
     },[])
   return (
    <div className="Page">
+     <Helmet>
+          <title>Templates | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
     <div className="navB">
         <Sidebar/>
     </div>

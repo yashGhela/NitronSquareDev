@@ -245,7 +245,11 @@ function Dashboard() {
     
     <div className='Page' >
       
+      <Helmet>
+          <title>Dashboard | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
       
+      </Helmet>
       {paidt==='Tnf'?null:<Notice show={Free} setShow={setFree} update={updateMe}/>}
     
      

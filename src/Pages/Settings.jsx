@@ -11,6 +11,7 @@ import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Instagram , Journ
 import {signOut} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
+import { Helmet } from 'react-helmet'
 
 
     
@@ -136,6 +137,11 @@ function Settings() {
 
   return (
     <div className="Page" style={{height:'100vh', paddingBottom:'20%'}}>
+       <Helmet>
+          <title>Settings | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
 
        <div className="navB">
         <Sidebar/>

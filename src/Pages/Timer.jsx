@@ -349,6 +349,11 @@ function Timer() {
   return (
    
     <div style={{background:`url(${imageUrl}) no-repeat`,minWidth:'100vw', minHeight:'100vh', display:'flex', paddingTop:'20px', paddingBottom:'10px',maxHeight:'100%', maxWidth:'100%', overflow:'auto'}}>
+       <Helmet>
+          <title>Timer | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
 
       <div className="quickBar">
     <Quickbar

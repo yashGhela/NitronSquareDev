@@ -9,6 +9,7 @@ import { db } from '../firebaseConfig';
 import {Speedometer,CardText,BarChart, Hr, Journals, Bullseye, Journal, Archive, Wallet2, Check2Square } from 'react-bootstrap-icons'
 import { usePagination } from 'use-pagination-firestore';
 import Cookies from 'universal-cookie';
+import { Helmet } from 'react-helmet';
 
 function Sessions() {
  
@@ -61,6 +62,11 @@ function Sessions() {
     
 
     <div className='Page' >
+       <Helmet>
+          <title>Sessions | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
 
    
    <Sidebar/>

@@ -12,6 +12,7 @@ import { useState } from 'react'
 
 import { format } from 'date-fns/esm';
 import { async } from '@firebase/util'
+import { Helmet } from 'react-helmet'
 
 
 
@@ -141,6 +142,11 @@ function Projects() {
   return (
     
     <div className='Page' style={{height:'100vh'}}>
+       <Helmet>
+          <title>Projects | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
 
 
          <div className="navB">

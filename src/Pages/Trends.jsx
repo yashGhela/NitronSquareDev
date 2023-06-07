@@ -22,6 +22,7 @@ import { Bar, Line } from 'react-chartjs-2';
 import 'chart.js/auto'
 import { useState } from 'react';
 import { async } from '@firebase/util';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -201,6 +202,11 @@ await getDoc(subref).then(docSnap=>{
 
     
     <div className='Page' >
+       <Helmet>
+          <title>Trends | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
 
       <div className="navB">
       <Sidebar/>

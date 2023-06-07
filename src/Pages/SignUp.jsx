@@ -13,6 +13,7 @@ import Cookies from 'universal-cookie';
 import { async } from '@firebase/util';
 import ConfettiExplosion from 'react-confetti-explosion';
 import { PayPalButton } from 'react-paypal-button-v2';
+import { Helmet } from 'react-helmet';
 
 
 
@@ -197,6 +198,12 @@ function SignUp() {
     
   return (
     <Container style={{display:'grid', placeItems:'center', background: `url(${bg}) no-repeat`, padding:'0%', margin:'0%', height:'100vh', width:'100vw'}} fluid={true} >
+
+     <Helmet>
+          <title>Sign Up | Improvr</title>
+          <meta name='description' content='Pomodoro Timer by Nitron Digital. An effecient and simple Pomodoro app for focusing and studying'/>
+      
+      </Helmet>
     
       <Card   style={{paddingTop:'50px',height:'480px', width:'360px', padding:'10px', margin:'20px', justifyContent:'center', alignItems:'center',textAlign:'center',background:'#282b2e', borderRadius:'20px', border:'4px solid rgb(97, 149, 232)', color:'lightgray'}}>
       <Card.Title>Sign Up </Card.Title>
