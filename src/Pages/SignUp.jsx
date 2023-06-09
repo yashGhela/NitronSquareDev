@@ -89,16 +89,16 @@ function SignUp() {
           
           
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
-          await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]});
+          await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]}); // remove the first sub add and make it its own thing for after payment
           
-          cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});
-          cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+          cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});//remove and add to new button function
+          cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'}) //remove and add to new button function
     
-          localStorage.setItem('1stSignUp', true)
-          localStorage.setItem('isAuth', true)
+          localStorage.setItem('1stSignUp', true) //remove
+          localStorage.setItem('isAuth', true) //remove
          
          
-          nav(`/Dashboard/`)
+          nav(`/Dashboard/`) //remove and add to final button 
 
         });
        
