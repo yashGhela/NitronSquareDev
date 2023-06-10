@@ -566,7 +566,7 @@ function Timer() {
         return(
     
           
-          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
+          <Image style={{margin:'0', cursor:'pointer', padding:'5px', width:'50%', borderRadius:'10px'}} src={url} onClick={()=>{setImageUrl(url)}} fluid/>
          
        
        

@@ -3,7 +3,7 @@ import React, { useState, useEffect} from 'react';
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithPopup, createUserWithEmailAndPassword} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { addDoc, collection, doc, getDoc, setDoc} from 'firebase/firestore';
+import { addDoc, collection, doc, getDoc, setDoc, updateDoc} from 'firebase/firestore';
 import { Alert, Button, Card, CardGroup, Col, Container, Form, Modal, Row, ListGroup, Badge } from 'react-bootstrap';
 import {Google} from 'react-bootstrap-icons';
 import improvr from '../Assets/improvr logo.png'
@@ -68,6 +68,10 @@ function SignUp() {
     };
 
     const step=async ({data})=>{
+
+      await updateDoc(doc(db,'Users',userData.uid),{
+        type: 'pro'
+      })
       await setDoc(doc(db,'Users',userData.uid,'Subscription','SubDetails'),{
         data: data
       })
@@ -79,24 +83,18 @@ function SignUp() {
 
   const createSes=async()=>{
 
-     const docref = doc(db, 'Users',userData.uid)
-        
    
-     
-        await setDoc(docref, {username: username, subscription: 'active',type: 'pro', email: userData.email}).then(async ()=>{
           
           const subref= collection(db, 'Users',userData.uid,'Subjects');
           
           
            // Adds a doc to the collection of Sessions and names it subjects with the description subjects
-          await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]}); // remove the first sub add and make it its own thing for after payment
+          await setDoc(doc(subref,'SubjectsList'),{subjects:[firstSub]}) .then(async ()=>{ // remove the first sub add and make it its own thing for after payment
           
           cookie.set('useraidt',userData.uid, {expires:  nextYear, path:'improvr.nitrondigital.com'});//remove and add to new button function
           cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'}) //remove and add to new button function
     
-          localStorage.setItem('1stSignUp', true) //remove
-          localStorage.setItem('isAuth', true) //remove
-         
+        
          
           nav(`/Dashboard/`) //remove and add to final button 
 
@@ -113,14 +111,19 @@ function SignUp() {
         setUserData(result.user)
         
 
-        const setDoc = doc(db, 'Users',result.user.uid)
+        const docref = doc(db, 'Users',result.user.uid)
         
-        await getDoc(setDoc).then((snapshot)=>{
+   
+     
+       
+        
+        await getDoc(docref).then(async (snapshot)=>{
           if(snapshot.exists()){
             setErrShow(true);
             setErrMessage('This Account already exists')
           }else{
             setPrompt1Show(true)
+            await setDoc(docref, {username: result.user.displayName, subscription: 'active',type: 'pending', email: result.user.email})
           }
         })
 
@@ -147,14 +150,25 @@ function SignUp() {
         
         
         
-        const setDoc = doc(db, 'Users',result.user.uid)
+        const docref = doc(db, 'Users',result.user.uid)
         
-        await getDoc(setDoc).then((snapshot)=>{
+   
+     
+      
+     
+      
+        
+        await getDoc(docref).then(async (snapshot)=>{
           if(snapshot.exists()){
             setErrShow(true);
             setErrMessage('This Account already exists')
           }else{
             setPrompt1Show(true)
+            await setDoc(docref, {username: result.user.displayName, subscription: 'active',type: 'pending', email: result.user.email})
+        
+   
+
+            
           }
         })
         
@@ -389,7 +403,11 @@ function SignUp() {
                       
                       }}
                     
-                      onApprove={paypalOnApprove}
+                      onApprove={(data,actions)=>{
+                        return actions.order.capture().then(function(details){
+                          step({data:details})
+                        })
+                      }}
                       catchError={paypalOnError}
                       onError={paypalOnError}
                       onCancel={paypalOnError}
