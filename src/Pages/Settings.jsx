@@ -58,7 +58,7 @@ function Settings() {
         signOut(auth).then(()=>{
           const cookies = new Cookies();
           cookies.remove('useraidt', { path: '/' });
-          cookie.remove('PAIDT',{path:'/'} )
+          cookies.remove('PAIDT',{path:'/'} )
           
           nav('/');
           

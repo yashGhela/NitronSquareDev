@@ -61,11 +61,7 @@ function SignUp() {
   const paypalOnError = (err) => {
     console.log("Error")
     }
-  const paypalOnApprove = async (data, detail) => {
-      
-      step({data:data})
-    
-    };
+
 
     const step=async ({data})=>{
 

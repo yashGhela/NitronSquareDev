@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import {auth, db, provider} from '../firebaseConfig';
 import {browserLocalPersistence, setPersistence, signInWithEmailAndPassword, signInWithPopup} from 'firebase/auth';
 import { Link, useNavigate } from 'react-router-dom';
-import {doc, getDoc, updateDoc} from 'firebase/firestore';
+import {doc, getDoc, setDoc, updateDoc} from 'firebase/firestore';
 import {Alert, Button, Card, Form, Modal, ListGroup, Col,Row, Container, Navbar} from 'react-bootstrap'
 import {Google, Textarea} from 'react-bootstrap-icons';
 import Cookies from 'universal-cookie';
@@ -11,6 +11,7 @@ import improvr from '../Assets/improvr logo.png'
 import TsCs from '../Components/TsCs';
 import PP from '../Components/PP';
 import { Helmet } from 'react-helmet';
+import { PayPalButton } from 'react-paypal-button-v2';
 
 
 function Login() {
@@ -27,12 +28,32 @@ function Login() {
   const [email, setEmail]= useState('');
   const [password, setPassword]=useState('');
   const [errMessage, setErrMessage]= useState('');
-  const [TCshow, setTCshow]=useState(false)
-  const [PPshow, setPPshow]= useState(false);
+  const [modalshow,setModalShow]=useState(false)
 
   const nextYear = new Date();
 
   nextYear.setFullYear(nextYear.getFullYear() + 1);
+
+
+  const step=async ({data})=>{
+
+    await updateDoc(doc(db,'Users',userData.uid),{
+      type: 'pro'
+    })
+    await setDoc(doc(db,'Users',userData.uid,'Subscription','SubDetails'),{
+      data: data
+    })
+     setModalShow(false)
+     nav('/Dashboard')
+     const cookie = new Cookies();
+     cookie.set('useraidt', userData.uid, {expires:  nextYear, path:'/'},);
+     cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+
+  }
+
+  const paypalOnError = (err) => {
+    console.log("Error")
+    }
 
   useEffect(()=>{
     
@@ -47,18 +68,23 @@ function Login() {
     setPersistence(auth,browserLocalPersistence).then(async ()=>{
       const result = await signInWithPopup(auth, provider)
       const ref = doc(db, 'Users', result.user.uid);
+      setUserData(result.user)
       
       await getDoc(ref).then((snapshot)=>{
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
-          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+          
           if ( snapshot.data().type==='pro'){
             cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
+            cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+            nav(`/Dashboard/`);
+          }else if(snapshot.data().type==='pending'){
+            setModalShow(true)
           }
 
           
       
-          nav(`/Dashboard/`);
+
          
         }else if (!snapshot.exists()){
           setErrShow(true)
@@ -82,16 +108,25 @@ function Login() {
       setPersistence(auth,browserLocalPersistence).then(async()=>{
         signInWithEmailAndPassword(auth,email,password).then(async (result)=>{
           const ref = doc(db, 'Users', result.user.uid);
+          setUserData(result.user)
       
       await getDoc(ref).then((snapshot)=>{
         if(snapshot.exists() && snapshot.data().subscription==='active'){
           const cookie = new Cookies();
-          cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
-          if (snapshot.data().type==='pro' || snapshot.data().tier==='pro'){
+        
+          if (snapshot.data().type==='pro' ){
             cookie.set('PAIDT', 'Tnf',{expires:  nextYear, path:'/'})
-          }
-          localStorage.setItem('isAuth', true)
-          nav(`/Dashboard/`);
+            cookie.set('useraidt', result.user.uid, {expires:  nextYear, path:'/'},);
+            nav(`/Dashboard/`);
+          }else if(snapshot.data().type==='pending'){
+            setModalShow(true)
+          }//create payment modal 
+          
+
+
+       
+
+
         }else if (!snapshot.exists()){
           setErrShow(true)
           setErrMessage('This account does not exist')
@@ -185,6 +220,90 @@ function Login() {
       
   
   </Container>
+
+  <Modal
+       className="thin_modal"
+       breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
+       minBreakpoint="xxs"
+         show={modalshow}
+          size="lg"
+          aria-labelledby="contained-modal-title-vcenter"
+          
+          style={{color:'lightgray'}}
+          centered>
+            <Modal.Header>
+             Join Improvr! 
+            </Modal.Header>
+            
+            <Modal.Body style={{display:'flex', flexDirection:'column', placeItems:'center', textAlign:'center'}}>
+            <div >
+              
+
+              <Card
+              
+              style={{border:'2px solid #393d40',background:'#17181a', display:'flex',flexDirection:'column',width:'300px', marginBottom:'20px', fontWeight:'lighter', padding:'25px', cursor:'pointer',color:'lightgray', overflow:'auto'}}
+              >
+
+
+                
+                <div>
+                    <p style={{fontSize:'20px'}}>Join Improvr pro today</p>
+                        <h1 style={{fontSize:'40px', color:'rgb(97, 149, 232)'}}>$10</h1><br/>
+                        <h3 style={{fontSize:'18px'}}>once off</h3>
+                        <span>✅The full Improvr experience</span><br/>
+                        <span>✅Unlimited Sessions</span><br/>
+                        <span>✅Unlimited Projects</span><br/>
+                       
+                        <span>✅Up to 210 minutes a session</span><br/>
+                        
+                        <span>✅All Templates </span><br/>
+                        
+                        
+                    
+                        
+                        <hr/>
+
+                        <PayPalButton
+                      style={{color:'blue'}}
+                      amount = "10"
+                      currency = "USD"
+                      createOrder={(data,actions)=>{
+                        return actions.order.create({
+                          purchase_units: [{
+                            amount: {
+                              currency_code: "USD",
+                              value: "10"
+                            }
+                          }],
+                          application_context: {
+                            shipping_preference: "NO_SHIPPING" // default is "GET_FROM_FILE"
+                           }
+                        });
+                      
+                      }}
+                    
+                      onApprove={(data,actions)=>{
+                        return actions.order.capture().then(function(details){
+                          step({data:details})
+                        })
+                      }}
+                      catchError={paypalOnError}
+                      onError={paypalOnError}
+                      onCancel={paypalOnError}
+                      />
+                  </div>
+
+                
+              </Card>
+             
+                  
+           
+            
+            </div>
+              
+            </Modal.Body>
+
+          </Modal>
 
       
     </div>
